@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "rpgcraftmod:bloque_zafiro"
+    }
+  ],
+  "result": {
+    "item": "rpgcraftmod:zafiro",
+    "count": 9
+  }
+}

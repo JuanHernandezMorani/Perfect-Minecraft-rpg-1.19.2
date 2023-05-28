@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 220,
+  "experience": 2.7,
+  "group": "zafiro",
+  "ingredient": {
+    "item": "rpgcraftmod:bloque_mineral_zafiro"
+  },
+  "result": "rpgcraftmod:zafiro"
+}

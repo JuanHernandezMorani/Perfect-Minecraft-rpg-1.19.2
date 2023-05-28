@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "rpgcraftmod:blueberry"
+    }
+  ],
+  "result": {
+    "item": "rpgcraftmod:blueberry_seeds"
+  }
+}
