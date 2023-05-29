@@ -94,6 +94,16 @@ public class ModMessages {
                 .encoder(AgilityDataSyncS2CPacket::toBytes)
                 .consumerMainThread(AgilityDataSyncS2CPacket::handle)
                 .add();
+        net.messageBuilder(ExperienceDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ExperienceDataSyncS2CPacket::new)
+                .encoder(ExperienceDataSyncS2CPacket::toBytes)
+                .consumerMainThread(ExperienceDataSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(CustomLevelDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CustomLevelDataSyncS2CPacket::new)
+                .encoder(CustomLevelDataSyncS2CPacket::toBytes)
+                .consumerMainThread(CustomLevelDataSyncS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message){

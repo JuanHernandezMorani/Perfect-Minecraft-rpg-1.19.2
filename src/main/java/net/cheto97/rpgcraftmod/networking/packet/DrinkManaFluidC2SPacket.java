@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.networking.packet;
 
+import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.providers.ManaProvider;
 import net.cheto97.rpgcraftmod.providers.ManaRegenerationProvider;
@@ -71,7 +72,7 @@ public class DrinkManaFluidC2SPacket {
 
     private boolean hasManaWell(ServerPlayer player, ServerLevel level,int size) {
         return level.getBlockStates(player.getBoundingBox().inflate(size))
-                .filter(state -> state.is(Blocks.WATER)).toArray().length > 0;
+                .filter(state -> state.is(ModBlocks.LIQUID_MANA_BLOCK.get())).toArray().length > 0;
     }
 
 }

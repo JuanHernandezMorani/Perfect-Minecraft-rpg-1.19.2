@@ -32762,6 +32762,7 @@
   "item.rpgcraftmod.blueberry": "Blueberry",
   "item.rpgcraftmod.blueberry_seeds": "Blueberry Seeds",
   "item.rpgcraftmod.espada_muerte": "Sword of Death",
+  "item.rpgcraftmod.mana_bucket": "Mana Bucket",
 
   "itemGroup.rpgcrafttab": "RPGcraft Mod Tab",
   "key.category.rpgcraftmod.rpgcraft": "Rpgcraft Mod",
@@ -32772,6 +32773,7 @@
   "block.rpgcraftmod.bloque_mana": "Block of Mana",
   "block.rpgcraftmod.bloque_luz_magica": "Magic Lamp Block",
   "block.rpgcraftmod.blueberry_crop": "Blueberry Crop",
+  "block.rpgcraftmod.liquid_mana_block": "Liquid Mana",
 
   "entity.minecraft.villager.rpgcraftmod.magic_master": "Magic Master",
 
