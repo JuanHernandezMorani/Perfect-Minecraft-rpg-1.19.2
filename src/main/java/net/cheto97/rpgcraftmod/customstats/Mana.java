@@ -3,7 +3,7 @@ package net.cheto97.rpgcraftmod.customstats;
 import net.minecraft.nbt.CompoundTag;
 
 public class Mana {
-    private double mana = 10;
+    private double mana = 0;
     private final double MIN_MANA_VALUE = 0;
     private double MAX_MANA_VALUE = 10;
 
@@ -26,7 +26,7 @@ public class Mana {
         MAX_MANA_VALUE++;
     }
     public void resetStat(){
-        mana = 10;
+        mana = 0;
         MAX_MANA_VALUE = 10;
     }
     public void add(double value){

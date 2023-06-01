@@ -8,7 +8,7 @@ public class Customlevel {
 
     private int resetLevel = 0;
 
-    public double get(){
+    public int get(){
         return customlevel;
     }
     public double getMin(){

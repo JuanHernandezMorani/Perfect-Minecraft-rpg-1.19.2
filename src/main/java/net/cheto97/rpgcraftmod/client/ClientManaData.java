@@ -11,4 +11,5 @@ public class ClientManaData {
         return playerMana;
     }
 
+
 }

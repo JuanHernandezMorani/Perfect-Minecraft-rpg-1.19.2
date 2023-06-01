@@ -18,7 +18,6 @@ import java.util.List;
 
 public class EspadaMuerteItem extends SwordItem {
     private static final String MESSAGE_NO_ENOUGH_MANA = "message.rpgcraftmod.not_enough_mana";
-    private static final String MESSAGE_COOLDOWN = "message.rpgcraft.cooldown";
 
     public EspadaMuerteItem(Properties properties, Tier tier) {
         super(tier,2,-1.58f,properties);
@@ -55,7 +54,7 @@ public class EspadaMuerteItem extends SwordItem {
             stack.enchant(Enchantments.FIRE_ASPECT, 2);
         }
         if(Screen.hasShiftDown()){
-            components.add(Component.literal("Mana cost: 25% of maxium mana").withStyle(ChatFormatting.DARK_BLUE));
+            components.add(Component.literal("Mana cost: 25% of maximum mana").withStyle(ChatFormatting.BLUE));
             components.add(Component.literal(""));
             components.add(Component.literal(""));
             components.add(Component.literal("Right click to get for 20 seconds:").withStyle(ChatFormatting.AQUA));
@@ -69,7 +68,7 @@ public class EspadaMuerteItem extends SwordItem {
             components.add(Component.literal("Cooldown 3 seconds").withStyle(ChatFormatting.DARK_RED));
 
         }else{
-            components.add(Component.literal("Mana cost: 25% of maxium mana").withStyle(ChatFormatting.DARK_BLUE));
+            components.add(Component.literal("Mana cost: 25% of maximum mana").withStyle(ChatFormatting.BLUE));
             components.add(Component.literal(""));
             components.add(Component.literal(""));
             components.add(Component.literal("Press SHIFT for more info").withStyle(ChatFormatting.GOLD));

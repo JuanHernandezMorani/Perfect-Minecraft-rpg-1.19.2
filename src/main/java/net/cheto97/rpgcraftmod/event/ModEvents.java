@@ -10,8 +10,13 @@ import net.cheto97.rpgcraftmod.modsystem.Experience;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.*;
 import net.cheto97.rpgcraftmod.providers.*;
+//import net.cheto97.rpgcraftmod.util.GuiSettingsMod;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -30,6 +35,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -66,7 +72,6 @@ public class ModEvents {
         }
         return false;
     }
-
     private static int selectTier() {
         double[] tierPercentages = {0.4, 0.25, 0.15, 0.09, 0.05, 0.03, 0.02, 0.01, 0.005, 0.0005, 0.00005};
 
@@ -89,7 +94,6 @@ public class ModEvents {
         }
         return selectedTier;
     }
-
     private static String formatDouble(double value) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator(',');
@@ -97,23 +101,6 @@ public class ModEvents {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.###", symbols);
         return decimalFormat.format(value);
     }
-
-    private static void setItemName(@NotNull ItemStack itemStack,Component tierAndName) {
-        CompoundTag displayTag = itemStack.getOrCreateTagElement("display");
-        displayTag.putString("Name", Component.Serializer.toJson(tierAndName));
-    }
-
-    private static void setItemLore(@NotNull ItemStack itemStack, String @NotNull ... lore){
-        CompoundTag displayTag = itemStack.getOrCreateTagElement("display");
-        ListTag loreTag = new ListTag();
-        for (String line : lore) {
-            Component loreComponent = Component.literal(line).withStyle(ChatFormatting.LIGHT_PURPLE);
-            StringTag loreStringTag = StringTag.valueOf(Component.Serializer.toJson(loreComponent));
-            loreTag.add(loreStringTag);
-        }
-        displayTag.put("Lore", loreTag);
-    }
-
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event){
         if(event.getType() == ModVillagers.MAGIC_MASTER.get()){
@@ -148,7 +135,6 @@ public class ModEvents {
             ));
         }
     }
-
     @SubscribeEvent
     public static void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event){
         var entity = event.getObject();
@@ -170,7 +156,6 @@ public class ModEvents {
             }
         }
     }
-
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event){
         if(event.isWasDeath() && !event.getEntity().getLevel().isClientSide()){
@@ -253,7 +238,6 @@ public class ModEvents {
             });
         }
     }
-
     @SubscribeEvent
     public static void onEntityAttack(LivingAttackEvent event){
         var entity = event.getEntity();
@@ -262,7 +246,6 @@ public class ModEvents {
                 event.getSource().setScalesWithDifficulty();
         }
     }
-
     @SubscribeEvent
     public static void onEntityHurt(LivingHurtEvent event){
         event.setCanceled(true);
@@ -286,7 +269,6 @@ public class ModEvents {
             }
         }
     }
-
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event){
         event.setCanceled(true);
@@ -315,7 +297,6 @@ public class ModEvents {
             });
         }
     }
-
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event){
         event.register(Customlevel.class);
@@ -332,139 +313,15 @@ public class ModEvents {
         event.register(Dexterity.class);
         event.register(Intelligence.class);
     }
-
-    @SubscribeEvent
+    /*
+   ** @SubscribeEvent
     public static void onPlayerCraft(PlayerEvent.ItemCraftedEvent event){
         Player entity = event.getEntity();
         int opt = selectTier();
+        double extra = 0;
 
         if(entity != null && !entity.getLevel().isClientSide()){
-            List<Component> components = new List<Component>() {
-                @Override
-                public int size() {
-                    return 0;
-                }
-
-                @Override
-                public boolean isEmpty() {
-                    return false;
-                }
-
-                @Override
-                public boolean contains(Object o) {
-                    return false;
-                }
-
-                @NotNull
-                @Override
-                public Iterator<Component> iterator() {
-                    return null;
-                }
-
-                @NotNull
-                @Override
-                public Object[] toArray() {
-                    return new Object[0];
-                }
-
-                @NotNull
-                @Override
-                public <T> T[] toArray(@NotNull T[] a) {
-                    return null;
-                }
-
-                @Override
-                public boolean add(Component component) {
-                    return false;
-                }
-
-                @Override
-                public boolean remove(Object o) {
-                    return false;
-                }
-
-                @Override
-                public boolean containsAll(@NotNull Collection<?> c) {
-                    return false;
-                }
-
-                @Override
-                public boolean addAll(@NotNull Collection<? extends Component> c) {
-                    return false;
-                }
-
-                @Override
-                public boolean addAll(int index, @NotNull Collection<? extends Component> c) {
-                    return false;
-                }
-
-                @Override
-                public boolean removeAll(@NotNull Collection<?> c) {
-                    return false;
-                }
-
-                @Override
-                public boolean retainAll(@NotNull Collection<?> c) {
-                    return false;
-                }
-
-                @Override
-                public void clear() {
-
-                }
-
-                @Override
-                public Component get(int index) {
-                    return null;
-                }
-
-                @Override
-                public Component set(int index, Component element) {
-                    return null;
-                }
-
-                @Override
-                public void add(int index, Component element) {
-
-                }
-
-                @Override
-                public Component remove(int index) {
-                    return null;
-                }
-
-                @Override
-                public int indexOf(Object o) {
-                    return 0;
-                }
-
-                @Override
-                public int lastIndexOf(Object o) {
-                    return 0;
-                }
-
-                @NotNull
-                @Override
-                public ListIterator<Component> listIterator() {
-                    return null;
-                }
-
-                @NotNull
-                @Override
-                public ListIterator<Component> listIterator(int index) {
-                    return null;
-                }
-
-                @NotNull
-                @Override
-                public List<Component> subList(int fromIndex, int toIndex) {
-                    return null;
-                }
-            };
             TooltipFlag flag = () -> false;
-
-
-
 
             String name = event.getCrafting().getDisplayName().getString();
 
@@ -472,83 +329,84 @@ public class ModEvents {
                 case 1 -> {
                     Component iQualityComponent = Component.literal("[Crafted - Common] "+name).withStyle(ChatFormatting.GRAY);
                     event.getCrafting().setHoverName(iQualityComponent);
+                    extra = 0.25;
                 }
                 case 2 -> {
                     Component iQualityComponent2 = Component.literal("[Crafted - Uncommon] "+name).withStyle(ChatFormatting.DARK_GRAY);
                     event.getCrafting().setHoverName(iQualityComponent2);
+                    * extra = 0.25;
                 }
                 case 3 -> {
                     Component iQualityComponent3 = Component.literal("[Crafted - Very Uncommon] "+name).withStyle(ChatFormatting.WHITE);
                     event.getCrafting().setHoverName(iQualityComponent3);
+                    extra = 0.28;
                 }
                 case 4 -> {
                     Component iQualityComponent4 = Component.literal("[Crafted - Rare] "+name).withStyle(ChatFormatting.AQUA);
                     event.getCrafting().setHoverName(iQualityComponent4);
+                    extra = 0.32;
                 }
                 case 5 -> {
                     Component iQualityComponent5 = Component.literal("[Crafted - Very Rare] "+name).withStyle(ChatFormatting.GREEN);
                     event.getCrafting().setHoverName(iQualityComponent5);
+                    extra = 0.35;
                 }
                 case 6 -> {
                     Component iQualityComponent6 = Component.literal("[Crafted - Ultra Rare] "+name).withStyle(ChatFormatting.DARK_AQUA);
                     event.getCrafting().setHoverName(iQualityComponent6);
+                    extra = 0.39;
                 }
                 case 7 -> {
                     Component iQualityComponent7 = Component.literal("[Crafted - Ultra Really Rare] "+name).withStyle(ChatFormatting.DARK_GREEN);
                     event.getCrafting().setHoverName(iQualityComponent7);
+                    extra = 0.45;
                 }
                 case 8 -> {
                     Component iQualityComponent8 = Component.literal("[Crafted - Epic] "+name).withStyle(ChatFormatting.DARK_PURPLE);
                     event.getCrafting().setHoverName(iQualityComponent8);
+                    extra = 0.55;
                 }
                 case 9 -> {
                     Component iQualityComponent9 = Component.literal("[Crafted - Legendary] "+name).withStyle(ChatFormatting.GOLD);
                     event.getCrafting().setHoverName(iQualityComponent9);
+                    extra = 0.67;
                 }
                 case 10 -> {
                     Component iQualityComponent10 = Component.literal("[Crafted - Mythic] "+name).withStyle(ChatFormatting.LIGHT_PURPLE);
                     event.getCrafting().setHoverName(iQualityComponent10);
+                    extra = 1.35;
                 }
                 case 11 -> {
                     Component iQualityComponent11 = Component.literal("[Crafted - GodLike] "+name).withStyle(ChatFormatting.RED);
                     event.getCrafting().setHoverName(iQualityComponent11);
+                    extra = 2.125;
                 }
             }
 
             if (event.getCrafting().getItem() instanceof BowItem) {
                 entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(extraDamage -> {
-                    var customDamage = (1 + (2+(extraDamage.get()*0.0015))*(4.15*0.35)*1.1);
-
-                    event.getCrafting().getItem().appendHoverText(event.getCrafting(),event.getEntity().getLevel(),components,flag);
-                    components.add(Component.literal("Attack damage:" +customDamage).withStyle(ChatFormatting.LIGHT_PURPLE));
+                    var customDamage = (1 + (2+(extraDamage.get()*0.0015))*(4.15*0.35)*1.1)+(1.1*extra);
 
                     event.getCrafting().setDamageValue((int)customDamage);
                 });
             }else if(event.getCrafting().getItem() instanceof CrossbowItem){
                 entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(extraDamage -> {
-                    var customDamage = (1 + (2+(extraDamage.get()*0.0015))*(4.15*0.35)*1.1);
-
-                    event.getCrafting().getItem().appendHoverText(event.getCrafting(),event.getEntity().getLevel(),components,flag);
-                    components.add(Component.literal("Attack damage:" +customDamage).withStyle(ChatFormatting.LIGHT_PURPLE));
-
+                    var customDamage = (1 + (2+(extraDamage.get()*0.0015))*(4.15*0.35)*1.1)+(1.1*extra);
                     event.getCrafting().setDamageValue((int)customDamage);
+
                 });
             }else if(event.getCrafting().getItem() instanceof TridentItem){
                 entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(extraDamage -> {
-                    var customDamage = (1+(extraDamage.get()*0.0025))*(2.15*0.25)*1.9;
 
-                    event.getCrafting().getItem().appendHoverText(event.getCrafting(),event.getEntity().getLevel(),components,flag);
-                    components.add(Component.literal("Attack damage:" +customDamage).withStyle(ChatFormatting.LIGHT_PURPLE));
-
+                    var customDamage = ((1+(extraDamage.get()*0.0025))*(2.15*0.25)*1.9)++(1.9*extra);
                     event.getCrafting().setDamageValue((int)customDamage);
                 });
             }else{
                 event.getCrafting().getItem().appendHoverText(event.getCrafting(),event.getEntity().getLevel(),components,flag);
-                setItemLore(event.getCrafting(),""+(event.getCrafting().getDamageValue()));
             }
         }
     }
-
+     */
     @SubscribeEvent
     public static void onLivingHealEvent(LivingHealEvent event){
         if(event.getEntity() != null&& !event.getEntity().getLevel().isClientSide()){
@@ -562,16 +420,24 @@ public class ModEvents {
             if (entity instanceof Player || entity instanceof Monster || entity instanceof Animal) {
                 entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel ->{
                     entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp ->{
+
+                        if(entity instanceof Player){
+                            if(((Player)entity).experienceLevel < customLevel.get()){
+                                int lvl = (customLevel.get() - ((Player)entity).experienceLevel);
+                                ((Player) entity).giveExperienceLevels(lvl);
+                            }
+                        }
+
                         if(exp.get() >= customLevel.experienceNeeded()){
                             double need = customLevel.experienceNeeded();
                             exp.consume(need);
                             customLevel.add();
                             customLevel.setPreviousLevelExp(need);
                             if(entity instanceof Player){
+                                ((Player) entity).giveExperienceLevels(1);
                                 entity.sendSystemMessage(Component.translatable(MESSAGE_LEVEL_UP));
                                 entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life ->{
                                     life.increaseMax(0.025);
-                                    life.set(life.getMax());
                                 });
 
                                 entity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility ->{
@@ -580,8 +446,6 @@ public class ModEvents {
 
                                 entity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana ->{
                                     mana.increaseMax(Math.random()+0.1);
-                                    mana.set(mana.getMax());
-                                    ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),(ServerPlayer) entity);
                                 });
 
                                 entity.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(stat ->{
@@ -646,49 +510,49 @@ public class ModEvents {
                 ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
+            /* **
             event.player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new AgilityDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new AgilityDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new CommandDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new CommandDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new DefenseDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new DefenseDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new DexterityDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new DexterityDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new LifeRegenerationDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new LifeRegenerationDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new LuckDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new LuckDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new ManaRegenerationDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new ManaRegenerationDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new StrengthDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new StrengthDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new CustomLevelDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new CustomLevelDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),(ServerPlayer)event.player);
+                ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
+             */
         }
     }
-
     @SubscribeEvent
     public static void onLivingExperienceDrop(LivingExperienceDropEvent event){
         LivingEntity target = event.getEntity();
         Player entity = event.getAttackingPlayer();
-
 
         if(!target.getLevel().isClientSide() && entity != null){
             entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(customExp ->{
@@ -725,7 +589,6 @@ public class ModEvents {
             });
         }
     }
-
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         if(!event.getLevel().isClientSide()){
@@ -799,7 +662,7 @@ public class ModEvents {
                     });
 
                     event.getEntity().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility ->{
-                        agility.add(agility.get()*entityLevel.get()*0.0005);
+                        agility.add(agility.get()+entityLevel.get()*0.0005);
                     });
 
                     event.getEntity().getCapability(ManaProvider.ENTITY_MANA).ifPresent(stat ->{
@@ -807,34 +670,34 @@ public class ModEvents {
                     });
 
                     event.getEntity().getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(stat ->{
-                        stat.add(entityLevel.get()/20);
+                        stat.add(entityLevel.get()*0.05);
                     });
 
                     event.getEntity().getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(stat ->{
-                        stat.add(entityLevel.get()/100);
+                        stat.add(entityLevel.get()*0.01);
                     });
 
                     event.getEntity().getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(stat ->{
-                        stat.add(entityLevel.get()/25);
+                        stat.add(entityLevel.get()*0.04);
                         event.getEntity().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(hpRegen ->{
-                            hpRegen.add((stat.get()/0.0025)*(entityLevel.get()*0.001));
+                            hpRegen.add((stat.get()*0.0025)+(entityLevel.get()*0.001));
                         });
                     });
 
                     event.getEntity().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(stat ->{
-                        stat.add(entityLevel.get()/25);
+                        stat.add(entityLevel.get()*0.04);
                         event.getEntity().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(mpRegen ->{
-                            mpRegen.add((stat.get()*0.001)*(entityLevel.get()*0.035));
+                            mpRegen.add((stat.get()*0.001)+(entityLevel.get()*0.035));
                         });
                     });
 
                     event.getEntity().getCapability(LuckProvider.ENTITY_LUCK).ifPresent(stat ->{
 
-                        stat.add(entityLevel.get()/6);
+                        stat.add(entityLevel.get()*0.1);
                     });
 
                     event.getEntity().getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(stat ->{
-                        stat.add(entityLevel.get()/25);
+                        stat.add(entityLevel.get()*0.04);
                     });
 
                 });
@@ -843,7 +706,47 @@ public class ModEvents {
                 player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                     ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),player);
                 });
+                player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                /* **
+                player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+                player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(stat ->{
+                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                });
+
+                 */
             }
         }
     }
+
 }

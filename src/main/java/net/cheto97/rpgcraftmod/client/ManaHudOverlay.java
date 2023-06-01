@@ -31,9 +31,9 @@ public class ManaHudOverlay {
         for(int i = 0; i<10;i++){
             if(ClientManaData.getPlayerMana() > i){
                 GuiComponent.blit(poseStack,x-94+(i*9),y-54,0,0,12,
-                       12,12,12);
+                        12,12,12);
             }else{
-               break;
+                break;
             }
         }
     });
