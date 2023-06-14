@@ -128,10 +128,17 @@ public class ModMessages {
                 .encoder(CustomLevelDataSyncS2CPacket::toBytes)
                 .consumerMainThread(CustomLevelDataSyncS2CPacket::handle)
                 .add();
-        net.messageBuilder(ExpNeedDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ExpNeedDataSyncS2CPacket::new)
-                .encoder(ExpNeedDataSyncS2CPacket::toBytes)
-                .consumerMainThread(ExpNeedDataSyncS2CPacket::handle)
+
+        net.messageBuilder(EntityLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EntityLifeDataSyncS2CPacket::new)
+                .encoder(EntityLifeDataSyncS2CPacket::toBytes)
+                .consumerMainThread(EntityLifeDataSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(EntityMaxLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EntityMaxLifeDataSyncS2CPacket::new)
+                .encoder(EntityMaxLifeDataSyncS2CPacket::toBytes)
+                .consumerMainThread(EntityMaxLifeDataSyncS2CPacket::handle)
                 .add();
     }
 

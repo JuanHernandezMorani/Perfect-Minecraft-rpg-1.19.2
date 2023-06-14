@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.networking.packet;
 
-import net.cheto97.rpgcraftmod.util.client.ClientMaxManaData;
+import net.cheto97.rpgcraftmod.client.ClientMaxManaData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
