@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
@@ -292,9 +293,34 @@ public class ModEvents {
                         }
 
                         life.consumeLife(total_damage);
+                        reduceArmorDurability(entity, total_damage*0.05);
                     });
                 });
             });
+        }
+    }
+    private static void reduceArmorDurability(LivingEntity entity, double damage) {
+        for (ItemStack armorStack : entity.getArmorSlots()) {
+            if (!armorStack.isEmpty()) {
+                Item armorItem = armorStack.getItem();
+                if (armorItem instanceof ArmorItem) {
+                    int maxDurability = armorStack.getMaxDamage();
+                    int currentDurability = armorStack.getDamageValue();
+                    int newDurability = currentDurability + (int) Math.ceil(damage);
+                    if (newDurability >= maxDurability) {
+                        entity.broadcastBreakEvent(EquipmentSlot.HEAD);
+                        entity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+                        entity.broadcastBreakEvent(EquipmentSlot.CHEST);
+                        entity.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+                        entity.broadcastBreakEvent(EquipmentSlot.LEGS);
+                        entity.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
+                        entity.broadcastBreakEvent(EquipmentSlot.FEET);
+                        entity.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
+                    } else {
+                        armorStack.setDamageValue(newDurability);
+                    }
+                }
+            }
         }
     }
     @SubscribeEvent
@@ -508,11 +534,12 @@ public class ModEvents {
         if(event.side == LogicalSide.SERVER){
             event.player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                 ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),((ServerPlayer)event.player));
+                ModMessages.sendToPlayer(new MaxManaDataSyncS2CPacket(mana.getMax()),((ServerPlayer)event.player));
             });
             event.player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(stat ->{
                 ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
+                ModMessages.sendToPlayer(new MaxLifeDataSyncS2CPacket(stat.getMax()),((ServerPlayer)event.player));
             });
-            /* **
             event.player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(stat ->{
                 ModMessages.sendToPlayer(new AgilityDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
@@ -526,7 +553,7 @@ public class ModEvents {
                 ModMessages.sendToPlayer(new DexterityDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(stat ->{
-                ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
+                ModMessages.sendToPlayer(new IntelligenceDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
             event.player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(stat ->{
                 ModMessages.sendToPlayer(new LifeRegenerationDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
@@ -546,7 +573,6 @@ public class ModEvents {
             event.player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(stat ->{
                 ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),((ServerPlayer)event.player));
             });
-             */
         }
     }
     @SubscribeEvent
@@ -705,46 +731,45 @@ public class ModEvents {
             else if(event.getEntity() instanceof ServerPlayer player){
                 player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                     ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),player);
+                    ModMessages.sendToPlayer(new MaxManaDataSyncS2CPacket(mana.getMax()),player);
                 });
                 player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(stat ->{
                     ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new MaxLifeDataSyncS2CPacket(stat.getMax()),player);
                 });
-                /* **
                 player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new AgilityDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new CommandDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new DefenseDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new DexterityDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new IntelligenceDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new LifeRegenerationDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new LuckDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new ManaRegenerationDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new StrengthDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new CustomLevelDataSyncS2CPacket(stat.get()),player);
                 });
                 player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
+                    ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),player);
                 });
-
-                 */
             }
         }
     }
