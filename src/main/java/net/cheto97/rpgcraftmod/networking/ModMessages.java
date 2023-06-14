@@ -45,13 +45,24 @@ public class ModMessages {
                 .consumerMainThread(ManaDataSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(MaxManaDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MaxManaDataSyncS2CPacket::new)
+                .encoder(MaxManaDataSyncS2CPacket::toBytes)
+                .consumerMainThread(MaxManaDataSyncS2CPacket::handle)
+                .add();
+
         net.messageBuilder(LifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(LifeDataSyncS2CPacket::new)
                 .encoder(LifeDataSyncS2CPacket::toBytes)
                 .consumerMainThread(LifeDataSyncS2CPacket::handle)
                 .add();
 
-/* **
+        net.messageBuilder(MaxLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MaxLifeDataSyncS2CPacket::new)
+                .encoder(MaxLifeDataSyncS2CPacket::toBytes)
+                .consumerMainThread(MaxLifeDataSyncS2CPacket::handle)
+                .add();
+
         net.messageBuilder(ManaRegenerationDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ManaRegenerationDataSyncS2CPacket::new)
                 .encoder(ManaRegenerationDataSyncS2CPacket::toBytes)
@@ -117,8 +128,11 @@ public class ModMessages {
                 .encoder(CustomLevelDataSyncS2CPacket::toBytes)
                 .consumerMainThread(CustomLevelDataSyncS2CPacket::handle)
                 .add();
-
- */
+        net.messageBuilder(ExpNeedDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ExpNeedDataSyncS2CPacket::new)
+                .encoder(ExpNeedDataSyncS2CPacket::toBytes)
+                .consumerMainThread(ExpNeedDataSyncS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message){
