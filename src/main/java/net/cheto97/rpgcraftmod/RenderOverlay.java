@@ -15,8 +15,6 @@ public class RenderOverlay {
 
     public static void renderOverlay(RpgcraftMod rpgHud, Minecraft mc, PoseStack ms, float partialTicks) {
         drawElement(rpgHud, mc, HudType.WIDGET, ms, partialTicks);
-        drawElement(rpgHud, mc, HudType.CLOCK, ms, partialTicks);
-        drawElement(rpgHud, mc, HudType.DETAILS, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.COMPASS, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.LIFE, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.MANA, ms, partialTicks);

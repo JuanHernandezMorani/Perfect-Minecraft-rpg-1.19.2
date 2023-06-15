@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Specification-Title: rpgcraftmod
+Specification-Vendor: rpgcraftmodsareus
+Specification-Version: 1
+Implementation-Title: Perfect Minecraft rpg(1.19.2)
+Implementation-Version: 1.0.0-1.19.2
+Implementation-Vendor: rpgcraftmodsareus
+Implementation-Timestamp: 2023-06-15T14:06:34-0300
+

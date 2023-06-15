@@ -22,17 +22,10 @@ public class RPGHud extends HudDefault {
     public HudElement setElementAir() {
         return new HudElementAirRPG();
     }
-
     @Override
     public HudElement setElementArmor() {
         return new HudElementArmorRPG();
     }
-
-    @Override
-    public HudElement setElementClock() {
-        return new HudElementClockRPG();
-    }
-
     @Override
     public HudElement setElementCustomExperience() {
         return new HudElementCustomExperienceRPG();

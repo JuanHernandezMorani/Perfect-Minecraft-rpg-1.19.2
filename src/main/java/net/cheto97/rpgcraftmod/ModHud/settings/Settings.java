@@ -155,12 +155,6 @@ public class Settings {
 
         addSetting(mount_life_percentage, new SettingBoolean(mount_life_percentage, HudType.MOUNT_LIFE, false));
 
-        addSetting(enable_clock, new SettingBoolean(enable_clock, HudType.CLOCK, true));
-        addSetting(enable_clock_color, new SettingBoolean(enable_clock_color, HudType.CLOCK, true));
-        addSetting(enable_immersive_clock, new SettingBoolean(enable_immersive_clock, HudType.CLOCK, false));
-        addSetting(clock_time_format, new SettingString(clock_time_format, HudType.CLOCK, 0, new String[] { "time.24", "time.12" }));
-        addSetting(clock_position, new SettingPosition(clock_position, HudType.CLOCK, 0, 0));
-
         addSetting(enable_compass, new SettingBoolean(enable_compass, HudType.COMPASS, true));
         addSetting(enable_compass_color, new SettingBoolean(enable_compass_color, HudType.COMPASS, true));
         addSetting(enable_immersive_compass, new SettingBoolean(enable_immersive_compass, HudType.COMPASS, false));

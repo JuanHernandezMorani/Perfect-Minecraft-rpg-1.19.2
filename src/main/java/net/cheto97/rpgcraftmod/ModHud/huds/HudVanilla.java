@@ -60,12 +60,6 @@ public class HudVanilla extends Hud {
     public HudElement setElementMountLife() {
         return null;
     }
-
-    @Override
-    public HudElement setElementClock() {
-        return new HudElementClockVanilla();
-    }
-
     @Override
     public HudElement setElementWidget() {
         return new HudElementEmpty();

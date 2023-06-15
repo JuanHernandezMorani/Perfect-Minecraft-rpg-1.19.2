@@ -23,7 +23,7 @@ public class HudElementCustomLevelRPG extends HudElement {
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         if(this.mc.player != null){
             RenderSystem.disableBlend();
-            String level = String.valueOf(ClientCustomLevelData.getPlayerCustomLevel());
+            String level = String.valueOf((int)ClientCustomLevelData.getPlayerCustomLevel());
             Gui.drawString(ms, this.mc.font, level, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 13) + this.settings.getPositionValue(Settings.rpglevel_position)[0] - this.mc.font.width(level) / 2, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 18) + this.settings.getPositionValue(Settings.rpglevel_position)[1], 0x80FF20);
             RenderSystem.enableBlend();
         }
