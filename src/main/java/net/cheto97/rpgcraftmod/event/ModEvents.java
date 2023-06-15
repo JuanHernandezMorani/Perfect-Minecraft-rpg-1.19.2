@@ -14,7 +14,10 @@ import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentUtils;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +48,9 @@ import net.minecraftforge.fml.common.Mod;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
+import java.util.List;
+
+import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 
 @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID)
 public class ModEvents {
@@ -52,6 +58,11 @@ public class ModEvents {
     private static final String MESSAGE_LEVEL_UP = "message.rpgcraft.level_up";
     private static int lvls = 0;
     private static int lvlReduce = 0;
+    static private String entityName;
+    static private int entityLvl;
+    static private double entityHealth;
+    static private double entityMaxHealth;
+    static private double entityDefense;
 
     private static boolean containsIgnoreCase(String str, String searchStr)     {
         if(str == null || searchStr == null) return false;
@@ -66,7 +77,8 @@ public class ModEvents {
         }
         return false;
     }
-    private static int selectTier() {
+    /*
+   ** private static int selectTier() {
         double[] tierPercentages = {0.4, 0.25, 0.15, 0.09, 0.05, 0.03, 0.02, 0.01, 0.005, 0.0005, 0.00005};
 
         double totalPercentage = 0.0;
@@ -88,6 +100,7 @@ public class ModEvents {
         }
         return selectedTier;
     }
+     */
     private static String formatDouble(double value) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator(',');
@@ -437,9 +450,11 @@ public class ModEvents {
         if(event.getEntity() != null && !event.getEntity().getLevel().isClientSide()){
             LivingEntity entity = event.getEntity();
             if (entity instanceof Player || entity instanceof Monster || entity instanceof Animal) {
+                if (entity.hasCustomName()) {
+                    updateFloatingText(entity);
+                }
                 entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel ->{
                     entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp ->{
-
                         if(entity instanceof Player){
                             if(((Player)entity).experienceLevel < customLevel.get()){
                                 int lvl = (customLevel.get() - ((Player)entity).experienceLevel);
@@ -514,14 +529,38 @@ public class ModEvents {
                         mana.add(mpRegen.get()*0.05);
                     }
                 }));
-                entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent( hpRegen ->
-                        entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
-                    if(life.get() < life.getMax()){
-                        life.add(hpRegen.get()*0.05);
-                    }}));
+                entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent( hpRegen ->{
+                            entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+                                if(life.get() < life.getMax()){
+                                    life.add(hpRegen.get()*0.05);
+                                }
+                                entityHealth = life.get();
+                                if (Minecraft.getInstance().getConnection() != null) {
+                                    ModMessages.sendToServer(new EntityLifeDataSyncS2CPacket(entity.getId(), life.get()));
+                                    ModMessages.sendToServer(new EntityMaxLifeDataSyncS2CPacket(entity.getId(), life.getMax()));
+                                }
+                            });
+                });
             }
         }
     }
+    private static void removeFloatingText(LivingEntity entity) {
+        entity.setCustomName(null);
+        entity.setCustomNameVisible(false);
+    }
+
+    private static void updateFloatingText(LivingEntity entity) {
+        removeFloatingText(entity);
+            String entityName = entity.getName().getString();
+            int level = entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
+            double maxHealth = entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0);
+            double currentHealth = entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0);
+            String updatedText = entityName + " - Lv. " + level + " "
+                    + "HP: " + doubleToString(currentHealth) + "/" + doubleToString(maxHealth) + " "
+                    + "Armor: " + doubleToString(entity.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.0));
+            entity.setCustomName(Component.literal(updatedText));
+            entity.setCustomNameVisible(true);
+        }
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event){
         if(event.side == LogicalSide.SERVER){
@@ -610,7 +649,7 @@ public class ModEvents {
     }
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
-        if(!event.getLevel().isClientSide()){
+        if(!event.getLevel().isClientSide() && event.getEntity() != null){
             if (!(event.getEntity() instanceof Player) && event.getEntity() instanceof LivingEntity livingEntity) {
 
                 Level level = livingEntity.getLevel();
@@ -655,7 +694,7 @@ public class ModEvents {
                         .mapToInt(player -> {
                             player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel ->{
                                 if(playerLevel.get() != 0){
-                                    lvls = (int)playerLevel.get();
+                                    lvls = playerLevel.get();
                                 }
                             });
                             return lvls;
@@ -670,14 +709,17 @@ public class ModEvents {
                 }
 
                 livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(entityLevel ->{
-
-                    livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life ->{
+                    entityName = event.getEntity().getName().getString();
                         Random random = new Random();
                         int randomNumber = random.nextInt(10) + 1;
                         entityLevel.setLevel((finalLevel-lvlReduce)+randomNumber);
-                    });
+                    entityLvl = (finalLevel-lvlReduce)+randomNumber;
+
                     event.getEntity().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life ->{
                         life.setMax(((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01));
+                        life.set(((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01));
+                        entityHealth = ((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01);
+                        entityMaxHealth = ((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01);
                     });
 
                     event.getEntity().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility ->{
@@ -694,6 +736,7 @@ public class ModEvents {
 
                     event.getEntity().getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(stat ->{
                         stat.add(entityLevel.get()*0.01);
+                        entityDefense = stat.get();
                     });
 
                     event.getEntity().getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(stat ->{
@@ -718,6 +761,17 @@ public class ModEvents {
                     event.getEntity().getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(stat ->{
                         stat.add(entityLevel.get()*0.04);
                     });
+
+                    LivingEntity entity = (LivingEntity) event.getEntity();
+
+                    String name = entity.getName().getString();
+                    String customNameText = name + " - Nivel " + entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0) + " "
+                            + "Vida: " + doubleToString(entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0)) + "/" + doubleToString(entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0)) + " "
+                            + "Defensa: " + doubleToString(entity.getCapability(DefenseProvider.ENTITY_DEFENSE)
+                            .map(Defense::get).orElse(0.0));
+
+                    MutableComponent customName = ComponentUtils.wrapInSquareBrackets(Component.literal(customNameText));
+                    entity.setCustomName(customName);
 
                 });
             }
@@ -763,6 +817,15 @@ public class ModEvents {
                 player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(stat ->{
                     ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),player);
                 });
+
+                String name = player.getName().getString();
+                String customNameText = name + " - Nivel " + player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0) + " "
+                        + "Vida: " + doubleToString(player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0)) + "/" + doubleToString(player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0)) + " "
+                        + "Defensa: " + doubleToString(player.getCapability(DefenseProvider.ENTITY_DEFENSE)
+                        .map(Defense::get).orElse(0.0));
+                MutableComponent customName = ComponentUtils.wrapInSquareBrackets(Component.literal(customNameText));
+                player.setCustomName(customName);
+
             }
         }
     }

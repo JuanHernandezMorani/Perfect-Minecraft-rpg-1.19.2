@@ -18,12 +18,11 @@ public enum HudType {
     DETAILS("name.details"),
     WIDGET("name.widget"),
     COMPASS("name.compass"),
-    VIEW("name.view"),
     STATUS_EFFECTS("name.status_effects");
 
-    private String displayName;
+    private final String displayName;
 
-    private HudType(String displayName) {
+    HudType(String displayName) {
         this.displayName = displayName;
     }
 

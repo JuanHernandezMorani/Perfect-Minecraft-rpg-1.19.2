@@ -82,11 +82,6 @@ public class HudVanilla extends Hud {
     }
 
     @Override
-    protected HudElement setElementView() {
-        return new HudElementViewVanilla();
-    }
-
-    @Override
     protected HudElement setElementMobEffects() {
         return new HudElementMobEffectsVanilla();
     }

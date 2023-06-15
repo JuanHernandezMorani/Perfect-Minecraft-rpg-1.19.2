@@ -38,7 +38,6 @@ public abstract class Hud {
         this.elements.put(DETAILS, setElementDetails());
         this.elements.put(WIDGET, setElementWidget());
         this.elements.put(COMPASS, setElementCompass());
-        this.elements.put(VIEW, setElementView());
         this.elements.put(STATUS_EFFECTS, setElementMobEffects());
 
     }
@@ -62,7 +61,6 @@ public abstract class Hud {
     protected abstract HudElement setElementDetails();
     protected abstract HudElement setElementWidget();
     protected abstract HudElement setElementCompass();
-    protected abstract HudElement setElementView();
     protected abstract HudElement setElementMobEffects();
     public void drawElement(HudType type, Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         this.elements.get(type).draw(gui, ms, zLevel, partialTicks, scaledWidth, scaledHeight);

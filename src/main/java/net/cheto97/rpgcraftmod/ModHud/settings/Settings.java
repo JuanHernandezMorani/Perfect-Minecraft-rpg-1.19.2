@@ -186,10 +186,6 @@ public class Settings {
         addSetting(color_jump_bar, new SettingColor(color_jump_bar, HudType.JUMP_BAR, HudElement.COLOR_GREY));
         addSetting(jump_bar_position, new SettingPosition(jump_bar_position, HudType.JUMP_BAR, 0, 0));
 
-        addSetting(enable_view, new SettingBoolean(enable_view, HudType.VIEW, true));
-        addSetting(show_entity_armor, new SettingBoolean(show_entity_armor, HudType.VIEW, true));
-        addSetting(inspector_position, new SettingPosition(inspector_position, HudType.VIEW, 0, 0));
-
         addSetting(color_air, new SettingColor(color_air, HudType.AIR, HudElement.COLOR_WHITE));
         addSetting(air_position, new SettingPosition(air_position, HudType.AIR, 0, 0));
 

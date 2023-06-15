@@ -18,7 +18,6 @@ public class RenderOverlay {
         drawElement(rpgHud, mc, HudType.CLOCK, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.DETAILS, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.COMPASS, ms, partialTicks);
-        drawElement(rpgHud, mc, HudType.VIEW, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.LIFE, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.MANA, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.ARMOR, ms, partialTicks);

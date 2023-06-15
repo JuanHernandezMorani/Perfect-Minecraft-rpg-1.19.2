@@ -129,13 +129,13 @@ public class ModMessages {
                 .consumerMainThread(CustomLevelDataSyncS2CPacket::handle)
                 .add();
 
-        net.messageBuilder(EntityLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+        net.messageBuilder(EntityLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(EntityLifeDataSyncS2CPacket::new)
                 .encoder(EntityLifeDataSyncS2CPacket::toBytes)
                 .consumerMainThread(EntityLifeDataSyncS2CPacket::handle)
                 .add();
 
-        net.messageBuilder(EntityMaxLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+        net.messageBuilder(EntityMaxLifeDataSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(EntityMaxLifeDataSyncS2CPacket::new)
                 .encoder(EntityMaxLifeDataSyncS2CPacket::toBytes)
                 .consumerMainThread(EntityMaxLifeDataSyncS2CPacket::handle)
