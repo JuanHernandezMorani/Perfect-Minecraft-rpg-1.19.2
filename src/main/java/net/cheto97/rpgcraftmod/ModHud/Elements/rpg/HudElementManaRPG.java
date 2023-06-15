@@ -6,6 +6,7 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.client.ClientManaData;
+import net.cheto97.rpgcraftmod.client.ClientMaxManaData;
 import net.minecraft.client.gui.Gui;
 
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
@@ -25,7 +26,7 @@ public class HudElementManaRPG extends HudElement {
             bind(INTERFACE);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
             double mana = ClientManaData.getPlayerMana();
-            double manaMax = 10.0;
+            double manaMax = ClientMaxManaData.getPlayerMaxMana();
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.hunger_position)[0];
             int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 22 : 18) + this.settings.getPositionValue(Settings.hunger_position)[1];
 

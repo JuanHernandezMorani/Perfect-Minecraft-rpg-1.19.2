@@ -128,16 +128,6 @@ public class Settings {
         addSetting(hud_type, new SettingHudType(hud_type, "rpg"));
         addSetting(enable_button_tooltip, new SettingBoolean(enable_button_tooltip, true));
 
-        addSetting(reduce_size, new SettingBoolean(reduce_size, HudType.DETAILS, false));
-        addSetting(show_armor, new SettingBoolean(show_armor, HudType.DETAILS, true));
-        addSetting(show_arrow_count, new SettingBoolean(show_arrow_count, HudType.DETAILS, true));
-        addSetting(show_item_durability, new SettingBoolean(show_item_durability, HudType.DETAILS, true));
-        addSetting(show_block_count, new SettingBoolean(show_block_count, HudType.DETAILS, true));
-        addSetting(show_durability_bar, new SettingBoolean(show_durability_bar, HudType.DETAILS, true));
-        addSetting(armor_det_position, new SettingPosition(armor_det_position, HudType.DETAILS, 0, 0));
-        addSetting(arrow_det_position, new SettingPosition(arrow_det_position, HudType.DETAILS, 0, 0));
-        addSetting(item_det_position, new SettingPosition(item_det_position, HudType.DETAILS, 0, 0));
-
         addSetting(show_numbers_life, new SettingBoolean(show_numbers_life, HudType.LIFE, true));
         addSetting(life_percentage, new SettingBoolean(life_percentage, HudType.LIFE, false));
         addSetting(color_life, new SettingColor(color_life, HudType.LIFE, HudElement.COLOR_RED));

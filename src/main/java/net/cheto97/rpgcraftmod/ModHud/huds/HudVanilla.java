@@ -67,11 +67,6 @@ public class HudVanilla extends Hud {
     }
 
     @Override
-    public HudElement setElementDetails() {
-        return new HudElementDetailsVanilla();
-    }
-
-    @Override
     public HudElement setElementWidget() {
         return new HudElementEmpty();
     }

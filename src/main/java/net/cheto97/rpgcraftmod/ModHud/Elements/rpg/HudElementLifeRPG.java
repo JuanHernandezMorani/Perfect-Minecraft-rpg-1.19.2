@@ -6,6 +6,7 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.client.ClientLifeData;
+import net.cheto97.rpgcraftmod.client.ClientMaxLifeData;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -32,7 +33,7 @@ public class HudElementLifeRPG extends HudElement {
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
             double health = ClientLifeData.getPlayerLife();
             int absorption = Mth.ceil(this.mc.player.getAbsorptionAmount());
-            int healthMax = Mth.ceil(this.mc.player.getMaxHealth());
+            double healthMax = ClientMaxLifeData.getPlayerMaxLife();
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.life_position)[0];
             int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 9 : 5) + this.settings.getPositionValue(Settings.life_position)[1];
             if (absorption > 1)

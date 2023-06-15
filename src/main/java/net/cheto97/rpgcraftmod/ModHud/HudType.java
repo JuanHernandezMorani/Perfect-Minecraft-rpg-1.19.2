@@ -15,7 +15,6 @@ public enum HudType {
     RPGEXPERIENCE("name.rpgexperience"),
     RPGLEVEL("name.rpglevel"),
     CLOCK("name.clock"),
-    DETAILS("name.details"),
     WIDGET("name.widget"),
     COMPASS("name.compass"),
     STATUS_EFFECTS("name.status_effects");

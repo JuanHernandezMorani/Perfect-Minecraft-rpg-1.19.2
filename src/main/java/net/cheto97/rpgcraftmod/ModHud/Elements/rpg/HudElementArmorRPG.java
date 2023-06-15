@@ -4,8 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
+import net.cheto97.rpgcraftmod.client.ClientDefenseData;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
+
+import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 
 public class HudElementArmorRPG extends HudElement {
 
@@ -26,10 +29,10 @@ public class HudElementArmorRPG extends HudElement {
         int top = getPosY(scaledHeight);
 
         assert this.mc.player != null;
-        int level = this.mc.player.getArmorValue();
+        double level = ClientDefenseData.getPlayerDefense();
         if (level > 0) {
             int height = getHeight(scaledHeight);
-            int width2 = 1 + 9 + 2 + this.mc.font.width(String.valueOf(level)) + 2;
+            int width2 = 1 + 9 + 2 + this.mc.font.width(doubleToString(level)) + 2;
             drawRect(ms, left, top, width2, height, 0xA0000000);
             this.mc.font.draw(ms,"", left + 12, top + 2, -1);
         }

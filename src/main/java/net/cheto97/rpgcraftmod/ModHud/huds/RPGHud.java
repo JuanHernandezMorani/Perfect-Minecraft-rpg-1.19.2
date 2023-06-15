@@ -34,11 +34,6 @@ public class RPGHud extends HudDefault {
     }
 
     @Override
-    public HudElement setElementDetails() {
-        return new HudElementDetailsRPG();
-    }
-
-    @Override
     public HudElement setElementCustomExperience() {
         return new HudElementCustomExperienceRPG();
     }
