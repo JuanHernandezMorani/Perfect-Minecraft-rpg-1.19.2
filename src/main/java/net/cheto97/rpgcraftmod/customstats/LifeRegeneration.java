@@ -17,6 +17,9 @@ public class LifeRegeneration {
     public void add(){
             this.liferegeneration++;
     }
+    public void cancelRegeneration(){
+        this.liferegeneration = 0;
+    }
     public void add(double value){
             this.liferegeneration = this.liferegeneration + value;
     }

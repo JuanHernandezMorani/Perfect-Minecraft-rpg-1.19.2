@@ -50,7 +50,10 @@ public class HudVanilla extends Hud {
     public HudElement setElementCustomLevel() {
         return null;
     }
-
+    @Override
+    protected HudElement setElementView() {
+        return new HudElementViewVanilla();
+    }
     @Override
     public HudElement setElementJumpBar() {
         return null;

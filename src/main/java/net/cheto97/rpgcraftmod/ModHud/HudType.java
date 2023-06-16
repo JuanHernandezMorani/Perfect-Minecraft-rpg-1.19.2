@@ -16,6 +16,7 @@ public enum HudType {
     RPGLEVEL("name.rpglevel"),
     WIDGET("name.widget"),
     COMPASS("name.compass"),
+    VIEW("name.view"),
     STATUS_EFFECTS("name.status_effects");
 
     private final String displayName;

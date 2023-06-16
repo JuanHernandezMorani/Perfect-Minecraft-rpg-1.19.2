@@ -27,6 +27,7 @@ public class RenderOverlay {
         drawElement(rpgHud, mc, HudType.RPGEXPERIENCE, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.RPGLEVEL, ms, partialTicks);
         drawElement(rpgHud, mc, HudType.HOTBAR, ms, partialTicks);
+        drawElement(rpgHud, mc, HudType.VIEW, ms, partialTicks);
     }
 
     private static void drawElement(RpgcraftMod rpgHud, Minecraft mc, HudType type, PoseStack ms, float partialTicks) {

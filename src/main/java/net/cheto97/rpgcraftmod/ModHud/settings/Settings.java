@@ -183,6 +183,10 @@ public class Settings {
         addSetting(rpglevel_position, new SettingPosition(rpglevel_position, HudType.RPGLEVEL, 0, 0));
         addSetting(armor_position, new SettingPosition(armor_position, HudType.ARMOR, 0, 0));
 
+        addSetting(enable_view, new SettingBoolean(enable_view, HudType.VIEW, true));
+        addSetting(show_entity_armor, new SettingBoolean(show_entity_armor, HudType.VIEW, true));
+        addSetting(inspector_position, new SettingPosition(inspector_position, HudType.VIEW, 0, 0));
+
         addDebugSettings(HudType.ARMOR);
         addDebugSettings(HudType.HOTBAR);
         addDebugSettings(HudType.AIR);

@@ -170,11 +170,11 @@ public abstract class HudElement {
         if (outlined)
             offset = 1;
 
-        int filledWidth = width;
+        int filledWidth;
         filledWidth = width - (offset * 2);
         if (filledWidth < 0)
             filledWidth = 0;
-        int filledHeight = width;
+        int filledHeight;
         filledHeight = height - (offset * 2);
         if (filledHeight < 0)
             filledHeight = 0;

@@ -37,13 +37,13 @@ public class HudElementLifeRPG extends HudElement {
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.life_position)[0];
             int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 9 : 5) + this.settings.getPositionValue(Settings.life_position)[1];
             if (absorption > 1)
-                gui.blit(ms, posX, posY, 0, 88, (int) (110.0D * ((double) (health + absorption) / (double) (healthMax + absorption))), 12);
+                gui.blit(ms, posX, posY, 0, 88, (int) (110.0D * ( (health + absorption) /  (healthMax + absorption))), 12);
             if (this.mc.player.hasEffect(MobEffects.POISON)) {
-                gui.blit(ms, posX, posY, 141, 160, (int) (110.0D * ((double) health / (double) (healthMax + absorption))), 12);
+                gui.blit(ms, posX, posY, 141, 160, (int) (110.0D * ( health / (healthMax + absorption))), 12);
             } else if (this.mc.player.hasEffect(MobEffects.WITHER)) {
-                gui.blit(ms, posX, posY, 34, 244, (int) (110.0D * ((double) health / (double) (healthMax + absorption))), 12);
+                gui.blit(ms, posX, posY, 34, 244, (int) (110.0D * ( health /  (healthMax + absorption))), 12);
             } else {
-                gui.blit(ms, posX, posY, 0, 100, (int) (110.0D * ((double) health / (double) (healthMax + absorption))), 12);
+                gui.blit(ms, posX, posY, 0, 100, (int) (110.0D * ( health /  (healthMax + absorption))), 12);
             }
 
             String stringHealth =  doubleToString(health+absorption) + "/" + doubleToString(healthMax);

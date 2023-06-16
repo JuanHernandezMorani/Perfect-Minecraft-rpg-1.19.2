@@ -34,6 +34,7 @@ public abstract class Hud {
         this.elements.put(JUMP_BAR, setElementJumpBar());
         this.elements.put(RPGEXPERIENCE, setElementCustomExperience());
         this.elements.put(RPGLEVEL, setElementCustomLevel());
+        this.elements.put(VIEW, setElementView());
         this.elements.put(WIDGET, setElementWidget());
         this.elements.put(COMPASS, setElementCompass());
         this.elements.put(STATUS_EFFECTS, setElementMobEffects());
@@ -53,6 +54,7 @@ public abstract class Hud {
     protected abstract HudElement setElementAir();
     protected abstract HudElement setElementCustomExperience();
     protected abstract HudElement setElementCustomLevel();
+    protected abstract HudElement setElementView();
     protected abstract HudElement setElementJumpBar();
     protected abstract HudElement setElementMountLife();
     protected abstract HudElement setElementWidget();
