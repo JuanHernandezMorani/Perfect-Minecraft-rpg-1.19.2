@@ -405,10 +405,10 @@ public class HudElementViewVanilla extends HudElement {
             case 4 -> result = ChatFormatting.GREEN;
             case 5 -> result = ChatFormatting.DARK_GREEN;
             case 6 -> result = ChatFormatting.BLUE;
-            case 7 -> result = ChatFormatting.DARK_BLUE;
-            case 8 -> result = ChatFormatting.LIGHT_PURPLE;
-            case 9 -> result = ChatFormatting.GOLD;
-            case 10 -> result = ChatFormatting.RED;
+            case 7 -> result = ChatFormatting.LIGHT_PURPLE;
+            case 8 -> result = ChatFormatting.GOLD;
+            case 9 -> result = ChatFormatting.RED;
+            case 10 -> result = ChatFormatting.DARK_RED;
             case 11 -> result = ChatFormatting.DARK_PURPLE;
         }
         return result;
