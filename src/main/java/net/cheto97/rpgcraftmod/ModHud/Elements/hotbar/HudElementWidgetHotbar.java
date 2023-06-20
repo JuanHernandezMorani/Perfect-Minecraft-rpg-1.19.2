@@ -30,7 +30,9 @@ public class HudElementWidgetHotbar extends HudElement {
         int facePosY = this.settings.getPositionValue(Settings.face_position)[1];
         if (RpgcraftMod.instance.settings.getBoolValue(Settings.render_player_face)) {
             gui.blit(ms, posX + facePosX, posY - 16 - 52 + 7 + facePosY, 164, 20, 50, 52);
-            bind(getPlayerSkin(this.mc.player));
+            if(this.mc.player !=null){
+                bind(getPlayerSkin(this.mc.player));
+            }
             ms.scale(0.5f, 0.5f, 0.5f);
             gui.blit(ms, posX * 2 + 34 + facePosX * 2, posY * 2 - 88 + facePosY * 2, 32, 32, 32, 32);
             gui.blit(ms, posX * 2 + 34 + facePosX * 2, posY * 2 - 88 + facePosY * 2, 160, 32, 32, 32);

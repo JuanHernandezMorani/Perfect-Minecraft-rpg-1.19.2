@@ -29,10 +29,10 @@ public class ManaRegeneration {
         this.manaregeneration = source.manaregeneration;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",manaregeneration);
+        nbt.putDouble("manaregeneration",manaregeneration);
     }
     public void loadNBTData(CompoundTag nbt){
-        manaregeneration = nbt.getDouble("value");
+        manaregeneration = nbt.getDouble("manaregeneration");
     }
 
 }

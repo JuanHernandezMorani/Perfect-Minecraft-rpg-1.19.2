@@ -150,7 +150,7 @@ public class Settings {
 
         addSetting(show_numbers_rpgexperience, new SettingBoolean(show_numbers_rpgexperience, HudType.RPGEXPERIENCE, true));
         addSetting(rpgexperience_percentage, new SettingBoolean(rpgexperience_percentage, HudType.RPGEXPERIENCE, false));
-        addSetting(color_rpgexperience, new SettingColor(color_rpgexperience, HudType.RPGEXPERIENCE, HudElement.COLOR_BLUE));
+        addSetting(color_rpgexperience, new SettingColor(color_rpgexperience, HudType.RPGEXPERIENCE, HudElement.COLOR_GREEN));
         addSetting(rpgexperience_position, new SettingPosition(rpgexperience_position, HudType.RPGEXPERIENCE, 0, 0));
 
         addSetting(mount_life_percentage, new SettingBoolean(mount_life_percentage, HudType.MOUNT_LIFE, false));

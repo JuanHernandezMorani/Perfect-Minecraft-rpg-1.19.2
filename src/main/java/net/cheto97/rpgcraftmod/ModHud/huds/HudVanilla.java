@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.ModHud.huds;
 
+import net.cheto97.rpgcraftmod.ModHud.Elements.rpg.HudElementCustomExperienceRPG;
 import net.cheto97.rpgcraftmod.ModHud.Elements.vanilla.*;
 import net.cheto97.rpgcraftmod.ModHud.Hud;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
@@ -43,7 +44,7 @@ public class HudVanilla extends Hud {
 
     @Override
     public HudElement setElementCustomExperience() {
-        return null;
+        return new HudElementCustomExperienceRPG();
     }
 
     @Override

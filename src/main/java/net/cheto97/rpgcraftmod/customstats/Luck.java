@@ -24,9 +24,9 @@ public class Luck {
         this.luck = source.luck;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble ("value",luck);
+        nbt.putDouble ("luck",luck);
     }
     public void loadNBTData(CompoundTag nbt){
-        luck = nbt.getDouble ("value");
+        luck = nbt.getDouble ("luck");
     }
 }

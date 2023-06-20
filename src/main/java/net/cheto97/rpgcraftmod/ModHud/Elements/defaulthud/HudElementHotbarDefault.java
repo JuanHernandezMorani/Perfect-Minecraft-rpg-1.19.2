@@ -33,7 +33,7 @@ public class HudElementHotbarDefault extends HudElement {
             ItemStack itemstack = this.mc.player.getOffhandItem();
             HumanoidArm arm = this.mc.player.getMainArm().getOpposite();
             int i = scaledWidth / 2 + this.settings.getPositionValue(Settings.hotbar_position)[0];
-            int posY = this.settings.getPositionValue(Settings.hotbar_position)[1] + this.offset;
+            int posY = this.settings.getPositionValue(Settings.hotbar_position)[1] + this.offset - 15;
             float f = zLevel;
             zLevel = -90.0F;
             gui.blit(ms, i - 91, scaledHeight - 22 + posY, 0, 0, 182, 22);

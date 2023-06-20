@@ -43,10 +43,10 @@ public class Life {
         this.life = source.life;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",life);
+        nbt.putDouble("life",life);
     }
     public void loadNBTData(CompoundTag nbt){
-        life = nbt.getDouble("value");
+        life = nbt.getDouble("life");
     }
     public void consumeLife(double value){
         double check = life - value;

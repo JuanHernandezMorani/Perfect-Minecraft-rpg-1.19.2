@@ -27,9 +27,9 @@ public class LifeRegeneration {
         this.liferegeneration = source.liferegeneration;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",liferegeneration);
+        nbt.putDouble("liferegeneration",liferegeneration);
     }
     public void loadNBTData(CompoundTag nbt){
-        liferegeneration = nbt.getDouble("value");
+        liferegeneration = nbt.getDouble("liferegeneration");
     }
 }

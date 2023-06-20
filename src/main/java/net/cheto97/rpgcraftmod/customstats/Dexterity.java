@@ -24,9 +24,9 @@ public class Dexterity {
         this.dexterity = source.dexterity;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",dexterity);
+        nbt.putDouble("dexterity",dexterity);
     }
     public void loadNBTData(CompoundTag nbt){
-        dexterity = nbt.getDouble("value");
+        dexterity = nbt.getDouble("dexterity");
     }
 }

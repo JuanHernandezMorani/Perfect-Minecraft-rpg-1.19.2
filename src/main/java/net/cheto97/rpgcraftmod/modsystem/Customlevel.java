@@ -4,12 +4,19 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Customlevel {
     private int customlevel = 1;
+    private boolean firstJoin = false;
     private double previousLevelExp = 0;
 
     private int resetLevel = 0;
 
     public int get(){
         return customlevel;
+    }
+    public boolean hasEnteredLevel(){
+        return firstJoin;
+    }
+    public void setEnteredWorld(boolean value){
+        firstJoin = value;
     }
     public double getMin(){
         return 1;

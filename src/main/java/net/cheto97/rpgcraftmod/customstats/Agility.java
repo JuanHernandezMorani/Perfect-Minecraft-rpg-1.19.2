@@ -23,9 +23,9 @@ public class Agility {
         this.agility = source.agility;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",agility);
+        nbt.putDouble("agility",agility);
     }
     public void loadNBTData(CompoundTag nbt){
-        agility = nbt.getDouble("value");
+        agility = nbt.getDouble("agility");
     }
 }

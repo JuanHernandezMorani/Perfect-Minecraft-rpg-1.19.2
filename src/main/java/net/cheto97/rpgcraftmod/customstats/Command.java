@@ -23,9 +23,9 @@ public class Command {
         this.command = source.command;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",command);
+        nbt.putDouble("command",command);
     }
     public void loadNBTData(CompoundTag nbt){
-        command = nbt.getDouble("value");
+        command = nbt.getDouble("command");
     }
 }

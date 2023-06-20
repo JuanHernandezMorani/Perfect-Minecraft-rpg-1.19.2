@@ -24,9 +24,9 @@ public class Defense {
         this.defense = source.defense;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",defense);
+        nbt.putDouble("defense",defense);
     }
     public void loadNBTData(CompoundTag nbt){
-        defense = nbt.getDouble("value");
+        defense = nbt.getDouble("defense");
     }
 }

@@ -24,9 +24,9 @@ public class Intelligence {
         this.intelligence = source.intelligence;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",intelligence);
+        nbt.putDouble("intelligence",intelligence);
     }
     public void loadNBTData(CompoundTag nbt){
-        intelligence = nbt.getDouble("value");
+        intelligence = nbt.getDouble("intelligence");
     }
 }

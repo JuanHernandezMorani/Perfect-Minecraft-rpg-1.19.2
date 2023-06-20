@@ -42,10 +42,10 @@ public class Mana {
         this.mana = source.mana;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",mana);
+        nbt.putDouble("mana",mana);
     }
     public void loadNBTData(CompoundTag nbt){
-        mana = nbt.getDouble("value");
+        mana = nbt.getDouble("mana");
     }
     public void consumeMana(double value){
         double check = mana - value;

@@ -27,9 +27,9 @@ public class Strength {
         this.strength = source.strength;
     }
     public void saveNBTData(CompoundTag nbt){
-        nbt.putDouble("value",strength);
+        nbt.putDouble("strength",strength);
     }
     public void loadNBTData(CompoundTag nbt){
-        strength = nbt.getDouble("value");
+        strength = nbt.getDouble("strength");
     }
 }
