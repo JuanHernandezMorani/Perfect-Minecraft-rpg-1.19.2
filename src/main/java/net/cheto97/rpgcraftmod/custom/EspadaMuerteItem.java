@@ -20,7 +20,7 @@ public class EspadaMuerteItem extends SwordItem {
     private static final String MESSAGE_NO_ENOUGH_MANA = "message.rpgcraftmod.not_enough_mana";
 
     public EspadaMuerteItem(Properties properties, Tier tier) {
-        super(tier,2,-1.58f,properties);
+        super(tier,4,-1.58f,properties);
     }
 
     @Override

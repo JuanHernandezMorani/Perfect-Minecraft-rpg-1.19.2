@@ -33,7 +33,7 @@ public class Customlevel {
         previousLevelExp = exp;
     }
     public double experienceNeeded(){
-        return (50*customlevel)+previousLevelExp;
+        return (20.25*customlevel)+previousLevelExp;
     }
     public void setLevel(int value){
         customlevel = value;

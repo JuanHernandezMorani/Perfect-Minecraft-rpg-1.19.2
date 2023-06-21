@@ -1,13 +1,13 @@
 package net.cheto97.rpgcraftmod.client;
 
 public class ClientCustomLevelData {
-    private static double playerCustomLevel;
+    private static int playerCustomLevel;
 
-    public static void set(double customlevel){
+    public static void set(int customlevel){
         ClientCustomLevelData.playerCustomLevel = customlevel;
     }
 
-    public static double getPlayerCustomLevel(){
+    public static int getPlayerCustomLevel(){
         return playerCustomLevel;
     }
 }

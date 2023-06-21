@@ -19,6 +19,7 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.client.ClientCustomLevelData;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.providers.CustomLevelProvider;
 import net.minecraft.ChatFormatting;
@@ -51,10 +52,9 @@ public class HudElementViewVanilla extends HudElement {
     static public double focusedMaxLife;
     static public int focusedId;
     static public double focusedArmor;
-    static public String focusedName;
+    static public Component focusedName;
     static public String focusedRank;
-    static public int focusedLevel;
-    static public int playerLevel;
+    static public int playerLevel = ClientCustomLevelData.getPlayerCustomLevel();
     static private boolean inVertical = false;
     static private ChatFormatting rankColor;
     static private boolean infinite = false;
@@ -82,8 +82,6 @@ public class HudElementViewVanilla extends HudElement {
         assert this.mc.player != null;
         LivingEntity focused = getFocusedEntity(this.mc.player);
         if(focused != null) {
-
-            playerLevel = this.mc.player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
             setIdData(focused.getId());
             int posX = (scaledWidth / 2) + this.settings.getPositionValue(Settings.inspector_position)[0];
             int posY = 20 + this.settings.getPositionValue(Settings.inspector_position)[1];
@@ -114,37 +112,10 @@ public class HudElementViewVanilla extends HudElement {
             Gui.drawCenteredString(ms, this.mc.font, stringLife, (posX - 27 + 44) * 2, (36 + posY) * 2, -1);
             ms.scale(2f, 2f, 2f);
 
-            int x = (posX - 29 + 44 - (focusedName.length() / 2));
+            int x = (posX - 29 + 44 - (focusedName.getString().length() / 2));
             int y = 25 + posY;
-            ChatFormatting color;
 
-            if(playerLevel > focusedLevel){
-                if(playerLevel - (playerLevel * 0.05) <= focusedLevel){
-                    color = ChatFormatting.AQUA;
-                }else if(playerLevel - (playerLevel * 0.12) <= focusedLevel && playerLevel - (playerLevel * 0.05) >= focusedLevel){
-                    color = ChatFormatting.DARK_AQUA;
-                }else if(playerLevel - (playerLevel * 0.3) <= focusedLevel && playerLevel - (playerLevel * 0.12) >= focusedLevel){
-                    color = ChatFormatting.GREEN;
-                }else{
-                    color = ChatFormatting.DARK_GREEN;
-                }
-            }
-            else if(playerLevel == focusedLevel){
-                color = ChatFormatting.GRAY;
-            }
-            else{
-                if(playerLevel - (playerLevel * 0.05) >= focusedLevel){
-                    color = ChatFormatting.DARK_GRAY;
-                }else if(playerLevel - (playerLevel * 0.12) >= focusedLevel && playerLevel - (playerLevel * 0.05) <= focusedLevel){
-                    color = ChatFormatting.LIGHT_PURPLE;
-                }else if(playerLevel - (playerLevel * 0.3) >= focusedLevel && playerLevel - (playerLevel * 0.12) <= focusedLevel){
-                    color = ChatFormatting.RED;
-                }else{
-                    color = ChatFormatting.DARK_RED;
-                }
-            }
-
-            Component entityName = Component.literal(focusedName).withStyle(color);
+            Component entityName = focusedName;
             Component entityRank = Component.literal("["+focusedRank+"]").withStyle(rankColor);
 
             Gui.drawCenteredString(ms,this.mc.font,entityRank,x+10,y-10,-1);
@@ -254,12 +225,13 @@ public class HudElementViewVanilla extends HudElement {
     public static int getIdData(){
         return focusedId;
     }
-
-    public static void setData(double lifeData, double lifeMaxData,int levelData, double armorData,int rank ,String nameData){
+    public static int getPlayerLevel(){
+        return playerLevel;
+    }
+    public static void setData(double lifeData, double lifeMaxData, double armorData,int rank ,Component nameData){
         focusedLife = lifeData;
         focusedMaxLife = lifeMaxData;
         focusedArmor = armorData;
-        focusedLevel = levelData;
         rankColor = setColor(rank);
         switch (rank){
             case 0 -> focusedRank = "NULL";
@@ -275,7 +247,7 @@ public class HudElementViewVanilla extends HudElement {
             case 10 -> focusedRank = "Semi Boss";
             case 11 -> focusedRank = "Boss";
         }
-        focusedName = nameData+" lv "+levelData;
+        focusedName = nameData;
     }
 
     public static void drawEntityOnScreen(int posX, int posY, LivingEntity entity) {

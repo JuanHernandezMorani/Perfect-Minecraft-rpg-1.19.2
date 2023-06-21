@@ -8,6 +8,7 @@ import net.cheto97.rpgcraftmod.networking.packet.DrinkManaFluidC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.ViewStatsC2SPacket;
 import net.cheto97.rpgcraftmod.util.KeyBinding;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,21 +37,23 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void onRenderGameOverlay(RenderGuiOverlayEvent event){
-            if (event.getOverlay().toString().contains("air") || event.getOverlay().toString().contains("AIR")) {
-                    event.setCanceled(true);
-            } else if (event.getOverlay().toString().contains("armor") || event.getOverlay().toString().contains("ARMOR")) {
-                    event.setCanceled(true);
-            } else if (event.getOverlay().toString().contains("xp") || event.getOverlay().toString().contains("XP")) {
-                    event.setCanceled(true);
-            } else if (event.getOverlay().toString().contains("food") || event.getOverlay().toString().contains("FOOD") || event.getOverlay().toString().contains("stam") || event.getOverlay().toString().contains("STAM")) {
-                    event.setCanceled(true);
-            } else if (event.getOverlay().toString().contains("health") || event.getOverlay().toString().contains("HEALTH")) {
-                    event.setCanceled(true);
-            } else if (event.getOverlay().toString().contains("mount") || event.getOverlay().toString().contains("MOUNT")) {
-                    event.setCanceled(true);
-            } else event.setCanceled(event.getOverlay().toString().contains("jump") || event.getOverlay().toString().contains("JUMP"));
             Minecraft mc = Minecraft.getInstance();
             RpgcraftMod mod = RpgcraftMod.instance;
+
+            if (event.getOverlay().id().toString().contains("air_level")) {
+                    event.setCanceled(true);
+            } else if (event.getOverlay().id().toString().contains("armor_level")) {
+                    event.setCanceled(true);
+            } else if (event.getOverlay().id().toString().contains("experience_bar")) {
+                    event.setCanceled(true);
+            } else if (event.getOverlay().id().toString().contains("food") || event.getOverlay().toString().contains("stam")) {
+                    event.setCanceled(true);
+            } else if (event.getOverlay().id().toString().contains("player_health") || event.getOverlay().id().toString().contains("mount_health")) {
+                    event.setCanceled(true);
+            } else if(event.getOverlay().id().toString().contains("jump_bar")){
+                event.setCanceled(true);
+            }
+
 
 
             RenderOverlay.renderOverlay(mod, mc, event.getPoseStack(), event.getPartialTick());
@@ -64,13 +67,5 @@ public class ClientEvents {
             event.register(KeyBinding.DRINKING_KEY);
             event.register(KeyBinding.STATS_KEY);
         }
-
-       /*
-         *
-        @SubscribeEvent
-        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event){
-         event.registerAboveAll("mana", ManaHudOverlay.HUD_MANA);
-        }
-         */
     }
 }

@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
+import net.cheto97.rpgcraftmod.client.ClientCustomLevelData;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
@@ -12,8 +13,8 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.*;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
-import static net.cheto97.rpgcraftmod.ModHud.Elements.vanilla.HudElementViewVanilla.getIdData;
-import static net.cheto97.rpgcraftmod.ModHud.Elements.vanilla.HudElementViewVanilla.setData;
+
+import static net.cheto97.rpgcraftmod.ModHud.Elements.vanilla.HudElementViewVanilla.*;
 import static net.cheto97.rpgcraftmod.ranks.Boss.bossModify;
 import static net.cheto97.rpgcraftmod.ranks.Brutal.brutalModify;
 import static net.cheto97.rpgcraftmod.ranks.Champion.championModify;
@@ -54,6 +55,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
@@ -383,8 +385,7 @@ public class ModEvents {
         event.register(Rank.class);
     }
 
-    /*
-   ** @SubscribeEvent
+    @SubscribeEvent
     public static void onCraftedItem(PlayerEvent.ItemCraftedEvent event) {
         Player entity = event.getEntity();
         int level = entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
@@ -395,7 +396,7 @@ public class ModEvents {
         }
         int opt = selectTier(luck-1);
 
-        if(!event.getEntity().getLevel().isClientSide()){
+        if(event.getEntity().getLevel().isClientSide()){
             String name = output.getDisplayName().getString();
 
             switch (opt) {
@@ -526,8 +527,6 @@ public class ModEvents {
         }
     }
 
-     */
-
     @SubscribeEvent
     public static void onLivingHealEvent(LivingHealEvent event){
         if(event.getEntity() != null&& !event.getEntity().getLevel().isClientSide()){
@@ -542,13 +541,47 @@ public class ModEvents {
                 if (Minecraft.getInstance().getConnection() != null) {
                     int id = getIdData();
                     if(id == entity.getId()){
-                        setData(entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0),
-                                entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(1.0),
-                                entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0),
-                                entity.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.1),
-                                entity.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0),
-                                entity.getName().getString());
-                    }
+                        int playerLevel = ClientCustomLevelData.getPlayerCustomLevel();
+                        int entityLevel = entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
+                        ChatFormatting color;
+
+                            if(playerLevel > entityLevel){
+                                if(playerLevel - (playerLevel * 0.05) <= entityLevel){
+                                    color = ChatFormatting.AQUA;
+                                }else if(playerLevel - (playerLevel * 0.12) <= entityLevel && playerLevel - (playerLevel * 0.05) >= entityLevel){
+                                    color = ChatFormatting.DARK_AQUA;
+                                }else if(playerLevel - (playerLevel * 0.3) <= entityLevel && playerLevel - (playerLevel * 0.12) >= entityLevel){
+                                    color = ChatFormatting.GREEN;
+                                }else{
+                                    color = ChatFormatting.DARK_GREEN;
+                                }
+                            }
+                            else if(playerLevel == entityLevel){
+                                color = ChatFormatting.GRAY;
+                            }else {
+                                if(playerLevel - (playerLevel * 0.05) >= entityLevel){
+                                    color = ChatFormatting.DARK_GRAY;
+                                }else if(playerLevel - (playerLevel * 0.12) >= entityLevel && playerLevel - (playerLevel * 0.05) <= entityLevel){
+                                    color = ChatFormatting.LIGHT_PURPLE;
+                                }else if(playerLevel - (playerLevel * 0.3) >= entityLevel && playerLevel - (playerLevel * 0.12) <= entityLevel){
+                                    color = ChatFormatting.RED;
+                                }else{
+                                    color = ChatFormatting.DARK_RED;
+                                }
+                            }
+
+                            Component entityData = Component.literal("{lvl "+entityLevel+"} "+entity.getName().getString()).withStyle(color);
+
+                            setData(entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0),
+                                    entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(1.0),
+                                    entity.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.1),
+                                    entity.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0),
+                                    entityData);
+                        }
+
+
+
+
                     ModMessages.sendToServer(new EntityLifeDataSyncS2CPacket(entity.getId(), entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0)));
                     ModMessages.sendToServer(new EntityMaxLifeDataSyncS2CPacket(entity.getId(), entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(1.0)));
                 }
@@ -580,7 +613,7 @@ public class ModEvents {
                                 });
 
                                 entity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
-                                    mana.increaseMax(Math.random() + 0.1);
+                                    mana.increaseMax(0.1);
                                     ModMessages.sendToPlayer(new MaxManaDataSyncS2CPacket(mana.getMax()), (ServerPlayer) entity);
                                 });
 
@@ -712,8 +745,8 @@ public class ModEvents {
                         double difficultyXP = switch (difficulty) {
                             case PEACEFUL -> 1;
                             case EASY -> 2.3;
-                            case NORMAL -> 4.5;
-                            case HARD -> 6.5;
+                            case NORMAL -> 6.5;
+                            case HARD -> 12.5;
                         };
                             double droppedExperience = (event.getOriginalExperience()*difficultyXP)*hardcoreXP;
                             double playerLevelValue = playerLevel.get();
@@ -721,30 +754,35 @@ public class ModEvents {
                             double multiplier = 0.0;
 
                             if (playerLevelValue < targetLevelValue) {
-                                multiplier = 1 + ((targetLevelValue - playerLevelValue) / 1000.0);
-                            } else if (playerLevelValue - 10 <= targetLevelValue) {
+                                multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
+                            } else if (playerLevelValue - (playerLevelValue * 0.05) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.1) > targetLevelValue) {
                                 multiplier = 1.0;
-                            } else if (playerLevelValue - 1000 <= targetLevelValue) {
+                            } else if (playerLevelValue - (playerLevelValue * 0.1) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.25) > targetLevelValue) {
                                 multiplier = 0.75;
-                            } else if (playerLevelValue - 10000 <= targetLevelValue) {
+                            } else if (playerLevelValue - (playerLevelValue * 0.25) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.45) > targetLevelValue) {
                                 multiplier = 0.4;
-                            } else if (playerLevelValue - 20000 <= targetLevelValue) {
-                                multiplier = 0.01;
                             }
 
                             double exp = droppedExperience * targetLevelValue;
-                            customExp.add(exp * multiplier);
                             event.setDroppedExperience((int) (exp * multiplier));
-
-                            if (multiplier == 0.0) {
-                                entity.sendSystemMessage(Component.translatable(MESSAGE_LEVEL_TOO_HIGH).withStyle(ChatFormatting.DARK_RED));
-                            }else{
-                                entity.sendSystemMessage(Component.literal("Obtained experience: " + formatDouble(exp * multiplier)));
-                            }
+                        if (multiplier == 0.0) {
+                            entity.sendSystemMessage(Component.translatable(MESSAGE_LEVEL_TOO_HIGH).withStyle(ChatFormatting.DARK_RED));
+                        }
                     });
                 });
             });
         }
+    }
+    @SubscribeEvent
+    public static void onPlayerGetExperience(PlayerXpEvent.PickupXp event){
+        int xp = event.getOrb().getValue();
+        Player entity = event.getEntity();
+        
+        entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(experience ->{
+            experience.add(xp);
+        });
+
+        entity.sendSystemMessage(Component.literal("Obtained experience: " + formatDouble(xp)));
     }
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
@@ -763,8 +801,8 @@ public class ModEvents {
                         Difficulty difficulty = level.getDifficulty();
                         int difficultyLevel = switch (difficulty) {
                             case PEACEFUL -> 1;
-                            case EASY -> 3;
-                            case NORMAL -> 9;
+                            case EASY -> 2;
+                            case NORMAL -> 4;
                             case HARD -> 12;
                         };
                         int connectedPlayers = 1;
@@ -773,14 +811,19 @@ public class ModEvents {
                         }
 
                         if(livingEntity.getType() == EntityType.ENDER_DRAGON){
-                            entityClass = 50*difficultyLevel;
+                            entityClass = 100*(int)(11*difficultyLevel+bonus);
                             entityRank = 11;
                         }else if(livingEntity.getType() == EntityType.WITHER){
-                            entityClass = 25*difficultyLevel;
+                            entityClass = 50*(int)(11*difficultyLevel+bonus);
                             entityRank = 11;
                         }else{
-                            entityClass = 1;
                             entityRank = getRandomRank();
+                            if(entityRank < 10){
+                                entityClass = (int)(entityRank*difficultyLevel+bonus);
+                            }else{
+                                entityClass = 25*(int)(entityRank*difficultyLevel+bonus);
+                            }
+
                         }
 
                         int dimensionLevel = 0;
@@ -815,7 +858,8 @@ public class ModEvents {
 
 
                         livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank ->{
-                            bonus = setBonusValue(entityRank)/10;
+
+                            bonus = setBonusValue(entityRank);
 
                             rank.set(entityRank);
                             switch (rank.get()){
@@ -834,7 +878,7 @@ public class ModEvents {
                             livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(entityLevel ->{
                                 entityName = event.getEntity().getName().getString();
                                 Random random = new Random();
-                                int randomNumber = random.nextInt(10) + 1;
+                                int randomNumber = random.nextInt(random.nextInt(random.nextInt(random.nextInt(100)+1)+1)+1) + 1;
 
                                 int fnLvl = (finalLevel - lvlReduce) != 0 ? (finalLevel+entityRank*50):0;
                                 entityLevel.setLevel((fnLvl)+randomNumber);
@@ -842,10 +886,10 @@ public class ModEvents {
                                 entityLvl = fnLvl+randomNumber;
 
                                 event.getEntity().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life ->{
-                                    life.setMax((((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01))*bonus);
-                                    life.set((((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01))*bonus);
-                                    entityHealth = (((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01))*bonus;
-                                    entityMaxHealth = (((LivingEntity) event.getEntity()).getHealth()+(entityLevel.get()*0.01))*bonus;
+                                    life.setMax((((LivingEntity) event.getEntity()).getHealth()+((entityLevel.get()*0.01))*bonus));
+                                    life.set((((LivingEntity) event.getEntity()).getHealth()+((entityLevel.get()*0.01))*bonus));
+                                    entityHealth = (((LivingEntity) event.getEntity()).getHealth()+((entityLevel.get()*0.01))*bonus);
+                                    entityMaxHealth = (((LivingEntity) event.getEntity()).getHealth()+((entityLevel.get()*0.01))*bonus);
                                     if (Minecraft.getInstance().getConnection() != null) {
                                         ModMessages.sendToServer(new EntityLifeDataSyncS2CPacket(event.getEntity().getId(), entityHealth));
                                         ModMessages.sendToServer(new EntityMaxLifeDataSyncS2CPacket(event.getEntity().getId(), entityMaxHealth));
@@ -906,10 +950,18 @@ public class ModEvents {
                     if(!cLvl.hasEnteredLevel()){
                         cLvl.setEnteredWorld(true);
                 player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
+                    if(cLvl.get() > 1){
+                        double auxMP = cLvl.get()*0.1;
+                        mana.increaseMax(auxMP);
+                    }
                     ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),player);
                     ModMessages.sendToPlayer(new MaxManaDataSyncS2CPacket(mana.getMax()),player);
                 });
                 player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(stat ->{
+                    if(cLvl.get() > 1){
+                        double auxHP = cLvl.get()*0.025;
+                        stat.increaseMax(auxHP);
+                    }
                     if (Minecraft.getInstance().getConnection() != null) {
                         ModMessages.sendToServer(new EntityLifeDataSyncS2CPacket(player.getId(), player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0)));
                         ModMessages.sendToServer(new EntityMaxLifeDataSyncS2CPacket(player.getId(), player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(1.0)));
@@ -948,80 +1000,11 @@ public class ModEvents {
                     ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),player);
                 });
                     ModMessages.sendToPlayer(new CustomLevelDataSyncS2CPacket(cLvl.get()),player);
-                }});
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerLeaveLevel(EntityLeaveLevelEvent event){
-        if(!event.getLevel().isClientSide() && event.getEntity() != null){
-            if(event.getEntity() instanceof ServerPlayer player){
-                player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
-                    ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()),player);
-                    ModMessages.sendToPlayer(new MaxManaDataSyncS2CPacket(mana.getMax()),player);
-                });
-                player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(stat ->{
-                    if (Minecraft.getInstance().getConnection() != null) {
-                        ModMessages.sendToServer(new EntityLifeDataSyncS2CPacket(player.getId(), player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0)));
-                        ModMessages.sendToServer(new EntityMaxLifeDataSyncS2CPacket(player.getId(), player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(1.0)));
-                    }
-                    ModMessages.sendToPlayer(new LifeDataSyncS2CPacket(stat.get()),player);
-                    ModMessages.sendToPlayer(new MaxLifeDataSyncS2CPacket(stat.getMax()),player);
-                });
-                player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new AgilityDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new CommandDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new DefenseDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new DexterityDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new IntelligenceDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LifeRegenerationDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new LuckDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new ManaRegenerationDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new StrengthDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new ExperienceDataSyncS2CPacket(stat.get()),player);
-                });
-                player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(stat ->{
-                    ModMessages.sendToPlayer(new CustomLevelDataSyncS2CPacket(stat.get()),player);
+                }
                 });
             }
         }
     }
 
-  @SubscribeEvent
-    public static void onPlayerSave(PlayerEvent.SaveToFile event){
-        if(!event.getEntity().getLevel().isClientSide() && event.getEntity() != null){
-            if(event.getEntity() instanceof ServerPlayer player){
-
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerLoad(PlayerEvent.LoadFromFile event){
-        if(!event.getEntity().getLevel().isClientSide() && event.getEntity() != null){
-            if(event.getEntity() instanceof ServerPlayer player){
-
-            }
-        }
-    }
 
 }

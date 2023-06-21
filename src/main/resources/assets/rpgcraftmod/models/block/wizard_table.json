@@ -1,0 +1,120 @@
+{
+	"textures": {
+		"0": "rpgcraftmod:block/wizard_table_bottom",
+		"1": "rpgcraftmod:block/wizard_table_side",
+		"2": "rpgcraftmod:block/wizard_table_top",
+		"3": "rpgcraftmod:block/wizard_table_legs",
+		"particle": "rpgcraftmod:block/wizard_table_bottom"
+	},
+	"elements": [
+		{
+			"from": [12, 0, 12],
+			"to": [16, 7, 16],
+			"faces": {
+				"north": {"uv": [0.97411, 7.0185, 5.49938, 10.56473], "texture": "#3"},
+				"east": {"uv": [1.04559, 6.92478, 5.44509, 10.53269], "texture": "#3"},
+				"south": {"uv": [1.12454, 6.8656, 5.52404, 10.51541], "texture": "#3"},
+				"west": {"uv": [1.00863, 6.97904, 5.53391, 10.56473], "texture": "#3"},
+				"up": {"uv": [5.43033, 10.53268, 1.10234, 7.05302], "texture": "#3"},
+				"down": {"uv": [5.46979, 6.96178, 1.1418, 10.48089], "texture": "#3"}
+			}
+		},
+		{
+			"from": [12, 0, 0],
+			"to": [16, 7, 4],
+			"faces": {
+				"north": {"uv": [0.97411, 7.0185, 5.49938, 10.56473], "texture": "#3"},
+				"east": {"uv": [1.04559, 6.92478, 5.44509, 10.53269], "texture": "#3"},
+				"south": {"uv": [1.12454, 6.8656, 5.52404, 10.51541], "texture": "#3"},
+				"west": {"uv": [1.00863, 6.97904, 5.53391, 10.56473], "texture": "#3"},
+				"up": {"uv": [5.43033, 10.53268, 1.10234, 7.05302], "texture": "#3"},
+				"down": {"uv": [5.46979, 6.96178, 1.1418, 10.48089], "texture": "#3"}
+			}
+		},
+		{
+			"from": [0, 0, 0],
+			"to": [4, 7, 4],
+			"faces": {
+				"north": {"uv": [0.97411, 7.0185, 5.49938, 10.56473], "texture": "#3"},
+				"east": {"uv": [1.04559, 6.92478, 5.44509, 10.53269], "texture": "#3"},
+				"south": {"uv": [1.12454, 6.8656, 5.52404, 10.51541], "texture": "#3"},
+				"west": {"uv": [1.00863, 6.97904, 5.53391, 10.56473], "texture": "#3"},
+				"up": {"uv": [5.43033, 10.53268, 1.10234, 7.05302], "texture": "#3"},
+				"down": {"uv": [5.46979, 6.96178, 1.1418, 10.48089], "texture": "#3"}
+			}
+		},
+		{
+			"from": [0, 0, 12],
+			"to": [4, 7, 16],
+			"faces": {
+				"north": {"uv": [0.97411, 7.0185, 5.49938, 10.56473], "texture": "#3"},
+				"east": {"uv": [1.04559, 6.92478, 5.44509, 10.53269], "texture": "#3"},
+				"south": {"uv": [1.12454, 6.8656, 5.52404, 10.51541], "texture": "#3"},
+				"west": {"uv": [1.00863, 6.97904, 5.53391, 10.56473], "texture": "#3"},
+				"up": {"uv": [5.43033, 10.53268, 1.10234, 7.05302], "texture": "#3"},
+				"down": {"uv": [5.46979, 6.96178, 1.1418, 10.48089], "texture": "#3"}
+			}
+		},
+		{
+			"from": [0, 7, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 4, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 4, 16, 16], "texture": "#1"},
+				"south": {"uv": [0, 4, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 4, 16, 16], "texture": "#1"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#2"},
+				"down": {"uv": [16, 0, 0, 16], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"thirdperson_lefthand": {
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"firstperson_righthand": {
+			"translation": [1, 0, 0],
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"firstperson_lefthand": {
+			"translation": [1, 0, 0],
+			"scale": [0.75, 0.75, 0.75]
+		},
+		"ground": {
+			"translation": [0, -1.75, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [26, 29, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"head": {
+			"translation": [0, 5.25, 0]
+		},
+		"fixed": {
+			"rotation": [-30, 24, 0],
+			"translation": [0, 0.25, 0],
+			"scale": [0.75, 0.75, 0.75]
+		}
+	},
+	"groups": [
+		{
+			"name": "legs",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"nbt": "{}",
+			"children": [0, 1, 2, 3]
+		},
+		4,
+		{
+			"name": "tray",
+			"origin": [8, 10.5, 9],
+			"color": 0,
+			"nbt": "{}",
+			"children": []
+		}
+	]
+}

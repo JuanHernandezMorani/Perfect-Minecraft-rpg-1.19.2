@@ -8,18 +8,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class CustomLevelDataSyncS2CPacket {
-    private final double customlevel;
+    private final int customlevel;
 
-    public CustomLevelDataSyncS2CPacket(double customlevel){
+    public CustomLevelDataSyncS2CPacket(int customlevel){
         this.customlevel = customlevel;
     }
 
     public CustomLevelDataSyncS2CPacket(FriendlyByteBuf buf){
-        this.customlevel = buf.readDouble();
+        this.customlevel = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf){
-        buf.writeDouble(customlevel);
+        buf.writeInt(customlevel);
     }
 
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){

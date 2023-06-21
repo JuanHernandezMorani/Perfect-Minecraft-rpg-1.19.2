@@ -5,6 +5,7 @@ import net.cheto97.rpgcraftmod.block.custom.BlueberryCropBlock;
 import net.cheto97.rpgcraftmod.block.custom.MagicLampBlock;
 import net.cheto97.rpgcraftmod.block.custom.ManaBlock;
 import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
+import net.cheto97.rpgcraftmod.custom.WizardTableBlock;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -54,7 +55,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> bloque_mana = registerBlock("bloque_mana",
             () -> new ManaBlock(BlockBehaviour.Properties.of(Material.AMETHYST)
                     .explosionResistance(99.9f)
-                    .sound(SoundType.LARGE_AMETHYST_BUD)
+                    .sound(SoundType.MEDIUM_AMETHYST_BUD)
                     .strength(2f)
                     .requiresCorrectToolForDrops()
             ));
@@ -66,6 +67,15 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .lightLevel(state -> state.getValue(MagicLampBlock.LIT) ? 15 : 0)
             ));
+    public static final RegistryObject<Block> wizard_table = registerBlock("wizard_table",
+            () -> new WizardTableBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
+                    .explosionResistance(99.9f)
+                    .sound(SoundType.COPPER)
+                    .strength(6f)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+            ));
+
     public static final RegistryObject<Block> BLUEBERRY_CROP = BLOCKS.register("blueberry_crop",
             () -> new BlueberryCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
