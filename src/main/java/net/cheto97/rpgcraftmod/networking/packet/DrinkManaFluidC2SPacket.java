@@ -39,6 +39,7 @@ public class DrinkManaFluidC2SPacket {
             ServerPlayer player = context.getSender();
             if(player != null){
                 ServerLevel level = player.getLevel();
+
                 player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(mpRegen ->{
                     if(hasManaWell(player,level,1)){
                         player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {

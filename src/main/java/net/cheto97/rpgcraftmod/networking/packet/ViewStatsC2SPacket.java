@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.networking.packet;
 
-import net.cheto97.rpgcraftmod.client.*;
+import net.cheto97.rpgcraftmod.networking.data.*;
 
 import net.cheto97.rpgcraftmod.providers.CustomLevelProvider;
 import net.minecraft.network.FriendlyByteBuf;
@@ -33,17 +33,16 @@ public class ViewStatsC2SPacket {
             ServerPlayer player = context.getSender();
             if (player != null) {
                 player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(cLvl ->{
-                    player.sendSystemMessage(Component.literal("Level: "+ ClientCustomLevelData.getPlayerCustomLevel()+" XP needed: "+cLvl.experienceNeeded()+" XP: "+ ClientExperienceData.getPlayerExperience()));
+                    player.sendSystemMessage(Component.literal("Level: "+ ClientLevelData.getEntityId()+" XP needed: "+cLvl.experienceNeeded()+" XP: "+ ClientExperienceData.getEntityData()));
                 });
-                player.sendSystemMessage(Component.literal("Life: "+ ClientMaxLifeData.getPlayerMaxLife()+" "+"regeneration: "+ ClientLifeRegenerationData.getPlayerLifeRegeneration()));
-                player.sendSystemMessage(Component.literal("Mana: "+ClientMaxManaData.getPlayerMaxMana()+" "+"regeneration: "+ClientManaRegenerationData.getPlayerManaRegeneration()));
-                player.sendSystemMessage(Component.literal("Agility: "+ClientAgilityData.getPlayerAgility()));
-                player.sendSystemMessage(Component.literal("Command: "+ClientCommandData.getPlayerCommand()));
-                player.sendSystemMessage(Component.literal("Defense: "+ClientDefenseData.getPlayerDefense()));
-                player.sendSystemMessage(Component.literal("Dexterity: "+ClientDexterityData.getPlayerDexterity()));
-                player.sendSystemMessage(Component.literal("Intelligent: "+ClientIntelligenceData.getPlayerIntelligence()));
-                player.sendSystemMessage(Component.literal("Luck: "+ClientLuckData.getPlayerLuck()));
-                player.sendSystemMessage(Component.literal("Strength: "+ClientStrengthData.getPlayerStrength()));
+                player.sendSystemMessage(Component.literal("Life: "+ ClientLifeData.getEntityDataMax()+" "+"regeneration: "+ ClientLifeRegenerationData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Mana: "+ClientManaData.getEntityData()+" "+"regeneration: "+ClientManaRegenerationData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Agility: "+ClientAgilityData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Command: "+ClientCommandData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Defense: "+ClientDefenseData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Dexterity: "+ClientDexterityData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Intelligent: "+ClientIntelligenceData.getEntityData()));
+                player.sendSystemMessage(Component.literal("Strength: "+ClientStrengthData.getEntityData()));
             }
         });
         return true;

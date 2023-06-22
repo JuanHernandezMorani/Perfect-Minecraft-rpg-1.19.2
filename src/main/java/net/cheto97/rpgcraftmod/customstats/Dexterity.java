@@ -4,7 +4,9 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Dexterity {
     private double dexterity = 1;
-
+public Dexterity(double value){
+    set(value);
+}
     public double get(){
         return dexterity;
     }
@@ -13,6 +15,9 @@ public class Dexterity {
     }
     public void add(){
         dexterity++;
+    }
+    public void set(double value){
+        this.dexterity = value;
     }
     public void resetStat(){
         dexterity = 1;

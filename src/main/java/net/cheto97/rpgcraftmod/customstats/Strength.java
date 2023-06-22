@@ -4,18 +4,22 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Strength {
     private double strength = 1;
-    private final double MIN_STRENGTH_VALUE = 1;
+    public Strength(double value){
+        set(value);
+    }
 
     public double get(){
         return strength;
     }
     public double getMin(){
-        return MIN_STRENGTH_VALUE;
+        return 1;
     }
     public void resetStat(){
         strength = 1;
     }
-
+    public void set(double value){
+        this.strength = value;
+    }
     public void add(){
         this.strength++;
     }

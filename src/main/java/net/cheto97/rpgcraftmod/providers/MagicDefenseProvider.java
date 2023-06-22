@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.providers;
 
-import net.cheto97.rpgcraftmod.customstats.Agility;
+import net.cheto97.rpgcraftmod.customstats.MagicDefense;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,36 +15,32 @@ import org.jetbrains.annotations.Nullable;
 
 import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenerator;
 
-public class AgilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<Agility> ENTITY_AGILITY = CapabilityManager.get(new CapabilityToken<Agility>() {});
+public class MagicDefenseProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
     private final LivingEntity entity;
-
-    public AgilityProvider(LivingEntity entity){
-        this.entity = entity;
-    }
-
-    private Agility agility = null;
-    private final LazyOptional<Agility> optional = LazyOptional.of(this::createAgility);
-
-    private Agility createAgility() {
-        if(this.agility == null && entity != null){
-            createAgility(entity);
+   public MagicDefenseProvider(LivingEntity entity){
+       this.entity = entity;
+   }
+    
+    public static Capability<MagicDefense> ENTITY_MAGIC_DEFENSE = CapabilityManager.get(new CapabilityToken<MagicDefense>() {});
+    private  MagicDefense magicDefense = null;
+    private final LazyOptional< MagicDefense> optional = LazyOptional.of(this::createMagicDefense);
+    private MagicDefense createMagicDefense(){
+        if(this.magicDefense == null) {
+            createMagicDefense(entity);
         }
-
-        return this.agility;
+        return this.magicDefense;
     }
-
-    private Agility createAgility(LivingEntity entity) {
-        if(this.agility == null){
-            this.agility = new Agility(DoubleGenerator("Agility",entity));
+    private MagicDefense createMagicDefense(LivingEntity entity) {
+        if(this.magicDefense == null && entity != null){
+            this.magicDefense = new  MagicDefense(DoubleGenerator("MagicDefense",entity));
         }
-
-        return this.agility;
+        return this.magicDefense;
     }
+
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ENTITY_AGILITY){
+        if(cap == ENTITY_MAGIC_DEFENSE){
             return optional.cast();
         }
 
@@ -54,12 +50,12 @@ public class AgilityProvider implements ICapabilityProvider, INBTSerializable<Co
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createAgility(entity).saveNBTData(nbt);
+        createMagicDefense(entity).saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createAgility(entity).loadNBTData(nbt);
+        createMagicDefense(entity).loadNBTData(nbt);
     }
 }

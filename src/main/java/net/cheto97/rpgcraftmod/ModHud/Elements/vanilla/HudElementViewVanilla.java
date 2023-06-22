@@ -2,11 +2,8 @@ package net.cheto97.rpgcraftmod.ModHud.Elements.vanilla;
 
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 import static net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.INVENTORY_LOCATION;
-import static net.minecraft.world.level.ClipContext.Block.OUTLINE;
-import static net.minecraft.world.level.ClipContext.Fluid.NONE;
 
 import java.util.Collection;
-import java.util.List;
 
 import com.google.common.collect.Ordering;
 import com.mojang.blaze3d.platform.Lighting;
@@ -19,9 +16,15 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.client.ClientCustomLevelData;
+import net.cheto97.rpgcraftmod.customstats.Defense;
+import net.cheto97.rpgcraftmod.customstats.Life;
+import net.cheto97.rpgcraftmod.customstats.Rank;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.providers.CustomLevelProvider;
+import net.cheto97.rpgcraftmod.providers.DefenseProvider;
+import net.cheto97.rpgcraftmod.providers.LifeProvider;
+import net.cheto97.rpgcraftmod.providers.RankProvider;
+import net.cheto97.rpgcraftmod.util.RayTrace;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -29,36 +32,20 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 
 public class HudElementViewVanilla extends HudElement {
-    static public double focusedLife;
-    static public double focusedMaxLife;
-    static public int focusedId;
-    static public double focusedArmor;
-    static public Component focusedName;
-    static public String focusedRank;
-    static public int playerLevel = ClientCustomLevelData.getPlayerCustomLevel();
-    static private boolean inVertical = false;
-    static private ChatFormatting rankColor;
     static private boolean infinite = false;
-
+    static private final RayTrace TRACE = new RayTrace();
 
     protected static final ResourceLocation DAMAGE_INDICATOR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/view_hud.png");
     protected static final ResourceLocation HEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/health_bar.png");
@@ -72,17 +59,67 @@ public class HudElementViewVanilla extends HudElement {
     public boolean checkConditions() {
         return this.settings.getBoolValue(Settings.enable_view);
     }
-
     public HudElementViewVanilla() {
         super(HudType.VIEW, 0, 0, 0, 0, true);
     }
-
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         assert this.mc.player != null;
-        LivingEntity focused = getFocusedEntity(this.mc.player);
+        LivingEntity focused = TRACE.getEntityInCrosshair(partialTicks,16);
+        Player player = this.mc.player;
         if(focused != null) {
-            setIdData(focused.getId());
+            int playerLevel = player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
+            double focusedLife = focused.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0);
+            double focusedMaxLife = focused.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0);
+            double focusedArmor = focused.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.1);
+            int entityLevel = focused.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
+            int rank = focused.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0);
+            String focusedRank;
+
+            ChatFormatting rankColor = setColor(rank);
+            switch (rank){
+                case 1 -> focusedRank = "Common";
+                case 2 -> focusedRank = "Elite";
+                case 3 -> focusedRank = "Brutal";
+                case 4 -> focusedRank = "Champion";
+                case 5 -> focusedRank = "Hero";
+                case 6 -> focusedRank = "Demon";
+                case 7 -> focusedRank = "Legendary";
+                case 8 -> focusedRank = "Mythical";
+                case 9 -> focusedRank = "Unique";
+                case 10 -> focusedRank = "Semi Boss";
+                case 11 -> focusedRank = "Boss";
+                default -> focusedRank = "NULL";
+            }
+
+            ChatFormatting color;
+
+            if(playerLevel > entityLevel){
+                if(playerLevel - (playerLevel * 0.05) <= entityLevel){
+                    color = ChatFormatting.AQUA;
+                }else if(playerLevel - (playerLevel * 0.12) <= entityLevel && playerLevel - (playerLevel * 0.05) >= entityLevel){
+                    color = ChatFormatting.DARK_AQUA;
+                }else if(playerLevel - (playerLevel * 0.3) <= entityLevel && playerLevel - (playerLevel * 0.12) >= entityLevel){
+                    color = ChatFormatting.GREEN;
+                }else{
+                    color = ChatFormatting.DARK_GREEN;
+                }
+            }
+            else if(playerLevel == entityLevel){
+                color = ChatFormatting.GRAY;
+            }else {
+                if(playerLevel - (playerLevel * 0.05) >= entityLevel){
+                    color = ChatFormatting.DARK_GRAY;
+                }else if(playerLevel - (playerLevel * 0.12) >= entityLevel && playerLevel - (playerLevel * 0.05) <= entityLevel){
+                    color = ChatFormatting.LIGHT_PURPLE;
+                }else if(playerLevel - (playerLevel * 0.3) >= entityLevel && playerLevel - (playerLevel * 0.12) <= entityLevel){
+                    color = ChatFormatting.RED;
+                }else{
+                    color = ChatFormatting.DARK_RED;
+                }
+            }
+            Component focusedName = Component.literal("{lvl "+entityLevel+"} "+focused.getName().getString()).withStyle(color);
+
             int posX = (scaledWidth / 2) + this.settings.getPositionValue(Settings.inspector_position)[0];
             int posY = 20 + this.settings.getPositionValue(Settings.inspector_position)[1];
             bind(DAMAGE_INDICATOR);
@@ -112,14 +149,13 @@ public class HudElementViewVanilla extends HudElement {
             Gui.drawCenteredString(ms, this.mc.font, stringLife, (posX - 27 + 44) * 2, (36 + posY) * 2, -1);
             ms.scale(2f, 2f, 2f);
 
-            int x = (posX - 29 + 44 - (focusedName.getString().length() / 2));
+            int x = (posX - 29 + 44 - (focused.getName().getString().length() / 2));
             int y = 25 + posY;
 
-            Component entityName = focusedName;
             Component entityRank = Component.literal("["+focusedRank+"]").withStyle(rankColor);
 
             Gui.drawCenteredString(ms,this.mc.font,entityRank,x+10,y-10,-1);
-            Gui.drawCenteredString(ms,this.mc.font,entityName,x+10,y,-1);
+            Gui.drawCenteredString(ms,this.mc.font, focusedName,x+10,y,-1);
 
             drawEntityOnScreen(posX - 44, 49 + posY, focused);
 
@@ -158,25 +194,11 @@ public class HudElementViewVanilla extends HudElement {
 
                         if(effect.isBeneficial()) {
                             ++i;
-                            if(inVertical) {
-                                k -= 25;
-                                l += 25 * (i - 1);
-                            } else {
                                 k += 25 * i;
-                            }
-
-
                         } else {
                             ++j;
-                            if(inVertical) {
-                                k -= 50;
-                                l += 25 * (j - 1);
-
-                            } else {
                                 k += 25 * j;
                                 l += 25;
-                            }
-
                         }
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         float f = 1.0F;
@@ -202,7 +224,7 @@ public class HudElementViewVanilla extends HudElement {
                             String s;
                             if(effectinstance.getDuration() < 999500 && !infinite){
                                 s = "*:**";
-                                if(duration < 600) s = String.valueOf(duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60)));
+                                if(duration < 600) s = duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60));
                             }else{
                                 s = "∞";
                                 infinite = true;
@@ -213,52 +235,14 @@ public class HudElementViewVanilla extends HudElement {
                     }
                 }
             }
-
-
         }
     }
-
-    public static void setIdData(int id){
-        focusedId = id;
-    }
-
-    public static int getIdData(){
-        return focusedId;
-    }
-    public static int getPlayerLevel(){
-        return playerLevel;
-    }
-    public static void setData(double lifeData, double lifeMaxData, double armorData,int rank ,Component nameData){
-        focusedLife = lifeData;
-        focusedMaxLife = lifeMaxData;
-        focusedArmor = armorData;
-        rankColor = setColor(rank);
-        switch (rank){
-            case 0 -> focusedRank = "NULL";
-            case 1 -> focusedRank = "Common";
-            case 2 -> focusedRank = "Elite";
-            case 3 -> focusedRank = "Brutal";
-            case 4 -> focusedRank = "Champion";
-            case 5 -> focusedRank = "Hero";
-            case 6 -> focusedRank = "Demon";
-            case 7 -> focusedRank = "Legendary";
-            case 8 -> focusedRank = "Mythical";
-            case 9 -> focusedRank = "Unique";
-            case 10 -> focusedRank = "Semi Boss";
-            case 11 -> focusedRank = "Boss";
-        }
-        focusedName = nameData;
-    }
-
     public static void drawEntityOnScreen(int posX, int posY, LivingEntity entity) {
-        int scale = 1;
+        int scale;
         int s1 = (int) (18 / entity.getBbHeight());
         int s3 = (int) (18 / entity.getScale());
         int offset = 0;
-        if(s1 > s3) {
-            scale = s3;
-        } else
-            scale = s1;
+        scale = Math.min(s1, s3);
 
         if(entity instanceof Squid) {
             scale = 11;
@@ -318,55 +302,6 @@ public class HudElementViewVanilla extends HudElement {
         RenderSystem.applyModelViewMatrix();
         Lighting.setupFor3DItems();
     }
-
-    public static LivingEntity getFocusedEntity(Entity watcher) {
-        LivingEntity focusedEntity = null;
-        double maxDistance = 64;
-        Vec3 vec = new Vec3(watcher.getX(), watcher.getY(), watcher.getZ());
-        Vec3 posVec = watcher.position();
-        if(watcher instanceof Player) {
-            vec = vec.add(0D, watcher.getEyeHeight(), 0D);
-            posVec = posVec.add(0D, watcher.getEyeHeight(), 0D);
-        }
-
-        Vec3 lookVec = Vec3.directionFromRotation(watcher.getRotationVector());
-        Vec3 vec2 = vec.add(lookVec.normalize().multiply(maxDistance,maxDistance,maxDistance));
-
-        BlockHitResult ray = watcher.level
-                .clip(new ClipContext(vec, vec2, OUTLINE, NONE, watcher));
-
-        double distance = maxDistance;
-        if(ray != null) {
-            distance = ray.getBlockPos().distSqr(new Vec3i(posVec.x,posVec.y,posVec.z));
-        }
-        Vec3 reachVector = posVec.add(lookVec.x * maxDistance, lookVec.y * maxDistance, lookVec.z * maxDistance);
-
-        double currentDistance = distance;
-
-        List<Entity> entitiesWithinMaxDistance = watcher.level.getEntities(watcher,
-                watcher.getBoundingBox().expandTowards(lookVec.x * maxDistance, lookVec.y * maxDistance, lookVec.z * maxDistance).expandTowards(1, 1, 1));
-        for(Entity entity : entitiesWithinMaxDistance) {
-            if(entity instanceof LivingEntity) {
-                float collisionBorderSize = entity.getPickRadius();
-                AABB hitBox = entity.getBoundingBox().expandTowards(collisionBorderSize, collisionBorderSize, collisionBorderSize);
-                Vec3 hitVecIn = intercept(posVec, reachVector, hitBox);
-                if(hitBox.contains(posVec)) {
-                    if(currentDistance <= 0D) {
-                        currentDistance = 0;
-                        focusedEntity = (LivingEntity) entity;
-                    }
-                } else if(hitVecIn != null) {
-                    Vec3 hitVec = new Vec3(hitVecIn.x, hitVecIn.y, hitVecIn.z);
-                    double distanceToEntity = posVec.distanceTo(hitVec);
-                    if(distanceToEntity <= currentDistance) {
-                        currentDistance = distanceToEntity;
-                        focusedEntity = (LivingEntity) entity;
-                    }
-                }
-            }
-        }
-        return focusedEntity;
-    }
     private static ChatFormatting setColor(int rank){
         ChatFormatting result = ChatFormatting.GRAY;
         switch (rank){
@@ -384,65 +319,6 @@ public class HudElementViewVanilla extends HudElement {
             case 11 -> result = ChatFormatting.DARK_PURPLE;
         }
         return result;
-    }
-
-    public static Vec3 intercept(Vec3 vecA, Vec3 vecB, AABB bb) {
-        double[] adouble = new double[] { 1.0D };
-        Direction enumfacing = null;
-        double d0 = vecB.x - vecA.x;
-        double d1 = vecB.y - vecA.y;
-        double d2 = vecB.z - vecA.z;
-        enumfacing = func_197741_a(bb, vecA, adouble, enumfacing, d0, d1, d2);
-        if(enumfacing == null) {
-            return null;
-        } else {
-            double d3 = adouble[0];
-            return vecA.add(d3 * d0, d3 * d1, d3 * d2);
-        }
-    }
-
-    private static Direction func_197741_a(AABB aabb, Vec3 p_197741_1_, double[] p_197741_2_, Direction facing, double p_197741_4_,
-                                           double p_197741_6_, double p_197741_8_) {
-        if(p_197741_4_ > 1.0E-7D) {
-            facing = func_197740_a(p_197741_2_, facing, p_197741_4_, p_197741_6_, p_197741_8_, aabb.minX, aabb.minY, aabb.maxY, aabb.minZ, aabb.maxZ, Direction.WEST,
-                    p_197741_1_.x, p_197741_1_.y, p_197741_1_.z);
-        } else if(p_197741_4_ < -1.0E-7D) {
-            facing = func_197740_a(p_197741_2_, facing, p_197741_4_, p_197741_6_, p_197741_8_, aabb.maxX, aabb.minY, aabb.maxY, aabb.minZ, aabb.maxZ, Direction.EAST,
-                    p_197741_1_.x, p_197741_1_.y, p_197741_1_.z);
-        }
-
-        if(p_197741_6_ > 1.0E-7D) {
-            facing = func_197740_a(p_197741_2_, facing, p_197741_6_, p_197741_8_, p_197741_4_, aabb.minY, aabb.minZ, aabb.maxZ, aabb.minX, aabb.maxX, Direction.DOWN,
-                    p_197741_1_.y, p_197741_1_.z, p_197741_1_.x);
-        } else if(p_197741_6_ < -1.0E-7D) {
-            facing = func_197740_a(p_197741_2_, facing, p_197741_6_, p_197741_8_, p_197741_4_, aabb.maxY, aabb.minZ, aabb.maxZ, aabb.minX, aabb.maxX, Direction.UP,
-                    p_197741_1_.y, p_197741_1_.z, p_197741_1_.x);
-        }
-
-        if(p_197741_8_ > 1.0E-7D) {
-            facing = func_197740_a(p_197741_2_, facing, p_197741_8_, p_197741_4_, p_197741_6_, aabb.minZ, aabb.minX, aabb.maxX, aabb.minY, aabb.maxY,
-                    Direction.NORTH, p_197741_1_.z, p_197741_1_.x, p_197741_1_.y);
-        } else if(p_197741_8_ < -1.0E-7D) {
-            facing = func_197740_a(p_197741_2_, facing, p_197741_8_, p_197741_4_, p_197741_6_, aabb.maxZ, aabb.minX, aabb.maxX, aabb.minY, aabb.maxY,
-                    Direction.SOUTH, p_197741_1_.z, p_197741_1_.x, p_197741_1_.y);
-        }
-
-        return facing;
-    }
-
-    private static Direction func_197740_a(double[] p_197740_0_, Direction p_197740_1_, double p_197740_2_, double p_197740_4_, double p_197740_6_,
-                                           double p_197740_8_, double p_197740_10_, double p_197740_12_, double p_197740_14_, double p_197740_16_, Direction p_197740_18_, double p_197740_19_,
-                                           double p_197740_21_, double p_197740_23_) {
-        double d0 = (p_197740_8_ - p_197740_19_) / p_197740_2_;
-        double d1 = p_197740_21_ + d0 * p_197740_4_;
-        double d2 = p_197740_23_ + d0 * p_197740_6_;
-        if(0.0D < d0 && d0 < p_197740_0_[0] && p_197740_10_ - 1.0E-7D < d1 && d1 < p_197740_12_ + 1.0E-7D && p_197740_14_ - 1.0E-7D < d2
-                && d2 < p_197740_16_ + 1.0E-7D) {
-            p_197740_0_[0] = d0;
-            return p_197740_18_;
-        } else {
-            return p_197740_1_;
-        }
     }
 
 }

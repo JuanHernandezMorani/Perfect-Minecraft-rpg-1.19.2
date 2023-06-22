@@ -9,6 +9,10 @@ public class Customlevel {
 
     private int resetLevel = 0;
 
+    public Customlevel(int value){
+        setLevel(value);
+    }
+
     public int get(){
         return customlevel;
     }

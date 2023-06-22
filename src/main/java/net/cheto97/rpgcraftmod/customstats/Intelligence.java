@@ -4,12 +4,17 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Intelligence {
     private double intelligence = 1;
-
+public Intelligence(double value){
+    set(value);
+}
     public double get(){
         return intelligence;
     }
     public double getMin(){
         return 0;
+    }
+    public void set(double value){
+        this.intelligence = value;
     }
     public void resetStat(){
         intelligence = 1;

@@ -4,22 +4,20 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Life {
     private double life = 20;
-    private final double MIN_LIFE_VALUE = 0;
     private double MAX_LIFE_VALUE = 20;
-
+public Life(double value){
+    set(value);
+}
     public double get(){
         return life;
     }
     public double getMax(){
         return MAX_LIFE_VALUE;
     }
-    public void setMax(double value){MAX_LIFE_VALUE = value;}
-    public double getMin(){
-        return MIN_LIFE_VALUE;
-    }
     public void set(double value){
         life = value;
     }
+    public void setMax(double value){MAX_LIFE_VALUE = value;}
     public void increaseMax(double value){
         MAX_LIFE_VALUE = MAX_LIFE_VALUE + value;
     }
@@ -50,8 +48,8 @@ public class Life {
     }
     public void consumeLife(double value){
         double check = life - value;
-        if(check < MIN_LIFE_VALUE){
-            check = MIN_LIFE_VALUE;
+        if(check < 0){
+            check = 0;
         }
         this.life = check;
     }

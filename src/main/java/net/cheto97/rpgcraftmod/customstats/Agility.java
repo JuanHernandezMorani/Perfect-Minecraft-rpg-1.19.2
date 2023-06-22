@@ -4,6 +4,10 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Agility {
     private double agility = 1;
+
+    public Agility(double value){
+        set(value);
+    }
     public double get(){
         return agility;
     }
@@ -12,6 +16,9 @@ public class Agility {
     }
     public void add(){
         agility++;
+    }
+    public void set(double value){
+        this.agility = value;
     }
     public void resetStat(){
         agility = 1;

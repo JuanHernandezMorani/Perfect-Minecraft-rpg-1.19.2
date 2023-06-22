@@ -4,7 +4,9 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Defense {
     private double defense = 1;
-
+    public Defense(double value){
+        set(value);
+    }
     public double get(){
         return defense;
     }
@@ -16,6 +18,9 @@ public class Defense {
     }
     public void add(double value){
        this.defense =  this.defense + value;
+    }
+    public void set(double value){
+        this.defense = value;
     }
     public void add(){
         this.defense++;
