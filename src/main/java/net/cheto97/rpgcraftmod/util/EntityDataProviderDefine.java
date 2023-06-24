@@ -46,6 +46,9 @@ public class EntityDataProviderDefine {
             case "Strength" ->{
                 return GenerateStrength(data);
             }
+            case "ExperienceReward"->{
+                return GenerateExperienceReward(data);
+            }
         }
         return 0;
     }
@@ -54,139 +57,156 @@ public class EntityDataProviderDefine {
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
-        double res = 1 * random.nextDouble(bonusLevel*0.01);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
+        double res = 1 + 1 * random.nextDouble(bonusLevel*0.01);
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateCommand(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateDefense(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.0052);
     }
     private static double GenerateDexterity(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateMagicDefense(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.0052);
     }
     private static double GenerateIntelligence(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateLife(LivingEntity data){
         if(data instanceof Player){
             return 20;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.035) + data.getMaxHealth() + data.getAbsorptionAmount();
     }
     private static double GenerateLifeRegeneration(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.00002);
     }
     private static double GenerateMana(LivingEntity data){
         if(data instanceof Player){
             return 10;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.065);
     }
     private static double GenerateManaRegeneration(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
         return res + bonusRank*(bonusLevel*0.0000856);
     }
     private static double GenerateStrength(LivingEntity data){
         if(data instanceof Player){
             return 1;
         }
-        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).isPresent() ? data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1) : 0;
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).isPresent() ? data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1): 0;
         double extra = bonusLevel*0.01;
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble(extra);
+        double res = 1 * random.nextDouble((int)(extra+1));
+        return res + bonusRank*(bonusLevel*0.0002);
+    }
+    private static double GenerateExperienceReward(LivingEntity data){
+        if(data instanceof Player){
+            return 0;
+        }
+        int bonusLevel = data.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
+        int bonusRank = data.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
+        int exp = data.getExperienceReward();
+        double extra = bonusLevel*0.01;
+        if(extra < 1){
+            extra = extra + 1;
+        }
+        double res = 1 * random.nextDouble((int)(extra+1))+exp;
+        if(res < 0){
+            res = 1;
+        }
         return res + bonusRank*(bonusLevel*0.0002);
     }
 }

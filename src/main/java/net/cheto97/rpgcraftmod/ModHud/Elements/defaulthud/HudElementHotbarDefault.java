@@ -25,17 +25,17 @@ public class HudElementHotbarDefault extends HudElement {
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
+        assert this.mc.gameMode != null;
         if (this.mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
             this.mc.gui.getSpectatorGui().renderHotbar(ms);
         else if (this.mc.getCameraEntity() instanceof Player) {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             bind(WIDGETS_TEX_PATH);
+            assert this.mc.player != null;
             ItemStack itemstack = this.mc.player.getOffhandItem();
             HumanoidArm arm = this.mc.player.getMainArm().getOpposite();
             int i = scaledWidth / 2 + this.settings.getPositionValue(Settings.hotbar_position)[0];
             int posY = this.settings.getPositionValue(Settings.hotbar_position)[1] + this.offset - 15;
-            float f = zLevel;
-            zLevel = -90.0F;
             gui.blit(ms, i - 91, scaledHeight - 22 + posY, 0, 0, 182, 22);
             gui.blit(ms, i - 91 - 1 + this.mc.player.getInventory().selected * 20, scaledHeight - 22 + posY - 1, 0, 22, 24, 22);
             if (!itemstack.isEmpty())
@@ -44,7 +44,6 @@ public class HudElementHotbarDefault extends HudElement {
                 else
                     gui.blit(ms, i + 91, scaledHeight - 23 + posY, 53, 22, 29, 24);
 
-            zLevel = f;
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 

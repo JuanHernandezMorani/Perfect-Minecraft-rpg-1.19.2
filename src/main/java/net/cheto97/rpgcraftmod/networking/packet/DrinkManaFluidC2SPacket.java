@@ -1,10 +1,13 @@
 package net.cheto97.rpgcraftmod.networking.packet;
 
 import net.cheto97.rpgcraftmod.block.ModBlocks;
+import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
+import net.cheto97.rpgcraftmod.providers.CustomLevelProvider;
 import net.cheto97.rpgcraftmod.providers.ManaProvider;
 import net.cheto97.rpgcraftmod.providers.ManaRegenerationProvider;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -39,6 +42,7 @@ public class DrinkManaFluidC2SPacket {
             ServerPlayer player = context.getSender();
             if(player != null){
                 ServerLevel level = player.getLevel();
+                BlockPos pos = new BlockPos(player.getBlockX(),player.getBlockY(),player.getBlockZ());
 
                 player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(mpRegen ->{
                     if(hasManaWell(player,level,1)){
@@ -48,19 +52,31 @@ public class DrinkManaFluidC2SPacket {
 
                                 level.playSound(null, player.getOnPos(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
 
-                                mana.add(mpRegen.get()*7);
+                                mana.add(mpRegen.get()*7+(player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1)*0.0025));
 
-                                ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()), player);
+                                ModMessages.sendToPlayer(new PlayerSyncPacket(player.getId(),
+                                        -1,pos,-1,-1,mana.get(),-1,-1,
+                                        -1,-1,-1,-1,
+                                        -1,-1, -1,-1,
+                                        -1),player);
                             }else{
                                 player.sendSystemMessage(Component.literal("Your mana is full").withStyle(ChatFormatting.AQUA));
-                                ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()), player);
+                                ModMessages.sendToPlayer(new PlayerSyncPacket(player.getId(),
+                                        -1,pos,-1,-1,mana.get(),-1,-1,
+                                        -1,-1,-1,-1,
+                                        -1,-1, -1,-1,
+                                        -1),player);
                             }
 
                         });
                     }else{
                         player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                             player.sendSystemMessage(Component.translatable(MESSAGE_NO_MANA_FLUID_NEAR).withStyle(ChatFormatting.RED));
-                            ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.get()), player);
+                            ModMessages.sendToPlayer(new PlayerSyncPacket(player.getId(),
+                                    -1,pos,-1,-1,mana.get(),-1,-1,
+                                    -1,-1,-1,-1,
+                                    -1,-1, -1,-1,
+                                    -1),player);
                         });
                     }
                 });

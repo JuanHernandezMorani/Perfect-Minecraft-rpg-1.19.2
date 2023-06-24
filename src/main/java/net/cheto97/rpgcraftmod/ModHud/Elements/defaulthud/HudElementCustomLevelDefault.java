@@ -22,6 +22,7 @@ public class HudElementCustomLevelDefault extends HudElement {
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         RenderSystem.enableBlend();
+        assert this.mc.player != null;
         String level = String.valueOf(this.mc.player.experienceLevel);
         Gui.drawString(ms, this.mc.font, level, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 12) - (this.mc.font.width(level) / 2) + this.settings.getPositionValue(Settings.rpglevel_position)[0], (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 14) + this.settings.getPositionValue(Settings.rpglevel_position)[1], 0x80FF20);
         RenderSystem.disableBlend();

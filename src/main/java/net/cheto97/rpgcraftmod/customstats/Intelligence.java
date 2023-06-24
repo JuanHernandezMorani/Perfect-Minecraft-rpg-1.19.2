@@ -4,9 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Intelligence {
     private double intelligence = 1;
-public Intelligence(double value){
-    set(value);
-}
     public double get(){
         return intelligence;
     }

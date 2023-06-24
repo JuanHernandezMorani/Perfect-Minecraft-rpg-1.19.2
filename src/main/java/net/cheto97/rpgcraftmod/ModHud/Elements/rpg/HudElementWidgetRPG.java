@@ -26,6 +26,7 @@ public class HudElementWidgetRPG extends HudElement {
         bind(INTERFACE);
         int posY = this.settings.getPositionValue(Settings.widget_position)[1];
         gui.blit(ms,posX + (this.settings.getBoolValue(Settings.render_player_face) ? 50 : 26), posY + (this.settings.getBoolValue(Settings.render_player_face) ? 4 : 0), 0, 35, 114, 44);
+        assert this.mc.player != null;
         if (this.mc.player.getVehicle() instanceof LivingEntity) {
             gui.blit(ms,posX + (this.settings.getBoolValue(Settings.render_player_face) ? 51 : 23), posY + (this.settings.getBoolValue(Settings.render_player_face) ? 44 : 39), 164, 0, 92, 20);
         }

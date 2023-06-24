@@ -9,88 +9,98 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class PlayerSyncPacket {
-    private int id = -1;
-    private int level = -1;
-    private BlockPos pos = null;
-    private String name = null;
-    private double life = -1;
-    private double lifeMax = -1;
-    private double lifeRegeneration = -1;
-    private double mana = -1;
-    private double manaMax = -1;
-    private double manaRegeneration = -1;
-    private double intelligence = -1;
-    private double agility = -1;
-    private double strength = -1;
-    private double command = -1;
-    private double dexterity = -1;
-    private double defense = -1;
-    private double magicDefense = -1;
-    private double experience = -1;
+    private int id;
+    private int level;
+    private BlockPos pos;
+    private double life ;
+    private double lifeMax;
+    private double lifeRegeneration;
+    private double mana;
+    private double manaMax;
+    private double manaRegeneration;
+    private double intelligence;
+    private double agility;
+    private double strength;
+    private double command;
+    private double dexterity;
+    private double defense;
+    private double magicDefense;
+    private double experience;
 
-    public PlayerSyncPacket(String name,int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
+
+    public PlayerSyncPacket(int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
                             double experience){
-        if(name != null){
-            this.name = name;
-        }
-        if(id != -1){
+        if(id >= 0){
             this.id = id;
         }
-        if(level != -1){
+
+        if(level >= 0){
             this.level = level;
         }
+
         if(pos != null){
             this.pos = pos;
         }
-        if(life != -1){
+
+        if(life >= 0){
             this.life = life;
         }
-        if(lifeMax != -1){
+
+        if(lifeMax >= 0){
             this.lifeMax = lifeMax;
         }
-        if(lifeRegeneration != -1){
+
+        if(lifeRegeneration >= 0){
             this.lifeRegeneration = lifeRegeneration;
         }
-        if(mana != -1){
+
+        if(mana >= 0){
             this.mana = mana;
         }
-        if(manaMax != -1){
+
+        if(manaMax >= 0){
             this.manaMax = manaMax;
         }
-        if(manaRegeneration != -1){
+
+        if(manaRegeneration >= 0){
             this.manaRegeneration = manaRegeneration;
         }
-        if(agility != -1){
+
+        if(agility >= 0){
             this.agility = agility;
         }
-        if(command != -1){
+
+        if(command >= 0){
             this.command = command;
         }
-        if(defense != -1){
+
+        if(defense >= 0){
             this.defense = defense;
         }
-        if(magicDefense != -1){
+
+        if(magicDefense >= 0){
             this.magicDefense = magicDefense;
         }
-        if(dexterity != -1){
+
+        if(dexterity >= 0){
             this.dexterity = dexterity;
         }
-        if(intelligence != -1){
+
+        if(intelligence >= 0){
             this.intelligence = intelligence;
         }
-        if(strength != -1){
+
+        if(strength >= 0){
             this.strength = strength;
         }
-        if(experience != -1){
+        if(experience >= 0){
             this.experience = experience;
         }
-        
     }
 
     public PlayerSyncPacket(FriendlyByteBuf buf){
-        this.name = buf.readUtf();
         this.id = buf.readInt();
         this.level = buf.readInt();
         this.pos = buf.readBlockPos();
@@ -111,7 +121,6 @@ public class PlayerSyncPacket {
     }
 
     public void toBytes(FriendlyByteBuf buf){
-        buf.writeUtf(name);
         buf.writeInt(id);
         buf.writeInt(level);
         buf.writeBlockPos(pos);
@@ -134,38 +143,23 @@ public class PlayerSyncPacket {
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientPosData.set(pos);
-            ClientPosData.setId(id);
-            ClientLevelData.set(level);
-            ClientLevelData.setId(id);
-            ClientNameData.set(name);
-            ClientNameData.setId(id);
-            ClientLifeData.set(life);
-            ClientLifeData.setMax(lifeMax);
-            ClientLifeData.setId(id);
-            ClientLifeRegenerationData.set(lifeRegeneration);
-            ClientLifeRegenerationData.setId(id);
-            ClientManaData.set(mana);
-            ClientManaData.setMax(manaMax);
-            ClientManaData.setId(id);
-            ClientManaRegenerationData.set(manaRegeneration);
-            ClientManaRegenerationData.setId(id);
-            ClientAgilityData.set(agility);
-            ClientAgilityData.setId(id);
-            ClientDexterityData.set(dexterity);
-            ClientDexterityData.setId(id);
-            ClientDefenseData.set(defense);
-            ClientDefenseData.setId(id);
-            ClientMagicDefenseData.set(magicDefense);
-            ClientMagicDefenseData.setId(id);
-            ClientIntelligenceData.set(intelligence);
-            ClientIntelligenceData.setId(id);
-            ClientCommandData.set(command);
-            ClientCommandData.setId(id);
-            ClientStrengthData.set(strength);
-            ClientStrengthData.setId(id);
-            ClientExperienceData.set(experience);
-            ClientExperienceData.setId(id);
+            PlayerData.setPlayerId(id);
+            PlayerData.setPlayerLevel(level);
+            PlayerData.setPlayerPos(pos);
+            PlayerData.setPlayerLife(life);
+            PlayerData.setPlayerLifeMax(lifeMax);
+            PlayerData.setPlayerLifeRegeneration(lifeRegeneration);
+            PlayerData.setPlayerMana(mana);
+            PlayerData.setPlayerManaMax(manaMax);
+            PlayerData.setPlayerManaRegeneration(manaRegeneration);
+            PlayerData.setPlayerAgility(agility);
+            PlayerData.setPlayerCommand(command);
+            PlayerData.setPlayerDefense(defense);
+            PlayerData.setPlayerMagicDefense(magicDefense);
+            PlayerData.setPlayerDexterity(dexterity);
+            PlayerData.setPlayerIntelligence(intelligence);
+            PlayerData.setPlayerStrength(strength);
+            PlayerData.setPlayerExperience(experience);
         });
         return true;
     }

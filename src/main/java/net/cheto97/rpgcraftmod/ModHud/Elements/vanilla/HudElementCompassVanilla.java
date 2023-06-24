@@ -17,7 +17,10 @@ public class HudElementCompassVanilla extends HudElement {
 
     @Override
     public boolean checkConditions() {
-        return this.settings.getBoolValue(Settings.enable_compass) && (this.settings.getBoolValue(Settings.enable_immersive_compass) ? this.mc.player.getInventory().contains(new ItemStack(Items.COMPASS)) : true);
+        if (!this.settings.getBoolValue(Settings.enable_compass)) return false;
+        if (!this.settings.getBoolValue(Settings.enable_immersive_compass)) return true;
+        assert this.mc.player != null;
+        return this.mc.player.getInventory().contains(new ItemStack(Items.COMPASS));
     }
 
     @Override
@@ -84,6 +87,7 @@ public class HudElementCompassVanilla extends HudElement {
     public static int[] getPlayerPos() {
         Minecraft mc = Minecraft.getInstance();
         int[] pos = new int[3];
+        assert mc.player != null;
         pos[0] = (int) mc.player.getX();
         pos[1] = (int) mc.player.getY();
         pos[2] = (int) mc.player.getZ();

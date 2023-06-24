@@ -5,9 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 public class Mana {
     private double mana = 10;
     private double MAX_MANA_VALUE = 10;
-public Mana(double value){
-    set(value);
-}
     public double get(){
         return mana;
     }

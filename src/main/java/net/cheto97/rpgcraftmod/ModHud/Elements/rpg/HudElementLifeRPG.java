@@ -5,8 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
-import net.cheto97.rpgcraftmod.client.ClientLifeData;
-import net.cheto97.rpgcraftmod.client.ClientMaxLifeData;
+import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -28,12 +27,12 @@ public class HudElementLifeRPG extends HudElement {
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledHeight, int scaledWidth) {
-        if(this.mc.player != null){
+        if(this.mc.player != null && this.mc.player.getId() == PlayerData.getPlayerId()){
             bind(INTERFACE);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-            double health = ClientLifeData.getPlayerLife();
+            double health = PlayerData.getPlayerLife();
             int absorption = Mth.ceil(this.mc.player.getAbsorptionAmount());
-            double healthMax = ClientMaxLifeData.getPlayerMaxLife();
+            double healthMax = PlayerData.getPlayerLifeMax();
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.life_position)[0];
             int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 9 : 5) + this.settings.getPositionValue(Settings.life_position)[1];
             if (absorption > 1)
@@ -46,7 +45,7 @@ public class HudElementLifeRPG extends HudElement {
                 gui.blit(ms, posX, posY, 0, 100, (int) (110.0D * ( health /  (healthMax + absorption))), 12);
             }
 
-            String stringHealth =  doubleToString(health+absorption) + "/" + doubleToString(healthMax);
+            String stringHealth =  doubleToString(health+absorption) + " / " + doubleToString(healthMax);
             if (this.settings.getBoolValue(Settings.show_numbers_life))
                 Gui.drawCenteredString(ms, this.mc.font, stringHealth, posX + 55, posY + 2, -1);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);

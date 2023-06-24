@@ -3,93 +3,182 @@ package net.cheto97.rpgcraftmod.networking.packet;
 import net.cheto97.rpgcraftmod.networking.data.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class EntitySyncPacket {
-    private int id = -1;
-    private int level = -1;
-    private int rank = -1;
-    private BlockPos pos = null;
-    private String name = null;
-    private double life = -1;
-    private double lifeMax = -1;
-    private double lifeRegeneration = -1;
-    private double mana = -1;
-    private double manaMax = -1;
-    private double manaRegeneration = -1;
-    private double intelligence = -1;
-    private double agility = -1;
-    private double strength = -1;
-    private double command = -1;
-    private double dexterity = -1;
-    private double defense = -1;
-    private double magicDefense = -1;
+    private int id;
+    private int level;
+    private int rank;
+    private BlockPos pos;
+    private double life ;
+    private double lifeMax;
+    private double lifeRegeneration;
+    private double mana;
+    private double manaMax;
+    private double manaRegeneration;
+    private double intelligence;
+    private double agility;
+    private double strength;
+    private double command;
+    private double dexterity;
+    private double defense;
+    private double magicDefense;
+    private double experienceReward;
+    
+    private int idLastValue = -1;
+    private int levelLastValue = -1;
+    private int rankLastValue = -1;
+    private BlockPos posLastValue = null;
+    private double lifeLastValue = -1;
+    private double lifeMaxLastValue = -1;
+    private double lifeRegenerationLastValue = -1;
+    private double manaLastValue = -1;
+    private double manaMaxLastValue = -1;
+    private double manaRegenerationLastValue = -1;
+    private double intelligenceLastValue = -1;
+    private double agilityLastValue = -1;
+    private double strengthLastValue = -1;
+    private double commandLastValue = -1;
+    private double dexterityLastValue = -1;
+    private double defenseLastValue = -1;
+    private double magicDefenseLastValue = -1;
+    private double experienceRewardLastValue = 0;
 
-    public EntitySyncPacket(String name,int id, int level,BlockPos pos, double life, double lifeMax, double mana, double manaMax,
+    public EntitySyncPacket(int id, int level,BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
-                            int rank){
-        if(name != null){
-            this.name = name;
-        }
-        if(id != -1){
+                            int rank,double experienceReward){
+        if(id >= 0){
+            this.idLastValue = this.id;
             this.id = id;
+        }else{
+            this.id = this.idLastValue;
         }
-        if(level != -1){
+        
+        if(level >= 0){
+            this.levelLastValue = this.level;
             this.level = level;
+        }else{
+            this.level = this.levelLastValue;
         }
+        
         if(pos != null){
+            this.posLastValue = this.pos;
             this.pos = pos;
+        }else{
+            this.pos = this.posLastValue;
         }
-        if(life != -1){
+        
+        if(life >= 0){
+            this.lifeLastValue = this.life;
             this.life = life;
+        }else{
+            this.life = this.lifeLastValue;
         }
-        if(lifeMax != -1){
+        
+        if(lifeMax >= 0){
+            this.lifeMaxLastValue = this.lifeMax;
             this.lifeMax = lifeMax;
+        }else{
+            this.lifeMax = this.lifeMaxLastValue;
         }
-        if(lifeRegeneration != -1){
+        
+        if(lifeRegeneration >= 0){
+            this.lifeRegenerationLastValue = this.lifeRegeneration;
             this.lifeRegeneration = lifeRegeneration;
+        }else{
+            this.lifeRegeneration = this.lifeRegenerationLastValue;
         }
-        if(mana != -1){
+        
+        if(mana >= 0){
+            this.manaLastValue = this.mana;
             this.mana = mana;
+        }else{
+            this.mana = this.manaLastValue;
         }
-        if(manaMax != -1){
+        
+        if(manaMax >= 0){
+            this.manaMaxLastValue = this.manaMax;
             this.manaMax = manaMax;
+        }else{
+            this.manaMax = this.manaMaxLastValue;
         }
-        if(manaRegeneration != -1){
+        
+        if(manaRegeneration >= 0){
+            this.manaRegenerationLastValue = this.manaRegeneration;
             this.manaRegeneration = manaRegeneration;
+        }else{
+            this.manaRegeneration = this.manaRegenerationLastValue;
         }
-        if(agility != -1){
+        
+        if(agility >= 0){
+            this.agilityLastValue = this.agility;
             this.agility = agility;
+        }else{
+            this.agility = this.agilityLastValue;
         }
-        if(command != -1){
+        
+        if(command >= 0){
+            this.commandLastValue = this.command;
             this.command = command;
+        }else{
+            this.command = this.commandLastValue;
         }
-        if(defense != -1){
+        
+        if(defense >= 0){
+            this.defenseLastValue = this.defense;
             this.defense = defense;
+        }else{
+            this.defense = this.defenseLastValue;
         }
-        if(magicDefense != -1){
+        
+        if(magicDefense >= 0){
+            this.magicDefenseLastValue = this.magicDefense;
             this.magicDefense = magicDefense;
+        }else{
+            this.magicDefense = this.magicDefenseLastValue;
         }
-        if(dexterity != -1){
+        
+        if(dexterity >= 0){
+            this.dexterityLastValue = this.dexterity;
             this.dexterity = dexterity;
+        }else{
+            this.dexterity = this.dexterityLastValue;
         }
-        if(intelligence != -1){
+        
+        if(intelligence >= 0){
+            this.intelligenceLastValue = this.intelligence;
             this.intelligence = intelligence;
+        }else{
+            this.intelligence = this.intelligenceLastValue;
         }
-        if(strength != -1){
+        
+        if(strength >= 0){
+            this.strengthLastValue = this.strength;
             this.strength = strength;
+        }else{
+            this.strength = this.strengthLastValue;
         }
-        if(rank != -1){
+        
+        if(rank >= 0){
+            this.rankLastValue = this.rank;
             this.rank = rank;
+        }else{
+            this.rank = this.rankLastValue;
+        }
+        if(experienceReward >= 0){
+            this.experienceRewardLastValue = this.experienceReward;
+            this.experienceReward = experienceReward;
+        }else{
+            this.experienceReward = this.experienceRewardLastValue;
         }
     }
 
     public EntitySyncPacket(FriendlyByteBuf buf){
-        this.name = buf.readUtf();
         this.id = buf.readInt();
         this.level = buf.readInt();
         this.pos = buf.readBlockPos();
@@ -107,10 +196,10 @@ public class EntitySyncPacket {
         this.intelligence = buf.readDouble();
         this.strength = buf.readDouble();
         this.rank = buf.readInt();
+        this.experienceReward = buf.readDouble();
     }
 
     public void toBytes(FriendlyByteBuf buf){
-        buf.writeUtf(name);
         buf.writeInt(id);
         buf.writeInt(level);
         buf.writeBlockPos(pos);
@@ -128,43 +217,30 @@ public class EntitySyncPacket {
         buf.writeDouble(intelligence);
         buf.writeDouble(strength);
         buf.writeInt(rank);
+        buf.writeDouble(experienceReward);
     }
 
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientPosData.set(pos);
-            ClientPosData.setId(id);
-            ClientLevelData.set(level);
-            ClientLevelData.setId(id);
-            ClientNameData.set(name);
-            ClientNameData.setId(id);
-            ClientLifeData.set(life);
-            ClientLifeData.setMax(lifeMax);
-            ClientLifeData.setId(id);
-            ClientLifeRegenerationData.set(lifeRegeneration);
-            ClientLifeRegenerationData.setId(id);
-            ClientManaData.set(mana);
-            ClientManaData.setMax(manaMax);
-            ClientManaData.setId(id);
-            ClientManaRegenerationData.set(manaRegeneration);
-            ClientManaRegenerationData.setId(id);
-            ClientAgilityData.set(agility);
-            ClientAgilityData.setId(id);
-            ClientDexterityData.set(dexterity);
-            ClientDexterityData.setId(id);
-            ClientDefenseData.set(defense);
-            ClientDefenseData.setId(id);
-            ClientMagicDefenseData.set(magicDefense);
-            ClientMagicDefenseData.setId(id);
-            ClientIntelligenceData.set(intelligence);
-            ClientIntelligenceData.setId(id);
-            ClientCommandData.set(command);
-            ClientCommandData.setId(id);
-            ClientStrengthData.set(strength);
-            ClientStrengthData.setId(id);
-            ClientRankData.set(rank);
-            ClientRankData.setId(id);
+            EntityData.setEntityId(id);
+            EntityData.setEntityLevel(level);
+            EntityData.setEntityPos(pos);
+            EntityData.setEntityLife(life);
+            EntityData.setEntityLifeMax(lifeMax);
+            EntityData.setEntityLifeRegeneration(lifeRegeneration);
+            EntityData.setEntityMana(mana);
+            EntityData.setEntityManaMax(manaMax);
+            EntityData.setEntityManaRegeneration(manaRegeneration);
+            EntityData.setEntityAgility(agility);
+            EntityData.setEntityCommand(command);
+            EntityData.setEntityDefense(defense);
+            EntityData.setEntityMagicDefense(magicDefense);
+            EntityData.setEntityDexterity(dexterity);
+            EntityData.setEntityIntelligence(intelligence);
+            EntityData.setEntityStrength(strength);
+            EntityData.setEntityRank(rank);
+            EntityData.setEntityExperienceReward(experienceReward);
         });
         return true;
     }

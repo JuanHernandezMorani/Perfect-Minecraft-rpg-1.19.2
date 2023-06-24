@@ -7,14 +7,6 @@ public class SettingPosition extends Setting{
     public final int defaultX, defaultY;
     public int x, y;
 
-    public SettingPosition(String ID, int x, int y) {
-        super(ID);
-        this.defaultX = x;
-        this.x = x;
-        this.defaultY = y;
-        this.y = y;
-    }
-
     public SettingPosition(String ID, HudType type, int x, int y) {
         super(ID, type);
         this.defaultX = x;
@@ -24,23 +16,8 @@ public class SettingPosition extends Setting{
     }
 
     @Override
-    public void increment() {
-    }
-
-    public void setPosition(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override
     public Object getValue() {
         return x + "_" + y;
-    }
-
-    @Override
-    public void resetValue() {
-        this.x = this.defaultX;
-        this.y = this.defaultY;
     }
 
     @Override
@@ -58,10 +35,5 @@ public class SettingPosition extends Setting{
             }
         }
         return this;
-    }
-
-    @Override
-    public Object getDefaultValue() {
-        return this.defaultX + "_" + this.defaultY;
     }
 }

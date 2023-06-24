@@ -16,16 +16,11 @@ public class CustomLevelProvider implements ICapabilityProvider, INBTSerializabl
     public static Capability<Customlevel> ENTITY_CUSTOMLEVEL = CapabilityManager.get(new CapabilityToken<Customlevel>() {});
 
     private Customlevel customlevel = null;
-    private final int levelValue;
-
-    public CustomLevelProvider(int value){
-        this.levelValue = value;
-    }
     private final LazyOptional<Customlevel> optional = LazyOptional.of(this::createCustomlevel);
 
     private Customlevel createCustomlevel() {
         if(this.customlevel == null){
-            this.customlevel = new Customlevel(levelValue);
+            this.customlevel = new Customlevel();
         }
 
         return this.customlevel;

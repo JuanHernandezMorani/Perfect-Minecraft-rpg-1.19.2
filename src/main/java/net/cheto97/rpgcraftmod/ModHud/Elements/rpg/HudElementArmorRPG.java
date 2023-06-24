@@ -4,9 +4,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
-import net.cheto97.rpgcraftmod.client.ClientDefenseData;
+import net.cheto97.rpgcraftmod.customstats.Defense;
+import net.cheto97.rpgcraftmod.customstats.MagicDefense;
+import net.cheto97.rpgcraftmod.networking.data.PlayerData;
+import net.cheto97.rpgcraftmod.providers.DefenseProvider;
+import net.cheto97.rpgcraftmod.providers.MagicDefenseProvider;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.world.entity.player.Player;
 
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 
@@ -27,18 +31,19 @@ public class HudElementArmorRPG extends HudElement {
         ms.scale(scale, scale, scale);
         int left = getPosX(scaledWidth);
         int top = getPosY(scaledHeight);
+        Player player = this.mc.player;
 
-        assert this.mc.player != null;
-        double level = ClientDefenseData.getPlayerDefense();
-        if (level > 0) {
-            int height = getHeight(scaledHeight);
-            int width2 = 1 + 9 + 2 + this.mc.font.width(doubleToString(level)) + 2;
-            drawRect(ms, left, top, width2, height, 0xA0000000);
-            this.mc.font.draw(ms,"", left + 12, top + 2, -1);
+        if(player != null && player.getId() == PlayerData.getPlayerId()){
+            double defense = PlayerData.getPlayerDefense();
+            double magicDefense = PlayerData.getPlayerMagicDefense();
+            double rendererDefense = defense + magicDefense;
+            if (rendererDefense > 0) {
+                this.mc.font.draw(ms,doubleToString(rendererDefense), left + 12, top + 2, -1);
+            }
+
+            scale = getInvertedScale();
+            ms.scale(scale, scale, scale);
         }
-
-        scale = getInvertedScale();
-        ms.scale(scale, scale, scale);
     }
 
     @Override
@@ -49,11 +54,6 @@ public class HudElementArmorRPG extends HudElement {
     @Override
     public int getPosY(int scaledHeight) {
         return (int) ((scaledHeight - 29 + 2)*getInvertedScale() - getHeight(scaledHeight) + this.settings.getPositionValue(Settings.armor_position)[1]);
-    }
-
-    @Override
-    public int getWidth(int scaledWidth) {
-        return 144;
     }
 
     public int getHeight(int scaledHeight) {

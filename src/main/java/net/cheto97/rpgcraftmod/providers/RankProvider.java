@@ -16,23 +16,12 @@ public class RankProvider implements ICapabilityProvider, INBTSerializable<Compo
     public static Capability<Rank> ENTITY_RANK = CapabilityManager.get(new CapabilityToken<Rank>() {});
 
     private Rank rank = null;
-    private final int rankValue;
 
-    public RankProvider(int value){
-        this.rankValue = value;
-    }
-    private final LazyOptional<Rank> optional = LazyOptional.of(this::createLuck);
+    private final LazyOptional<Rank> optional = LazyOptional.of(this::createRank);
 
-    private Rank createLuck() {
+    private Rank createRank() {
         if(this.rank == null){
-            this.rank = new Rank(rankValue);
-        }
-
-        return this.rank;
-    }
-    private Rank createLuck(int value) {
-        if(this.rank == null){
-            this.rank = new Rank(value);
+            this.rank = new Rank();
         }
 
         return this.rank;
@@ -49,12 +38,12 @@ public class RankProvider implements ICapabilityProvider, INBTSerializable<Compo
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createLuck(rankValue).saveNBTData(nbt);
+        createRank().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createLuck(rankValue).loadNBTData(nbt);
+        createRank().loadNBTData(nbt);
     }
 }

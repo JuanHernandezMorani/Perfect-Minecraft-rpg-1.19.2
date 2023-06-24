@@ -4,9 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 
 public class LifeRegeneration {
     private double liferegeneration = 1;
-public LifeRegeneration(double value){
-    set(value);
-}
     public double get(){
         return liferegeneration;
     }

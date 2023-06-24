@@ -32,38 +32,7 @@ public class HudElementHotbarRPG extends HudElement {
             int posX = this.settings.getPositionValue(Settings.hotbar_position)[0];
             int posY = 5 + this.settings.getPositionValue(Settings.hotbar_position)[1];
             HumanoidArm enumhandside = this.mc.player.getMainArm().getOpposite();
-            int height = scaledHeight + posY;
             int i = (scaledWidth / 2) + posX;
-            float f = zLevel;
-            zLevel = -90.0F;
-            drawRect(ms, scaledWidth / 2 - 91 + posX, height - 22 - 5, 182, 2, 0xA0000000);
-            drawRect(ms, scaledWidth / 2 - 91 + posX, height - 22 - 5 + 20, 182, 2, 0xA0000000);
-            if(this.mc.player.isCreative()) drawRect(ms, scaledWidth / 2 - 91 + posX, height - 7, 182, 2, 0xA0000000);
-            for (int x = 0; x < 10; x++) {
-                drawRect(ms, scaledWidth / 2 - 91 + (x * 20) + posX, height - 22 - 3, 2, 18, 0xA0000000);
-                if (x < 9) {
-                    drawRect(ms, scaledWidth / 2 - 91 + 2 + (x * 20) + posX, height - 22 - 3, 18, 18, 0x60000000);
-                }
-            }
-            assert entityplayer != null;
-            drawRect(ms, scaledWidth / 2 - 91 + 2 + (entityplayer.getInventory().selected * 20) + posX, height - 22 - 3, 18, 18, 0x40FFFFFF);
-            if (itemstack != ItemStack.EMPTY) {
-                if (enumhandside == HumanoidArm .LEFT) {
-                    drawRect(ms, scaledWidth / 2 - 91 - 24 + posX, height - 22 - 5, 22, 2, 0xA0000000);
-                    drawRect(ms, scaledWidth / 2 - 91 - 24 + posX, height - 22 - 3, 2, 18, 0xA0000000);
-                    drawRect(ms, scaledWidth / 2 - 91 - 4 + posX, height - 22 - 3, 2, 18, 0xA0000000);
-                    drawRect(ms, scaledWidth / 2 - 91 + 2 - 24 + posX, height - 22 - 3, 18, 18, 0x60000000);
-                    drawRect(ms, scaledWidth / 2 - 91 - 24 + posX, height - 7, 22, 2, 0xA0000000);
-                } else {
-                    drawRect(ms, scaledWidth / 2 - 91 - 24 + 209 + posX, height - 22 - 5, 22, 2, 0xA0000000);
-                    drawRect(ms, scaledWidth / 2 - 91 - 24 + 209 + posX, height - 22 - 3, 2, 18, 0xA0000000);
-                    drawRect(ms, scaledWidth / 2 - 91 - 4 + 209 + posX, height - 22 - 3, 2, 18, 0xA0000000);
-                    drawRect(ms, scaledWidth / 2 - 91 + 2 - 24 + 209 + posX, height - 22 - 3, 18, 18, 0x60000000);
-                    drawRect(ms, scaledWidth / 2 - 91 - 24 + 209 + posX, height - 7, 22, 2, 0xA0000000);
-                }
-            }
-
-            zLevel = f;
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 

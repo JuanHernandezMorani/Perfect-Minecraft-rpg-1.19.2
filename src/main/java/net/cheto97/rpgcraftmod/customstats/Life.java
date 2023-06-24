@@ -5,9 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 public class Life {
     private double life = 20;
     private double MAX_LIFE_VALUE = 20;
-public Life(double value){
-    set(value);
-}
     public double get(){
         return life;
     }

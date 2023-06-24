@@ -3,7 +3,6 @@ package net.cheto97.rpgcraftmod.providers;
 import net.cheto97.rpgcraftmod.customstats.MagicDefense;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -13,26 +12,13 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenerator;
-
 public class MagicDefenseProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    private final LivingEntity entity;
-   public MagicDefenseProvider(LivingEntity entity){
-       this.entity = entity;
-   }
-    
     public static Capability<MagicDefense> ENTITY_MAGIC_DEFENSE = CapabilityManager.get(new CapabilityToken<MagicDefense>() {});
     private  MagicDefense magicDefense = null;
     private final LazyOptional< MagicDefense> optional = LazyOptional.of(this::createMagicDefense);
-    private MagicDefense createMagicDefense(){
-        if(this.magicDefense == null) {
-            createMagicDefense(entity);
-        }
-        return this.magicDefense;
-    }
-    private MagicDefense createMagicDefense(LivingEntity entity) {
-        if(this.magicDefense == null && entity != null){
-            this.magicDefense = new  MagicDefense(DoubleGenerator("MagicDefense",entity));
+    private MagicDefense createMagicDefense() {
+        if(this.magicDefense == null){
+            this.magicDefense = new  MagicDefense();
         }
         return this.magicDefense;
     }
@@ -50,12 +36,12 @@ public class MagicDefenseProvider implements ICapabilityProvider, INBTSerializab
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createMagicDefense(entity).saveNBTData(nbt);
+        createMagicDefense().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createMagicDefense(entity).loadNBTData(nbt);
+        createMagicDefense().loadNBTData(nbt);
     }
 }

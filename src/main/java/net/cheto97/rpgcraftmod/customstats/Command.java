@@ -4,11 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Command {
     private double command = 1;
-
-    public Command(double value){
-        this.command = value;
-    }
-
     public double get(){
         return command;
     }

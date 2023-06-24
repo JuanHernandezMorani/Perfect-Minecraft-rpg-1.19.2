@@ -32,7 +32,7 @@ public class HudElementArmorHotbar extends HudElement {
                 gui.blit(ms,left + 62, top - 2, 34, 9, 9, 9);
             } else if (i == level) {
                 gui.blit(ms,left + 62, top - 2, 25, 9, 9, 9);
-            } else if (i > level) {
+            } else {
                 gui.blit(ms,left + 62, top - 2, 16, 9, 9, 9);
             }
             left += 8;

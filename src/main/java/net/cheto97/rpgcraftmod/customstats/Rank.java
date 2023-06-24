@@ -5,10 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 public class Rank {
     private int rank = 0;
 
-    public Rank(int value){
-        this.rank = value;
-    }
-
     public int get(){
         return rank;
     }

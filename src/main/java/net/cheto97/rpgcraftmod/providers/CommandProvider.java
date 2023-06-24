@@ -16,27 +16,14 @@ import org.jetbrains.annotations.Nullable;
 import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenerator;
 
 public class CommandProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    private final LivingEntity entity;
-
-    public CommandProvider(LivingEntity entity){
-        this.entity = entity;
-    }
     
     public static Capability<Command> ENTITY_COMMAND = CapabilityManager.get(new CapabilityToken<Command>() {});
 
     private Command command = null;
     private final LazyOptional<Command> optional = LazyOptional.of(this::createCommand);
-
     private Command createCommand() {
         if(this.command == null){
-            createCommand(entity);
-        }
-
-        return this.command;
-    }
-    private Command createCommand(LivingEntity entity) {
-        if(this.command == null && entity != null){
-            this.command = new Command(DoubleGenerator("Command",entity));
+            this.command = new Command();
         }
 
         return this.command;
@@ -55,12 +42,12 @@ public class CommandProvider implements ICapabilityProvider, INBTSerializable<Co
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createCommand(entity).saveNBTData(nbt);
+        createCommand().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createCommand(entity).loadNBTData(nbt);
+        createCommand().loadNBTData(nbt);
     }
 }

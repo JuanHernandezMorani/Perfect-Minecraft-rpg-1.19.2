@@ -4,10 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Strength {
     private double strength = 1;
-    public Strength(double value){
-        set(value);
-    }
-
     public double get(){
         return strength;
     }

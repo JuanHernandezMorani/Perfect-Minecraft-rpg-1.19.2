@@ -19,25 +19,12 @@ public class LifeRegenerationProvider implements ICapabilityProvider, INBTSerial
     public static Capability<LifeRegeneration> ENTITY_LIFEREGENERATION = CapabilityManager.get(new CapabilityToken<LifeRegeneration>() {});
 
     private LifeRegeneration liferegeneration = null;
-    private final LivingEntity entity;
-
-   public LifeRegenerationProvider(LivingEntity entity){
-        this.entity = entity;
-    }
 
     private final LazyOptional<LifeRegeneration> optional = LazyOptional.of(this::createLifeRegeneration);
 
     private LifeRegeneration createLifeRegeneration(){
-        if(this.liferegeneration == null && entity != null){
-            createLifeRegeneration(entity);
-        }
-
-        return this.liferegeneration;
-    }
-
-    private LifeRegeneration createLifeRegeneration(LivingEntity entity){
         if(this.liferegeneration == null){
-            this.liferegeneration = new LifeRegeneration(DoubleGenerator("LifeRegeneration",entity));
+            this.liferegeneration = new LifeRegeneration();
         }
 
         return this.liferegeneration;
@@ -53,12 +40,12 @@ public class LifeRegenerationProvider implements ICapabilityProvider, INBTSerial
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createLifeRegeneration(entity).saveNBTData(nbt);
+        createLifeRegeneration().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createLifeRegeneration(entity).loadNBTData(nbt);
+        createLifeRegeneration().loadNBTData(nbt);
     }
 }

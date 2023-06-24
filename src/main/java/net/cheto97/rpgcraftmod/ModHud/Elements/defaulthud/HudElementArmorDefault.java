@@ -23,13 +23,14 @@ public class HudElementArmorDefault extends HudElement {
         bind(GUI_ICONS_LOCATION);
         int left = scaledWidth / 2 - 91 + this.settings.getPositionValue(Settings.armor_position)[0];
         int top = scaledHeight - 39 - this.settings.getPositionValue(Settings.armor_position)[1];
+        assert this.mc.player != null;
         int level = this.mc.player.getArmorValue();
         for (int i = 1; level > 0 && i < 20; i += 2) {
             if (i < level) {
                 gui.blit(ms, left + 48, top - 2, 34, 9, 9, 9);
             } else if (i == level) {
                 gui.blit(ms, left + 48, top - 2, 25, 9, 9, 9);
-            } else if (i > level) {
+            } else {
                 gui.blit(ms, left + 48, top - 2, 16, 9, 9, 9);
             }
             left += 8;

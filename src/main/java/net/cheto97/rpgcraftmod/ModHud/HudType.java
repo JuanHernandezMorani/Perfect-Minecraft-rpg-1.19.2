@@ -1,7 +1,5 @@
 package net.cheto97.rpgcraftmod.ModHud;
 
-import net.minecraft.client.resources.language.I18n;
-
 public enum HudType {
     VOID("name.void"),
     HOTBAR("name.hotbar"),
@@ -25,8 +23,7 @@ public enum HudType {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
-        return I18n.get(this.displayName);
+    public String getDisplayName(){
+        return displayName;
     }
-
 }

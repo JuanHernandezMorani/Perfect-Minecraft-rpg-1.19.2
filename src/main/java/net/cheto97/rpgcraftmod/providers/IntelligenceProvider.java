@@ -17,26 +17,14 @@ import org.jetbrains.annotations.Nullable;
 import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenerator;
 
 public class IntelligenceProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-private final LivingEntity entity;
     public static Capability<Intelligence> ENTITY_INTELLIGENCE = CapabilityManager.get(new CapabilityToken<Intelligence>() {});
 
     private Intelligence intelligence = null;
-    public IntelligenceProvider(LivingEntity entity){
-        this.entity = entity;
-    }
     private final LazyOptional<Intelligence> optional = LazyOptional.of(this::createIntelligence);
 
-    private Intelligence createIntelligence() {
-        if(this.intelligence == null && entity != null){
-            createIntelligence(entity);
-        }
-
-        return this.intelligence;
-    }
-
-    private Intelligence createIntelligence(LivingEntity entity){
+    private Intelligence createIntelligence(){
         if(this.intelligence == null){
-            this.intelligence = new Intelligence(DoubleGenerator("Intelligence",entity));
+            this.intelligence = new Intelligence();
         }
         return this.intelligence;
     }
@@ -53,12 +41,12 @@ private final LivingEntity entity;
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createIntelligence(entity).saveNBTData(nbt);
+        createIntelligence().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createIntelligence(entity).loadNBTData(nbt);
+        createIntelligence().loadNBTData(nbt);
     }
 }

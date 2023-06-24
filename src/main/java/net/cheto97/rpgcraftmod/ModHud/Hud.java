@@ -11,16 +11,14 @@ import static net.cheto97.rpgcraftmod.ModHud.HudType.*;
 
 public abstract class Hud {
     private final String hudKey;
-    private final String hudName;
 
-    protected Map<HudType, HudElement> elements = new HashMap<HudType, HudElement>();
+    protected Map<HudType, HudElement> elements = new HashMap<>();
     protected Minecraft mc;
 
     public int chatOffset = 0;
     public Hud(Minecraft mc, String hudKey, String hudName) {
         this.mc = mc;
         this.hudKey = hudKey;
-        this.hudName = hudName;
         this.setElements();
     }
     public void setElements() {
@@ -43,9 +41,6 @@ public abstract class Hud {
     public String getHudKey() {
         return this.hudKey;
     }
-    public String getHudName() {
-        return this.hudName;
-    }
     protected abstract HudElement setElementHotbar();
     protected abstract HudElement setElementLife();
     protected abstract HudElement setElementMana();
@@ -62,11 +57,5 @@ public abstract class Hud {
     protected abstract HudElement setElementMobEffects();
     public void drawElement(HudType type, Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         this.elements.get(type).draw(gui, ms, zLevel, partialTicks, scaledWidth, scaledHeight);
-    }
-    public boolean checkElementConditions(HudType type) {
-        return this.elements.get(type).checkConditions();
-    }
-    public boolean isVanillaElement(HudType type) {
-        return this.elements.get(type) == null;
     }
 }

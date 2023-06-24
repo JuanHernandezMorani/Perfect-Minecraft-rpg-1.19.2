@@ -17,13 +17,11 @@ import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.customstats.Defense;
-import net.cheto97.rpgcraftmod.customstats.Life;
-import net.cheto97.rpgcraftmod.customstats.Rank;
-import net.cheto97.rpgcraftmod.modsystem.Customlevel;
-import net.cheto97.rpgcraftmod.providers.CustomLevelProvider;
-import net.cheto97.rpgcraftmod.providers.DefenseProvider;
-import net.cheto97.rpgcraftmod.providers.LifeProvider;
-import net.cheto97.rpgcraftmod.providers.RankProvider;
+import net.cheto97.rpgcraftmod.networking.ModMessages;
+import net.cheto97.rpgcraftmod.networking.data.EntityData;
+import net.cheto97.rpgcraftmod.networking.data.PlayerData;
+import net.cheto97.rpgcraftmod.networking.packet.EntitySyncPacket;
+import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.RayTrace;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -32,8 +30,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -46,7 +46,15 @@ import net.minecraft.world.entity.player.Player;
 public class HudElementViewVanilla extends HudElement {
     static private boolean infinite = false;
     static private final RayTrace TRACE = new RayTrace();
-
+    static public double focusedLife;
+    static public double focusedMaxLife;
+    static public int focusedId;
+    static public double focusedArmor;
+    static public double focusedMana;
+    static public double focusedMaxMana;
+    static public int playerLevel;
+    static public int entityLevel;
+    static public int rank;
     protected static final ResourceLocation DAMAGE_INDICATOR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/view_hud.png");
     protected static final ResourceLocation HEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/health_bar.png");
     protected static final ResourceLocation FROZENHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/frozen_health_bar.png");
@@ -65,177 +73,190 @@ public class HudElementViewVanilla extends HudElement {
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         assert this.mc.player != null;
-        LivingEntity focused = TRACE.getEntityInCrosshair(partialTicks,16);
+        LivingEntity focused = TRACE.getEntityInCrosshair(1.0f,32);
         Player player = this.mc.player;
-        if(focused != null) {
-            int playerLevel = player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
-            double focusedLife = focused.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0);
-            double focusedMaxLife = focused.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0);
-            double focusedArmor = focused.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.1);
-            int entityLevel = focused.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
-            int rank = focused.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0);
-            String focusedRank;
+        if(focused != null && player != null) {
+            setIdData(focused.getId());
+                String focusedRank;
 
-            ChatFormatting rankColor = setColor(rank);
-            switch (rank){
-                case 1 -> focusedRank = "Common";
-                case 2 -> focusedRank = "Elite";
-                case 3 -> focusedRank = "Brutal";
-                case 4 -> focusedRank = "Champion";
-                case 5 -> focusedRank = "Hero";
-                case 6 -> focusedRank = "Demon";
-                case 7 -> focusedRank = "Legendary";
-                case 8 -> focusedRank = "Mythical";
-                case 9 -> focusedRank = "Unique";
-                case 10 -> focusedRank = "Semi Boss";
-                case 11 -> focusedRank = "Boss";
-                default -> focusedRank = "NULL";
-            }
-
-            ChatFormatting color;
-
-            if(playerLevel > entityLevel){
-                if(playerLevel - (playerLevel * 0.05) <= entityLevel){
-                    color = ChatFormatting.AQUA;
-                }else if(playerLevel - (playerLevel * 0.12) <= entityLevel && playerLevel - (playerLevel * 0.05) >= entityLevel){
-                    color = ChatFormatting.DARK_AQUA;
-                }else if(playerLevel - (playerLevel * 0.3) <= entityLevel && playerLevel - (playerLevel * 0.12) >= entityLevel){
-                    color = ChatFormatting.GREEN;
-                }else{
-                    color = ChatFormatting.DARK_GREEN;
+                ChatFormatting rankColor = setColor(rank);
+                switch (rank){
+                    case 1 -> focusedRank = "Common";
+                    case 2 -> focusedRank = "Elite";
+                    case 3 -> focusedRank = "Brutal";
+                    case 4 -> focusedRank = "Champion";
+                    case 5 -> focusedRank = "Hero";
+                    case 6 -> focusedRank = "Demon";
+                    case 7 -> focusedRank = "Legendary";
+                    case 8 -> focusedRank = "Mythical";
+                    case 9 -> focusedRank = "Unique";
+                    case 10 -> focusedRank = "Semi Boss";
+                    case 11 -> focusedRank = "Boss";
+                    default -> focusedRank = "NULL";
                 }
-            }
-            else if(playerLevel == entityLevel){
-                color = ChatFormatting.GRAY;
-            }else {
-                if(playerLevel - (playerLevel * 0.05) >= entityLevel){
-                    color = ChatFormatting.DARK_GRAY;
-                }else if(playerLevel - (playerLevel * 0.12) >= entityLevel && playerLevel - (playerLevel * 0.05) <= entityLevel){
-                    color = ChatFormatting.LIGHT_PURPLE;
-                }else if(playerLevel - (playerLevel * 0.3) >= entityLevel && playerLevel - (playerLevel * 0.12) <= entityLevel){
-                    color = ChatFormatting.RED;
-                }else{
-                    color = ChatFormatting.DARK_RED;
+
+                ChatFormatting color;
+
+                if(playerLevel > entityLevel){
+                    if(playerLevel - (playerLevel * 0.05) <= entityLevel){
+                        color = ChatFormatting.AQUA;
+                    }else if(playerLevel - (playerLevel * 0.12) <= entityLevel && playerLevel - (playerLevel * 0.05) >= entityLevel){
+                        color = ChatFormatting.DARK_AQUA;
+                    }else if(playerLevel - (playerLevel * 0.3) <= entityLevel && playerLevel - (playerLevel * 0.12) >= entityLevel){
+                        color = ChatFormatting.GREEN;
+                    }else{
+                        color = ChatFormatting.DARK_GREEN;
+                    }
                 }
-            }
-            Component focusedName = Component.literal("{lvl "+entityLevel+"} "+focused.getName().getString()).withStyle(color);
-
-            int posX = (scaledWidth / 2) + this.settings.getPositionValue(Settings.inspector_position)[0];
-            int posY = 20 + this.settings.getPositionValue(Settings.inspector_position)[1];
-            bind(DAMAGE_INDICATOR);
-            gui.blit(ms, posX - 62, 20 + posY, 0, 0, 128, 36);
-
-            if(focusedLife > focusedMaxLife) focusedLife = focusedMaxLife;
-
-            ResourceLocation select = HEALTHBAR;
-
-
-            if(focused.hasEffect(MobEffects.ABSORPTION)){
-                select = ABSORTIONHEALTHBAR;
-            }else if(focused.isFreezing() || focused.isFullyFrozen() || focused.isInPowderSnow){
-                select = FROZENHEALTHBAR;
-            }else if(focused.hasEffect(MobEffects.POISON)){
-                select = POISONHEALTHBAR;
-            }else if(focused.hasEffect(MobEffects.WITHER)){
-                select = WITHERHEALTHBAR;
-            }
-
-            bind(select);
-
-            gui.blit(ms,posX - 28, 26 + posY,0,128,(int)(92D *(focusedLife /  focusedMaxLife)),36);
-
-            String stringLife = doubleToString(focusedLife) + " / " + doubleToString(focusedMaxLife);
-            ms.scale(0.5f, 0.5f, 0.5f);
-            Gui.drawCenteredString(ms, this.mc.font, stringLife, (posX - 27 + 44) * 2, (36 + posY) * 2, -1);
-            ms.scale(2f, 2f, 2f);
-
-            int x = (posX - 29 + 44 - (focused.getName().getString().length() / 2));
-            int y = 25 + posY;
-
-            Component entityRank = Component.literal("["+focusedRank+"]").withStyle(rankColor);
-
-            Gui.drawCenteredString(ms,this.mc.font,entityRank,x+10,y-10,-1);
-            Gui.drawCenteredString(ms,this.mc.font, focusedName,x+10,y,-1);
-
-            drawEntityOnScreen(posX - 44, 49 + posY, focused);
-
-            if(settings.getBoolValue(Settings.show_entity_armor)) {
-                if(focusedArmor > 0) {
-                    String value = doubleToString(focusedArmor);
-                    bind(DAMAGE_INDICATOR);
-                    gui.blit(ms, posX - 26, posY+44, 0, 36, 19, 8);
-                    bind(Gui.GUI_ICONS_LOCATION);
-                    ms.scale(0.5f, 0.5f, 0.5f);
-                    gui.blit(ms, (posX - 24) * 2 - 4, (posY + 45) * 2, 34, 9, 9, 9);
-                    Gui.drawCenteredString(ms,this.mc.font,value,(posX - 18) * 2 + 4, (posY + 45) * 2 + 1, -1);
-                    ms.scale(2f, 2f, 2f);
+                else if(playerLevel == entityLevel){
+                    color = ChatFormatting.GRAY;
+                }else {
+                    if(playerLevel - (playerLevel * 0.05) >= entityLevel){
+                        color = ChatFormatting.DARK_GRAY;
+                    }else if(playerLevel - (playerLevel * 0.12) >= entityLevel && playerLevel - (playerLevel * 0.05) <= entityLevel){
+                        color = ChatFormatting.LIGHT_PURPLE;
+                    }else if(playerLevel - (playerLevel * 0.3) >= entityLevel && playerLevel - (playerLevel * 0.12) <= entityLevel){
+                        color = ChatFormatting.RED;
+                    }else{
+                        color = ChatFormatting.DARK_RED;
+                    }
                 }
-            }
+                Component focusedName = Component.literal("{lvl "+entityLevel+"} "+focused.getName().getString()).withStyle(color);
 
-            Collection<MobEffectInstance> collection = focused.getActiveEffects();
+                int posX = (scaledWidth / 2) + this.settings.getPositionValue(Settings.inspector_position)[0];
+                int posY = 20 + this.settings.getPositionValue(Settings.inspector_position)[1];
+                bind(DAMAGE_INDICATOR);
+                gui.blit(ms, posX - 62, 20 + posY, 0, 0, 128, 36);
 
-            if(!collection.isEmpty()) {
+                if(focusedLife > focusedMaxLife) focusedLife = focusedMaxLife;
+
+                ResourceLocation select = HEALTHBAR;
+
+
+                if(focused.hasEffect(MobEffects.ABSORPTION)){
+                    select = ABSORTIONHEALTHBAR;
+                }else if(focused.isFreezing() || focused.isFullyFrozen() || focused.isInPowderSnow){
+                    select = FROZENHEALTHBAR;
+                }else if(focused.hasEffect(MobEffects.POISON)){
+                    select = POISONHEALTHBAR;
+                }else if(focused.hasEffect(MobEffects.WITHER)){
+                    select = WITHERHEALTHBAR;
+                }
+
+                bind(select);
+
+                gui.blit(ms,posX - 28, 26 + posY,0,128,(int)(92D *(focusedLife /  focusedMaxLife)),36);
+
+                String stringLife = doubleToString(focusedLife) + " / " + doubleToString(focusedMaxLife);
                 ms.scale(0.5f, 0.5f, 0.5f);
-                RenderSystem.enableBlend();
-                int i = 0;
-                int j = 0;
-                MobEffectTextureManager potionspriteuploader = this.mc.getMobEffectTextures();
-                bind(INVENTORY_LOCATION);
+                Gui.drawCenteredString(ms, this.mc.font, stringLife, (posX - 27 + 44) * 2, (36 + posY) * 2, -1);
+                ms.scale(2f, 2f, 2f);
 
-                for(MobEffectInstance effectinstance : Ordering.natural().reverse().sortedCopy(collection)) {
-                    MobEffect effect = effectinstance.getEffect();
+                int x = (posX - 29 + 44 - (focused.getName().getString().length() / 2));
+                int y = 25 + posY;
+
+                Component entityRank = Component.literal("["+focusedRank+"]").withStyle(rankColor);
+
+                Gui.drawCenteredString(ms,this.mc.font,entityRank,x+10,y-10,-1);
+                Gui.drawCenteredString(ms,this.mc.font, focusedName,x+10,y,-1);
+
+                drawEntityOnScreen(posX - 44, 49 + posY, focused);
+                if(settings.getBoolValue(Settings.show_entity_armor)) {
+                    if(focusedArmor > 0) {
+                        String value = doubleToString(focusedArmor);
+                        bind(DAMAGE_INDICATOR);
+                        gui.blit(ms, posX - 26, posY+44, 0, 36, 19, 8);
+                        bind(Gui.GUI_ICONS_LOCATION);
+                        ms.scale(0.5f, 0.5f, 0.5f);
+                        gui.blit(ms, (posX - 24) * 2 - 4, (posY + 45) * 2, 34, 9, 9, 9);
+                        Gui.drawCenteredString(ms,this.mc.font,value,(posX - 18) * 2 + 4, (posY + 45) * 2 + 1, -1);
+                        ms.scale(2f, 2f, 2f);
+                    }
+                }
+
+                Collection<MobEffectInstance> collection = focused.getActiveEffects();
+
+                if(!collection.isEmpty()) {
+                    ms.scale(0.5f, 0.5f, 0.5f);
+                    RenderSystem.enableBlend();
+                    int i = 0;
+                    int j = 0;
+                    MobEffectTextureManager potionspriteuploader = this.mc.getMobEffectTextures();
                     bind(INVENTORY_LOCATION);
-                    if(effectinstance.showIcon()) {
-                        int k = (posX - 28)*2-80;
-                        int l = (posY + 45)*2+15;
-                        if(this.mc.isDemo()) {
-                            l += 15;
-                        }
 
-                        if(effect.isBeneficial()) {
-                            ++i;
+                    for(MobEffectInstance effectinstance : Ordering.natural().reverse().sortedCopy(collection)) {
+                        MobEffect effect = effectinstance.getEffect();
+                        bind(INVENTORY_LOCATION);
+                        if(effectinstance.showIcon()) {
+                            int k = (posX - 28)*2-80;
+                            int l = (posY + 45)*2+15;
+                            if(this.mc.isDemo()) {
+                                l += 15;
+                            }
+
+                            if(effect.isBeneficial()) {
+                                ++i;
                                 k += 25 * i;
-                        } else {
-                            ++j;
+                            } else {
+                                ++j;
                                 k += 25 * j;
                                 l += 25;
-                        }
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        float f = 1.0F;
-                        if(effectinstance.isAmbient()) {
-                            gui.blit(ms, k, l, 165, 166, 24, 24);
-                        } else {
-                            gui.blit(ms, k, l, 141, 166, 24, 24);
-                            if(effectinstance.getDuration() <= 200) {
-                                int i1 = 10 - effectinstance.getDuration() / 20;
-                                f = Mth.clamp((float) effectinstance.getDuration() / 10.0F / 5.0F * 0.5F, 0.0F, 0.5F)
-                                        + Mth.cos((float) effectinstance.getDuration() * (float) Math.PI / 5.0F)
-                                        * Mth.clamp((float) i1 / 10.0F * 0.25F, 0.0F, 0.25F);
                             }
-                        }
-                        TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
-                        bind(textureatlassprite.atlas().location());
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f);
-
-                        Gui.blit(ms, k + 3, l + 3, gui.getBlitOffset(), 18, 18, textureatlassprite);
-
-                        if(rpgHud.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
-                            int duration = effectinstance.getDuration()/20;
-                            String s;
-                            if(effectinstance.getDuration() < 999500 && !infinite){
-                                s = "*:**";
-                                if(duration < 600) s = duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60));
-                            }else{
-                                s = "∞";
-                                infinite = true;
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                            float f = 1.0F;
+                            if(effectinstance.isAmbient()) {
+                                gui.blit(ms, k, l, 165, 166, 24, 24);
+                            } else {
+                                gui.blit(ms, k, l, 141, 166, 24, 24);
+                                if(effectinstance.getDuration() <= 200) {
+                                    int i1 = 10 - effectinstance.getDuration() / 20;
+                                    f = Mth.clamp((float) effectinstance.getDuration() / 10.0F / 5.0F * 0.5F, 0.0F, 0.5F)
+                                            + Mth.cos((float) effectinstance.getDuration() * (float) Math.PI / 5.0F)
+                                            * Mth.clamp((float) i1 / 10.0F * 0.25F, 0.0F, 0.25F);
+                                }
                             }
-                            k -= mc.font.width(s)/2;
-                            this.drawStringWithBackground(ms, s, k +12, l +14, -1, 0);
+                            TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
+                            bind(textureatlassprite.atlas().location());
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f);
+
+                            Gui.blit(ms, k + 3, l + 3, gui.getBlitOffset(), 18, 18, textureatlassprite);
+
+                            if(rpgHud.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
+                                int duration = effectinstance.getDuration() / 20;
+                                String s;
+                                if (effectinstance.getDuration() < 999500 && !infinite) {
+                                    s = "*:**";
+                                    if (duration < 600)
+                                        s = duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60));
+                                } else {
+                                    s = "∞";
+                                    infinite = true;
+                                }
+                                k -= mc.font.width(s) / 2;
+                                this.drawStringWithBackground(ms, s, k + 12, l + 14);
+                            }
                         }
                     }
                 }
-            }
         }
+    }
+    public static void setIdData(int id){
+        focusedId = id;
+    }
+    public static void setData(double lifeData,double lifeMaxData,double manaData,double manaMaxData,double armorData,int rankData,int levelData){
+        focusedLife = lifeData;
+        focusedMaxLife = lifeMaxData;
+        focusedMana = manaData;
+        focusedMaxMana = manaMaxData;
+        focusedArmor = armorData;
+        entityLevel = levelData;
+        rank = rankData;
+    }
+    public static int dataNeeded(){
+        return focusedId;
+    }
+    public void setFocusedData(){
+
     }
     public static void drawEntityOnScreen(int posX, int posY, LivingEntity entity) {
         int scale;

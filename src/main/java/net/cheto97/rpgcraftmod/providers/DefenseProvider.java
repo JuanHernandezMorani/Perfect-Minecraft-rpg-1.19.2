@@ -18,24 +18,12 @@ import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenera
 public class DefenseProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
     
     public static Capability<Defense> ENTITY_DEFENSE = CapabilityManager.get(new CapabilityToken<Defense>() {});
-    private final LivingEntity entity;
     private Defense defense = null;
-    public DefenseProvider(LivingEntity entity){
-        this.entity = entity;
-    }
     private final LazyOptional<Defense> optional = LazyOptional.of(this::createDefense);
 
     private Defense createDefense() {
-        if(this.defense == null && entity != null){
-            createDefense(entity);
-        }
-
-        return this.defense;
-    }
-
-    private Defense createDefense(LivingEntity entity) {
         if(this.defense == null){
-            this.defense = new Defense(DoubleGenerator("Defense",entity));
+            this.defense = new Defense();
         }
 
         return this.defense;
@@ -54,12 +42,12 @@ public class DefenseProvider implements ICapabilityProvider, INBTSerializable<Co
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createDefense(entity).saveNBTData(nbt);
+        createDefense().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createDefense(entity).loadNBTData(nbt);
+        createDefense().loadNBTData(nbt);
     }
 }

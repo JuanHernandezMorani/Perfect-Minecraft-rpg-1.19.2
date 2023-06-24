@@ -4,9 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 
 public class ManaRegeneration {
     private double manaregeneration = 1;
-    public ManaRegeneration(double value){
-        set(value);
-    }
 
     public double get(){
         return manaregeneration;

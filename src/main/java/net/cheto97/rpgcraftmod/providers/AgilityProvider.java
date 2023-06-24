@@ -17,26 +17,13 @@ import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenera
 
 public class AgilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
     public static Capability<Agility> ENTITY_AGILITY = CapabilityManager.get(new CapabilityToken<Agility>() {});
-    private final LivingEntity entity;
-
-    public AgilityProvider(LivingEntity entity){
-        this.entity = entity;
-    }
 
     private Agility agility = null;
     private final LazyOptional<Agility> optional = LazyOptional.of(this::createAgility);
 
     private Agility createAgility() {
-        if(this.agility == null && entity != null){
-            createAgility(entity);
-        }
-
-        return this.agility;
-    }
-
-    private Agility createAgility(LivingEntity entity) {
         if(this.agility == null){
-            this.agility = new Agility(DoubleGenerator("Agility",entity));
+            this.agility = new Agility();
         }
 
         return this.agility;
@@ -54,12 +41,12 @@ public class AgilityProvider implements ICapabilityProvider, INBTSerializable<Co
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createAgility(entity).saveNBTData(nbt);
+        createAgility().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createAgility(entity).loadNBTData(nbt);
+        createAgility().loadNBTData(nbt);
     }
 }

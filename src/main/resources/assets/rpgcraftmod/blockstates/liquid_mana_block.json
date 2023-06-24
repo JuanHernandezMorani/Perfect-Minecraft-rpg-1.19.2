@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=1": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=2": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=3": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+      "level=4": {
+        "model": "rpgcraftmod:misc/mana_fluid"
+      },
+      "level=5": {
+        "model": "rpgcraftmod:misc/mana_fluid"
+      },
+      "level=6": {
+        "model": "rpgcraftmod:misc/mana_fluid"
+      },
+      "level=7": {
+        "model": "rpgcraftmod:misc/mana_fluid"
+      },
+    "level=8": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=9": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=10": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=11": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=12": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=13": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=14": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    },
+    "level=15": {
+      "model": "rpgcraftmod:misc/mana_fluid"
+    }
+    }
+}

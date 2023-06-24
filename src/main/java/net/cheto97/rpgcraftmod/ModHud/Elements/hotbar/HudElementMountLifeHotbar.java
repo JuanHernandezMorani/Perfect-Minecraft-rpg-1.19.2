@@ -35,8 +35,6 @@ public class HudElementMountLifeHotbar extends HudElement {
         });
         if(life > lifeMax) life = lifeMax;
         int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.mount_life_position)[0];
-        drawCustomBar(ms, posX, height - 56, 200, 10, life /  lifeMax * 100.0D, -1, -1, this.settings.getIntValue(Settings.color_life), offsetColorPercent(this.settings.getIntValue(Settings.color_life), OFFSET_PERCENT));
-
         String stringLife = this.settings.getBoolValue(Settings.mount_life_percentage) ? Math.floor( life / lifeMax * 100) + "%" : life + "/" + lifeMax;
 
         if (this.settings.getBoolValue(Settings.show_numbers_life))

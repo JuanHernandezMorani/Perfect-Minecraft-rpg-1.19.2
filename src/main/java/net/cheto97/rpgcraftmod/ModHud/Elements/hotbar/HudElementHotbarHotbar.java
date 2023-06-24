@@ -24,16 +24,15 @@ public class HudElementHotbarHotbar extends HudElement {
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
+        assert this.mc.gameMode != null;
         if(this.mc.gameMode.getPlayerMode() == GameType.SPECTATOR) {
             this.mc.gui.getSpectatorGui().renderHotbar(ms);
-        } else if (this.mc.getCameraEntity() instanceof Player) {
+        } else if (this.mc.getCameraEntity() instanceof Player entityplayer) {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             bind(WIDGETS_TEX_PATH);
-            Player entityplayer = (Player) this.mc.getCameraEntity();
+            assert this.mc.player != null;
             ItemStack itemstack = this.mc.player.getOffhandItem();
             int i = scaledWidth / 2;
-            float f = zLevel;
-            zLevel = -90.0F;
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.hotbar_position)[0];
             int posY = this.settings.getPositionValue(Settings.hotbar_position)[1];
             gui.blit(ms, posX, scaledHeight - 47 + posY, 0, 0, 182, 22);
@@ -41,7 +40,6 @@ public class HudElementHotbarHotbar extends HudElement {
 
             gui.blit(ms, posX + 181, scaledHeight - 47 + posY, 60, 23, 22, 22);
 
-            zLevel = f;
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 

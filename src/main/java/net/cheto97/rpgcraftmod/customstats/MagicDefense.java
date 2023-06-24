@@ -5,10 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 public class MagicDefense {
     private double magicDefense = 1;
 
-    public MagicDefense(double value){
-        set(value);
-    }
-
     public double get(){
         return magicDefense;
     }

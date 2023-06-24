@@ -21,12 +21,6 @@ public class HudElementJumpBarDefault  extends HudElement {
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        int height = scaledHeight + this.settings.getPositionValue(Settings.jump_bar_position)[1];
-        int center = (scaledWidth / 2) + this.settings.getPositionValue(Settings.jump_bar_position)[0];
-        assert this.mc.player != null;
-        float jumpPower = this.mc.player.getJumpRidingScale();
-        int value = (int) (jumpPower * 100.0F);
-        drawCustomBar(ms, center - 70, height - 80, 141, 10, value / 100.0D * 100.0D, this.settings.getIntValue(Settings.color_jump_bar), offsetColorPercent(this.settings.getIntValue(Settings.color_jump_bar), OFFSET_PERCENT));
-    }
+        }
 
 }

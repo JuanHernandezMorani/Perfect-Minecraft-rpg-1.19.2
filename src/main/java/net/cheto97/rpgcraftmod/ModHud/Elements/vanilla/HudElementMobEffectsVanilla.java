@@ -29,6 +29,7 @@ public class HudElementMobEffectsVanilla extends HudElement {
     public void drawElement(Gui gui, PoseStack ms, float na, float partialTicks, int scaledWidth, int scaledHeight) {
         float scale = getScale();
         ms.scale(scale, scale, scale);
+        assert this.mc.player != null;
         Collection<MobEffectInstance> collection = this.mc.player.getActiveEffects();
         if(!collection.isEmpty()) {
             RenderSystem.enableBlend();
@@ -90,14 +91,13 @@ public class HudElementMobEffectsVanilla extends HudElement {
                     if(rpgHud.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
                         int duration = effectinstance.getDuration()/20;
                         String s = "*:**";
-                        if(duration < 600) s = String.valueOf(duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60)));
+                        if(duration < 600) s = duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60));
                         k -= mc.font.width(s)/2;
-                        this.drawStringWithBackground(ms, s, k +12, l +14, -1, 0);
+                        this.drawStringWithBackground(ms, s, k +12, l +14);
                     }
                 }
             }
         }
-        scale = getInvertedScale();
     }
 
     @Override
@@ -112,7 +112,6 @@ public class HudElementMobEffectsVanilla extends HudElement {
 
     @Override
     public float getScale() {
-        float scale = (float)this.settings.getDoubleValue(Settings.status_scale);
-        return scale;
+        return (float) this.settings.getDoubleValue(Settings.status_scale);
     }
 }

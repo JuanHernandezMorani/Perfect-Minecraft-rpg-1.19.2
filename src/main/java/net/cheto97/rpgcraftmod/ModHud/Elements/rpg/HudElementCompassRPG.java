@@ -4,8 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.Elements.vanilla.HudElementCompassVanilla;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class HudElementCompassRPG extends HudElementCompassVanilla {
 
@@ -15,7 +13,7 @@ public class HudElementCompassRPG extends HudElementCompassVanilla {
 
     @Override
     public boolean checkConditions() {
-        return this.settings.getBoolValue(Settings.enable_compass) && !this.mc.options.renderDebug && (this.settings.getBoolValue(Settings.enable_immersive_compass) ? this.mc.player.getInventory().contains(new ItemStack(Items.COMPASS)) : true);
+        return true;
     }
 
     @Override
@@ -27,7 +25,6 @@ public class HudElementCompassRPG extends HudElementCompassVanilla {
         int rotation = Math.round(((this.mc.gameRenderer.getMainCamera().getYRot() % 360) / 360) * 200);
         if (rotation < 0)
             rotation = 200 + rotation;
-        drawRect(ms, posX - 50, posY + 2, 100, 6, 0xAA000000);
 
         if (rotation > 0 && rotation <= 100) {
             Gui.drawCenteredString(ms, this.mc.font, "W", posX + (50 * swapSides) - (rotation * swapSides), posY + 1, -1);
@@ -69,10 +66,6 @@ public class HudElementCompassRPG extends HudElementCompassVanilla {
 
         if (this.settings.getBoolValue(Settings.enable_compass_coordinates)) {
             int[] pos = getPlayerPos();
-            drawRect(ms, posX - 50, posY + 11, this.mc.font.width(String.valueOf(pos[0])) / 2 + 4, 6, 0xA0000000);
-            drawRect(ms, (int) (posX - ((float) this.mc.font.width(String.valueOf(pos[1])) / 4) - 2), posY + 11, this.mc.font.width(String.valueOf(pos[1])) / 2 + 4, 6, 0xA0000000);
-            drawRect(ms, (posX + 48) - (this.mc.font.width(String.valueOf(pos[2])) / 2) - 2, posY + 11, this.mc.font.width(String.valueOf(pos[2])) / 2 + 4, 6, 0xA0000000);
-
             ms.scale(0.5f, 0.5f, 0.5f);
             Gui.drawString(ms, this.mc.font, String.valueOf(pos[0]), (posX - 48) * 2, (posY + 12) * 2, -1);
             Gui.drawCenteredString(ms, this.mc.font, String.valueOf(pos[1]), posX * 2, (posY + 12) * 2, -1);
@@ -83,17 +76,12 @@ public class HudElementCompassRPG extends HudElementCompassVanilla {
 
     @Override
     public int getPosY(int scaledHeight) {
-        return (int) (this.settings.getPositionValue(Settings.compass_position)[1]);
+        return (this.settings.getPositionValue(Settings.compass_position)[1]);
     }
 
     @Override
     public int getPosX(int scaledWidth) {
         return (scaledWidth / 2) + this.settings.getPositionValue(Settings.compass_position)[0];
-    }
-
-    @Override
-    public int getWidth(int scaledWidth) {
-        return 100;
     }
 
     public int getHeight(int scaledHeight) {

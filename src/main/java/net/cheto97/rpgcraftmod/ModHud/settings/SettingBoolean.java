@@ -20,19 +20,10 @@ public class SettingBoolean extends Setting {
     }
 
     @Override
-    public void increment() {
-        this.value = !this.value;
-    }
-
-    @Override
     public Object getValue() {
         return this.value;
     }
 
-    @Override
-    public void resetValue() {
-        this.value = this.defaultValue;
-    }
 
     @Override
     public Setting setValue(Object o) {
@@ -42,9 +33,5 @@ public class SettingBoolean extends Setting {
         return this;
     }
 
-    @Override
-    public Object getDefaultValue() {
-        return this.defaultValue;
-    }
 
 }

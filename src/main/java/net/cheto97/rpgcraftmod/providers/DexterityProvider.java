@@ -18,23 +18,11 @@ import static net.cheto97.rpgcraftmod.util.EntityDataProviderDefine.DoubleGenera
 public class DexterityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
     
     public static Capability<Dexterity> ENTITY_DEXTERITY = CapabilityManager.get(new CapabilityToken<Dexterity>() {});
-    private final LivingEntity entity;
     private Dexterity dexterity = null;
     private final LazyOptional<Dexterity> optional = LazyOptional.of(this::createDexterity);
-    public DexterityProvider(LivingEntity entity){
-        this.entity = entity;
-    }
-
     private Dexterity createDexterity() {
-        if(this.dexterity == null && entity != null){
-            createDexterity(entity);
-        }
-        return this.dexterity;
-    }
-
-    private Dexterity createDexterity(LivingEntity entity) {
         if(this.dexterity == null){
-            this.dexterity = new Dexterity(DoubleGenerator("Dexterity",entity));
+            this.dexterity = new Dexterity();
         }
 
         return this.dexterity;
@@ -53,12 +41,12 @@ public class DexterityProvider implements ICapabilityProvider, INBTSerializable<
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createDexterity(entity).saveNBTData(nbt);
+        createDexterity().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createDexterity(entity).loadNBTData(nbt);
+        createDexterity().loadNBTData(nbt);
     }
 }
