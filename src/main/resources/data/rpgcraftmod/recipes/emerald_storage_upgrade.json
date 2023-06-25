@@ -8,7 +8,7 @@
     "key": {
         "/": { "tag": "forge:rods/wooden" },
         "#": { "tag": "forge:gems/emerald" },
-        "X": { "item": "storagedrawers:upgrade_template" }
+        "X": { "item": "rpgcraftmodupgrade_template" }
     },
-    "result": { "item": "storagedrawers:emerald_storage_upgrade" }
+    "result": { "item": "rpgcraftmodemerald_storage_upgrade" }
 }

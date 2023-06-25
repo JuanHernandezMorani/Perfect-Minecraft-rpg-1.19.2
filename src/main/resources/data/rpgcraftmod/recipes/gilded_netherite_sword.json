@@ -2,5 +2,5 @@
   "type": "minecraft:smithing",
   "base": {"item": "minecraft:netherite_sword"},
   "addition": {"item": "minecraft:gold_ingot"},
-  "result": {"item": "additionaladditions:gilded_netherite_sword"}
+  "result": {"item": "rpgcraftmodgilded_netherite_sword"}
 }

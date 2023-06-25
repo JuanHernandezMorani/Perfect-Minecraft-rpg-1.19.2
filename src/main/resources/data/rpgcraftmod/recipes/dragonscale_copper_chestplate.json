@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_copper"
+      "item": "rpgcraftmod:dragonscales_copper"
     }
   },
   "result": {
-    "item": "iceandfire:armor_copper_chestplate"
+    "item": "rpgcraftmod:armor_copper_chestplate"
   }
 }

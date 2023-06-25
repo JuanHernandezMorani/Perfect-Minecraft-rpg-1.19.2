@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:warped_trim",
+    "type": "rpgcraftmodwarped_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:warped_trim"
+                    "name": "rpgcraftmodwarped_trim"
                 }
             ],
             "conditions": [

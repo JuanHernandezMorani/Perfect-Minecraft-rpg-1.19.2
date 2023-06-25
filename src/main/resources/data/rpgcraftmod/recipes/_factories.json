@@ -1,5 +1,0 @@
-{
-    "conditions": {
-        "helmet": "com.wynprice.secretroomsmod.handler.RecipeConfigHandler"
-    }
-}

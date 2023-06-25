@@ -1,6 +1,6 @@
 {
     "variants": {
-      "": { "model": "pigsteel:block/pigsteel_ore" }
+      "": { "model": "rpgcraftmodblock/pigsteel_ore" }
     }
   }
 

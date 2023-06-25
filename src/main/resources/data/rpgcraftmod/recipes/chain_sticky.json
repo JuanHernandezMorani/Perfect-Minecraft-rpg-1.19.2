@@ -5,11 +5,11 @@
       "tag": "forge:slimeballs"
     },
     {
-      "item": "iceandfire:chain"
+      "item": "rpgcraftmod:chain"
     }
   ],
   "result": {
-    "item": "iceandfire:chain_sticky",
+    "item": "rpgcraftmod:chain_sticky",
     "count": 1
   }
 }

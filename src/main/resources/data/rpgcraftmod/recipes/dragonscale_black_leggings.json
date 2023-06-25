@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_black"
+      "item": "rpgcraftmod:dragonscales_black"
     }
   },
   "result": {
-    "item": "iceandfire:armor_black_leggings"
+    "item": "rpgcraftmod:armor_black_leggings"
   }
 }

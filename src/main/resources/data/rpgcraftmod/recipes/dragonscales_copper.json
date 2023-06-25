@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_copper"
+      "item": "rpgcraftmod:dragonscale_copper"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonscales_copper",
+    "item": "rpgcraftmod:dragonscales_copper",
     "count": 9
   }
 }

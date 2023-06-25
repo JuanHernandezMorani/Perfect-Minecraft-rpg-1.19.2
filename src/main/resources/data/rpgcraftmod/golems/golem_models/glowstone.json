@@ -1,7 +1,7 @@
 {
   "base": "minecraft:glowstone",
   "vines": {
-	"texture": "#golems:layer/vines",
+	"texture": "#rpgcraftmodlayer/vines",
 	"color": 11543845
   }
 }

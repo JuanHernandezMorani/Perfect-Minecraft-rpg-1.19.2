@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_bow_special"
+    "item": "rpgcraftmodspectrite_bow_special"
   },
   "pattern": [
     " XY",
@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_rod"
+      "item": "rpgcraftmodspectrite_rod"
     },
     "Y": {
       "item": "minecraft:string"

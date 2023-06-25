@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "iceandfire:frozen_grass_path"
+    "item": "rpgcraftmod:frozen_grass_path"
   },
   "result": "minecraft:grass_path",
   "experience": 0.1,

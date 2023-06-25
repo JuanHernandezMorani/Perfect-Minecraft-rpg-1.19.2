@@ -1,5 +1,5 @@
 {
-    "parent": "spectrite:block/spectrite_chest_trapped",
+    "parent": "rpgcraftmodblock/spectrite_chest_trapped",
     "display": {
 		"gui": {
 			"rotation": [ 30, 225, 0 ],

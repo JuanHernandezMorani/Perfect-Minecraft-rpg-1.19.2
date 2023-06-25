@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:egg"
   },
-  "result": "additionaladditions:fried_egg",
+  "result": "rpgcraftmodfried_egg",
   "cookingtime": 600,
   "experience": 0.35
 }

@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_amythest"
+      "item": "rpgcraftmod:dragonscale_amythest"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonscales_amythest",
+    "item": "rpgcraftmod:dragonscales_amythest",
     "count": 9
   }
 }

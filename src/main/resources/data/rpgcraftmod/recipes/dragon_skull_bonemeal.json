@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "iceandfire:mob_skulls"
+      "tag": "rpgcraftmod:mob_skulls"
     }
   ],
   "result": {

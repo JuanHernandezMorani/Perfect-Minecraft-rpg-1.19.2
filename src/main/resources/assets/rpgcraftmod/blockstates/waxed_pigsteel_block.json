@@ -1,6 +1,6 @@
 {
     "variants": {
-      "": { "model": "pigsteel:block/waxed_pigsteel_block"}
+      "": { "model": "rpgcraftmodblock/waxed_pigsteel_block"}
     }
   }
 

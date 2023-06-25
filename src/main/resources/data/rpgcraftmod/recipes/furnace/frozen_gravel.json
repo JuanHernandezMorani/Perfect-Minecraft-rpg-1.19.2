@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "iceandfire:frozen_gravel"
+    "item": "rpgcraftmod:frozen_gravel"
   },
   "result": "minecraft:gravel",
   "experience": 0.1,

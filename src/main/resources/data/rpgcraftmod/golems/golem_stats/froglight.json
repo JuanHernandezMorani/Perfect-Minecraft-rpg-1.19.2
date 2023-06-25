@@ -22,17 +22,17 @@
 	  "0": {
 		"blocks": "minecraft:ochre_froglight",
 		"glow": 15,
-		"loot_table": "golems:froglight/ochre"
+		"loot_table": "rpgcraftmodfroglight/ochre"
 	  },
 	  "1": {
 		"blocks": "minecraft:verdant_froglight",
 		"glow": 15,
-		"loot_table": "golems:froglight/verdant"
+		"loot_table": "rpgcraftmodfroglight/verdant"
 	  },
 	  "2": {
 		"blocks": "minecraft:pearlescent_froglight",
 		"glow": 15,
-		"loot_table": "golems:froglight/pearlescent"
+		"loot_table": "rpgcraftmodfroglight/pearlescent"
 	  }
     }
   }

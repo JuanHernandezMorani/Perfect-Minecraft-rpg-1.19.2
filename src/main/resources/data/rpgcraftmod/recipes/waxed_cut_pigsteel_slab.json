@@ -5,11 +5,11 @@
             "item": "minecraft:honeycomb"
         },
         {
-            "item": "pigsteel:cut_pigsteel_slab"
+            "item": "rpgcraftmodcut_pigsteel_slab"
         }
     ],
     "result": {
-        "item": "pigsteel:waxed_cut_pigsteel_slab",
+        "item": "rpgcraftmodwaxed_cut_pigsteel_slab",
         "count": 1
     }
 }

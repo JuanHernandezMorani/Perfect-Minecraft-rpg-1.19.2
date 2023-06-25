@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:troll_leather_mountain",
+          "name": "rpgcraftmod:troll_leather_mountain",
           "weight": 1,
           "functions": [
             {
@@ -28,7 +28,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:troll_tusk",
+          "name": "rpgcraftmod:troll_tusk",
           "weight": 1,
           "functions": [
             {
@@ -86,7 +86,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:troll_skull",
+          "name": "rpgcraftmod:troll_skull",
           "weight": 1
         }
       ]

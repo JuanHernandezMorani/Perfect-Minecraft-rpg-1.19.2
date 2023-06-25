@@ -10,10 +10,10 @@
       "tag": "forge:chests/wooden"
     },
     "E": {
-      "item": "iceandfire:ectoplasm"
+      "item": "rpgcraftmod:ectoplasm"
     }
   },
   "result": {
-    "item": "iceandfire:ghost_chest"
+    "item": "rpgcraftmod:ghost_chest"
   }
 }

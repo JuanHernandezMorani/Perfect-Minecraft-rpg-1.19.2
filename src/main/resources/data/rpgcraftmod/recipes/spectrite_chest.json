@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_chest"
+    "item": "rpgcraftmodspectrite_chest"
   },
   "pattern": [
     "XXX",
@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_block"
+      "item": "rpgcraftmodspectrite_block"
     },
     "Y": {
       "item": "minecraft:diamond"

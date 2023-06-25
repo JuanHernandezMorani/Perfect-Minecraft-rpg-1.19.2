@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pigsteel:block/zombified_cut_pigsteel_slab"
+      "model": "rpgcraftmodblock/zombified_cut_pigsteel_slab"
     },
     "type=double": {
-      "model": "pigsteel:block/zombified_cut_pigsteel"
+      "model": "rpgcraftmodblock/zombified_cut_pigsteel"
     },
     "type=top": {
-      "model": "pigsteel:block/zombified_cut_pigsteel_slab_top"
+      "model": "rpgcraftmodblock/zombified_cut_pigsteel_slab_top"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
     "variants": {
-      "": { "model": "pigsteel:block/infected_cut_pigsteel" }
+      "": { "model": "rpgcraftmodblock/infected_cut_pigsteel" }
     }
   }
 

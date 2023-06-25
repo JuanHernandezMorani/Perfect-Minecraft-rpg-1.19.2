@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/podium_spruce"
+      "model": "rpgcraftmod:block/podium_spruce"
     }
   }
 }

@@ -8,7 +8,7 @@
     "key": {
         "/": { "tag": "forge:rods/wooden" },
         "#": { "tag": "forge:gems/lapis" },
-        "X": { "item": "storagedrawers:upgrade_template" }
+        "X": { "item": "rpgcraftmodupgrade_template" }
     },
-    "result": { "item": "storagedrawers:conversion_upgrade" }
+    "result": { "item": "rpgcraftmodconversion_upgrade" }
 }

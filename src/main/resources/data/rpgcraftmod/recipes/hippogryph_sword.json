@@ -7,7 +7,7 @@
   ],
   "key": {
     "T": {
-      "item": "iceandfire:hippogryph_talon"
+      "item": "rpgcraftmod:hippogryph_talon"
     },
     "S": {
       "tag": "forge:rods/wooden"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "iceandfire:hippogryph_sword"
+    "item": "rpgcraftmod:hippogryph_sword"
   }
 }

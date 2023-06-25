@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:hippocampus_fin"
+      "item": "rpgcraftmod:hippocampus_fin"
     },
     {
       "item": "minecraft:paper"
     }
   ],
   "result": {
-    "item": "iceandfire:banner_pattern_hippocampus",
+    "item": "rpgcraftmod:banner_pattern_hippocampus",
     "count": 1
   }
 }

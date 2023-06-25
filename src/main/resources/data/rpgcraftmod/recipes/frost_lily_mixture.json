@@ -5,14 +5,14 @@
       "item": "minecraft:prismarine_crystals"
     },
     {
-      "item": "iceandfire:frost_lily"
+      "item": "rpgcraftmod:frost_lily"
     },
     {
       "item": "minecraft:bowl"
     }
   ],
   "result": {
-    "item": "iceandfire:frost_stew",
+    "item": "rpgcraftmod:frost_stew",
     "count": 1
   }
 }

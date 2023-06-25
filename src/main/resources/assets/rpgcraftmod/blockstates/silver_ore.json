@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/silver_ore"
+      "model": "rpgcraftmod:block/silver_ore"
     }
   }
 }

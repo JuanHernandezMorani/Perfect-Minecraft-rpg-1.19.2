@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:pixie_wings"
+      "item": "rpgcraftmod:pixie_wings"
     },
     {
       "item": "minecraft:paper"
     }
   ],
   "result": {
-    "item": "iceandfire:banner_pattern_fae",
+    "item": "rpgcraftmod:banner_pattern_fae",
     "count": 1
   }
 }

@@ -12,7 +12,7 @@
   },
   "behavior": [
     {
-	  "type": "golems:shoot_arrows",
+	  "type": "rpgcraftmodshoot_arrows",
 	  "damage": 4.25
     }
   ]

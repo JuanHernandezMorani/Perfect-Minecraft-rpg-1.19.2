@@ -13,11 +13,11 @@
       "item": "minecraft:flint"
     },
     "Y": {
-      "item": "iceandfire:stymphalian_bird_feather"
+      "item": "rpgcraftmod:stymphalian_bird_feather"
     }
   },
   "result": {
-    "item": "iceandfire:stymphalian_arrow",
+    "item": "rpgcraftmod:stymphalian_arrow",
     "count": 4
   }
 }

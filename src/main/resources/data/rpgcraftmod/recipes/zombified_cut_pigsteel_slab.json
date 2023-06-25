@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "pigsteel:zombified_cut_pigsteel"
+      "item": "rpgcraftmodzombified_cut_pigsteel"
     }
   },
   "result": {
-    "item": "pigsteel:zombified_cut_pigsteel_slab",
+    "item": "rpgcraftmodzombified_cut_pigsteel_slab",
     "count": 6
   }
 }

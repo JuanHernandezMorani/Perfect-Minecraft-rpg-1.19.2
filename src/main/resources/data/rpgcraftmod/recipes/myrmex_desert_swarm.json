@@ -7,17 +7,17 @@
   ],
   "key": {
     "R": {
-      "item": "iceandfire:myrmex_desert_resin_block"
+      "item": "rpgcraftmod:myrmex_desert_resin_block"
     },
     "S": {
       "tag": "forge:rods/wooden"
     },
     "E": {
-      "item": "iceandfire:myrmex_desert_egg"
+      "item": "rpgcraftmod:myrmex_desert_egg"
 
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_desert_swarm"
+    "item": "rpgcraftmod:myrmex_desert_swarm"
   }
 }

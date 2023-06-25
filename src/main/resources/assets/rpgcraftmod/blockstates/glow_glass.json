@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/glow_glass"
+      "model": "rpgcraftmodblock/glow_glass"
     }
   }
 }

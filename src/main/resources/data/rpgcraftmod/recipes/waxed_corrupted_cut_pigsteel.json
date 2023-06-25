@@ -5,11 +5,11 @@
             "item": "minecraft:honeycomb"
         },
         {
-            "item": "pigsteel:corrupted_cut_pigsteel"
+            "item": "rpgcraftmodcorrupted_cut_pigsteel"
         }
     ],
     "result": {
-        "item": "pigsteel:waxed_corrupted_cut_pigsteel",
+        "item": "rpgcraftmodwaxed_corrupted_cut_pigsteel",
         "count": 1
     }
 }

@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_wither_invulnerable_skull"
+    "item": "rpgcraftmodspectrite_wither_invulnerable_skull"
   },
   "pattern": [
     " X ",
@@ -10,10 +10,10 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_wither_skull"
+      "item": "rpgcraftmodspectrite_wither_skull"
     },
     "Y": {
-      "item": "spectrite:spectrite_star"
+      "item": "rpgcraftmodspectrite_star"
     }
   }
 }

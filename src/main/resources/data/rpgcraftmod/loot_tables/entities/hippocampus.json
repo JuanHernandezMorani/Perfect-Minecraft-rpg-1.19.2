@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:shiny_scales",
+          "name": "rpgcraftmod:shiny_scales",
           "weight": 1,
           "functions": [
             {
@@ -43,7 +43,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:hippocampus_fin",
+          "name": "rpgcraftmod:hippocampus_fin",
           "weight": 1
         }
       ]

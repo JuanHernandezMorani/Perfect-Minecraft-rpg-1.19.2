@@ -1,16 +1,16 @@
 {
   "base": "minecraft:polished_blackstone",
   "vines": {
-	"texture": "#golems:layer/vines",
+	"texture": "#rpgcraftmodlayer/vines",
 	"color": 23157
   },
   "layers": [
     {
-	  "texture": "#golems:layer/gold_nuggets"
+	  "texture": "#rpgcraftmodlayer/gold_nuggets"
 	},
 	{
 	  "texture": "minecraft:polished_blackstone",
-	  "template": "golems:layer/hands_template"
+	  "template": "rpgcraftmodlayer/hands_template"
 	}
   ]
 }

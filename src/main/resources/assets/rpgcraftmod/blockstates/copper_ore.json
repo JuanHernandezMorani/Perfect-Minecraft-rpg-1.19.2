@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/copper_ore"
+      "model": "rpgcraftmod:block/copper_ore"
     }
   }
 }

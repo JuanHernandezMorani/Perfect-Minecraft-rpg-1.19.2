@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pigsteel:block/corrupted_cut_pigsteel_slab"
+      "model": "rpgcraftmodblock/corrupted_cut_pigsteel_slab"
     },
     "type=double": {
-      "model": "pigsteel:block/corrupted_cut_pigsteel"
+      "model": "rpgcraftmodblock/corrupted_cut_pigsteel"
     },
     "type=top": {
-      "model": "pigsteel:block/corrupted_cut_pigsteel_slab_top"
+      "model": "rpgcraftmodblock/corrupted_cut_pigsteel_slab_top"
     }
   }
 }

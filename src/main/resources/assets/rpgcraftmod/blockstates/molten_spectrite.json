@@ -2,13 +2,13 @@
     "forge_marker": 1,
     "variants": {
         "odd=false": {
-            "model": "spectrite:molten_spectrite_fluid",
+            "model": "rpgcraftmodmolten_spectrite_fluid",
             "custom": {
                 "fluid": "moltenspectrite"
             }
         },
 		"odd=true": {
-            "model": "spectrite:molten_spectrite_fluid_odd",
+            "model": "rpgcraftmodmolten_spectrite_fluid_odd",
             "custom": {
                 "fluid": "moltenspectrite"
             }

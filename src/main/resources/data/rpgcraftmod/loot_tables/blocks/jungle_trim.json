@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:jungle_trim",
+    "type": "rpgcraftmodjungle_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:jungle_trim"
+                    "name": "rpgcraftmodjungle_trim"
                 }
             ],
             "conditions": [

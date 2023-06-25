@@ -1,7 +1,7 @@
 {
   "base": "minecraft:end_stone",
   "eyes": {
-	"texture": "#golems:layer/eyes/ender",
+	"texture": "#rpgcraftmodlayer/eyes/ender",
 	"light": true
   }
 }

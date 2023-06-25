@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:deathworm_chitin_white",
+          "name": "rpgcraftmod:deathworm_chitin_white",
           "weight": 30,
           "functions": [
             {
@@ -48,7 +48,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:deathworm_egg_giant",
+          "name": "rpgcraftmod:deathworm_egg_giant",
           "weight": 30,
           "functions": [
             {
@@ -85,7 +85,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:deathworm_tounge",
+          "name": "rpgcraftmod:deathworm_tounge",
           "weight": 1
         }
       ]

@@ -1,7 +1,7 @@
 {
-    "parent": "spectrite:block/spectrite_fire/spectrite_fire_up_alt",
+    "parent": "rpgcraftmodblock/spectrite_fire/spectrite_fire_up_alt",
     "textures": {
-        "particle": "spectrite:blocks/spectrite_fire_layer_0",
-        "fire": "spectrite:blocks/spectrite_fire_layer_0"
+        "particle": "rpgcraftmodblocks/spectrite_fire_layer_0",
+        "fire": "rpgcraftmodblocks/spectrite_fire_layer_0"
     }
 }

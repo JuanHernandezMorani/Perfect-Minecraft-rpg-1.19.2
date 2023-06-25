@@ -10,7 +10,7 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "1"
               }
@@ -22,14 +22,14 @@
               "count": 2
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "2"
               }
@@ -41,14 +41,14 @@
               "count": 4
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "3"
               }
@@ -60,14 +60,14 @@
               "count": 6
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "4"
               }
@@ -79,14 +79,14 @@
               "count": 8
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "5"
               }
@@ -98,14 +98,14 @@
               "count": 10
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "6"
               }
@@ -117,14 +117,14 @@
               "count": 12
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "7"
               }
@@ -136,14 +136,14 @@
               "count": 14
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         },
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "iceandfire:silver_pile",
+              "block": "rpgcraftmod:silver_pile",
               "properties": {
                 "layers": "8"
               }
@@ -155,7 +155,7 @@
               "count": 16
             }
           ],
-          "name": "iceandfire:silver_nugget"
+          "name": "rpgcraftmod:silver_nugget"
         }
       ]
     }

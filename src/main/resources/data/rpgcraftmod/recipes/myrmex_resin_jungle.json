@@ -9,10 +9,10 @@
       "item": "minecraft:dirt"
     },
     "R": {
-      "item": "iceandfire:myrmex_jungle_resin"
+      "item": "rpgcraftmod:myrmex_jungle_resin"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_resin_jungle"
+    "item": "rpgcraftmod:myrmex_resin_jungle"
   }
 }

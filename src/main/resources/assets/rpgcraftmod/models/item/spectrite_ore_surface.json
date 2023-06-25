@@ -1,5 +1,5 @@
 {
-    "parent": "spectrite:block/spectrite_ore_surface",
+    "parent": "rpgcraftmodblock/spectrite_ore_surface",
     "display": {
 		"gui": {
             "rotation": [ 30, 225, 0 ],

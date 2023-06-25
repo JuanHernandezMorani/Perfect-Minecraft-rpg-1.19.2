@@ -1,6 +1,6 @@
 {
     "variants": {
-      "": { "model": "pigsteel:block/cut_pigsteel" }
+      "": { "model": "rpgcraftmodblock/cut_pigsteel" }
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_arrow_special",
+    "item": "rpgcraftmodspectrite_arrow_special",
 	"count": 8
   },
   "pattern": [
@@ -11,10 +11,10 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_gem"
+      "item": "rpgcraftmodspectrite_gem"
     },
     "Y": {
-      "item": "spectrite:spectrite_rod"
+      "item": "rpgcraftmodspectrite_rod"
     },
     "Z": {
       "item": "minecraft:feather"

@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "storagedrawers:blocks/drawers_spruce_side"
+        "all": "rpgcraftmodblocks/drawers_spruce_side"
     }
 }

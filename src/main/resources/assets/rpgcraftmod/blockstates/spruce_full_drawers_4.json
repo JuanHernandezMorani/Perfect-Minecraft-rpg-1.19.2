@@ -1,8 +1,8 @@
 {
     "variants": {
-        "facing=north": { "model": "storagedrawers:block/spruce_full_drawers_4" },
-        "facing=east": { "model": "storagedrawers:block/spruce_full_drawers_4", "y": 90 },
-        "facing=south": { "model": "storagedrawers:block/spruce_full_drawers_4", "y": 180 },
-        "facing=west": { "model": "storagedrawers:block/spruce_full_drawers_4", "y": 270 }
+        "facing=north": { "model": "rpgcraftmodblock/spruce_full_drawers_4" },
+        "facing=east": { "model": "rpgcraftmodblock/spruce_full_drawers_4", "y": 90 },
+        "facing=south": { "model": "rpgcraftmodblock/spruce_full_drawers_4", "y": 180 },
+        "facing=west": { "model": "rpgcraftmodblock/spruce_full_drawers_4", "y": 270 }
     }
 }

@@ -7,7 +7,7 @@
     ],
     "key": {
         "/": { "tag": "forge:rods/wooden" },
-        "X": { "tag": "storagedrawers:drawers" }
+        "X": { "tag": "rpgcraftmoddrawers" }
     },
-    "result": { "item": "storagedrawers:upgrade_template", "count": 4 }
+    "result": { "item": "rpgcraftmodupgrade_template", "count": 4 }
 }

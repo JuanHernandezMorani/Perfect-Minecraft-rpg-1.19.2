@@ -7,10 +7,10 @@
   ],
   "key": {
     "B": {
-      "item": "iceandfire:dragonbone"
+      "item": "rpgcraftmod:dragonbone"
     }
   },
   "result": {
-    "item": "iceandfire:dragon_bone_block"
+    "item": "rpgcraftmod:dragon_bone_block"
   }
 }

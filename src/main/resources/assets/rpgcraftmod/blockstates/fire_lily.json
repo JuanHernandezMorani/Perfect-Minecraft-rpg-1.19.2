@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/fire_lily"
+      "model": "rpgcraftmod:block/fire_lily"
     }
   }
 }

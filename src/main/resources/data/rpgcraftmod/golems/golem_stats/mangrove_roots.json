@@ -17,17 +17,17 @@
 	"textures": {
 	  "0": {
 		"blocks": "minecraft:mangrove_roots",
-		"loot_table": "golems:mangrove_roots/normal"
+		"loot_table": "rpgcraftmodmangrove_roots/normal"
 	  },
 	  "1": {
 		"blocks": "minecraft:muddy_mangrove_roots",
-		"loot_table": "golems:mangrove_roots/muddy"
+		"loot_table": "rpgcraftmodmangrove_roots/muddy"
 	  }
 	}
   },
   "behavior": [
     {
-	  "type": "golems:passive_effect",
+	  "type": "rpgcraftmodpassive_effect",
 	  "effect": {
 		"target": "self",
 		"chance": 0.0006,

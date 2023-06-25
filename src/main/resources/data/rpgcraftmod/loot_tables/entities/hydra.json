@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:hydra_fang",
+          "name": "rpgcraftmod:hydra_fang",
           "weight": 1,
           "functions": [
             {
@@ -64,7 +64,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:hydra_heart",
+          "name": "rpgcraftmod:hydra_heart",
           "weight": 1
         }
       ]
@@ -85,7 +85,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:hydra_skull",
+          "name": "rpgcraftmod:hydra_skull",
           "weight": 1
         }
       ]

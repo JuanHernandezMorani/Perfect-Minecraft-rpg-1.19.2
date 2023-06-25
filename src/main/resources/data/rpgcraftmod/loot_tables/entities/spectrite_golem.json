@@ -6,7 +6,7 @@
             "entries": [
 				{
                     "type": "item",
-                    "name": "spectrite:spectrite_brick",
+                    "name": "rpgcraftmodspectrite_brick",
                     "weight": 7,
                     "functions": [
                         {
@@ -20,7 +20,7 @@
                 },
                 {
                     "type": "item",
-                    "name": "spectrite:spectrite_gem",
+                    "name": "rpgcraftmodspectrite_gem",
                     "weight": 1,
                     "functions": [
                         {
@@ -52,12 +52,12 @@
             "entries": [
                 {
 					"type": "item",
-					"name": "spectrite:spectrite_shield",
+					"name": "rpgcraftmodspectrite_shield",
 					"weight": 4
 				},
 				{
 					"type": "item",
-					"name": "spectrite:spectrite_shield_special",
+					"name": "rpgcraftmodspectrite_shield_special",
 					"weight": 1
 				}
 			]
@@ -74,7 +74,7 @@
             "entries": [
                 {
 					"type": "item",
-					"name": "spectrite:spectrite_anvil",
+					"name": "rpgcraftmodspectrite_anvil",
 					"weight": 1,
 					"functions": [
 						{

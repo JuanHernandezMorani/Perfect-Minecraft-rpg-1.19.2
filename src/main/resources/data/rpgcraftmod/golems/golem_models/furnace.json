@@ -1,8 +1,8 @@
 {
   "multitexture": {
     "base_map": {
-      "0": "#golems:furnace/unlit",
-	  "1": "#golems:furnace/lit"
+      "0": "#rpgcraftmodfurnace/unlit",
+	  "1": "#rpgcraftmodfurnace/lit"
     }
   },
   "vines": {},

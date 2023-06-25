@@ -5,14 +5,14 @@
       "item": "minecraft:chorus_fruit"
     },
     {
-      "item": "iceandfire:lightning_lily"
+      "item": "rpgcraftmod:lightning_lily"
     },
     {
       "item": "minecraft:bowl"
     }
   ],
   "result": {
-    "item": "iceandfire:lightning_stew",
+    "item": "rpgcraftmod:lightning_stew",
     "count": 1
   }
 }

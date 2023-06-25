@@ -1,8 +1,8 @@
 {
     "type": "minecraft:stonecutting",
     "ingredient": {
-        "item": "pigsteel:pigsteel_block"
+        "item": "rpgcraftmodpigsteel_block"
     },
-    "result": "pigsteel:cut_pigsteel",
+    "result": "rpgcraftmodcut_pigsteel",
     "count": 1
 }

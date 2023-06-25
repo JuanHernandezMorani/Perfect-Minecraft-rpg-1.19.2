@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_gray"
+      "item": "rpgcraftmod:dragonscale_gray"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonscales_gray",
+    "item": "rpgcraftmod:dragonscales_gray",
     "count": 9
   }
 }

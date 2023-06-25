@@ -21,17 +21,17 @@
 		  "minecraft:mushroom_stem",
 		  "minecraft:brown_mushroom_block"
 		],
-		"loot_table": "golems:mushroom/brown"
+		"loot_table": "rpgcraftmodmushroom/brown"
 	  },
 	  "1": {
 		"blocks": "minecraft:red_mushroom_block",
-		"loot_table": "golems:mushroom/red"
+		"loot_table": "rpgcraftmodmushroom/red"
 	  }
 	}
   },
   "behavior": [
     {
-	  "type": "golems:passive_effect",
+	  "type": "rpgcraftmodpassive_effect",
 	  "night_only": true,
 	  "effect": {
 		"target": "self",
@@ -46,7 +46,7 @@
 	  }
 	},
     {
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 1050,
 	  "translation_key": "entitytip.plants_mushrooms",
 	  "blocks": [

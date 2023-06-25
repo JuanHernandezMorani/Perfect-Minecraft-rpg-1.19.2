@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/chared_dirt"
+      "model": "rpgcraftmod:block/chared_dirt"
     }
   }
 }

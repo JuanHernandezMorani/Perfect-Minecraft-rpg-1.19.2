@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/frozen_grass"
+      "model": "rpgcraftmod:block/frozen_grass"
     }
   }
 }

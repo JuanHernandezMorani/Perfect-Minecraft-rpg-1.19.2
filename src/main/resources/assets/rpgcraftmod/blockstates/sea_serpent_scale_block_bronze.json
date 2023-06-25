@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/sea_serpent_scale_block_bronze"
+      "model": "rpgcraftmod:block/sea_serpent_scale_block_bronze"
     }
   }
 }

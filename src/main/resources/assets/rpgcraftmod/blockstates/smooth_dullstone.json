@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/smooth_dullstone"
+      "model": "rpgcraftmodblock/smooth_dullstone"
     }
   }
 }

@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_blue"
+      "item": "rpgcraftmod:dragonscales_blue"
     }
   },
   "result": {
-    "item": "iceandfire:dragonscale_blue"
+    "item": "rpgcraftmod:dragonscale_blue"
   }
 }

@@ -19,7 +19,7 @@
           "minecraft:chiseled_sandstone",
           "minecraft:smooth_sandstone"
 		],
-		"loot_table": "golems:sandstone/colorless"
+		"loot_table": "rpgcraftmodsandstone/colorless"
 	  },
 	  "1": {
 		"blocks": [
@@ -28,7 +28,7 @@
 		  "minecraft:chiseled_red_sandstone",
 		  "minecraft:smooth_red_sandstone"
 		],
-		"loot_table": "golems:sandstone/red"
+		"loot_table": "rpgcraftmodsandstone/red"
 	  }
 	}
   }

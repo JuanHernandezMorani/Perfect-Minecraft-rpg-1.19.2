@@ -4,7 +4,7 @@
     {
       "conditions": [
         {
-          "type": "pigsteel:quark_flag",
+          "type": "rpgcraftmodquark_flag",
           "flag": "vertical_slabs"
         }
       ],
@@ -12,7 +12,7 @@
         "type": "minecraft:crafting_shaped",
         "key": {
           "#": {
-            "item": "pigsteel:corrupted_cut_pigsteel"
+            "item": "rpgcraftmodcorrupted_cut_pigsteel"
           }
         },
         "pattern": [
@@ -22,7 +22,7 @@
         ],
         "result": {
           "count": 3,
-          "item": "pigsteel:vertical_corrupted_cut_pigsteel_slab"
+          "item": "rpgcraftmodvertical_corrupted_cut_pigsteel_slab"
         }
       }
     }

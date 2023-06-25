@@ -10,7 +10,7 @@
       "tag": "forge:rods/wooden"
     },
     "F": {
-      "item": "iceandfire:amphithere_feather"
+      "item": "rpgcraftmod:amphithere_feather"
     },
     "X": {
       "tag": "minecraft:planks"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "iceandfire:amphithere_macuahuitl"
+    "item": "rpgcraftmod:amphithere_macuahuitl"
   }
 }

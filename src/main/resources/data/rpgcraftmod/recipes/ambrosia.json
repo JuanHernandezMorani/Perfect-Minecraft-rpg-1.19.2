@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:pixie_dust"
+      "item": "rpgcraftmod:pixie_dust"
     },
     {
       "item": "minecraft:bowl"
     }
   ],
   "result": {
-    "item": "iceandfire:ambrosia"
+    "item": "rpgcraftmod:ambrosia"
   }
 }

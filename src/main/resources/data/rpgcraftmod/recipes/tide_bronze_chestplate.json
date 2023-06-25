@@ -7,13 +7,13 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:sea_serpent_scales_bronze"
+      "item": "rpgcraftmod:sea_serpent_scales_bronze"
     },
     "H": {
-      "item": "iceandfire:shiny_scales"
+      "item": "rpgcraftmod:shiny_scales"
     }
   },
   "result": {
-    "item": "iceandfire:tide_bronze_chestplate"
+    "item": "rpgcraftmod:tide_bronze_chestplate"
   }
 }

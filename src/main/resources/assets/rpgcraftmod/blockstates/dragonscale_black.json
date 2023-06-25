@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/dragonscale_black"
+      "model": "rpgcraftmod:block/dragonscale_black"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/jar_pixie"
+      "model": "rpgcraftmod:block/jar_pixie"
     }
   }
 }

@@ -10,7 +10,7 @@
       "tag": "forge:rods/wooden"
     },
     "X": {
-      "item": "iceandfire:sea_serpent_fang"
+      "item": "rpgcraftmod:sea_serpent_fang"
     },
     "Y": {
       "tag": "forge:scales/sea_serpent"
@@ -18,7 +18,7 @@
     }
   },
   "result": {
-    "item": "iceandfire:sea_serpent_arrow",
+    "item": "rpgcraftmod:sea_serpent_arrow",
     "count": 4
   }
 }

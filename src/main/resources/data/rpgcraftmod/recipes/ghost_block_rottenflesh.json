@@ -8,7 +8,7 @@
   ],
   "key": {
     "X": {
-      "item": "secretroomsmod:camouflage_paste",
+      "item": "rpgcraftmodcamouflage_paste",
       "data": 0
     },
     "0": {
@@ -16,7 +16,7 @@
     }
   },
   "result": {
-    "item": "secretroomsmod:ghost_block",
+    "item": "rpgcraftmodghost_block",
     "count": 4
   }
 }

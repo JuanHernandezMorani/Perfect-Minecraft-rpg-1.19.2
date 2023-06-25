@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:ectoplasm",
+          "name": "rpgcraftmod:ectoplasm",
           "weight": 1,
           "functions": [
             {
@@ -42,7 +42,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:ghost_ingot",
+          "name": "rpgcraftmod:ghost_ingot",
           "weight": 1
         }
       ]

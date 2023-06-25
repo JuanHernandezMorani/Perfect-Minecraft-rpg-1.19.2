@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "spectrite:items/spectrite_compass/spectrite_compass_04"
+        "layer0": "rpgcraftmoditems/spectrite_compass/spectrite_compass_04"
     }
 }

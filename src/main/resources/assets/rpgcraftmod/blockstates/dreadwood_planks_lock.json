@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/dreadwood_planks_lock"
+      "model": "rpgcraftmod:block/dreadwood_planks_lock"
     }
   }
 }

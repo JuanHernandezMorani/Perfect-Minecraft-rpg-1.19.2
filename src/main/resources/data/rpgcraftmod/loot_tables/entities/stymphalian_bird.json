@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:copper_ingot",
+          "name": "rpgcraftmod:copper_ingot",
           "weight": 1,
           "functions": [
             {
@@ -50,7 +50,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:copper_nugget",
+          "name": "rpgcraftmod:copper_nugget",
           "weight": 1,
           "functions": [
             {
@@ -71,7 +71,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:stymphalian_bird_feather",
+          "name": "rpgcraftmod:stymphalian_bird_feather",
           "weight": 1,
           "functions": [
             {
@@ -108,7 +108,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:stymphalian_skull",
+          "name": "rpgcraftmod:stymphalian_skull",
           "weight": 1
         }
       ]

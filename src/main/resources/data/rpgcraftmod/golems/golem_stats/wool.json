@@ -14,67 +14,67 @@
 	"textures": {
 	  "0": {
 		"blocks": "minecraft:white_wool",
-		"loot_table": "golems:wool/white"
+		"loot_table": "rpgcraftmodwool/white"
 	  },
 	  "1": {
 		"blocks": "minecraft:orange_wool",
-		"loot_table": "golems:wool/orange"
+		"loot_table": "rpgcraftmodwool/orange"
 	  },
 	  "2": {
 		"blocks": "minecraft:magenta_wool",
-		"loot_table": "golems:wool/magenta"
+		"loot_table": "rpgcraftmodwool/magenta"
 	  },
 	  "3": {
 		"blocks": "minecraft:light_blue_wool",
-		"loot_table": "golems:wool/light_blue"
+		"loot_table": "rpgcraftmodwool/light_blue"
 	  },
 	  "4": {
 		"blocks": "minecraft:yellow_wool",
-		"loot_table": "golems:wool/yellow"
+		"loot_table": "rpgcraftmodwool/yellow"
 	  },
 	  "5": {
 		"blocks": "minecraft:lime_wool",
-		"loot_table": "golems:wool/lime"
+		"loot_table": "rpgcraftmodwool/lime"
 	  },
 	  "6": {
 		"blocks": "minecraft:pink_wool",
-		"loot_table": "golems:wool/pink"
+		"loot_table": "rpgcraftmodwool/pink"
 	  },
 	  "7": {
 		"blocks": "minecraft:gray_wool",
-		"loot_table": "golems:wool/gray"
+		"loot_table": "rpgcraftmodwool/gray"
 	  },
 	  "8": {
 		"blocks": "minecraft:light_gray_wool",
-		"loot_table": "golems:wool/light_gray"
+		"loot_table": "rpgcraftmodwool/light_gray"
 	  },
 	  "9": {
 		"blocks": "minecraft:cyan_wool",
-		"loot_table": "golems:wool/cyan"
+		"loot_table": "rpgcraftmodwool/cyan"
 	  },
 	  "10": {
 		"blocks": "minecraft:purple_wool",
-		"loot_table": "golems:wool/purple"
+		"loot_table": "rpgcraftmodwool/purple"
 	  },
 	  "11": {
 		"blocks": "minecraft:blue_wool",
-		"loot_table": "golems:wool/blue"
+		"loot_table": "rpgcraftmodwool/blue"
 	  },
 	  "12": {
 		"blocks": "minecraft:brown_wool",
-		"loot_table": "golems:wool/brown"
+		"loot_table": "rpgcraftmodwool/brown"
 	  },
 	  "13": {
 		"blocks": "minecraft:green_wool",
-		"loot_table": "golems:wool/green"
+		"loot_table": "rpgcraftmodwool/green"
 	  },
 	  "14": {
 		"blocks": "minecraft:red_wool",
-		"loot_table": "golems:wool/red"
+		"loot_table": "rpgcraftmodwool/red"
 	  },
 	  "15": {
 		"blocks": "minecraft:black_wool",
-		"loot_table": "golems:wool/black"
+		"loot_table": "rpgcraftmodwool/black"
 	  }
     }
   }

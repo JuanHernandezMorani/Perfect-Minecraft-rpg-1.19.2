@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/frozen_splinters"
+      "model": "rpgcraftmod:block/frozen_splinters"
     }
   }
 }

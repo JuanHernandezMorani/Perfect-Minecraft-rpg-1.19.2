@@ -6,10 +6,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_amythest"
+      "item": "rpgcraftmod:dragonscales_amythest"
     }
   },
   "result": {
-    "item": "iceandfire:armor_amythest_boots"
+    "item": "rpgcraftmod:armor_amythest_boots"
   }
 }

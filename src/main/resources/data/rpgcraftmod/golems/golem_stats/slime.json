@@ -14,7 +14,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:split_on_death",
+	  "type": "rpgcraftmodsplit_on_death",
 	  "children": 2
 	} 
   ]

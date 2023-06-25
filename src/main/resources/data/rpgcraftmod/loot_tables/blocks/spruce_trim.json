@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:spruce_trim",
+    "type": "rpgcraftmodspruce_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:spruce_trim"
+                    "name": "rpgcraftmodspruce_trim"
                 }
             ],
             "conditions": [

@@ -6,10 +6,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_sapphire"
+      "item": "rpgcraftmod:dragonscales_sapphire"
     }
   },
   "result": {
-    "item": "iceandfire:armor_sapphire_boots"
+    "item": "rpgcraftmod:armor_sapphire_boots"
   }
 }

@@ -5,11 +5,11 @@
             "item": "minecraft:honeycomb"
         },
         {
-            "item": "pigsteel:pigsteel_block"
+            "item": "rpgcraftmodpigsteel_block"
         }
     ],
     "result": {
-        "item": "pigsteel:waxed_pigsteel_block",
+        "item": "rpgcraftmodwaxed_pigsteel_block",
         "count": 1
     }
 }

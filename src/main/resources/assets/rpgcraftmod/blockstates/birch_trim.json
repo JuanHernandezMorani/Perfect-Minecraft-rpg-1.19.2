@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "storagedrawers:block/birch_trim" }
+        "": { "model": "rpgcraftmodblock/birch_trim" }
     }
 }

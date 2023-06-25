@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:deathworm_chitin_yellow",
+          "name": "rpgcraftmod:deathworm_chitin_yellow",
           "weight": 30,
           "functions": [
             {
@@ -48,7 +48,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:deathworm_egg",
+          "name": "rpgcraftmod:deathworm_egg",
           "weight": 10,
           "functions": [
             {
@@ -75,7 +75,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:deathworm_chitin_yellow",
+          "name": "rpgcraftmod:deathworm_chitin_yellow",
           "weight": 30,
           "functions": [
             {
@@ -117,7 +117,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:deathworm_egg_giant",
+          "name": "rpgcraftmod:deathworm_egg_giant",
           "weight": 5,
           "functions": [
             {
@@ -154,7 +154,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:deathworm_tounge",
+          "name": "rpgcraftmod:deathworm_tounge",
           "weight": 1
         }
       ]

@@ -3,7 +3,7 @@
   "layers": [
 	{
 	  "texture": "minecraft:bricks",
-	  "template": "golems:layer/hands_template"
+	  "template": "rpgcraftmodlayer/hands_template"
 	}
   ]
 }

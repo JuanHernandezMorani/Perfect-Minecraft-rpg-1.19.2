@@ -27,7 +27,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dread_shard",
+          "name": "rpgcraftmod:dread_shard",
           "weight": 1,
           "functions": [
             {
@@ -64,7 +64,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:dread_key",
+          "name": "rpgcraftmod:dread_key",
           "weight": 1
         }
       ]

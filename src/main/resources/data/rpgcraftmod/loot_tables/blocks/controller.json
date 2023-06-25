@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:controller",
+    "type": "rpgcraftmodcontroller",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:controller"
+                    "name": "rpgcraftmodcontroller"
                 }
             ],
             "conditions": [

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/jungle_myrmex_resin_sticky"
+      "model": "rpgcraftmod:block/jungle_myrmex_resin_sticky"
     }
   }
 }

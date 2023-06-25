@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "spectrite:items/spectrite_boots/30"
+        "layer0": "rpgcraftmoditems/spectrite_boots/30"
     }
 }

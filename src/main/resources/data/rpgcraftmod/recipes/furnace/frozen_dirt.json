@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "iceandfire:frozen_dirt"
+    "item": "rpgcraftmod:frozen_dirt"
   },
   "result": "minecraft:dirt",
   "experience": 0.1,

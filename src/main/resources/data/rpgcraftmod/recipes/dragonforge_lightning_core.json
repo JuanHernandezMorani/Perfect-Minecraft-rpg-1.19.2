@@ -7,13 +7,13 @@
   ],
   "key": {
     "B": {
-      "item": "iceandfire:dragonforge_lightning_brick"
+      "item": "rpgcraftmod:dragonforge_lightning_brick"
     },
     "H": {
-      "item": "iceandfire:lightning_dragon_heart"
+      "item": "rpgcraftmod:lightning_dragon_heart"
     }
   },
   "result": {
-    "item": "iceandfire:dragonforge_lightning_core_disabled"
+    "item": "rpgcraftmod:dragonforge_lightning_core_disabled"
   }
 }

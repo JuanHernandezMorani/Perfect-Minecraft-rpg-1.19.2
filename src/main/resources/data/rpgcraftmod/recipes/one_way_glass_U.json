@@ -8,7 +8,7 @@
   ],
   "key": {
     "X": {
-      "item": "secretroomsmod:camouflage_paste",
+      "item": "rpgcraftmodcamouflage_paste",
       "data": 0
     },
     "0": 
@@ -18,7 +18,7 @@
     }
   },
   "result": {
-    "item": "secretroomsmod:one_way_glass",
+    "item": "rpgcraftmodone_way_glass",
     "count": 9
   }
 }

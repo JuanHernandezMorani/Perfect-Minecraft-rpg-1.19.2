@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/frozen_cobblestone"
+      "model": "rpgcraftmod:block/frozen_cobblestone"
     }
   }
 }

@@ -35,7 +35,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:sapphire_gem",
+          "name": "rpgcraftmod:sapphire_gem",
           "functions": [
             {
               "function": "set_count",
@@ -91,7 +91,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",

@@ -7,13 +7,13 @@
   ],
   "key": {
     "S": {
-      "tag": "iceandfire:dragon_skulls"
+      "tag": "rpgcraftmod:dragon_skulls"
     },
     "T": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "iceandfire:dragon_stick"
+    "item": "rpgcraftmod:dragon_stick"
   }
 }

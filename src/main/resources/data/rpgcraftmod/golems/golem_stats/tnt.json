@@ -13,7 +13,7 @@
   },
   "behavior": [
 	{
-      "type": "golems:explode",
+      "type": "rpgcraftmodexplode",
 	  "range": 8.0,
 	  "fuse": 50,
 	  "chance_on_hurt": 0.1,

@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:troll_leather_frost",
+          "name": "rpgcraftmod:troll_leather_frost",
           "weight": 1,
           "functions": [
             {
@@ -28,7 +28,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:troll_tusk",
+          "name": "rpgcraftmod:troll_tusk",
           "weight": 1,
           "functions": [
             {
@@ -70,7 +70,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:sapphire_gem",
+          "name": "rpgcraftmod:sapphire_gem",
           "weight": 1,
           "functions": [
             {
@@ -107,7 +107,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:troll_skull",
+          "name": "rpgcraftmod:troll_skull",
           "weight": 1
         }
       ]

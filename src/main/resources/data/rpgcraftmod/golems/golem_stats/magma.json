@@ -15,7 +15,7 @@
   },
   "behavior": [ 
     {
-	  "type": "golems:hurt",
+	  "type": "rpgcraftmodhurt",
 	  "fire": {
 		"target": "enemy",
 		"chance": 0.9,
@@ -23,7 +23,7 @@
 	  }
 	},
 	{
-	  "type": "golems:split_on_death",
+	  "type": "rpgcraftmodsplit_on_death",
 	  "children": 2
 	}
   ]

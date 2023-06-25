@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/chiseled_glowdust_stone_bricks"
+      "model": "rpgcraftmodblock/chiseled_glowdust_stone_bricks"
     }
   }
 }

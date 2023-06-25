@@ -1,8 +1,8 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "spectrite:blocks/spectrite_ladder_odd",
-        "texture": "spectrite:blocks/spectrite_ladder_odd"
+        "particle": "rpgcraftmodblocks/spectrite_ladder_odd",
+        "texture": "rpgcraftmodblocks/spectrite_ladder_odd"
     },
     "elements": [
         {   "from": [ 0, 0, 15.2 ],

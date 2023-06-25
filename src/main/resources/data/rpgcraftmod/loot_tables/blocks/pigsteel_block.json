@@ -6,7 +6,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "pigsteel:pigsteel_block"
+            "name": "rpgcraftmodpigsteel_block"
           }
         ],
         "conditions": [

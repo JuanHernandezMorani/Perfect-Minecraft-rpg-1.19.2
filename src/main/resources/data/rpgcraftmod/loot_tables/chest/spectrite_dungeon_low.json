@@ -9,7 +9,7 @@
             "entries": [
                 {
 					"type": "item",
-					"name": "spectrite:spectrite_gem",
+					"name": "rpgcraftmodspectrite_gem",
 					"weight": 150,
 					"functions": [
 						{
@@ -23,7 +23,7 @@
 				},
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_rod",
+                    "name": "rpgcraftmodspectrite_rod",
                     "weight": 75,
 					"functions": [
                         {
@@ -37,7 +37,7 @@
 				},
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_arrow",
+                    "name": "rpgcraftmodspectrite_arrow",
                     "weight": 30,
 					"functions": [
                         {
@@ -51,7 +51,7 @@
 				},
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_arrow_special",
+                    "name": "rpgcraftmodspectrite_arrow_special",
                     "weight": 10,
 					"functions": [
                         {
@@ -65,12 +65,12 @@
 				},
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_helmet",
+                    "name": "rpgcraftmodspectrite_helmet",
                     "weight": 8,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -90,12 +90,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_chestplate",
+                    "name": "rpgcraftmodspectrite_chestplate",
                     "weight": 5,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -115,12 +115,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_leggings",
+                    "name": "rpgcraftmodspectrite_leggings",
                     "weight": 7,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -140,12 +140,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_boots",
+                    "name": "rpgcraftmodspectrite_boots",
                     "weight": 10,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -165,7 +165,7 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_shovel",
+                    "name": "rpgcraftmodspectrite_shovel",
                     "weight": 30,
 					"functions": [
                         {
@@ -180,7 +180,7 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_pickaxe",
+                    "name": "rpgcraftmodspectrite_pickaxe",
                     "weight": 20,
 					"functions": [
                         {
@@ -195,7 +195,7 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_axe",
+                    "name": "rpgcraftmodspectrite_axe",
                     "weight": 25,
 					"functions": [
                         {
@@ -210,7 +210,7 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_sword",
+                    "name": "rpgcraftmodspectrite_sword",
                     "weight": 20,
 					"functions": [
                         {
@@ -225,7 +225,7 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_bow",
+                    "name": "rpgcraftmodspectrite_bow",
                     "weight": 20,
 					"functions": [
                         {
@@ -240,17 +240,17 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_shield",
+                    "name": "rpgcraftmodspectrite_shield",
                     "weight": 5
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_shovel_special",
+                    "name": "rpgcraftmodspectrite_shovel_special",
                     "weight": 15,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -270,12 +270,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_pickaxe_special",
+                    "name": "rpgcraftmodspectrite_pickaxe_special",
                     "weight": 10,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -295,12 +295,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_axe_special",
+                    "name": "rpgcraftmodspectrite_axe_special",
                     "weight": 13,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -320,12 +320,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_sword_special",
+                    "name": "rpgcraftmodspectrite_sword_special",
                     "weight": 10,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -345,12 +345,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_bow_special",
+                    "name": "rpgcraftmodspectrite_bow_special",
                     "weight": 10,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -370,12 +370,12 @@
                 },
 				{
 					"type": "item",
-                    "name": "spectrite:spectrite_shield_special",
+                    "name": "rpgcraftmodspectrite_shield_special",
                     "weight": 2,
 					"functions": [
 						{
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ],
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ],
 							"conditions": [
 								{
 									"condition": "random_chance",
@@ -392,7 +392,7 @@
                     "functions": [
                         {
                             "function": "enchant_randomly",
-							"enchantments": [ "spectrite:spectrite_enhance" ]
+							"enchantments": [ "rpgcraftmodspectrite_enhance" ]
                         }
                     ]
                 }

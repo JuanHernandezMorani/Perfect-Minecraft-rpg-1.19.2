@@ -1,8 +1,8 @@
 {
     "parent": "block/block",
     "textures": {
-        "indicator": "storagedrawers:blocks/indicator/indicator_4_off",
-        "indicatorOn": "storagedrawers:blocks/indicator/indicator_4_on"
+        "indicator": "rpgcraftmodblocks/indicator/indicator_4_off",
+        "indicatorOn": "rpgcraftmodblocks/indicator/indicator_4_on"
     },
     "elements": [ {
         "from": [ 1, 1, 8.99 ],

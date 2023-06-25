@@ -1,7 +1,7 @@
 {
   "base": "minecraft:nether_bricks",
   "vines": {
-	"texture": "#golems:layer/vines",
+	"texture": "#rpgcraftmodlayer/vines",
 	"color": 11543845,
 	"light": true
   }

@@ -13,7 +13,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "pigsteel:infected_cut_pigsteel_slab",
+                  "block": "rpgcraftmodinfected_cut_pigsteel_slab",
                   "properties": {
                     "type": "double"
                   }
@@ -26,7 +26,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "pigsteel:infected_cut_pigsteel_slab"
+          "name": "rpgcraftmodinfected_cut_pigsteel_slab"
         }
       ]
     }

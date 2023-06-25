@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/desert_myrmex_resin"
+      "model": "rpgcraftmod:block/desert_myrmex_resin"
     }
   }
 }

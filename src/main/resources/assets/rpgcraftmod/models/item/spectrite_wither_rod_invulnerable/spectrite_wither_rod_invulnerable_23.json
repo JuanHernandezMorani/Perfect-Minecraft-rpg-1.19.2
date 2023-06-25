@@ -1,6 +1,6 @@
 {
-    "parent": "spectrite:item/spectrite_wither_rod",
+    "parent": "rpgcraftmoditem/spectrite_wither_rod",
     "textures": {
-        "rod": "spectrite:entities/spectrite_wither_rod_invulnerable/23"
+        "rod": "rpgcraftmodentities/spectrite_wither_rod_invulnerable/23"
     }
 }

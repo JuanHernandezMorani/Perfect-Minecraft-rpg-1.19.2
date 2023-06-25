@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "outvoted:wildfire_piece"
+      "item": "rpgcraftmodwildfire_piece"
     }
   ],
   "result": {

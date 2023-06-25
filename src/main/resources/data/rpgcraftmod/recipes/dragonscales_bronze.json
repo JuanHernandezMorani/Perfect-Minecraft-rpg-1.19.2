@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_bronze"
+      "item": "rpgcraftmod:dragonscale_bronze"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonscales_bronze",
+    "item": "rpgcraftmod:dragonscales_bronze",
     "count": 9
   }
 }

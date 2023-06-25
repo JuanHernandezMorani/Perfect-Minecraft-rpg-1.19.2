@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/cracked_glowstone_bricks"
+      "model": "rpgcraftmodblock/cracked_glowstone_bricks"
     }
   }
 }

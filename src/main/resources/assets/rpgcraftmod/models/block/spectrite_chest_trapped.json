@@ -1,7 +1,7 @@
 {
     "textures": {
-		"texture": "spectrite:blocks/spectrite_chest_trapped",
-        "particle": "spectrite:blocks/spectrite_block_ew"
+		"texture": "rpgcraftmodblocks/spectrite_chest_trapped",
+        "particle": "rpgcraftmodblocks/spectrite_block_ew"
     },
 	"elements": [
         {   "from": [ 1, 0, 1 ],

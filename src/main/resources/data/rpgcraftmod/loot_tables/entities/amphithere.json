@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:amphithere_feather",
+          "name": "rpgcraftmod:amphithere_feather",
           "weight": 1,
           "functions": [
             {
@@ -43,7 +43,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:amphithere_skull",
+          "name": "rpgcraftmod:amphithere_skull",
           "weight": 1
         }
       ]

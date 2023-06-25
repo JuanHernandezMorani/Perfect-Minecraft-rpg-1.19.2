@@ -1,8 +1,8 @@
 {
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
-        { "item": "storagedrawers:upgrade_template" },
+        { "item": "rpgcraftmodupgrade_template" },
         { "item": "minecraft:repeater" }
     ],
-    "result": { "item": "storagedrawers:fill_level_upgrade" }
+    "result": { "item": "rpgcraftmodfill_level_upgrade" }
 }

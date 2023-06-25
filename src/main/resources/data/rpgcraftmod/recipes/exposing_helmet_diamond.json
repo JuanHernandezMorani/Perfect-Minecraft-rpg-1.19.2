@@ -6,16 +6,16 @@
      "item": "minecraft:diamond_helmet"
     },
     {
-      "item": "secretroomsmod:switch_probe"
+      "item": "rpgcraftmodswitch_probe"
     }
   ],
   "result": {
-    "item": "secretroomsmod:diamond_exposing_helmet"
+    "item": "rpgcraftmoddiamond_exposing_helmet"
   },
   
   "conditions": [
         {
-            "type": "secretroomsmod:helmet"
+            "type": "rpgcraftmodhelmet"
         }
     ]
 }

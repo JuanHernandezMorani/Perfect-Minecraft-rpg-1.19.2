@@ -15,34 +15,34 @@
 		  "minecraft:waxed_copper_block",
 		  "minecraft:waxed_cut_copper"
 		],
-		"loot_table": "golems:waxed_copper/copper"
+		"loot_table": "rpgcraftmodwaxed_copper/copper"
 	  },
 	  "1": {
 		"blocks": [
 		  "minecraft:waxed_exposed_copper",
 		  "minecraft:waxed_exposed_cut_copper"
 		],
-		"loot_table": "golems:waxed_copper/exposed"
+		"loot_table": "rpgcraftmodwaxed_copper/exposed"
 	  },
 	  "2": {
 		"blocks": [
 		  "minecraft:waxed_weathered_copper",
 		  "minecraft:waxed_weathered_cut_copper"
 		],
-		"loot_table": "golems:waxed_copper/weathered"
+		"loot_table": "rpgcraftmodwaxed_copper/weathered"
 	  },
 	  "3": {
 		"blocks": [
 		  "minecraft:waxed_oxidized_copper",
 		  "minecraft:waxed_oxidized_cut_copper"
 		],
-		"loot_table": "golems:waxed_copper/oxidized"
+		"loot_table": "rpgcraftmodwaxed_copper/oxidized"
 	  }
 	}
   },
   "behavior": [
     {
-	  "type": "golems:hurt",
+	  "type": "rpgcraftmodhurt",
 	  "summon": {
 	    "target": "enemy",
 	    "summon_pos": "enemy",
@@ -54,11 +54,11 @@
 	  }
 	},
 	{
-	  "type": "golems:change_material",
+	  "type": "rpgcraftmodchange_material",
 	  "items": {
 		"#forge:axe": {
 		  "chance": 1.0,
-		  "material": "golems:copper"
+		  "material": "rpgcraftmodcopper"
 		}
 	  }
 	}

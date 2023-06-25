@@ -6,10 +6,10 @@
   ],
   "key": {
     "R": {
-      "item": "iceandfire:myrmex_desert_resin"
+      "item": "rpgcraftmod:myrmex_desert_resin"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_desert_resin_block"
+    "item": "rpgcraftmod:myrmex_desert_resin_block"
   }
 }

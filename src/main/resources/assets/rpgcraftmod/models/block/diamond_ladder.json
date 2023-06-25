@@ -1,8 +1,8 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "spectrite:blocks/diamond_ladder",
-        "texture": "spectrite:blocks/diamond_ladder"
+        "particle": "rpgcraftmodblocks/diamond_ladder",
+        "texture": "rpgcraftmodblocks/diamond_ladder"
     },
     "elements": [
         {   "from": [ 0, 0, 15.2 ],

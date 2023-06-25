@@ -7,7 +7,7 @@
     ],
     "key": {
         "#": { "tag": "forge:obsidian" },
-        "X": { "item": "storagedrawers:upgrade_template" }
+        "X": { "item": "rpgcraftmodupgrade_template" }
     },
-    "result": { "item": "storagedrawers:void_upgrade" }
+    "result": { "item": "rpgcraftmodvoid_upgrade" }
 }

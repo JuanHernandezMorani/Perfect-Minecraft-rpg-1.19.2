@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/dragonscale_copper"
+      "model": "rpgcraftmod:block/dragonscale_copper"
     }
   }
 }

@@ -6,7 +6,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "pigsteel:waxed_corrupted_cut_pigsteel_stairs"
+            "name": "rpgcraftmodwaxed_corrupted_cut_pigsteel_stairs"
           }
         ],
         "conditions": [

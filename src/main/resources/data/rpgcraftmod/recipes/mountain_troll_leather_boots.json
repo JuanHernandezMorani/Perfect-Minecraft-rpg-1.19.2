@@ -6,10 +6,10 @@
   ],
   "key": {
     "T": {
-      "item": "iceandfire:troll_leather_mountain"
+      "item": "rpgcraftmod:troll_leather_mountain"
     }
   },
   "result": {
-    "item": "iceandfire:mountain_troll_leather_boots"
+    "item": "rpgcraftmod:mountain_troll_leather_boots"
   }
 }

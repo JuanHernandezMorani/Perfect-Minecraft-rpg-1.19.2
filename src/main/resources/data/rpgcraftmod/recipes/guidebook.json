@@ -9,12 +9,12 @@
         "type":"minecraft:crafting_shapeless",
         "ingredients": [
           { "item": "minecraft:book" },
-          { "tag": "elementsofpower:magic_orbs" }
+          { "tag": "rpgcraftmodmagic_orbs" }
         ],
         "result": {
           "item": "gbook:guidebook",
           "nbt": {
-            "book": "elementsofpower:xml/guidebook.xml"
+            "book": "rpgcraftmodxml/guidebook.xml"
           }
         }
       }

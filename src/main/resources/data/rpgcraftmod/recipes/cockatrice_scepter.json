@@ -10,13 +10,13 @@
       "tag": "forge:bones/wither"
     },
     "S": {
-      "item": "iceandfire:wither_shard"
+      "item": "rpgcraftmod:wither_shard"
     },
     "E": {
-      "item": "iceandfire:cockatrice_eye"
+      "item": "rpgcraftmod:cockatrice_eye"
     }
   },
   "result": {
-    "item": "iceandfire:cockatrice_scepter"
+    "item": "rpgcraftmod:cockatrice_scepter"
   }
 }

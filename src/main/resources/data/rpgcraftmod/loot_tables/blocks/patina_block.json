@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "additionaladditions:patina_block"
+          "name": "rpgcraftmodpatina_block"
         }
       ],
       "conditions": [

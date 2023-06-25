@@ -1,28 +1,28 @@
 {
   "variants": {
     "layers=1": {
-      "model": "infernalexp:block/glowdust_height2"
+      "model": "rpgcraftmodblock/glowdust_height2"
     },
     "layers=2": {
-      "model": "infernalexp:block/glowdust_height4"
+      "model": "rpgcraftmodblock/glowdust_height4"
     },
     "layers=3": {
-      "model": "infernalexp:block/glowdust_height6"
+      "model": "rpgcraftmodblock/glowdust_height6"
     },
     "layers=4": {
-      "model": "infernalexp:block/glowdust_height8"
+      "model": "rpgcraftmodblock/glowdust_height8"
     },
     "layers=5": {
-      "model": "infernalexp:block/glowdust_height10"
+      "model": "rpgcraftmodblock/glowdust_height10"
     },
     "layers=6": {
-      "model": "infernalexp:block/glowdust_height12"
+      "model": "rpgcraftmodblock/glowdust_height12"
     },
     "layers=7": {
-      "model": "infernalexp:block/glowdust_height14"
+      "model": "rpgcraftmodblock/glowdust_height14"
     },
     "layers=8": {
-      "model": "infernalexp:block/glowdust_sand"
+      "model": "rpgcraftmodblock/glowdust_sand"
     }
   }
 }

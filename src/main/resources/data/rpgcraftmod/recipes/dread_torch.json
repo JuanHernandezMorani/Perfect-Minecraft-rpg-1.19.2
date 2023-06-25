@@ -6,14 +6,14 @@
   ],
   "key": {
     "D": {
-      "item": "iceandfire:dread_shard"
+      "item": "rpgcraftmod:dread_shard"
     },
     "S": {
       "tag": "forge:rods/wooden"
     }
   },
   "result": {
-    "item": "iceandfire:dread_torch",
+    "item": "rpgcraftmod:dread_torch",
     "count": 4
   }
 }

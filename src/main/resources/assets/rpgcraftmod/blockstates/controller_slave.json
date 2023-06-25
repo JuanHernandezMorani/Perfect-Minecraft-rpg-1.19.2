@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "storagedrawers:block/controller_slave" }
+        "": { "model": "rpgcraftmodblock/controller_slave" }
     }
 }

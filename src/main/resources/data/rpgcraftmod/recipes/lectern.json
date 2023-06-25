@@ -10,10 +10,10 @@
       "tag": "minecraft:planks"
     },
     "B": {
-      "item": "iceandfire:manuscript"
+      "item": "rpgcraftmod:manuscript"
     }
   },
   "result": {
-    "item": "iceandfire:lectern"
+    "item": "rpgcraftmod:lectern"
   }
 }

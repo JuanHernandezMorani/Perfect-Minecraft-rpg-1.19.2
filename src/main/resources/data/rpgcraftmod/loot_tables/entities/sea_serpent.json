@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:sea_serpent_scales_blue",
+          "name": "rpgcraftmod:sea_serpent_scales_blue",
           "weight": 1,
           "functions": [
             {
@@ -18,7 +18,7 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_sea_serpent"
+              "function": "rpgcraftmod:customize_to_sea_serpent"
             }
           ]
         }
@@ -30,7 +30,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:sea_serpent_fang",
+          "name": "rpgcraftmod:sea_serpent_fang",
           "weight": 1,
           "functions": [
             {
@@ -41,7 +41,7 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_sea_serpent"
+              "function": "rpgcraftmod:customize_to_sea_serpent"
             }
           ]
         }
@@ -63,7 +63,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:seaserpent_skull",
+          "name": "rpgcraftmod:seaserpent_skull",
           "weight": 1
         }
       ]

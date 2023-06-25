@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:manuscript"
+      "item": "rpgcraftmod:manuscript"
     },
     {
-      "item": "iceandfire:manuscript"
+      "item": "rpgcraftmod:manuscript"
     },
     {
-      "item": "iceandfire:manuscript"
+      "item": "rpgcraftmod:manuscript"
     }
   ],
   "result": {
-    "item": "iceandfire:bestiary",
+    "item": "rpgcraftmod:bestiary",
     "count": 1
   }
 }

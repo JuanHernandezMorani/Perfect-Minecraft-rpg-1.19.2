@@ -7,13 +7,13 @@
   ],
   "key": {
     "B": {
-      "item": "iceandfire:dragonforge_ice_brick"
+      "item": "rpgcraftmod:dragonforge_ice_brick"
     },
     "I": {
       "tag": "forge:ingots/iron"
     }
   },
   "result": {
-    "item": "iceandfire:dragonforge_ice_input"
+    "item": "rpgcraftmod:dragonforge_ice_input"
   }
 }

@@ -23,7 +23,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",

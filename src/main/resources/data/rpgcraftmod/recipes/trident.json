@@ -6,7 +6,7 @@
     "P  "
   ],
   "key": {
-    "S": {"item": "additionaladditions:trident_shard"},
+    "S": {"item": "rpgcraftmodtrident_shard"},
     "P": {"item": "minecraft:prismarine_shard"}
   },
   "result": {

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/sapphire_block"
+      "model": "rpgcraftmod:block/sapphire_block"
     }
   }
 }

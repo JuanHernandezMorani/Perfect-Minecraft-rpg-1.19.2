@@ -6,10 +6,10 @@
   ],
   "key": {
     "C": {
-      "item": "iceandfire:myrmex_jungle_chitin"
+      "item": "rpgcraftmod:myrmex_jungle_chitin"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_jungle_boots"
+    "item": "rpgcraftmod:myrmex_jungle_boots"
   }
 }

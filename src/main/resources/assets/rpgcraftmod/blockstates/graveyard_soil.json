@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/graveyard_soil"
+      "model": "rpgcraftmod:block/graveyard_soil"
     }
   }
 }

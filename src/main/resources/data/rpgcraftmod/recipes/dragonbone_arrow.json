@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonbone"
+      "item": "rpgcraftmod:dragonbone"
     },
     {
-      "item": "iceandfire:wither_shard"
+      "item": "rpgcraftmod:wither_shard"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonbone_arrow",
+    "item": "rpgcraftmod:dragonbone_arrow",
     "count": 5
   }
 }

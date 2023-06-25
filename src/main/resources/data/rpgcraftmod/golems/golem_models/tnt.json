@@ -1,13 +1,13 @@
 {
   "base": "minecraft:tnt_side",
   "eyes": {
-	"texture": "#golems:layer/eyes/creeper",
+	"texture": "#rpgcraftmodlayer/eyes/creeper",
 	"light": true
   },
   "layers": [
     {
-	  "texture": "#golems:layer/tnt",
-	  "template": "golems:layer/cross_template"
+	  "texture": "#rpgcraftmodlayer/tnt",
+	  "template": "rpgcraftmodlayer/cross_template"
 	}
   ]
 }

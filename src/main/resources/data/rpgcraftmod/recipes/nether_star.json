@@ -5,7 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "spectrite:spectrite_star"
+      "item": "rpgcraftmodspectrite_star"
     }
   ],
   "type": "minecraft:crafting_shapeless"

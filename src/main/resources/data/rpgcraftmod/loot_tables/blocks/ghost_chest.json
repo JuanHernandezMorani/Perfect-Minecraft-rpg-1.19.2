@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "iceandfire:ghost_chest"
+          "name": "rpgcraftmod:ghost_chest"
         }
       ],
       "conditions": [

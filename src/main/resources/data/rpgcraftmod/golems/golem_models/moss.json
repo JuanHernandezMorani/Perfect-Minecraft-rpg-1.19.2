@@ -1,10 +1,10 @@
 {
   "base": "minecraft:moss_block",
-  "base_template": "golems:moss/moss_template",
+  "base_template": "rpgcraftmodmoss/moss_template",
   "vines": {},
   "layers": [
 	{
-	  "texture": "#golems:moss/spore_blossom"
+	  "texture": "#rpgcraftmodmoss/spore_blossom"
 	}
   ]
 }

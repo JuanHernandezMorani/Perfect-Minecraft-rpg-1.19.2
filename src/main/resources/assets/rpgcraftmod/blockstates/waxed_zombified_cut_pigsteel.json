@@ -1,6 +1,6 @@
 {
     "variants": {
-      "": { "model": "pigsteel:block/waxed_zombified_cut_pigsteel" }
+      "": { "model": "rpgcraftmodblock/waxed_zombified_cut_pigsteel" }
     }
   }
 

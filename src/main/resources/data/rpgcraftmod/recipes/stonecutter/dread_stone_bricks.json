@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "iceandfire:dread_stone"
+    "item": "rpgcraftmod:dread_stone"
   },
-  "result": "iceandfire:dread_stone_bricks",
+  "result": "rpgcraftmod:dread_stone_bricks",
   "count": 1
 }

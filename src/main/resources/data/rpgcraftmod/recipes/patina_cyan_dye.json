@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {"item": "additionaladditions:copper_patina"}
+    {"item": "rpgcraftmodcopper_patina"}
   ],
   "result": {
     "item": "minecraft:cyan_dye",

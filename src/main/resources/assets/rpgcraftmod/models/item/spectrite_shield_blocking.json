@@ -1,5 +1,5 @@
 {
-	"parent": "spectrite:item/spectrite_shield",
+	"parent": "rpgcraftmoditem/spectrite_shield",
     "display": {
         "thirdperson_righthand": {
             "rotation": [ 45, 135, 0 ],

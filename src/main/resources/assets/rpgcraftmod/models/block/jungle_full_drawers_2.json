@@ -1,9 +1,9 @@
 {
-    "parent": "storagedrawers:block/full_drawers_orientable",
+    "parent": "rpgcraftmodblock/full_drawers_orientable",
     "textures": {
-        "top": "storagedrawers:blocks/drawers_jungle_side",
-        "front": "storagedrawers:blocks/drawers_jungle_front_2",
-        "side": "storagedrawers:blocks/drawers_jungle_side",
-        "trim": "storagedrawers:blocks/drawers_jungle_trim"
+        "top": "rpgcraftmodblocks/drawers_jungle_side",
+        "front": "rpgcraftmodblocks/drawers_jungle_front_2",
+        "side": "rpgcraftmodblocks/drawers_jungle_side",
+        "trim": "rpgcraftmodblocks/drawers_jungle_trim"
     }
 }

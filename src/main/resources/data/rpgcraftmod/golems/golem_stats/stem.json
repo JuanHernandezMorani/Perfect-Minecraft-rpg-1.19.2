@@ -18,17 +18,17 @@
 	"textures": {
 	  "0": {
 		"blocks": "#minecraft:crimson_stems",
-		"loot_table": "golems:stem/crimson"
+		"loot_table": "rpgcraftmodstem/crimson"
 	  },
 	  "1": {
 		"blocks": "#minecraft:warped_stems",
-		"loot_table": "golems:stem/warped"
+		"loot_table": "rpgcraftmodstem/warped"
 	  }
 	}
   },
   "behavior": [ 
     {
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 1400,
 	  "translation_key": "entitytip.plants_fungus",
 	  "blocks": [
@@ -40,7 +40,7 @@
 	  ]
 	},
 	{
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 1600,
 	  "translation_key": "entitytip.plants_fungus",
 	  "blocks": [

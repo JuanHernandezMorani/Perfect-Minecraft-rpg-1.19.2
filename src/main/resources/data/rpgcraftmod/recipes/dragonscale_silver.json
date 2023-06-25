@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_silver"
+      "item": "rpgcraftmod:dragonscales_silver"
     }
   },
   "result": {
-    "item": "iceandfire:dragonscale_silver"
+    "item": "rpgcraftmod:dragonscale_silver"
   }
 }

@@ -12,67 +12,67 @@
 	"textures": {
 	  "0": {
 		"blocks": "#forge:concrete/white",
-		"loot_table": "golems:concrete/white"
+		"loot_table": "rpgcraftmodconcrete/white"
 	  },
 	  "1": {
 		"blocks": "#forge:concrete/orange",
-		"loot_table": "golems:concrete/orange"
+		"loot_table": "rpgcraftmodconcrete/orange"
 	  },
 	  "2": {
 		"blocks": "#forge:concrete/magenta",
-		"loot_table": "golems:concrete/magenta"
+		"loot_table": "rpgcraftmodconcrete/magenta"
 	  },
 	  "3": {
 		"blocks": "#forge:concrete/light_blue",
-		"loot_table": "golems:concrete/light_blue"
+		"loot_table": "rpgcraftmodconcrete/light_blue"
 	  },
 	  "4": {
 		"blocks": "#forge:concrete/yellow",
-		"loot_table": "golems:concrete/yellow"
+		"loot_table": "rpgcraftmodconcrete/yellow"
 	  },
 	  "5": {
 		"blocks": "#forge:concrete/lime",
-		"loot_table": "golems:concrete/lime"
+		"loot_table": "rpgcraftmodconcrete/lime"
 	  },
 	  "6": {
 		"blocks": "#forge:concrete/pink",
-		"loot_table": "golems:concrete/pink"
+		"loot_table": "rpgcraftmodconcrete/pink"
 	  },
 	  "7": {
 		"blocks": "#forge:concrete/gray",
-		"loot_table": "golems:concrete/gray"
+		"loot_table": "rpgcraftmodconcrete/gray"
 	  },
 	  "8": {
 		"blocks": "#forge:concrete/light_gray",
-		"loot_table": "golems:concrete/light_gray"
+		"loot_table": "rpgcraftmodconcrete/light_gray"
 	  },
 	  "9": {
 		"blocks": "#forge:concrete/cyan",
-		"loot_table": "golems:concrete/cyan"
+		"loot_table": "rpgcraftmodconcrete/cyan"
 	  },
 	  "10": {
 		"blocks": "#forge:concrete/purple",
-		"loot_table": "golems:concrete/purple"
+		"loot_table": "rpgcraftmodconcrete/purple"
 	  },
 	  "11": {
 		"blocks": "#forge:concrete/blue",
-		"loot_table": "golems:concrete/blue"
+		"loot_table": "rpgcraftmodconcrete/blue"
 	  },
 	  "12": {
 		"blocks": "#forge:concrete/brown",
-		"loot_table": "golems:concrete/brown"
+		"loot_table": "rpgcraftmodconcrete/brown"
 	  },
 	  "13": {
 		"blocks": "#forge:concrete/green",
-		"loot_table": "golems:concrete/green"
+		"loot_table": "rpgcraftmodconcrete/green"
 	  },
 	  "14": {
 		"blocks": "#forge:concrete/red",
-		"loot_table": "golems:concrete/red"
+		"loot_table": "rpgcraftmodconcrete/red"
 	  },
 	  "15": {
 		"blocks": "#forge:concrete/black",
-		"loot_table": "golems:concrete/black"
+		"loot_table": "rpgcraftmodconcrete/black"
 	  }
     }
   }

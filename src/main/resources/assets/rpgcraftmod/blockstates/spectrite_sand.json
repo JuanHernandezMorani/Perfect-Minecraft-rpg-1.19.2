@@ -1,6 +1,6 @@
 {
 	"variants": {
-		"odd=false": { "model": "spectrite:spectrite_sand" },
-		"odd=true": { "model": "spectrite:spectrite_sand_odd" }
+		"odd=false": { "model": "rpgcraftmodspectrite_sand" },
+		"odd=true": { "model": "rpgcraftmodspectrite_sand_odd" }
 	}
 }

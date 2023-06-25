@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:dragonscales_electric",
+          "name": "rpgcraftmod:dragonscales_electric",
           "weight": 60,
           "functions": [
             {
@@ -18,13 +18,13 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_dragon"
+              "function": "rpgcraftmod:customize_to_dragon"
             }
           ]
         },
         {
           "type": "item",
-          "name": "iceandfire:lightning_dragon_flesh",
+          "name": "rpgcraftmod:lightning_dragon_flesh",
           "weight": 40,
           "functions": [
             {
@@ -35,13 +35,13 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_dragon"
+              "function": "rpgcraftmod:customize_to_dragon"
             }
           ]
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonegg_electric",
+          "name": "rpgcraftmod:dragonegg_electric",
           "weight": 2,
           "functions": [
             {
@@ -52,7 +52,7 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_dragon"
+              "function": "rpgcraftmod:customize_to_dragon"
             }
           ]
         }

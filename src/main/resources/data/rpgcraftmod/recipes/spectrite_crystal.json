@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_crystal"
+    "item": "rpgcraftmodspectrite_crystal"
   },
   "pattern": [
     "XXX",
@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
 	"X": {
-      "item": "spectrite:spectrite_glass"
+      "item": "rpgcraftmodspectrite_glass"
     },
     "Y": {
       "item": "minecraft:ender_eye"

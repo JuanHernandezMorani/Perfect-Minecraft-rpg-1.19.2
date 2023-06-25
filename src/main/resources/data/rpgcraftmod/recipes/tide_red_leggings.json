@@ -7,13 +7,13 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:sea_serpent_scales_red"
+      "item": "rpgcraftmod:sea_serpent_scales_red"
     },
     "H": {
-      "item": "iceandfire:shiny_scales"
+      "item": "rpgcraftmod:shiny_scales"
     }
   },
   "result": {
-    "item": "iceandfire:tide_red_leggings"
+    "item": "rpgcraftmod:tide_red_leggings"
   }
 }

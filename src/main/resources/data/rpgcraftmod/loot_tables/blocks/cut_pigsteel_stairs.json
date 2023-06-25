@@ -6,7 +6,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "pigsteel:cut_pigsteel_stairs"
+            "name": "rpgcraftmodcut_pigsteel_stairs"
           }
         ],
         "conditions": [

@@ -1,5 +1,5 @@
 {
     "variants": {
-        "":  { "model": "iceandfire:block/burnt_torch" }
+        "":  { "model": "rpgcraftmod:block/burnt_torch" }
     }
 }

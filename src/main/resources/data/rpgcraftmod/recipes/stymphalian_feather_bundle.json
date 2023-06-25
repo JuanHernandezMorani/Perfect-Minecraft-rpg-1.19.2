@@ -10,10 +10,10 @@
       "tag": "forge:string"
     },
     "F": {
-      "item": "iceandfire:stymphalian_bird_feather"
+      "item": "rpgcraftmod:stymphalian_bird_feather"
     }
   },
   "result": {
-    "item": "iceandfire:stymphalian_feather_bundle"
+    "item": "rpgcraftmod:stymphalian_feather_bundle"
   }
 }

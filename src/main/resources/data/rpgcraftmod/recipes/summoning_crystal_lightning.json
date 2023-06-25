@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:lightning_dragon_blood"
+      "item": "rpgcraftmod:lightning_dragon_blood"
     },
     {
       "item": "minecraft:ender_pearl"
@@ -15,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "iceandfire:summoning_crystal_lightning",
+    "item": "rpgcraftmod:summoning_crystal_lightning",
     "count": 1
   }
 }

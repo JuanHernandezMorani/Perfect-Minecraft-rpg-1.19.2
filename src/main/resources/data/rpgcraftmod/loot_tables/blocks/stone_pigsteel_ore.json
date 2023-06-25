@@ -25,7 +25,7 @@
                   }
                 }
               ],
-              "name": "pigsteel:stone_pigsteel_ore"
+              "name": "rpgcraftmodstone_pigsteel_ore"
             },
             {
               "type": "minecraft:item",
@@ -48,7 +48,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "pigsteel:pigsteel_nugget"
+              "name": "rpgcraftmodpigsteel_nugget"
             }
           ]
         }

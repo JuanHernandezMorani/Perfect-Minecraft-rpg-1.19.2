@@ -9,10 +9,10 @@
       "tag": "forge:rods/wooden"
     },
     "T": {
-      "item": "iceandfire:hippocampus_fin"
+      "item": "rpgcraftmod:hippocampus_fin"
     }
   },
   "result": {
-    "item": "iceandfire:hippocampus_slapper"
+    "item": "rpgcraftmod:hippocampus_slapper"
   }
 }

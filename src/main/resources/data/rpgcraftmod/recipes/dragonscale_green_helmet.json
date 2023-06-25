@@ -6,10 +6,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonscales_green"
+      "item": "rpgcraftmod:dragonscales_green"
     }
   },
   "result": {
-    "item": "iceandfire:armor_green_helmet"
+    "item": "rpgcraftmod:armor_green_helmet"
   }
 }

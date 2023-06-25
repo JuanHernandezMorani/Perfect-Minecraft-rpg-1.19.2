@@ -1,12 +1,12 @@
 {
-	"parent": "spectrite:block/spectrite_skull",
+	"parent": "rpgcraftmodblock/spectrite_skull",
 	"textures": {
-        "top": "spectrite:blocks/spectrite_wither_skeleton_skull_top",
-		"bottom": "spectrite:blocks/spectrite_wither_skeleton_skull_bottom",
-		"west": "spectrite:blocks/spectrite_wither_skeleton_skull_west",
-		"south": "spectrite:blocks/spectrite_wither_skeleton_skull_south",
-		"east": "spectrite:blocks/spectrite_wither_skeleton_skull_east",
-		"north": "spectrite:blocks/spectrite_wither_skeleton_skull_north",
-		"particle": "spectrite:blocks/spectrite_wither_skeleton_skull_north"
+        "top": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_top",
+		"bottom": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_bottom",
+		"west": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_west",
+		"south": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_south",
+		"east": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_east",
+		"north": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_north",
+		"particle": "rpgcraftmodblocks/spectrite_wither_skeleton_skull_north"
     }
 }

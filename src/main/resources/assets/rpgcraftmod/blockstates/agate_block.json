@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "elementsofpower:block/agate_block"}
+    "": { "model": "rpgcraftmodblock/agate_block"}
   }
 }

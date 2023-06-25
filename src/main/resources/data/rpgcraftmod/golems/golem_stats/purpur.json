@@ -17,7 +17,7 @@
   },
   "behavior": [
     {
-	  "type": "golems:teleport",
+	  "type": "rpgcraftmodteleport",
 	  "range": 16,
 	  "chance_on_idle": 0.01,
 	  "chance_on_hurt": 0.6,

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/crackled_grass_path"
+      "model": "rpgcraftmod:block/crackled_grass_path"
     }
   }
 }

@@ -5,11 +5,11 @@
             "item": "minecraft:honeycomb"
         },
         {
-            "item": "pigsteel:cut_pigsteel_stairs"
+            "item": "rpgcraftmodcut_pigsteel_stairs"
         }
     ],
     "result": {
-        "item": "pigsteel:waxed_cut_pigsteel_stairs",
+        "item": "rpgcraftmodwaxed_cut_pigsteel_stairs",
         "count": 1
     }
 }

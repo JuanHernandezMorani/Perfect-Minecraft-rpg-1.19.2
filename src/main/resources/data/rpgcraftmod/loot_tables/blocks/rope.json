@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "additionaladditions:rope"
+          "name": "rpgcraftmodrope"
         }
       ],
       "conditions": [

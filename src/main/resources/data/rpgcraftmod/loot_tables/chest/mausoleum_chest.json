@@ -23,7 +23,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dread_shard",
+          "name": "rpgcraftmod:dread_shard",
           "functions": [
             {
               "function": "set_count",
@@ -37,7 +37,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:troll_leather_frost",
+          "name": "rpgcraftmod:troll_leather_frost",
           "functions": [
             {
               "function": "set_count",
@@ -51,7 +51,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:ice_dragon_blood",
+          "name": "rpgcraftmod:ice_dragon_blood",
           "functions": [
             {
               "function": "set_count",
@@ -65,7 +65,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:ice_dragon_heart",
+          "name": "rpgcraftmod:ice_dragon_heart",
           "functions": [
             {
               "function": "set_count",
@@ -79,7 +79,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:witherbone",
+          "name": "rpgcraftmod:witherbone",
           "functions": [
             {
               "function": "set_count",
@@ -93,7 +93,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:ice_dragon_flesh",
+          "name": "rpgcraftmod:ice_dragon_flesh",
           "functions": [
             {
               "function": "set_count",
@@ -121,7 +121,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragon_flute",
+          "name": "rpgcraftmod:dragon_flute",
           "functions": [
             {
               "function": "set_count",
@@ -135,7 +135,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:troll_tusk",
+          "name": "rpgcraftmod:troll_tusk",
           "functions": [
             {
               "function": "set_count",
@@ -177,7 +177,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:sapphire_gem",
+          "name": "rpgcraftmod:sapphire_gem",
           "functions": [
             {
               "function": "set_count",
@@ -191,7 +191,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dread_torch",
+          "name": "rpgcraftmod:dread_torch",
           "functions": [
             {
               "function": "set_count",
@@ -219,7 +219,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:ash",
+          "name": "rpgcraftmod:ash",
           "functions": [
             {
               "function": "set_count",
@@ -233,7 +233,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_ingot",
+          "name": "rpgcraftmod:silver_ingot",
           "functions": [
             {
               "function": "set_count",
@@ -303,7 +303,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonbone",
+          "name": "rpgcraftmod:dragonbone",
           "functions": [
             {
               "function": "set_count",
@@ -317,7 +317,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",
@@ -345,7 +345,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:sea_serpent_fang",
+          "name": "rpgcraftmod:sea_serpent_fang",
           "functions": [
             {
               "function": "set_count",
@@ -359,7 +359,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonarmor_iron_head",
+          "name": "rpgcraftmod:dragonarmor_iron_head",
           "functions": [
             {
               "function": "set_count",
@@ -373,7 +373,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonarmor_iron_neck",
+          "name": "rpgcraftmod:dragonarmor_iron_neck",
           "functions": [
             {
               "function": "set_count",
@@ -387,7 +387,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonarmor_iron_body",
+          "name": "rpgcraftmod:dragonarmor_iron_body",
           "functions": [
             {
               "function": "set_count",
@@ -401,7 +401,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonarmor_iron_tail",
+          "name": "rpgcraftmod:dragonarmor_iron_tail",
           "functions": [
             {
               "function": "set_count",

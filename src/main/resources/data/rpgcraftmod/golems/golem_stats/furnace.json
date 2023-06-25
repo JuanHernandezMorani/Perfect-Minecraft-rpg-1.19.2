@@ -15,26 +15,26 @@
 	"textures": {
 	  "0": {
 		"blocks": "minecraft:furnace",
-		"loot_table": "golems:furnace"
+		"loot_table": "rpgcraftmodfurnace"
 	  },
 	  "1": {
-		"loot_table": "golems:furnace",
+		"loot_table": "rpgcraftmodfurnace",
 		"glow": 8
 	  }
     }
   },
   "behavior": [
 	{
-	  "type": "golems:use_fuel",
+	  "type": "rpgcraftmoduse_fuel",
 	  "max_fuel": 102400,
 	  "burn_interval": 10
 	},
 	{
-	  "type": "golems:tempt",
+	  "type": "rpgcraftmodtempt",
 	  "item": "#minecraft:coals"
 	},
 	{
-	  "type": "golems:change_texture",
+	  "type": "rpgcraftmodchange_texture",
 	  "fuel": {
 	    "chance": 1.0,
 	    "textures": {

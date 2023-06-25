@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/crackled_stone"
+      "model": "rpgcraftmod:block/crackled_stone"
     }
   }
 }

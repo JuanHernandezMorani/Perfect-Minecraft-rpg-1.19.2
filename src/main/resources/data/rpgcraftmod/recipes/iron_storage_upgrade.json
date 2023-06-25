@@ -8,7 +8,7 @@
     "key": {
         "/": { "tag": "forge:rods/wooden" },
         "#": { "tag": "forge:ingots/iron" },
-        "X": { "item": "storagedrawers:upgrade_template" }
+        "X": { "item": "rpgcraftmodupgrade_template" }
     },
-    "result": { "item": "storagedrawers:iron_storage_upgrade" }
+    "result": { "item": "rpgcraftmodiron_storage_upgrade" }
 }

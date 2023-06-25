@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/nest"
+      "model": "rpgcraftmod:block/nest"
     }
   }
 }

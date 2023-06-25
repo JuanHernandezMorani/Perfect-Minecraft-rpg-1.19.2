@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/amythest_ore"
+      "model": "rpgcraftmod:block/amythest_ore"
     }
   }
 }

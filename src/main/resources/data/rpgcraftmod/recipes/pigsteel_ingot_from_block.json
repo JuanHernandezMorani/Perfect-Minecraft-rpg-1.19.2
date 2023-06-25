@@ -2,11 +2,11 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "item": "pigsteel:pigsteel_block"
+            "item": "rpgcraftmodpigsteel_block"
         }
     ],
     "result": {
-        "item": "pigsteel:pigsteel_ingot",
+        "item": "rpgcraftmodpigsteel_ingot",
         "count": 9
     }
 }

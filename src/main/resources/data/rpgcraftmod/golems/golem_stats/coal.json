@@ -13,7 +13,7 @@
   },
   "behavior": [ 
     {
-	  "type": "golems:attack",
+	  "type": "rpgcraftmodattack",
 	  "effect": {
 		"target": "enemy",
 		"chance": 0.4,

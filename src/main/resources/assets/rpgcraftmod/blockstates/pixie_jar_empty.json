@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/jar_empty"
+      "model": "rpgcraftmod:block/jar_empty"
     }
   }
 }

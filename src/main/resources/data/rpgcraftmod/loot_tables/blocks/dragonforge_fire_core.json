@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "iceandfire:dragonforge_fire_core_disabled"
+          "name": "rpgcraftmod:dragonforge_fire_core_disabled"
         }
       ],
       "conditions": [

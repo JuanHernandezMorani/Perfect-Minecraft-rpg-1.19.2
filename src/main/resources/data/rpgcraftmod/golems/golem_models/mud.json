@@ -2,7 +2,7 @@
   "base": "minecraft:mud",
   "layers": [
 	{
-	  "texture": "#golems:layer/mud"
+	  "texture": "#rpgcraftmodlayer/mud"
 	}
   ]
 }

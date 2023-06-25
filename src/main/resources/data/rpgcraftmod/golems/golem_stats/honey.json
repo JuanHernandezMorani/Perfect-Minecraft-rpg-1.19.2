@@ -13,7 +13,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:attack",
+	  "type": "rpgcraftmodattack",
 	  "effect": {
 		"target": "enemy",
 		"chance": 0.8,
@@ -27,7 +27,7 @@
 	  }
 	},
 	{
-	  "type": "golems:attack",
+	  "type": "rpgcraftmodattack",
 	  "effect": {
 		"target": "enemy",
 		"chance": 0.8,
@@ -41,7 +41,7 @@
 	  }
 	},
 	{
-	  "type": "golems:hurt",
+	  "type": "rpgcraftmodhurt",
 	  "effect": {
 		"target": "enemy",
 		"chance": 0.5,
@@ -55,7 +55,7 @@
 	  }
 	},
 	{
-	  "type": "golems:hurt",
+	  "type": "rpgcraftmodhurt",
 	  "effect": {
 		"target": "enemy",
 		"chance": 0.5,
@@ -69,7 +69,7 @@
 	  }
 	},
 	{
-	  "type": "golems:split_on_death",
+	  "type": "rpgcraftmodsplit_on_death",
 	  "children": 2
 	} 
   ]

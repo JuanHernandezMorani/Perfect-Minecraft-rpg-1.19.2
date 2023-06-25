@@ -15,7 +15,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:attack",
+	  "type": "rpgcraftmodattack",
 	  "effect": {
 		"target": "area",
 		"chance": 1.0,
@@ -30,7 +30,7 @@
 	  }
 	},
 	{
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 30,
 	  "translation_key": "entitytip.places_sculk",
 	  "blocks": [

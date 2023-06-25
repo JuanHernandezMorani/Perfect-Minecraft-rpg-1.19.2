@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:ice_dragon_heart"
+      "item": "rpgcraftmod:ice_dragon_heart"
     },
     {
       "item": "minecraft:paper"
     }
   ],
   "result": {
-    "item": "iceandfire:banner_pattern_ice",
+    "item": "rpgcraftmod:banner_pattern_ice",
     "count": 1
   }
 }

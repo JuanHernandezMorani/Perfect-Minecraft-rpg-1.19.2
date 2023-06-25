@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_shield"
+    "item": "rpgcraftmodspectrite_shield"
   },
   "pattern": [
     "XXX",
@@ -13,7 +13,7 @@
       "item": "minecraft:diamond"
     },
     "Y": {
-      "item": "spectrite:spectrite_block"
+      "item": "rpgcraftmodspectrite_block"
     }
   }
 }

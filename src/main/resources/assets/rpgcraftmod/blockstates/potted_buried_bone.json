@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/potted_buried_bone"
+      "model": "rpgcraftmodblock/potted_buried_bone"
     }
   }
 }

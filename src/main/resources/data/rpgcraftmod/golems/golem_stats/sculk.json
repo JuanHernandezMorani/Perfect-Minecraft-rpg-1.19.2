@@ -12,7 +12,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 90,
 	  "translation_key": "entitytip.places_sculk",
 	  "blocks": [

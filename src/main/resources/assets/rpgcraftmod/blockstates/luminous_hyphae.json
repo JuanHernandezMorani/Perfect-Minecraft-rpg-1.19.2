@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "infernalexp:block/luminous_hyphae",
+      "model": "rpgcraftmodblock/luminous_hyphae",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "infernalexp:block/luminous_hyphae"
+      "model": "rpgcraftmodblock/luminous_hyphae"
     },
     "axis=z": {
-      "model": "infernalexp:block/luminous_hyphae",
+      "model": "rpgcraftmodblock/luminous_hyphae",
       "x": 90
     }
   }

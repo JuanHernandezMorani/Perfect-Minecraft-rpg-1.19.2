@@ -8,7 +8,7 @@
     "key": {
         "/": { "tag": "forge:rods/wooden" },
         "#": { "item": "minecraft:flint" },
-        "X": { "item": "storagedrawers:upgrade_template" }
+        "X": { "item": "rpgcraftmodupgrade_template" }
     },
-    "result": { "item": "storagedrawers:one_stack_upgrade" }
+    "result": { "item": "rpgcraftmodone_stack_upgrade" }
 }

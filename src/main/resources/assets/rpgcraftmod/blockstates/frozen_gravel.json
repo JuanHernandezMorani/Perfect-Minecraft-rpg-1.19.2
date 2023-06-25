@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/frozen_gravel"
+      "model": "rpgcraftmod:block/frozen_gravel"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_wither_tail",
+    "item": "rpgcraftmodspectrite_wither_tail",
 	"data": 1
   },
   "pattern": [
@@ -11,11 +11,11 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_wither_tail",
+      "item": "rpgcraftmodspectrite_wither_tail",
 	  "data": 0
     },
     "Y": {
-      "item": "spectrite:spectrite_star"
+      "item": "rpgcraftmodspectrite_star"
     }
   }
 }

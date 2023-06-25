@@ -1,11 +1,11 @@
 {
   "base": "minecraft:sculk",
-  "base_template": "golems:sculk/sculk_template",
+  "base_template": "rpgcraftmodsculk/sculk_template",
   "eyes": {},
   "vines": {},
   "layers": [
 	{
-	  "texture": "#golems:sculk/bioluminescent",
+	  "texture": "#rpgcraftmodsculk/bioluminescent",
 	  "translucent": true,
 	  "light": true
 	}

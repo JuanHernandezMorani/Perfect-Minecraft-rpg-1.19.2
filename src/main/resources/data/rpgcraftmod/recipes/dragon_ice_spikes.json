@@ -6,11 +6,11 @@
   ],
   "key": {
     "I": {
-      "item": "iceandfire:dragon_ice"
+      "item": "rpgcraftmod:dragon_ice"
     }
   },
   "result": {
-    "item": "iceandfire:dragon_ice_spikes",
+    "item": "rpgcraftmod:dragon_ice_spikes",
     "count": 4
   }
 }

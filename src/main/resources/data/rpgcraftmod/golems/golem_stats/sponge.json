@@ -19,7 +19,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:aoe_dry",
+	  "type": "rpgcraftmodaoe_dry",
 	  "range": 5,
 	  "interval": 7,
 	  "sphere": true

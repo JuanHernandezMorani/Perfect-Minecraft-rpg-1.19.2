@@ -13,7 +13,7 @@
   },
   "behavior": [
     {
-      "type": "golems:aoe_grow",
+      "type": "rpgcraftmodaoe_grow",
       "range": 4,
       "interval": 400,
       "chance": 0.2

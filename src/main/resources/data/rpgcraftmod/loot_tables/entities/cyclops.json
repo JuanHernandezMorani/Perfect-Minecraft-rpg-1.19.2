@@ -97,7 +97,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:cyclops_eye",
+          "name": "rpgcraftmod:cyclops_eye",
           "weight": 1
         }
       ]
@@ -118,7 +118,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:cyclops_skull",
+          "name": "rpgcraftmod:cyclops_skull",
           "weight": 1
         }
       ]

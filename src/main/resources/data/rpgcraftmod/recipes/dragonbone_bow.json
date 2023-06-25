@@ -10,13 +10,13 @@
       "tag": "forge:bones/wither"
     },
     "D": {
-      "item": "iceandfire:dragonbone"
+      "item": "rpgcraftmod:dragonbone"
     },
     "S": {
       "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "iceandfire:dragonbone_bow"
+    "item": "rpgcraftmod:dragonbone_bow"
   }
 }

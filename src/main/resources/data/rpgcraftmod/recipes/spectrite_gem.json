@@ -1,11 +1,11 @@
 {
   "result": {
-    "item": "spectrite:spectrite_gem",
+    "item": "rpgcraftmodspectrite_gem",
 	"count": 9
   },
   "ingredients": [
 	{
-      "item": "spectrite:spectrite_block"
+      "item": "rpgcraftmodspectrite_block"
 	}
   ],
   "type": "minecraft:crafting_shapeless"

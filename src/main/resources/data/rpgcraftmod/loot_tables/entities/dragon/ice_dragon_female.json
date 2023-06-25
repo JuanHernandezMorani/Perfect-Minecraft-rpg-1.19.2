@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:dragonscales_blue",
+          "name": "rpgcraftmod:dragonscales_blue",
           "weight": 60,
           "functions": [
             {
@@ -18,13 +18,13 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_dragon"
+              "function": "rpgcraftmod:customize_to_dragon"
             }
           ]
         },
         {
           "type": "item",
-          "name": "iceandfire:ice_dragon_flesh",
+          "name": "rpgcraftmod:ice_dragon_flesh",
           "weight": 40,
           "functions": [
             {
@@ -35,13 +35,13 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_dragon"
+              "function": "rpgcraftmod:customize_to_dragon"
             }
           ]
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonegg_blue",
+          "name": "rpgcraftmod:dragonegg_blue",
           "weight": 2,
           "functions": [
             {
@@ -52,7 +52,7 @@
               }
             },
             {
-              "function": "iceandfire:customize_to_dragon"
+              "function": "rpgcraftmod:customize_to_dragon"
             }
           ]
         }

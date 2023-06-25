@@ -1,5 +1,5 @@
 {
-    "parent": "spectrite:block/spectrite_wither_skeleton_skull",
+    "parent": "rpgcraftmodblock/spectrite_wither_skeleton_skull",
     "display": {
         "gui": {
             "rotation": [ 30, 45, 0 ],

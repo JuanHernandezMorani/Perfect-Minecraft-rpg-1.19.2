@@ -1,8 +1,8 @@
 {
     "variants": {
-        "facing=north": { "model": "storagedrawers:block/dark_oak_half_drawers_2" },
-        "facing=east": { "model": "storagedrawers:block/dark_oak_half_drawers_2", "y": 90 },
-        "facing=south": { "model": "storagedrawers:block/dark_oak_half_drawers_2", "y": 180 },
-        "facing=west": { "model": "storagedrawers:block/dark_oak_half_drawers_2", "y": 270 }
+        "facing=north": { "model": "rpgcraftmodblock/dark_oak_half_drawers_2" },
+        "facing=east": { "model": "rpgcraftmodblock/dark_oak_half_drawers_2", "y": 90 },
+        "facing=south": { "model": "rpgcraftmodblock/dark_oak_half_drawers_2", "y": 180 },
+        "facing=west": { "model": "rpgcraftmodblock/dark_oak_half_drawers_2", "y": 270 }
     }
 }

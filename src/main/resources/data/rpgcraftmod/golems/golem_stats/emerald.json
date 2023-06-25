@@ -12,7 +12,7 @@
   },
   "behavior": [
     {
-      "type": "golems:follow",
+      "type": "rpgcraftmodfollow",
       "entity": "minecraft:villager",
       "priority": 3
     }

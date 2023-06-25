@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_ladder",
+    "item": "rpgcraftmodspectrite_ladder",
     "count": 28
   },
   "pattern": [
@@ -11,7 +11,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_rod"
+      "item": "rpgcraftmodspectrite_rod"
     }
   }
 }

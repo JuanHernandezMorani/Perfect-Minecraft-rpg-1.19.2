@@ -9,7 +9,7 @@
     "S": {"item": "minecraft:string"}
   },
   "result": {
-    "item": "additionaladditions:rope",
+    "item": "rpgcraftmodrope",
     "count": 1
   }
 }

@@ -13,7 +13,7 @@
   },
   "behavior": [ 
     {
-	  "type": "golems:crafting_menu"
+	  "type": "rpgcraftmodcrafting_menu"
     }
   ]
 }

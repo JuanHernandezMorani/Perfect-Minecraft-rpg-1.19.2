@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/podium_jungle"
+      "model": "rpgcraftmod:block/podium_jungle"
     }
   }
 }

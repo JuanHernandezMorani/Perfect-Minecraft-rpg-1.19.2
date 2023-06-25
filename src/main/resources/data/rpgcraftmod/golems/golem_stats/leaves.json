@@ -14,7 +14,7 @@
   },
   "behavior": [ 
     {
-	  "type": "golems:passive_effect",
+	  "type": "rpgcraftmodpassive_effect",
 	  "effect": {
 		"target": "self",
 		"chance": 1.0,
@@ -28,7 +28,7 @@
 	  }
 	},
 	{
-	  "type": "golems:hurt",
+	  "type": "rpgcraftmodhurt",
 	  "effect": {
 		"target": "self",
 		"chance": 1.0,

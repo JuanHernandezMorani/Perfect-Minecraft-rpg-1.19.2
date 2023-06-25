@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "infernalexp:block/basalt_cobbled",
+      "model": "rpgcraftmodblock/basalt_cobbled",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "infernalexp:block/basalt_cobbled"
+      "model": "rpgcraftmodblock/basalt_cobbled"
     },
     "axis=z": {
-      "model": "infernalexp:block/basalt_cobbled",
+      "model": "rpgcraftmodblock/basalt_cobbled",
       "x": 90
     }
   }

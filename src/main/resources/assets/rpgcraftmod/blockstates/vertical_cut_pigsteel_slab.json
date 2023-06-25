@@ -1,9 +1,9 @@
 {
   "variants": {
-    "type=north": { "model": "pigsteel:block/vertical_cut_pigsteel_slab", "y": 0, "uvlock": true },
-    "type=south": { "model": "pigsteel:block/vertical_cut_pigsteel_slab", "y": 180, "uvlock": true },
-    "type=east": { "model": "pigsteel:block/vertical_cut_pigsteel_slab", "y": 90, "uvlock": true },
-    "type=west": { "model": "pigsteel:block/vertical_cut_pigsteel_slab", "y": 270, "uvlock": true },
-    "type=double": { "model": "pigsteel:block/cut_pigsteel" }
+    "type=north": { "model": "rpgcraftmodblock/vertical_cut_pigsteel_slab", "y": 0, "uvlock": true },
+    "type=south": { "model": "rpgcraftmodblock/vertical_cut_pigsteel_slab", "y": 180, "uvlock": true },
+    "type=east": { "model": "rpgcraftmodblock/vertical_cut_pigsteel_slab", "y": 90, "uvlock": true },
+    "type=west": { "model": "rpgcraftmodblock/vertical_cut_pigsteel_slab", "y": 270, "uvlock": true },
+    "type=double": { "model": "rpgcraftmodblock/cut_pigsteel" }
   }
 }

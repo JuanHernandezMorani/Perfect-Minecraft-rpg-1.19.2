@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:oak_trim",
+    "type": "rpgcraftmodoak_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:oak_trim"
+                    "name": "rpgcraftmodoak_trim"
                 }
             ],
             "conditions": [

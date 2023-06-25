@@ -3,7 +3,7 @@
   "vines": {},
   "layers": [
     {
-	  "texture": "#golems:layer/crying_obsidian",
+	  "texture": "#rpgcraftmodlayer/crying_obsidian",
 	  "light": true
 	}
   ]

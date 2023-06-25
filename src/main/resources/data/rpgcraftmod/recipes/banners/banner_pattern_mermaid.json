@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:siren_tear"
+      "item": "rpgcraftmod:siren_tear"
     },
     {
       "item": "minecraft:paper"
     }
   ],
   "result": {
-    "item": "iceandfire:banner_pattern_mermaid",
+    "item": "rpgcraftmod:banner_pattern_mermaid",
     "count": 1
   }
 }

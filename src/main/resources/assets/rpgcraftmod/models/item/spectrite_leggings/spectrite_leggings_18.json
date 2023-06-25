@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "spectrite:items/spectrite_leggings/18"
+        "layer0": "rpgcraftmoditems/spectrite_leggings/18"
     }
 }

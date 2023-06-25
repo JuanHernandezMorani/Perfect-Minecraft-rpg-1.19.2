@@ -1,9 +1,9 @@
 {
   "translucent": true,
-  "base_template": "golems:translucent_template",
+  "base_template": "rpgcraftmodtranslucent_template",
   "multitexture": {
     "base_map": {
-	  "0": "#golems:glass",
+	  "0": "#rpgcraftmodglass",
       "1": "minecraft:white_stained_glass",
 	  "2": "minecraft:orange_stained_glass",
 	  "3": "minecraft:magenta_stained_glass",

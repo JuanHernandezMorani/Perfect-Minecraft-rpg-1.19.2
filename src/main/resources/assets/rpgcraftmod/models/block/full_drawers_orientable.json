@@ -1,5 +1,5 @@
 {
-    "parent": "storagedrawers:block/full_drawers",
+    "parent": "rpgcraftmodblock/full_drawers",
     "textures": {
         "particle": "#front",
         "down": "#top",

@@ -91,7 +91,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",
@@ -237,7 +237,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_sword",
+          "name": "rpgcraftmod:silver_sword",
           "functions": [
             {
               "function": "set_count",
@@ -256,7 +256,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:copper_sword",
+          "name": "rpgcraftmod:copper_sword",
           "functions": [
             {
               "function": "set_count",
@@ -351,7 +351,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:graveyard_soil",
+          "name": "rpgcraftmod:graveyard_soil",
           "functions": [
             {
               "function": "set_count",
@@ -365,7 +365,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:ectoplasm",
+          "name": "rpgcraftmod:ectoplasm",
           "functions": [
             {
               "function": "set_count",
@@ -379,7 +379,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_ingot",
+          "name": "rpgcraftmod:silver_ingot",
           "functions": [
             {
               "function": "set_count",
@@ -393,7 +393,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:copper_ingot",
+          "name": "rpgcraftmod:copper_ingot",
           "functions": [
             {
               "function": "set_count",

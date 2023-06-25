@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "storagedrawers:block/spruce_trim" }
+        "": { "model": "rpgcraftmodblock/spruce_trim" }
     }
 }

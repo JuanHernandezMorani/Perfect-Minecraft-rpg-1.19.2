@@ -1,8 +1,8 @@
 {
     "variants": {
-        "facing=north": { "model": "storagedrawers:block/controller" },
-        "facing=south": { "model": "storagedrawers:block/controller", "y": 180 },
-        "facing=west": { "model": "storagedrawers:block/controller", "y": 270 },
-        "facing=east": { "model": "storagedrawers:block/controller", "y": 90 }
+        "facing=north": { "model": "rpgcraftmodblock/controller" },
+        "facing=south": { "model": "rpgcraftmodblock/controller", "y": 180 },
+        "facing=west": { "model": "rpgcraftmodblock/controller", "y": 270 },
+        "facing=east": { "model": "rpgcraftmodblock/controller", "y": 90 }
     }
 }

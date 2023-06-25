@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:crimson_trim",
+    "type": "rpgcraftmodcrimson_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:crimson_trim"
+                    "name": "rpgcraftmodcrimson_trim"
                 }
             ],
             "conditions": [

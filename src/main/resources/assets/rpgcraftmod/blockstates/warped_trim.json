@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "storagedrawers:block/warped_trim" }
+        "": { "model": "rpgcraftmodblock/warped_trim" }
     }
 }

@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "spectrite:items/spectrite_arrow_special/31"
+        "layer0": "rpgcraftmoditems/spectrite_arrow_special/31"
     }
 }

@@ -17,7 +17,7 @@
   },
   "behavior": [ 
     {
-	  "type": "golems:passive_effect",
+	  "type": "rpgcraftmodpassive_effect",
 	  "effect": {
 		"target": "self",
 		"chance": 0.00025,
@@ -31,7 +31,7 @@
 	  }
 	},
 	{
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 80,
 	  "translation_key": "entitytip.places_moss",
 	  "blocks": [

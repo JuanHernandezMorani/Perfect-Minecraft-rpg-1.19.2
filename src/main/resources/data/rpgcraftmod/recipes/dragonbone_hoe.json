@@ -7,13 +7,13 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:dragonbone"
+      "item": "rpgcraftmod:dragonbone"
     },
     "T": {
       "tag": "forge:bones/wither"
     }
   },
   "result": {
-    "item": "iceandfire:dragonbone_hoe"
+    "item": "rpgcraftmod:dragonbone_hoe"
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/dragonsteel_fire_block"
+      "model": "rpgcraftmod:block/dragonsteel_fire_block"
     }
   }
 }

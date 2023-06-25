@@ -10,16 +10,16 @@
       "tag": "forge:scales/sea_serpent"
     },
     "T": {
-      "item": "iceandfire:sea_serpent_fang"
+      "item": "rpgcraftmod:sea_serpent_fang"
     },
     "B": {
-      "item": "iceandfire:dragonbone"
+      "item": "rpgcraftmod:dragonbone"
     },
     "D": {
       "tag": "forge:gems/diamond"
     }
   },
   "result": {
-    "item": "iceandfire:tide_trident"
+    "item": "rpgcraftmod:tide_trident"
   }
 }

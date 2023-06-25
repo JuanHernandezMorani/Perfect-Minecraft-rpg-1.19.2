@@ -1,5 +1,5 @@
 {
-  "base_template": "golems:wool/outfit_template",
+  "base_template": "rpgcraftmodwool/outfit_template",
   "multitexture": {
     "base_map": {
       "0": "minecraft:black_wool",
@@ -26,7 +26,7 @@
 	  "texture": "minecraft:white_wool"
 	},
 	{
-	  "texture": "#golems:wool/outfit_buttons",
+	  "texture": "#rpgcraftmodwool/outfit_buttons",
 	  "translucent": true
 	}
   ]

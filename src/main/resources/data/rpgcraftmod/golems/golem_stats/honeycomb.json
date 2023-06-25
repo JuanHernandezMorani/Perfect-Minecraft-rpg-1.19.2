@@ -13,7 +13,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:hurt",
+	  "type": "rpgcraftmodhurt",
 	  "summon": {
 	    "target": "enemy",
 	    "summon_pos": "self",

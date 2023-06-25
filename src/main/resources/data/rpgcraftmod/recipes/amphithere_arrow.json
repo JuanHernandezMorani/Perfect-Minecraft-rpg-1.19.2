@@ -13,11 +13,11 @@
       "item": "minecraft:flint"
     },
     "Y": {
-      "item": "iceandfire:amphithere_feather"
+      "item": "rpgcraftmod:amphithere_feather"
     }
   },
   "result": {
-    "item": "iceandfire:amphithere_arrow",
+    "item": "rpgcraftmod:amphithere_arrow",
     "count": 4
   }
 }

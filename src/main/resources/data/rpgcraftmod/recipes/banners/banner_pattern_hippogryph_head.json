@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:hippogryph_skull"
+      "item": "rpgcraftmod:hippogryph_skull"
     },
     {
       "item": "minecraft:paper"
     }
   ],
   "result": {
-    "item": "iceandfire:banner_pattern_hippogryph_head",
+    "item": "rpgcraftmod:banner_pattern_hippogryph_head",
     "count": 1
   }
 }

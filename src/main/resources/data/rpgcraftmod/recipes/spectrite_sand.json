@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_sand"
+    "item": "rpgcraftmodspectrite_sand"
   },
   "pattern": [
     "XX",
@@ -9,7 +9,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_dust"
+      "item": "rpgcraftmodspectrite_dust"
     }
   }
 }

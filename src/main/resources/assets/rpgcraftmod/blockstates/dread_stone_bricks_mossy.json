@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/dread_stone_bricks_mossy"
+      "model": "rpgcraftmod:block/dread_stone_bricks_mossy"
     }
   }
 }

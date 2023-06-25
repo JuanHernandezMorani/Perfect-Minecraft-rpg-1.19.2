@@ -1,12 +1,12 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "iceandfire:dragonbone_sword"
+    "item": "rpgcraftmod:dragonbone_sword"
   },
   "addition": {
-    "item": "iceandfire:ghost_ingot"
+    "item": "rpgcraftmod:ghost_ingot"
   },
   "result": {
-    "item": "iceandfire:ghost_sword"
+    "item": "rpgcraftmod:ghost_sword"
   }
 }

@@ -10,10 +10,10 @@
       "item": "minecraft:coarse_dirt"
     },
     "E": {
-      "item": "iceandfire:ectoplasm"
+      "item": "rpgcraftmod:ectoplasm"
     }
   },
   "result": {
-    "item": "iceandfire:graveyard_soil"
+    "item": "rpgcraftmod:graveyard_soil"
   }
 }

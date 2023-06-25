@@ -586,7 +586,7 @@ I'm from Buenos Aires!
 In Circles!
 Very Buggy!
 Albanian!
-iceandfire-common.toml!
+rpgcraftmod-common.toml!
 BiomeDict support!
 I want a Mandolin badly!
 Where'd the cheese go?
@@ -660,7 +660,7 @@ I'm So Tired!
 Sus Remix!
 Expansive Config!
 Alex is Online!
-Jarvis, Install iceandfire.jar, open main menu and read splash text
+Jarvis, Install rpgcraftmod.jar, open main menu and read splash text
 Problem?
 We do massive amounts of trolling
 Milky Webkinz Cat!

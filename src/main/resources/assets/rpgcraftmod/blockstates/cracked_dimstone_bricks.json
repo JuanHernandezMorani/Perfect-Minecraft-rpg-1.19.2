@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/cracked_dimstone_bricks"
+      "model": "rpgcraftmodblock/cracked_dimstone_bricks"
     }
   }
 }

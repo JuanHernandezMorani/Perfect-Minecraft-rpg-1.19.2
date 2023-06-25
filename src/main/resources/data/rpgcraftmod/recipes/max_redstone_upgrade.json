@@ -8,7 +8,7 @@
     "key": {
         "/": { "tag": "forge:rods/wooden" },
         "R": { "tag": "forge:dusts/redstone" },
-        "X": { "item": "storagedrawers:upgrade_template" }
+        "X": { "item": "rpgcraftmodupgrade_template" }
     },
-    "result": { "item": "storagedrawers:max_redstone_upgrade" }
+    "result": { "item": "rpgcraftmodmax_redstone_upgrade" }
 }

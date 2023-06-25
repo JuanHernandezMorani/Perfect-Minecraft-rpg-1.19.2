@@ -23,7 +23,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:sapphire_gem",
+          "name": "rpgcraftmod:sapphire_gem",
           "functions": [
             {
               "function": "set_count",
@@ -93,7 +93,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",
@@ -107,7 +107,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_ingot",
+          "name": "rpgcraftmod:silver_ingot",
           "functions": [
             {
               "function": "set_count",
@@ -121,7 +121,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_nugget",
+          "name": "rpgcraftmod:silver_nugget",
           "functions": [
             {
               "function": "set_count",
@@ -163,7 +163,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_sword",
+          "name": "rpgcraftmod:silver_sword",
           "functions": [
             {
               "function": "set_count",
@@ -177,7 +177,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_helmet",
+          "name": "rpgcraftmod:armor_silver_metal_helmet",
           "functions": [
             {
               "function": "set_count",
@@ -191,7 +191,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_chestplate",
+          "name": "rpgcraftmod:armor_silver_metal_chestplate",
           "functions": [
             {
               "function": "set_count",
@@ -205,7 +205,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_leggings",
+          "name": "rpgcraftmod:armor_silver_metal_leggings",
           "functions": [
             {
               "function": "set_count",
@@ -219,7 +219,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_boots",
+          "name": "rpgcraftmod:armor_silver_metal_boots",
           "functions": [
             {
               "function": "set_count",

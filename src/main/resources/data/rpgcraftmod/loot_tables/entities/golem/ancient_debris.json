@@ -29,7 +29,7 @@
 	  "entries": [
 		{
 		  "type": "loot_table",
-		  "name": "golems:entities/_golem_base"
+		  "name": "rpgcraftmodentities/_golem_base"
 		}
 	  ]
 	}

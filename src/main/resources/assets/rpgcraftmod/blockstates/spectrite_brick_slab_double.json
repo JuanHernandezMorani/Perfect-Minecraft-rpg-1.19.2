@@ -1,8 +1,8 @@
 {
     "variants": {
-        "half=bottom,odd=false": { "model": "spectrite:spectrite_bricks" },
-        "half=top,odd=false": { "model": "spectrite:spectrite_bricks" },
-		"half=bottom,odd=true": { "model": "spectrite:spectrite_bricks_odd" },
-        "half=top,odd=true": { "model": "spectrite:spectrite_bricks_odd" }
+        "half=bottom,odd=false": { "model": "rpgcraftmodspectrite_bricks" },
+        "half=top,odd=false": { "model": "rpgcraftmodspectrite_bricks" },
+		"half=bottom,odd=true": { "model": "rpgcraftmodspectrite_bricks_odd" },
+        "half=top,odd=true": { "model": "rpgcraftmodspectrite_bricks_odd" }
     }
 }

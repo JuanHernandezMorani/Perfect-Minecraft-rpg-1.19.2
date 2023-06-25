@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/cracked_soul_stone_bricks"
+      "model": "rpgcraftmodblock/cracked_soul_stone_bricks"
     }
   }
 }

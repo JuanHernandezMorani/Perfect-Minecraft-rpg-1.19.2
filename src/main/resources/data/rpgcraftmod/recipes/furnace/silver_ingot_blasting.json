@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "iceandfire:silver_ore"
+    "item": "rpgcraftmod:silver_ore"
   },
-  "result": "iceandfire:silver_ingot",
+  "result": "rpgcraftmod:silver_ingot",
   "experience": 0.35,
   "cookingtime": 100
 }

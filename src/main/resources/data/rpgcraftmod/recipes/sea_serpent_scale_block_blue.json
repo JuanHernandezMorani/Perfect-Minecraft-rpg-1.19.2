@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "item": "iceandfire:sea_serpent_scales_blue"
+      "item": "rpgcraftmod:sea_serpent_scales_blue"
     }
   },
   "result": {
-    "item": "iceandfire:sea_serpent_scale_block_blue"
+    "item": "rpgcraftmod:sea_serpent_scale_block_blue"
   }
 }

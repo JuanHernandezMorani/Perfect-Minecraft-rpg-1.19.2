@@ -51,7 +51,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",
@@ -65,12 +65,12 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:dragonbone",
+          "name": "rpgcraftmod:dragonbone",
           "weight": 5
         },
         {
           "type": "item",
-          "name": "iceandfire:pixie_dust",
+          "name": "rpgcraftmod:pixie_dust",
           "functions": [
             {
               "function": "set_count",
@@ -98,17 +98,17 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:rotten_egg",
+          "name": "rpgcraftmod:rotten_egg",
           "weight": 2
         },
         {
           "type": "item",
-          "name": "iceandfire:shiny_scales",
+          "name": "rpgcraftmod:shiny_scales",
           "weight": 2
         },
         {
           "type": "item",
-          "name": "iceandfire:troll_tusk",
+          "name": "rpgcraftmod:troll_tusk",
           "weight": 2
         }
       ]

@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_brick_slab_half",
+    "item": "rpgcraftmodspectrite_brick_slab_half",
     "data": 0,
     "count": 6
   },
@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_bricks"
+      "item": "rpgcraftmodspectrite_bricks"
     }
   }
 }

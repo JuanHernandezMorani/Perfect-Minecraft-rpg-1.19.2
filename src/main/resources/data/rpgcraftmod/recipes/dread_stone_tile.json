@@ -7,11 +7,11 @@
   ],
   "key": {
     "D": {
-      "item": "iceandfire:dread_stone_bricks"
+      "item": "rpgcraftmod:dread_stone_bricks"
     }
   },
   "result": {
-    "item": "iceandfire:dread_stone_tile",
+    "item": "rpgcraftmod:dread_stone_tile",
     "count": 8
   }
 }

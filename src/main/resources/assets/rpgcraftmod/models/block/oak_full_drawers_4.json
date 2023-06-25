@@ -1,9 +1,9 @@
 {
-    "parent": "storagedrawers:block/full_drawers_orientable",
+    "parent": "rpgcraftmodblock/full_drawers_orientable",
     "textures": {
-        "top": "storagedrawers:blocks/drawers_oak_side",
-        "front": "storagedrawers:blocks/drawers_oak_front_4",
-        "side": "storagedrawers:blocks/drawers_oak_side",
-        "trim": "storagedrawers:blocks/drawers_oak_trim"
+        "top": "rpgcraftmodblocks/drawers_oak_side",
+        "front": "rpgcraftmodblocks/drawers_oak_front_4",
+        "side": "rpgcraftmodblocks/drawers_oak_side",
+        "trim": "rpgcraftmodblocks/drawers_oak_trim"
     }
 }

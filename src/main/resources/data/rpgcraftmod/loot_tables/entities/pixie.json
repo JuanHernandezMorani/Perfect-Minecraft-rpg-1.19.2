@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:pixie_dust",
+          "name": "rpgcraftmod:pixie_dust",
           "weight": 1,
           "functions": [
             {
@@ -42,7 +42,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:pixie_wings",
+          "name": "rpgcraftmod:pixie_wings",
           "weight": 1
         }
       ]

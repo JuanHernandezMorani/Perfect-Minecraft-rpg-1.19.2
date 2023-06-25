@@ -1,8 +1,8 @@
 {
     "variants": {
-        "facing=north": { "model": "spectrite:diamond_ladder" },
-        "facing=east":  { "model": "spectrite:diamond_ladder", "y": 90 },
-        "facing=south": { "model": "spectrite:diamond_ladder", "y": 180 },
-        "facing=west":  { "model": "spectrite:diamond_ladder", "y": 270 }
+        "facing=north": { "model": "rpgcraftmoddiamond_ladder" },
+        "facing=east":  { "model": "rpgcraftmoddiamond_ladder", "y": 90 },
+        "facing=south": { "model": "rpgcraftmoddiamond_ladder", "y": 180 },
+        "facing=west":  { "model": "rpgcraftmoddiamond_ladder", "y": 270 }
     }
 }

@@ -13,7 +13,7 @@
   },
   "behavior": [
 	{
-	  "type": "golems:aoe_freeze",
+	  "type": "rpgcraftmodaoe_freeze",
 	  "range": 3,
 	  "interval": 2,
 	  "sphere": false,

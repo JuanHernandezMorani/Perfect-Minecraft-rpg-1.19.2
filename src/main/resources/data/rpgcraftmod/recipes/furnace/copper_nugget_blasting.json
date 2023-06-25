@@ -2,34 +2,34 @@
   "type": "minecraft:blasting",
   "ingredient": [
     {
-      "item": "iceandfire:copper_pickaxe"
+      "item": "rpgcraftmod:copper_pickaxe"
     },
     {
-      "item": "iceandfire:copper_shovel"
+      "item": "rpgcraftmod:copper_shovel"
     },
     {
-      "item": "iceandfire:copper_axe"
+      "item": "rpgcraftmod:copper_axe"
     },
     {
-      "item": "iceandfire:copper_hoe"
+      "item": "rpgcraftmod:copper_hoe"
     },
     {
-      "item": "iceandfire:copper_sword"
+      "item": "rpgcraftmod:copper_sword"
     },
     {
-      "item": "iceandfire:armor_copper_metal_helmet"
+      "item": "rpgcraftmod:armor_copper_metal_helmet"
     },
     {
-      "item": "iceandfire:armor_copper_metal_chestplate"
+      "item": "rpgcraftmod:armor_copper_metal_chestplate"
     },
     {
-      "item": "iceandfire:armor_copper_metal_leggings"
+      "item": "rpgcraftmod:armor_copper_metal_leggings"
     },
     {
-      "item": "iceandfire:armor_copper_metal_boots"
+      "item": "rpgcraftmod:armor_copper_metal_boots"
     }
   ],
-  "result": "iceandfire:copper_nugget",
+  "result": "rpgcraftmod:copper_nugget",
   "experience": 0.1,
   "cookingtime": 100
 }

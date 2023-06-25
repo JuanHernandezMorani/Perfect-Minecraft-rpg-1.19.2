@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "pigsteel:infected_cut_pigsteel"
+    "item": "rpgcraftmodinfected_cut_pigsteel"
   },
-  "result": "pigsteel:infected_cut_pigsteel_stairs",
+  "result": "rpgcraftmodinfected_cut_pigsteel_stairs",
   "count": 1
 }

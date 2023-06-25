@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:birch_trim",
+    "type": "rpgcraftmodbirch_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:birch_trim"
+                    "name": "rpgcraftmodbirch_trim"
                 }
             ],
             "conditions": [

@@ -16,17 +16,17 @@
 	"textures": {
 	  "0": {
 		"blocks": "minecraft:nether_wart_block",
-		"loot_table": "golems:nether_wart/nether"
+		"loot_table": "rpgcraftmodnether_wart/nether"
 	  },
 	  "1": {
 		"blocks": "minecraft:warped_wart_block",
-		"loot_table": "golems:nether_wart/warped"
+		"loot_table": "rpgcraftmodnether_wart/warped"
 	  }
 	}
   },
   "behavior": [ 
     {
-	  "type": "golems:place_blocks",
+	  "type": "rpgcraftmodplace_blocks",
 	  "interval": 1050,
 	  "translation_key": "entitytip.plants_nether_wart",
 	  "blocks": [

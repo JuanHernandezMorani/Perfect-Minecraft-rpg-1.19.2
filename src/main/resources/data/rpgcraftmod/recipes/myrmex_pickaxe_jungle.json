@@ -7,13 +7,13 @@
   ],
   "key": {
     "C": {
-      "item": "iceandfire:myrmex_jungle_chitin"
+      "item": "rpgcraftmod:myrmex_jungle_chitin"
     },
     "B": {
       "tag": "forge:bones/wither"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_jungle_pickaxe"
+    "item": "rpgcraftmod:myrmex_jungle_pickaxe"
   }
 }

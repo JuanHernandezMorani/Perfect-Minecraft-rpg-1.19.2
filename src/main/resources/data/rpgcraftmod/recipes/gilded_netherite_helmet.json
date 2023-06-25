@@ -2,5 +2,5 @@
   "type": "minecraft:smithing",
   "base": {"item": "minecraft:netherite_helmet"},
   "addition": {"item": "minecraft:gold_ingot"},
-  "result": {"item": "additionaladditions:gilded_netherite_helmet"}
+  "result": {"item": "rpgcraftmodgilded_netherite_helmet"}
 }

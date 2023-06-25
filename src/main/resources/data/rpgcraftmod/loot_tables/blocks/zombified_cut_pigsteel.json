@@ -6,7 +6,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "pigsteel:zombified_cut_pigsteel"
+            "name": "rpgcraftmodzombified_cut_pigsteel"
           }
         ],
         "conditions": [

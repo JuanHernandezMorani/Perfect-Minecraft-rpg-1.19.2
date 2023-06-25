@@ -14,7 +14,7 @@
   },
   "behavior": [
     {
-	  "type": "golems:passive_effect",
+	  "type": "rpgcraftmodpassive_effect",
 	  "effect": {
 		"target": "self",
 		"chance": 0.9,

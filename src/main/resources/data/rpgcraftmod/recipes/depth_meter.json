@@ -10,7 +10,7 @@
     "R": {"item": "minecraft:redstone"}
   },
   "result": {
-    "item": "additionaladditions:depth_meter",
+    "item": "rpgcraftmoddepth_meter",
     "count": 1
   }
 }

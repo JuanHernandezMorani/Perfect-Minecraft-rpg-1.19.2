@@ -25,7 +25,7 @@
                   }
                 }
               ],
-              "name": "iceandfire:sapphire_ore"
+              "name": "rpgcraftmod:sapphire_ore"
             },
             {
               "type": "minecraft:item",
@@ -39,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "iceandfire:sapphire_gem"
+              "name": "rpgcraftmod:sapphire_gem"
             }
           ]
         }

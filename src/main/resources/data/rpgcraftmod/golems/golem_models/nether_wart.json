@@ -6,7 +6,7 @@
     }
   },
   "vines": {
-	"texture": "#golems:layer/vines",
+	"texture": "#rpgcraftmodlayer/vines",
 	"color": 23157
   }
 }

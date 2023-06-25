@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_sapphire"
+      "item": "rpgcraftmod:dragonscale_sapphire"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonscales_sapphire",
+    "item": "rpgcraftmod:dragonscales_sapphire",
     "count": 9
   }
 }

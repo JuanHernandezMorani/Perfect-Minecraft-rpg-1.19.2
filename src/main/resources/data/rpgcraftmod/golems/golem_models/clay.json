@@ -1,15 +1,15 @@
 {
   "base": "minecraft:clay",
-  "base_template": "golems:template",
+  "base_template": "rpgcraftmodtemplate",
   "base_color": -1,
   "use_biome_color": false,
   "base_light": false,
   "translucent": false,
   "eyes": {
-	"texture": "#golems:layer/eyes/eyes"
+	"texture": "#rpgcraftmodlayer/eyes/eyes"
   },
   "vines": {
-	"texture": "#golems:layer/vines",
+	"texture": "#rpgcraftmodlayer/vines",
 	"color": 8626266
   },
   "layers": [ ]

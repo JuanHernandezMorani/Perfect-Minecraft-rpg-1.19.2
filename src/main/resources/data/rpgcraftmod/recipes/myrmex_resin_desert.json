@@ -9,10 +9,10 @@
       "item": "minecraft:sand"
     },
     "R": {
-      "item": "iceandfire:myrmex_desert_resin"
+      "item": "rpgcraftmod:myrmex_desert_resin"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_resin_desert"
+    "item": "rpgcraftmod:myrmex_resin_desert"
   }
 }

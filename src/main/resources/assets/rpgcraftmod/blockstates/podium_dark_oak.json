@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/podium_dark_oak"
+      "model": "rpgcraftmod:block/podium_dark_oak"
     }
   }
 }

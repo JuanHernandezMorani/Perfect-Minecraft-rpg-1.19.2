@@ -1,14 +1,14 @@
 {
-  "type": "iceandfire:dragonforge",
+  "type": "rpgcraftmod:dragonforge",
   "dragon_type": "lightning",
   "cook_time": 1000,
   "input": {
     "tag": "forge:ingots/iron"
   },
   "blood": {
-    "item": "iceandfire:lightning_dragon_blood"
+    "item": "rpgcraftmod:lightning_dragon_blood"
   },
   "result": {
-    "item": "iceandfire:dragonsteel_lightning_ingot"
+    "item": "rpgcraftmod:dragonsteel_lightning_ingot"
   }
 }

@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "iceandfire:dragonforge_lightning_brick"
+          "name": "rpgcraftmod:dragonforge_lightning_brick"
         }
       ],
       "conditions": [

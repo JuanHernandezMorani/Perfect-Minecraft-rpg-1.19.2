@@ -1,10 +1,10 @@
 {
   "result": {
-    "item": "spectrite:spectrite_chest_trapped"
+    "item": "rpgcraftmodspectrite_chest_trapped"
   },
   "ingredients": [
     {
-      "item": "spectrite:spectrite_chest"
+      "item": "rpgcraftmodspectrite_chest"
     },
     {
       "item": "minecraft:tripwire_hook"

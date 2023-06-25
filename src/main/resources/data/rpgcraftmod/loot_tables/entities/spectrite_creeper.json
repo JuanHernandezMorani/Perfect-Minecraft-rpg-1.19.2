@@ -6,7 +6,7 @@
             "entries": [
                 {
                     "type": "item",
-                    "name": "spectrite:spectrite_dust",
+                    "name": "rpgcraftmodspectrite_dust",
                     "weight": 1,
                     "functions": [
                         {

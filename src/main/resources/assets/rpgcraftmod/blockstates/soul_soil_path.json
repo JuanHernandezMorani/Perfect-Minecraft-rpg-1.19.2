@@ -2,7 +2,7 @@
   "variants": {
     "": [
       {
-        "model": "infernalexp:block/soul_soil_path"
+        "model": "rpgcraftmodblock/soul_soil_path"
       }
     ]
   }

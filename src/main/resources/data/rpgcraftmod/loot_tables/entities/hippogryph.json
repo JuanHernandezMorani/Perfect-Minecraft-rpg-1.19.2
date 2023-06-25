@@ -69,7 +69,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:hippogryph_talon",
+          "name": "rpgcraftmod:hippogryph_talon",
           "weight": 1
         }
       ]
@@ -90,7 +90,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:hippogryph_skull",
+          "name": "rpgcraftmod:hippogryph_skull",
           "weight": 1
         }
       ]

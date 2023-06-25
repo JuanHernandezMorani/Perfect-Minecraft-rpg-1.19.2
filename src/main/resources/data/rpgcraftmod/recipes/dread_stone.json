@@ -10,11 +10,11 @@
       "item": "minecraft:stone"
     },
     "S": {
-      "item": "iceandfire:dread_shard"
+      "item": "rpgcraftmod:dread_shard"
     }
   },
   "result": {
-    "item": "iceandfire:dread_stone",
+    "item": "rpgcraftmod:dread_stone",
     "count": 8
   }
 }

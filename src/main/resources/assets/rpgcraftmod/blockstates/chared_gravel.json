@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/chared_gravel"
+      "model": "rpgcraftmod:block/chared_gravel"
     }
   }
 }

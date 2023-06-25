@@ -1,12 +1,12 @@
 {
-    "type": "storagedrawers:acacia_trim",
+    "type": "rpgcraftmodacacia_trim",
     "pools": [
         {
             "rolls": 1,
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "storagedrawers:acacia_trim"
+                    "name": "rpgcraftmodacacia_trim"
                 }
             ],
             "conditions": [

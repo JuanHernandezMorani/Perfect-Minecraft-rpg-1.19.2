@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "infernalexp:block/polished_basalt_tiles",
+      "model": "rpgcraftmodblock/polished_basalt_tiles",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "infernalexp:block/polished_basalt_tiles"
+      "model": "rpgcraftmodblock/polished_basalt_tiles"
     },
     "axis=z": {
-      "model": "infernalexp:block/polished_basalt_tiles",
+      "model": "rpgcraftmodblock/polished_basalt_tiles",
       "x": 90
     }
   }

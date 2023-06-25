@@ -1,5 +1,5 @@
 {
-  "base_template": "golems:coral/coral_template",
+  "base_template": "rpgcraftmodcoral/coral_template",
   "multitexture": {
     "base_map": {
       "0": "minecraft:tube_coral_block",

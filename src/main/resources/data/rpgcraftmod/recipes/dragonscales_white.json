@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_white"
+      "item": "rpgcraftmod:dragonscale_white"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonscales_white",
+    "item": "rpgcraftmod:dragonscales_white",
     "count": 9
   }
 }

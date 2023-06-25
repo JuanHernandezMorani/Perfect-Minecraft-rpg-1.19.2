@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:myrmex_desert_chitin",
+          "name": "rpgcraftmod:myrmex_desert_chitin",
           "weight": 1,
           "functions": [
             {
@@ -27,7 +27,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:myrmex_desert_resin",
+          "name": "rpgcraftmod:myrmex_desert_resin",
           "weight": 1,
           "functions": [
             {
@@ -48,7 +48,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:myrmex_stinger",
+          "name": "rpgcraftmod:myrmex_stinger",
           "weight": 1,
           "functions": [
             {

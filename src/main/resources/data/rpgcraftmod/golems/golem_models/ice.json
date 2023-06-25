@@ -1,15 +1,15 @@
 {
   "base": "minecraft:ice",
-  "base_template": "golems:translucent_template",
+  "base_template": "rpgcraftmodtranslucent_template",
   "translucent": true,
   "vines": {},
   "eyes": {
-	"texture": "#golems:layer/eyes/white"
+	"texture": "#rpgcraftmodlayer/eyes/white"
   },
   "layers": [
 	{
 	  "texture": "minecraft:ice",
-	  "template": "golems:layer/ice_template"
+	  "template": "rpgcraftmodlayer/ice_template"
 	}
   ]
 }

@@ -7,11 +7,11 @@
     ],
     "key": {
         "#": {
-            "item": "pigsteel:pigsteel_nugget"
+            "item": "rpgcraftmodpigsteel_nugget"
         }
     },
     "result": {
-        "item": "pigsteel:pigsteel_ingot",
+        "item": "rpgcraftmodpigsteel_ingot",
         "count": 1
     }
 }

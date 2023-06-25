@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "spectrite:spectrite_wither_rod_invulnerable"
+    "item": "rpgcraftmodspectrite_wither_rod_invulnerable"
   },
   "pattern": [
     "X",
@@ -10,14 +10,14 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "spectrite:spectrite_wither_invulnerable_skull"
+      "item": "rpgcraftmodspectrite_wither_invulnerable_skull"
     },
     "Y": {
-      "item": "spectrite:spectrite_wither_torso",
+      "item": "rpgcraftmodspectrite_wither_torso",
 	  "data": 1
     },
 	"Z": {
-      "item": "spectrite:spectrite_wither_tail",
+      "item": "rpgcraftmodspectrite_wither_tail",
 	  "data": 1
     }
   }

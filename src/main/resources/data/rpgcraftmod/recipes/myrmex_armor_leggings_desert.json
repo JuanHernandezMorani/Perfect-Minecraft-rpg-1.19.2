@@ -7,10 +7,10 @@
   ],
   "key": {
     "C": {
-      "item": "iceandfire:myrmex_desert_chitin"
+      "item": "rpgcraftmod:myrmex_desert_chitin"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_desert_leggings"
+    "item": "rpgcraftmod:myrmex_desert_leggings"
   }
 }

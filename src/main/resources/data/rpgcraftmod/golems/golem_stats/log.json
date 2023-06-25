@@ -21,31 +21,31 @@
 	"textures": {
 	  "0": {
 		"blocks": "#minecraft:dark_oak_logs",
-		"loot_table": "golems:log/dark_oak"
+		"loot_table": "rpgcraftmodlog/dark_oak"
 	  },
 	  "1": {
 		"blocks": "#minecraft:oak_logs",
-		"loot_table": "golems:log/oak"
+		"loot_table": "rpgcraftmodlog/oak"
 	  },
 	  "2": {
 		"blocks": "#minecraft:acacia_logs",
-		"loot_table": "golems:log/acacia"
+		"loot_table": "rpgcraftmodlog/acacia"
 	  },
 	  "3": {
 		"blocks": "#minecraft:birch_logs",
-		"loot_table": "golems:log/birch"
+		"loot_table": "rpgcraftmodlog/birch"
 	  },
 	  "4": {
 		"blocks": "#minecraft:jungle_logs",
-		"loot_table": "golems:log/jungle"
+		"loot_table": "rpgcraftmodlog/jungle"
 	  },
 	  "5": {
 		"blocks": "#minecraft:spruce_logs",
-		"loot_table": "golems:log/spruce"
+		"loot_table": "rpgcraftmodlog/spruce"
 	  },
 	  "6": {
 		"blocks": "#minecraft:mangrove_logs",
-		"loot_table": "golems:log/mangrove"
+		"loot_table": "rpgcraftmodlog/mangrove"
 	  }
     }
   }

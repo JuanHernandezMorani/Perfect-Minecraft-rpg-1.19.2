@@ -6,7 +6,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "pigsteel:infected_cut_pigsteel"
+            "name": "rpgcraftmodinfected_cut_pigsteel"
           }
         ],
         "conditions": [

@@ -1,7 +1,7 @@
 {
-  "base": "#golems:crafting",
+  "base": "#rpgcraftmodcrafting",
   "eyes": {
-	"texture": "#golems:layer/eyes/glasses"
+	"texture": "#rpgcraftmodlayer/eyes/glasses"
   },
   "vines": {}
 }

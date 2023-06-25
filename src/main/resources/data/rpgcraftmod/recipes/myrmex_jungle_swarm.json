@@ -7,16 +7,16 @@
   ],
   "key": {
     "R": {
-      "item": "iceandfire:myrmex_jungle_resin_block"
+      "item": "rpgcraftmod:myrmex_jungle_resin_block"
     },
     "S": {
       "tag": "forge:rods/wooden"
     },
     "E": {
-      "item": "iceandfire:myrmex_jungle_egg"
+      "item": "rpgcraftmod:myrmex_jungle_egg"
     }
   },
   "result": {
-    "item": "iceandfire:myrmex_jungle_swarm"
+    "item": "rpgcraftmod:myrmex_jungle_swarm"
   }
 }

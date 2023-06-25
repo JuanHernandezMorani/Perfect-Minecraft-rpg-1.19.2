@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing",
   "base": {"item": "minecraft:iron_hoe"},
-  "addition": {"item": "additionaladditions:rose_gold_alloy"},
-  "result": {"item": "additionaladditions:rose_gold_hoe"}
+  "addition": {"item": "rpgcraftmodrose_gold_alloy"},
+  "result": {"item": "rpgcraftmodrose_gold_hoe"}
 }

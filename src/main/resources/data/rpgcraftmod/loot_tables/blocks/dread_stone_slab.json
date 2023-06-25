@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "iceandfire:dread_stone_slab"
+          "name": "rpgcraftmod:dread_stone_slab"
         }
       ],
       "conditions": [

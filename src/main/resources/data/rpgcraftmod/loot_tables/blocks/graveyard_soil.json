@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "iceandfire:graveyard_soil"
+          "name": "rpgcraftmod:graveyard_soil"
         }
       ],
       "conditions": [

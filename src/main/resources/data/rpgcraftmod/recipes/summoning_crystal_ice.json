@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:ice_dragon_blood"
+      "item": "rpgcraftmod:ice_dragon_blood"
     },
     {
       "item": "minecraft:ender_pearl"
@@ -15,7 +15,7 @@
     }
   ],
   "result": {
-    "item": "iceandfire:summoning_crystal_ice",
+    "item": "rpgcraftmod:summoning_crystal_ice",
     "count": 1
   }
 }

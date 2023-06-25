@@ -5,7 +5,7 @@
     {"item": "minecraft:apple"}
   ],
   "result": {
-    "item": "additionaladditions:honeyed_apple",
+    "item": "rpgcraftmodhoneyed_apple",
     "count": 1
   }
 }

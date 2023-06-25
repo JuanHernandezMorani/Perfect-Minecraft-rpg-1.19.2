@@ -1,11 +1,11 @@
 {
     "parent": "block/block",
     "textures": {
-        "bottom": "spectrite:blocks/spectrite_bricks_bottom",
-		"top": "spectrite:blocks/spectrite_bricks_bottom",
-        "ew": "spectrite:blocks/spectrite_bricks_ew",
-		"ns": "spectrite:blocks/spectrite_bricks_ns",
-		"particle": "spectrite:blocks/spectrite_bricks_ew"
+        "bottom": "rpgcraftmodblocks/spectrite_bricks_bottom",
+		"top": "rpgcraftmodblocks/spectrite_bricks_bottom",
+        "ew": "rpgcraftmodblocks/spectrite_bricks_ew",
+		"ns": "rpgcraftmodblocks/spectrite_bricks_ns",
+		"particle": "rpgcraftmodblocks/spectrite_bricks_ew"
     },
 	"elements": [
         {   "from": [ 0, 8, 0 ],

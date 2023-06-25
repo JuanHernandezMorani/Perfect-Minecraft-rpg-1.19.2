@@ -1,6 +1,6 @@
 {
-    "parent": "spectrite:item/spectrite_shield",
+    "parent": "rpgcraftmoditem/spectrite_shield",
     "textures": {
-        "shield": "spectrite:entities/spectrite_shield/22"
+        "shield": "rpgcraftmodentities/spectrite_shield/22"
     }
 }

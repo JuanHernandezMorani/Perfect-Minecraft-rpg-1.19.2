@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "spectrite:blocks/diamond_ladder"
+        "layer0": "rpgcraftmodblocks/diamond_ladder"
     }
 }

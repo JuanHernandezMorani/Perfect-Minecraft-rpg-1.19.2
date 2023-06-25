@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "golems:golem_head"
+          "name": "rpgcraftmodgolem_head"
         }
       ]
     }

@@ -1,10 +1,10 @@
 {
   "variants": {
     "tip=false": {
-      "model": "infernalexp:block/dullthorns"
+      "model": "rpgcraftmodblock/dullthorns"
     },
     "tip=true": {
-      "model": "infernalexp:block/dullthorns_tip"
+      "model": "rpgcraftmodblock/dullthorns_tip"
     }
   }
 }

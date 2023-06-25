@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/dragonforge_fire_core"
+      "model": "rpgcraftmod:block/dragonforge_fire_core"
     }
   }
 }

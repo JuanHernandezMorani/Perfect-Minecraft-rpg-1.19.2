@@ -9,7 +9,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "iceandfire:manuscript",
+          "name": "rpgcraftmod:manuscript",
           "functions": [
             {
               "function": "set_count",
@@ -51,7 +51,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_nugget",
+          "name": "rpgcraftmod:silver_nugget",
           "functions": [
             {
               "function": "set_count",
@@ -65,7 +65,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_ingot",
+          "name": "rpgcraftmod:silver_ingot",
           "functions": [
             {
               "function": "set_count",

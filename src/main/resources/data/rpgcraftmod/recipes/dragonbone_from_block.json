@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "iceandfire:dragon_bone_block"
+      "item": "rpgcraftmod:dragon_bone_block"
     }
   ],
   "result": {
-    "item": "iceandfire:dragonbone",
+    "item": "rpgcraftmod:dragonbone",
     "count": 9
   }
 }

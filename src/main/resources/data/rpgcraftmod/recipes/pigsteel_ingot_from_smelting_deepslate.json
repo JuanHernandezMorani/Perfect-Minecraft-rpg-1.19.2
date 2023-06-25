@@ -1,9 +1,9 @@
 {
     "type": "minecraft:smelting",
     "ingredient": {
-        "item": "pigsteel:deepslate_pigsteel_ore"
+        "item": "rpgcraftmoddeepslate_pigsteel_ore"
     },
-    "result": "pigsteel:pigsteel_ingot",
+    "result": "rpgcraftmodpigsteel_ingot",
     "experience": 0.2,
     "cookingtime": 200,
     "group": "pigsteel_ingot"

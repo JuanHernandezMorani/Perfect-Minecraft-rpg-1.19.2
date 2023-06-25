@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "infernalexp:block/glowdust_stone_bricks"
+      "model": "rpgcraftmodblock/glowdust_stone_bricks"
     }
   }
 }

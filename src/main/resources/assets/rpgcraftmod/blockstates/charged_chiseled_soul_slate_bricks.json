@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "infernalexp:block/charged_chiseled_soul_slate_bricks",
+      "model": "rpgcraftmodblock/charged_chiseled_soul_slate_bricks",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "infernalexp:block/charged_chiseled_soul_slate_bricks"
+      "model": "rpgcraftmodblock/charged_chiseled_soul_slate_bricks"
     },
     "axis=z": {
-      "model": "infernalexp:block/charged_chiseled_soul_slate_bricks",
+      "model": "rpgcraftmodblock/charged_chiseled_soul_slate_bricks",
       "x": 90
     }
   }

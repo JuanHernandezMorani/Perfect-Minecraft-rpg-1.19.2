@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "iceandfire:block/sapphire_ore"
+      "model": "rpgcraftmod:block/sapphire_ore"
     }
   }
 }

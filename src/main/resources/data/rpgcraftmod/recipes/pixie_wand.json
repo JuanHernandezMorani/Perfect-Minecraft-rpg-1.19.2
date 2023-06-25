@@ -13,10 +13,10 @@
       "item": "minecraft:blaze_rod"
     },
     "W": {
-      "item": "iceandfire:pixie_wings"
+      "item": "rpgcraftmod:pixie_wings"
     }
   },
   "result": {
-    "item": "iceandfire:pixie_wand"
+    "item": "rpgcraftmod:pixie_wand"
   }
 }

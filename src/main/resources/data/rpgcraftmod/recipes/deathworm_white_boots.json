@@ -6,10 +6,10 @@
   ],
   "key": {
     "C": {
-      "item": "iceandfire:deathworm_chitin_white"
+      "item": "rpgcraftmod:deathworm_chitin_white"
     }
   },
   "result": {
-    "item": "iceandfire:deathworm_white_boots"
+    "item": "rpgcraftmod:deathworm_white_boots"
   }
 }

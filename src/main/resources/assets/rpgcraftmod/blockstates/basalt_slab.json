@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "infernalexp:block/basalt_slab"
+      "model": "rpgcraftmodblock/basalt_slab"
     },
     "type=double": {
       "model": "minecraft:block/basalt"
     },
     "type=top": {
-      "model": "infernalexp:block/basalt_slab_top"
+      "model": "rpgcraftmodblock/basalt_slab_top"
     }
   }
 }

@@ -18,10 +18,10 @@
     ],
     "subtitle": "subtitles.wings.item.armor.equip_wings"
   },
-  "charge": { "category": "block", "sounds": ["spectrite:charge"], "subtitle": "subtitle.charge" },
-	"explosion": { "category": "block", "sounds": ["spectrite:explode1", "spectrite:explode2", "spectrite:explode3"], "subtitle": "subtitle.explosion" },
-	"fatality": { "category": "block", "sounds": ["spectrite:fatality"] },
-	"preexplosion": { "category": "block", "sounds": ["spectrite:preexplosion"], "subtitle": "subtitle.preexplosion" },
+  "charge": { "category": "block", "sounds": ["rpgcraftmodcharge"], "subtitle": "subtitle.charge" },
+	"explosion": { "category": "block", "sounds": ["rpgcraftmodexplode1", "rpgcraftmodexplode2", "rpgcraftmodexplode3"], "subtitle": "subtitle.explosion" },
+	"fatality": { "category": "block", "sounds": ["rpgcraftmodfatality"] },
+	"preexplosion": { "category": "block", "sounds": ["rpgcraftmodpreexplosion"], "subtitle": "subtitle.preexplosion" },
 	"spectrite_golem.attack": { "sounds": ["mob/irongolem/throw"], "subtitle": "subtitle.spectrite_golem.attack" },
 	"spectrite_golem.death": { "sounds": ["mob/irongolem/death"], "subtitle": "subtitle.spectrite_golem.death" },
 	"spectrite_golem.hurt": { "sounds": ["mob/irongolem/hit1", "mob/irongolem/hit2", "mob/irongolem/hit3", "mob/irongolem/hit4"], "subtitle": "subtitle.spectrite_golem.hurt" },
@@ -126,7 +126,7 @@
     "subtitle": "subtitles.entity.outvoted.glutton.ambient",
     "sounds": [
       {
-        "name": "outvoted:entity/glutton"
+        "name": "rpgcraftmodentity/glutton"
       }
     ]
   },
@@ -135,13 +135,13 @@
     "subtitle": "subtitles.entity.outvoted.glutton.hurt",
     "sounds": [
       {
-        "name": "outvoted:entity/glutton_hit1"
+        "name": "rpgcraftmodentity/glutton_hit1"
       },
       {
-        "name": "outvoted:entity/glutton_hit2"
+        "name": "rpgcraftmodentity/glutton_hit2"
       },
       {
-        "name": "outvoted:entity/glutton_hit3"
+        "name": "rpgcraftmodentity/glutton_hit3"
       }
     ]
   },
@@ -150,13 +150,13 @@
     "subtitle": "subtitles.entity.outvoted.glutton.death",
     "sounds": [
       {
-        "name": "outvoted:entity/glutton_death1"
+        "name": "rpgcraftmodentity/glutton_death1"
       },
       {
-        "name": "outvoted:entity/glutton_death2"
+        "name": "rpgcraftmodentity/glutton_death2"
       },
       {
-        "name": "outvoted:entity/glutton_death3"
+        "name": "rpgcraftmodentity/glutton_death3"
       }
     ]
   },
@@ -165,7 +165,7 @@
     "subtitle": "subtitles.entity.outvoted.glutton.bite",
     "sounds": [
       {
-        "name": "outvoted:entity/glutton_bite"
+        "name": "rpgcraftmodentity/glutton_bite"
       }
     ]
   },
@@ -252,13 +252,13 @@
     "subtitle": "subtitles.entity.outvoted.barnacle.ambient",
     "sounds": [
       {
-        "name": "outvoted:entity/barnacle1"
+        "name": "rpgcraftmodentity/barnacle1"
       },
       {
-        "name": "outvoted:entity/barnacle2"
+        "name": "rpgcraftmodentity/barnacle2"
       },
       {
-        "name": "outvoted:entity/barnacle3"
+        "name": "rpgcraftmodentity/barnacle3"
       }
     ]
   },
@@ -267,7 +267,7 @@
     "subtitle": "subtitles.entity.outvoted.barnacle.hurt",
     "sounds": [
       {
-        "name": "outvoted:entity/barnacle_hit"
+        "name": "rpgcraftmodentity/barnacle_hit"
       }
     ]
   },
@@ -276,7 +276,7 @@
     "subtitle": "subtitles.entity.outvoted.barnacle.death",
     "sounds": [
       {
-        "name": "outvoted:entity/barnacle_death"
+        "name": "rpgcraftmodentity/barnacle_death"
       }
     ]
   },
@@ -303,13 +303,13 @@
     "subtitle": "subtitles.entity.outvoted.meerkat.ambient",
     "sounds": [
       {
-        "name": "outvoted:entity/meerkat1"
+        "name": "rpgcraftmodentity/meerkat1"
       },
       {
-        "name": "outvoted:entity/meerkat2"
+        "name": "rpgcraftmodentity/meerkat2"
       },
       {
-        "name": "outvoted:entity/meerkat3"
+        "name": "rpgcraftmodentity/meerkat3"
       }
     ]
   },
@@ -318,13 +318,13 @@
     "subtitle": "subtitles.entity.outvoted.meerkat.hurt",
     "sounds": [
       {
-        "name": "outvoted:entity/meerkat_hit1"
+        "name": "rpgcraftmodentity/meerkat_hit1"
       },
       {
-        "name": "outvoted:entity/meerkat_hit2"
+        "name": "rpgcraftmodentity/meerkat_hit2"
       },
       {
-        "name": "outvoted:entity/meerkat_hit3"
+        "name": "rpgcraftmodentity/meerkat_hit3"
       }
     ]
   },
@@ -333,10 +333,10 @@
     "subtitle": "subtitles.entity.outvoted.meerkat.death",
     "sounds": [
       {
-        "name": "outvoted:entity/meerkat_death1"
+        "name": "rpgcraftmodentity/meerkat_death1"
       },
       {
-        "name": "outvoted:entity/meerkat_death2"
+        "name": "rpgcraftmodentity/meerkat_death2"
       }
     ]
   },
@@ -345,188 +345,188 @@
     "subtitle": "subtitles.entity.outvoted.ostrich.ambient",
     "sounds": [
       {
-        "name": "outvoted:entity/ostrich1"
+        "name": "rpgcraftmodentity/ostrich1"
       },
       {
-        "name": "outvoted:entity/ostrich2"
+        "name": "rpgcraftmodentity/ostrich2"
       },
       {
-        "name": "outvoted:entity/ostrich3"
+        "name": "rpgcraftmodentity/ostrich3"
       }
     ]
   },
   "entity.voline.ambient": {
     "subtitle": "subtitles.entity.voline.ambient",
     "sounds": [
-      "infernalexp:entity/voline/voline_ambient"
+      "rpgcraftmodentity/voline/voline_ambient"
     ]
   },
   "entity.voline.hurt": {
     "subtitle": "subtitles.entity.voline.hurt",
     "sounds": [
-      "infernalexp:entity/voline/voline_hurt"
+      "rpgcraftmodentity/voline/voline_hurt"
     ]
   },
   "entity.shroomloin.ambient": {
     "subtitle": "subtitles.entity.shroomloin.ambient",
     "sounds": [
-      "infernalexp:entity/shroomloin/shroomloin_ambient"
+      "rpgcraftmodentity/shroomloin/shroomloin_ambient"
     ]
   },
   "entity.shroomloin.hurt": {
     "subtitle": "subtitles.entity.shroomloin.hurt",
     "sounds": [
-      "infernalexp:entity/shroomloin/shroomloin_hurt"
+      "rpgcraftmodentity/shroomloin/shroomloin_hurt"
     ]
   },
   "entity.shroomloin.death": {
     "subtitle": "subtitles.entity.shroomloin.death",
     "sounds": [
-      "infernalexp:entity/shroomloin/shroomloin_death"
+      "rpgcraftmodentity/shroomloin/shroomloin_death"
     ]
   },
   "entity.basalt_giant.ambient": {
     "subtitle": "subtitles.entity.basalt_giant.ambient",
     "sounds": [
-      "infernalexp:entity/basalt_giant/basalt_giant_ambient"
+      "rpgcraftmodentity/basalt_giant/basalt_giant_ambient"
     ]
   },
   "entity.basalt_giant.hurt": {
     "subtitle": "subtitles.entity.basalt_giant.hurt",
     "sounds": [
-      "infernalexp:entity/basalt_giant/basalt_giant_hurt"
+      "rpgcraftmodentity/basalt_giant/basalt_giant_hurt"
     ]
   },
   "entity.basalt_giant.death": {
     "subtitle": "subtitles.entity.basalt_giant.death",
     "sounds": [
-      "infernalexp:entity/basalt_giant/basalt_giant_death"
+      "rpgcraftmodentity/basalt_giant/basalt_giant_death"
     ]
   },
   "entity.blindsight.ambient":  {
     "subtitle": "subtitles.entity.blindsight.ambient",
     "sounds":[
-      "infernalexp:entity/blindsight/blindsight_ambient_1",
-      "infernalexp:entity/blindsight/blindsight_ambient_2",
-      "infernalexp:entity/blindsight/blindsight_ambient_3"
+      "rpgcraftmodentity/blindsight/blindsight_ambient_1",
+      "rpgcraftmodentity/blindsight/blindsight_ambient_2",
+      "rpgcraftmodentity/blindsight/blindsight_ambient_3"
     ]
   },
   "entity.blindsight.hurt": {
     "subtitle": "subtitles.entity.blindsight.hurt",
     "sounds": [
-      "infernalexp:entity/blindsight/blindsight_hurt"
+      "rpgcraftmodentity/blindsight/blindsight_hurt"
     ]
   },
   "entity.blindsight.death":  {
     "subtitle": "subtitles.entity.blindsight.death",
     "sounds": [
-      "infernalexp:entity/blindsight/blindsight_death"
+      "rpgcraftmodentity/blindsight/blindsight_death"
     ]
   },
   "entity.blindsight.leap":  {
     "subtitle": "subtitles.entity.blindsight.leap",
     "sounds": [
-      "infernalexp:entity/blindsight/blindsight_leap"
+      "rpgcraftmodentity/blindsight/blindsight_leap"
     ]
   },
   "entity.warpbeetle.ambient": {
     "subtitle": "subtitles.entity.warpbeetle.ambient",
     "sounds": [
-      "infernalexp:entity/warpbeetle/warpbeetle_ambient"
+      "rpgcraftmodentity/warpbeetle/warpbeetle_ambient"
     ]
   },
   "entity.warpbeetle.hurt": {
     "subtitle": "subtitles.entity.warpbeetle.hurt",
     "sounds": [
-      "infernalexp:entity/warpbeetle/warpbeetle_hurt"
+      "rpgcraftmodentity/warpbeetle/warpbeetle_hurt"
     ]
   },
   "entity.warpbeetle.death": {
     "subtitle": "subtitles.entity.warpbeetle.death",
     "sounds": [
-      "infernalexp:entity/warpbeetle/warpbeetle_death"
+      "rpgcraftmodentity/warpbeetle/warpbeetle_death"
     ]
   },
   "entity.cerobeetle.ambient": {
     "subtitle": "Cerobeetle squeaks",
     "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_ambient"
+      "rpgcraftmodentity/cerobeetle/cerobeetle_ambient"
     ]
   },
   "entity.cerobeetle.hurt": {
     "subtitle": "Cerobeetle hurts",
     "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_hurt"
+      "rpgcraftmodentity/cerobeetle/cerobeetle_hurt"
     ]
   },
   "entity.cerobeetle.death": {
     "subtitle": "Cerobeetle dies",
     "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_death"
+      "rpgcraftmodentity/cerobeetle/cerobeetle_death"
     ]
   },
   "entity.cerobeetle.roar": {
     "subtitle": "Cerobeetle dies",
     "sounds": [
-      "infernalexp:entity/cerobeetle/cerobeetle_roar"
+      "rpgcraftmodentity/cerobeetle/cerobeetle_roar"
     ]
   },
   "entity.embody.ambient": {
     "subtitle": "subtitles.entity.embody.ambient",
     "sounds": [
-      "infernalexp:entity/embody/embody_ambient"
+      "rpgcraftmodentity/embody/embody_ambient"
     ]
   },
   "entity.embody.hurt": {
     "subtitle": "subtitles.entity.embody.hurt",
     "sounds": [
-      "infernalexp:entity/embody/embody_hurt"
+      "rpgcraftmodentity/embody/embody_hurt"
     ]
   },
   "entity.embody.death": {
     "subtitle": "subtitles.entity.embody.death",
     "sounds": [
-      "infernalexp:entity/embody/embody_death"
+      "rpgcraftmodentity/embody/embody_death"
     ]
   },
   "entity.glowsilk_moth.ambient": {
     "subtitle": "subtitles.entity.glowsilk_moth.ambient",
     "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
+      "rpgcraftmodentity/glowsilk_moth/glowsilk_moth_ambient"
     ]
   },
   "entity.glowsilk_moth.hurt": {
     "subtitle": "subtitles.entity.glowsilk_moth.hurt",
     "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
+      "rpgcraftmodentity/glowsilk_moth/glowsilk_moth_hurt"
     ]
   },
   "entity.glowsilk_moth.death": {
     "subtitle": "subtitles.entity.glowsilk_moth.death",
     "sounds": [
-      "infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
+      "rpgcraftmodentity/glowsilk_moth/glowsilk_moth_death"
     ]
   },
   "entity.glowsquito.loop": {
     "sounds": [
       {
         "attenuation_distance": 9,
-        "name": "infernalexp:entity/glowsquito/loop1",
+        "name": "rpgcraftmodentity/glowsquito/loop1",
         "volume": 5
       },
       {
         "attenuation_distance": 9,
-        "name": "infernalexp:entity/glowsquito/loop2",
+        "name": "rpgcraftmodentity/glowsquito/loop2",
         "volume": 5
       },
       {
         "attenuation_distance": 9,
-        "name": "infernalexp:entity/glowsquito/loop3",
+        "name": "rpgcraftmodentity/glowsquito/loop3",
         "volume": 5
       },
       {
         "attenuation_distance": 9,
-        "name": "infernalexp:entity/glowsquito/loop4",
+        "name": "rpgcraftmodentity/glowsquito/loop4",
         "volume": 5
       }
     ]
@@ -534,22 +534,22 @@
   "entity.glowsquito.hurt": {
     "subtitle": "subtitles.entity.glowsquito.hurt",
     "sounds": [
-      "infernalexp:entity/glowsquito/hit1",
-      "infernalexp:entity/glowsquito/hit2",
-      "infernalexp:entity/glowsquito/hit3",
-      "infernalexp:entity/glowsquito/hit4"
+      "rpgcraftmodentity/glowsquito/hit1",
+      "rpgcraftmodentity/glowsquito/hit2",
+      "rpgcraftmodentity/glowsquito/hit3",
+      "rpgcraftmodentity/glowsquito/hit4"
     ]
   },
   "entity.glowsquito.death": {
     "subtitle": "subtitles.entity.glowsquito.death",
     "sounds": [
-      "infernalexp:entity/glowsquito/death1"
+      "rpgcraftmodentity/glowsquito/death1"
     ]
   },
   "ambient.glowstone_canyon.loop": {
     "sounds": [
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/ambience",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/ambience",
         "stream": true,
         "volume": 0.2
       }
@@ -558,62 +558,62 @@
   "ambient.glowstone_canyon.additions": {
     "sounds": [
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime1",
         "weight": 30,
         "volume": 0.1
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime2",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime3",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime4",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime5",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime5",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime6",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime6",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/chime7",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/chime7",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/with1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/with1",
         "weight": 50,
         "volume": 0.3
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/with2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/with2",
         "weight": 50,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/with3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/with3",
         "weight": 50,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/with4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/with4",
         "weight": 50,
         "volume": 0.3
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/with5",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/with5",
         "weight": 50,
         "volume": 0.4
       },
@@ -638,92 +638,92 @@
         "volume": 0.6
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_pluck1",
         "weight": 20,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_pluck2",
         "weight": 20,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_pluck3",
         "weight": 20,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_pluck4",
         "weight": 20,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck5",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_pluck5",
         "weight": 20,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck6",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_pluck6",
         "weight": 20,
         "volume": 0.3
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_strum1",
         "weight": 25,
         "volume": 0.25
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_strum2",
         "weight": 25,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_strum3",
         "weight": 25,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/dullthorn_strum4",
         "weight": 25,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_pluck1",
         "weight": 30,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_pluck2",
         "weight": 30,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_pluck3",
         "weight": 30,
         "volume": 0.1
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_pluck4",
         "weight": 30,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_strum1",
         "weight": 35,
         "volume": 0.2
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_strum2",
         "weight": 35,
         "volume": 0.15
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_strum3",
         "weight": 35,
         "volume": 0.3
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/somber_strum4",
         "weight": 35,
         "volume": 0.2
       }
@@ -732,23 +732,23 @@
   "ambient.glowstone_canyon.mood": {
     "sounds": [
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/mood1",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/mood1",
         "volume": 0.5
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/mood2",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/mood2",
         "volume": 0.5
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/mood3",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/mood3",
         "volume": 0.5
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/mood4",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/mood4",
         "volume": 0.5
       },
       {
-        "name": "infernalexp:ambient/nether/glowstone_canyon/mood5",
+        "name": "rpgcraftmodambient/nether/glowstone_canyon/mood5",
         "volume": 0.5
       }
     ]
@@ -756,7 +756,7 @@
   "music.nether.glowstone_canyon": {
     "sounds": [
       {
-        "name": "infernalexp:music/nether/glowstone_canyon/spindle",
+        "name": "rpgcraftmodmusic/nether/glowstone_canyon/spindle",
         "stream": true,
         "volume": 0.5,
         "weight": 8
@@ -782,7 +782,7 @@
   "record.soul_spunk": {
     "sounds": [
       {
-        "name": "infernalexp:record/soul_spunk",
+        "name": "rpgcraftmodrecord/soul_spunk",
         "stream": true
       }
     ]
@@ -790,7 +790,7 @@
   "record.flush": {
     "sounds": [
       {
-        "name": "infernalexp:record/flush",
+        "name": "rpgcraftmodrecord/flush",
         "stream": true,
         "volume": 2
       }
@@ -798,54 +798,54 @@
   },
   "block.soul_stone.break": {
     "sounds": [
-      "infernalexp:block/soul_stone/break1",
-      "infernalexp:block/soul_stone/break2",
-      "infernalexp:block/soul_stone/break3",
-      "infernalexp:block/soul_stone/break4",
-      "infernalexp:block/soul_stone/break5"
+      "rpgcraftmodblock/soul_stone/break1",
+      "rpgcraftmodblock/soul_stone/break2",
+      "rpgcraftmodblock/soul_stone/break3",
+      "rpgcraftmodblock/soul_stone/break4",
+      "rpgcraftmodblock/soul_stone/break5"
     ]
   },
   "block.dullstone.break": {
     "sounds": [
-      "infernalexp:block/dullstone/break1",
-      "infernalexp:block/dullstone/break2"
+      "rpgcraftmodblock/dullstone/break1",
+      "rpgcraftmodblock/dullstone/break2"
     ]
   },
   "block.dullstone.step": {
     "sounds": [
-      "infernalexp:block/dullstone/step1",
-      "infernalexp:block/dullstone/step2",
-      "infernalexp:block/dullstone/step3"
+      "rpgcraftmodblock/dullstone/step1",
+      "rpgcraftmodblock/dullstone/step2",
+      "rpgcraftmodblock/dullstone/step3"
     ]
   },
   "block.dullstone.place": {
     "sounds": [
-      "infernalexp:block/dullstone/step1",
-      "infernalexp:block/dullstone/step2",
-      "infernalexp:block/dullstone/step3"
+      "rpgcraftmodblock/dullstone/step1",
+      "rpgcraftmodblock/dullstone/step2",
+      "rpgcraftmodblock/dullstone/step3"
     ]
   },
   "block.dullstone.hit": {
     "sounds": [
-      "infernalexp:block/dullstone/step1",
-      "infernalexp:block/dullstone/step2",
-      "infernalexp:block/dullstone/step3"
+      "rpgcraftmodblock/dullstone/step1",
+      "rpgcraftmodblock/dullstone/step2",
+      "rpgcraftmodblock/dullstone/step3"
     ]
   },
   "block.dullstone.fall": {
     "sounds": [
-      "infernalexp:block/dullstone/break1",
-      "infernalexp:block/dullstone/break2"
+      "rpgcraftmodblock/dullstone/break1",
+      "rpgcraftmodblock/dullstone/break2"
     ]
   },
   "block.glowstone.recharge": {
     "sounds": [
-      "infernalexp:block/glowstone/recharge"
+      "rpgcraftmodblock/glowstone/recharge"
     ]
   },
   "block.quartz_glass.hit": {
     "sounds": [
-      "infernalexp:block/quartz_glass/hit"
+      "rpgcraftmodblock/quartz_glass/hit"
     ]
   },
   "mob.endereye.living": {
@@ -1212,13 +1212,13 @@
   "entity.dragon.ambient": {
     "sounds": [
       {
-        "name": "dragonmounts:entity/dragon/breathe1",
+        "name": "rpgcraftmodentity/dragon/breathe1",
         "volume": 0.5,
         "pitch": 0.5,
         "weight": 3
       },
       {
-        "name": "dragonmounts:entity/dragon/breathe2",
+        "name": "rpgcraftmodentity/dragon/breathe2",
         "volume": 0.5,
         "pitch": 0.5,
         "weight": 3
@@ -1233,16 +1233,16 @@
   "entity.dragon.step": {
     "sounds": [
       {
-        "name": "dragonmounts:entity/dragon/step1"
+        "name": "rpgcraftmodentity/dragon/step1"
       },
       {
-        "name": "dragonmounts:entity/dragon/step2"
+        "name": "rpgcraftmodentity/dragon/step2"
       },
       {
-        "name": "dragonmounts:entity/dragon/step3"
+        "name": "rpgcraftmodentity/dragon/step3"
       },
       {
-        "name": "dragonmounts:entity/dragon/step4"
+        "name": "rpgcraftmodentity/dragon/step4"
       }
     ],
     "subtitle": "subtitles.entity.dragon.step"
@@ -1250,7 +1250,7 @@
   "entity.dragon.death": {
     "sounds": [
       {
-        "name": "dragonmounts:entity/dragon/death"
+        "name": "rpgcraftmodentity/dragon/death"
       }
     ],
     "subtitle": "subtitles.entity.dragon.death"
@@ -1258,7 +1258,7 @@
   "entity.dragon.ambient.ghost": {
     "sounds": [
       {
-        "name": "dragonmounts:entity.dragon.ambient",
+        "name": "rpgcraftmodentity.dragon.ambient",
         "type": "event"
       },
       {
@@ -1274,7 +1274,7 @@
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/ghost/jumpscare",
+        "name": "rpgcraftmod:mobs/ghost/jumpscare",
         "volume": 0.8
       }
     ]
@@ -1283,67 +1283,67 @@
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/ghost/attack_0",
+        "name": "rpgcraftmod:mobs/ghost/attack_0",
         "volume": 0.8
       },
       {
-        "name": "iceandfire:mobs/ghost/attack_1",
+        "name": "rpgcraftmod:mobs/ghost/attack_1",
         "volume": 0.8
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.ghost_attack"
+    "subtitle": "rpgcraftmod.sound.subtitle.ghost_attack"
   },
   "ghost_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/ghost/idle_0",
+        "name": "rpgcraftmod:mobs/ghost/idle_0",
         "volume": 0.8
       },
       {
-        "name": "iceandfire:mobs/ghost/idle_1",
+        "name": "rpgcraftmod:mobs/ghost/idle_1",
         "volume": 0.8
       },
       {
-        "name": "iceandfire:mobs/ghost/idle_2",
+        "name": "rpgcraftmod:mobs/ghost/idle_2",
         "volume": 0.8
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.ghost_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.ghost_idle"
   },
   "ghost_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/ghost/hurt_0",
+        "name": "rpgcraftmod:mobs/ghost/hurt_0",
         "volume": 0.8
       },
       {
-        "name": "iceandfire:mobs/ghost/hurt_1",
+        "name": "rpgcraftmod:mobs/ghost/hurt_1",
         "volume": 0.8
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.ghost_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.ghost_hurt"
   },
   "ghost_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/ghost/hurt_0",
+        "name": "rpgcraftmod:mobs/ghost/hurt_0",
         "volume": 0.8
       },
       {
-        "name": "iceandfire:mobs/ghost/hurt_1",
+        "name": "rpgcraftmod:mobs/ghost/hurt_1",
         "volume": 0.8
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.ghost_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.ghost_die"
   },
   "lightningdragon_breath_crackle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/breath_crackle",
+        "name": "rpgcraftmod:mobs/dragon/lightning/breath_crackle",
         "volume": 0.8
       }
     ]
@@ -1352,229 +1352,229 @@
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/breath",
+        "name": "rpgcraftmod:mobs/dragon/lightning/breath",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_breath"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_breath"
   },
   "lightningdragon_adult_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_roar_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_roar_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_roar_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_roar_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_roar_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_roar_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_roar"
   },
   "lightningdragon_teen_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_roar_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_roar_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_roar_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_roar_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_roar_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_roar_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_roar"
   },
   "lightningdragon_child_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_die_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_roar"
   },
   "lightningdragon_child_idle": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_idle"
   },
   "lightningdragon_child_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_hurt"
   },
   "lightningdragon_child_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/child_die_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/child_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_death"
   },
   "lightningdragon_teen_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_idle"
   },
   "lightningdragon_teen_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_hurt"
   },
   "lightningdragon_teen_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/teen_die_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/teen_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_death"
   },
   "lightningdragon_adult_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_idle"
   },
   "lightningdragon_adult_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_hurt"
   },
   "lightningdragon_adult_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/lightning/adult_die_0",
+        "name": "rpgcraftmod:mobs/dragon/lightning/adult_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.lightningdragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.lightningdragon_death"
   },
   "dread_ghoul_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dread/ghoul_idle_0",
+        "name": "rpgcraftmod:mobs/dread/ghoul_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dread/ghoul_idle_1",
+        "name": "rpgcraftmod:mobs/dread/ghoul_idle_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.dread_ghoul_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.dread_ghoul_idle"
   },
   "dread_lich_summon": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dread/lich_summon_0",
+        "name": "rpgcraftmod:mobs/dread/lich_summon_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dread/lich_summon_1",
+        "name": "rpgcraftmod:mobs/dread/lich_summon_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.dread_lich_summon"
+    "subtitle": "rpgcraftmod.sound.subtitle.dread_lich_summon"
   },
   "hydra_regen_head": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hydra/regen_head",
+        "name": "rpgcraftmod:mobs/hydra/regen_head",
         "volume": 0.4
       }
     ]
@@ -1583,119 +1583,119 @@
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hydra/spit_0",
+        "name": "rpgcraftmod:mobs/hydra/spit_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hydra/spit_1",
+        "name": "rpgcraftmod:mobs/hydra/spit_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hydra_spit"
+    "subtitle": "rpgcraftmod.sound.subtitle.hydra_spit"
   },
   "hydra_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hydra/idle_0",
+        "name": "rpgcraftmod:mobs/hydra/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hydra/idle_1",
+        "name": "rpgcraftmod:mobs/hydra/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hydra/idle_2",
+        "name": "rpgcraftmod:mobs/hydra/idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hydra_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.hydra_idle"
   },
   "hydra_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hydra/hurt_0",
+        "name": "rpgcraftmod:mobs/hydra/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hydra/hurt_1",
+        "name": "rpgcraftmod:mobs/hydra/hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hydra/hurt_2",
+        "name": "rpgcraftmod:mobs/hydra/hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hydra_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.hydra_hurt"
   },
   "hydra_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hydra/die",
+        "name": "rpgcraftmod:mobs/hydra/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hydra_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.hydra_die"
   },
   "bestiary_page": {
     "category": "player",
     "sounds": [
       {
-        "name": "iceandfire:items/bestiary_page_0",
+        "name": "rpgcraftmod:items/bestiary_page_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:items/bestiary_page_1",
+        "name": "rpgcraftmod:items/bestiary_page_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.bestiary_page"
+    "subtitle": "rpgcraftmod.sound.subtitle.bestiary_page"
   },
   "pixie_wand": {
     "category": "player",
     "sounds": [
       {
-        "name": "iceandfire:items/pixie_wand_0",
+        "name": "rpgcraftmod:items/pixie_wand_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:items/pixie_wand_1",
+        "name": "rpgcraftmod:items/pixie_wand_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:items/pixie_wand_2",
+        "name": "rpgcraftmod:items/pixie_wand_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.pixie_wand"
+    "subtitle": "rpgcraftmod.sound.subtitle.pixie_wand"
   },
   "sea_serpent_breath": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/breath",
+        "name": "rpgcraftmod:mobs/sea_serpent/breath",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.sea_serpent_breath"
+    "subtitle": "rpgcraftmod.sound.subtitle.sea_serpent_breath"
   },
   "sea_serpent_bite": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/bite",
+        "name": "rpgcraftmod:mobs/sea_serpent/bite",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.sea_serpent_bite"
+    "subtitle": "rpgcraftmod.sound.subtitle.sea_serpent_bite"
   },
   "sea_serpent_splash": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/splash",
+        "name": "rpgcraftmod:mobs/sea_serpent/splash",
         "volume": 0.4
       }
     ]
@@ -1704,117 +1704,117 @@
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/roar",
+        "name": "rpgcraftmod:mobs/sea_serpent/roar",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.sea_serpent_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.sea_serpent_roar"
   },
   "sea_serpent_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/idle_0",
+        "name": "rpgcraftmod:mobs/sea_serpent/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/sea_serpent/idle_1",
+        "name": "rpgcraftmod:mobs/sea_serpent/idle_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.sea_serpent_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.sea_serpent_idle"
   },
   "sea_serpent_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/hurt_0",
+        "name": "rpgcraftmod:mobs/sea_serpent/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/sea_serpent/hurt_1",
+        "name": "rpgcraftmod:mobs/sea_serpent/hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/sea_serpent/hurt_2",
+        "name": "rpgcraftmod:mobs/sea_serpent/hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.sea_serpent_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.sea_serpent_hurt"
   },
   "sea_serpent_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/sea_serpent/die",
+        "name": "rpgcraftmod:mobs/sea_serpent/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.sea_serpent_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.sea_serpent_die"
   },
   "amphithere_idle": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/amphithere/idle_0",
+        "name": "rpgcraftmod:mobs/amphithere/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/idle_1",
+        "name": "rpgcraftmod:mobs/amphithere/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/idle_2",
+        "name": "rpgcraftmod:mobs/amphithere/idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/idle_3",
+        "name": "rpgcraftmod:mobs/amphithere/idle_3",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/idle_4",
+        "name": "rpgcraftmod:mobs/amphithere/idle_4",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.amphithere_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.amphithere_idle"
   },
   "amphithere_hurt": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/amphithere/hurt_0",
+        "name": "rpgcraftmod:mobs/amphithere/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/hurt_1",
+        "name": "rpgcraftmod:mobs/amphithere/hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/hurt_2",
+        "name": "rpgcraftmod:mobs/amphithere/hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.amphithere_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.amphithere_hurt"
   },
   "amphithere_die": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/amphithere/die_0",
+        "name": "rpgcraftmod:mobs/amphithere/die_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/amphithere/die_1",
+        "name": "rpgcraftmod:mobs/amphithere/die_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.amphithere_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.amphithere_die"
   },
   "amphithere_gust": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/amphithere/gust",
+        "name": "rpgcraftmod:mobs/amphithere/gust",
         "volume": 0.4
       }
     ]
@@ -1823,581 +1823,581 @@
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/amphithere/bite",
+        "name": "rpgcraftmod:mobs/amphithere/bite",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.amphithere_bite"
+    "subtitle": "rpgcraftmod.sound.subtitle.amphithere_bite"
   },
   "myrmex_bite": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/myrmex/bite_0",
+        "name": "rpgcraftmod:mobs/myrmex/bite_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/myrmex/bite_1",
+        "name": "rpgcraftmod:mobs/myrmex/bite_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.myrmex_bite"
+    "subtitle": "rpgcraftmod.sound.subtitle.myrmex_bite"
   },
   "myrmex_sting": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/myrmex/sting_0",
+        "name": "rpgcraftmod:mobs/myrmex/sting_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/myrmex/sting_1",
+        "name": "rpgcraftmod:mobs/myrmex/sting_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.myrmex_sting"
+    "subtitle": "rpgcraftmod.sound.subtitle.myrmex_sting"
   },
   "myrmex_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/myrmex/idle_0",
+        "name": "rpgcraftmod:mobs/myrmex/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/myrmex/idle_1",
+        "name": "rpgcraftmod:mobs/myrmex/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/myrmex/idle_2",
+        "name": "rpgcraftmod:mobs/myrmex/idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.myrmex_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.myrmex_idle"
   },
   "myrmex_walk": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/myrmex/walk",
+        "name": "rpgcraftmod:mobs/myrmex/walk",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.myrmex_walk"
+    "subtitle": "rpgcraftmod.sound.subtitle.myrmex_walk"
   },
   "myrmex_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/myrmex/hurt_0",
+        "name": "rpgcraftmod:mobs/myrmex/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/myrmex/hurt_1",
+        "name": "rpgcraftmod:mobs/myrmex/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.myrmex_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.myrmex_hurt"
   },
   "myrmex_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/myrmex/die",
+        "name": "rpgcraftmod:mobs/myrmex/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.myrmex_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.myrmex_die"
   },
   "stymphalian_bird_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/stymphalian_bird/idle_0",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/stymphalian_bird/idle_1",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/stymphalian_bird/idle_2",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.stymphalian_bird_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.stymphalian_bird_idle"
   },
   "stymphalian_bird_attack": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/stymphalian_bird/attack",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/attack",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.stymphalian_bird_attack"
+    "subtitle": "rpgcraftmod.sound.subtitle.stymphalian_bird_attack"
   },
   "stymphalian_bird_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/stymphalian_bird/hurt_0",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/stymphalian_bird/hurt_1",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.stymphalian_bird_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.stymphalian_bird_hurt"
   },
   "stymphalian_bird_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/stymphalian_bird/die",
+        "name": "rpgcraftmod:mobs/stymphalian_bird/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.stymphalian_bird_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.stymphalian_bird_die"
   },
   "cockatrice_cry": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cockatrice/cry",
+        "name": "rpgcraftmod:mobs/cockatrice/cry",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cockatrice_cry"
+    "subtitle": "rpgcraftmod.sound.subtitle.cockatrice_cry"
   },
   "cockatrice_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cockatrice/hurt_0",
+        "name": "rpgcraftmod:mobs/cockatrice/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/cockatrice/hurt_1",
+        "name": "rpgcraftmod:mobs/cockatrice/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cockatrice_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.cockatrice_hurt"
   },
   "cockatrice_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cockatrice/idle_0",
+        "name": "rpgcraftmod:mobs/cockatrice/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/cockatrice/idle_1",
+        "name": "rpgcraftmod:mobs/cockatrice/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/cockatrice/idle_2",
+        "name": "rpgcraftmod:mobs/cockatrice/idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cockatrice_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.cockatrice_idle"
   },
   "cockatrice_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cockatrice/die_0",
+        "name": "rpgcraftmod:mobs/cockatrice/die_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/cockatrice/die_1",
+        "name": "rpgcraftmod:mobs/cockatrice/die_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cockatrice_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.cockatrice_die"
   },
   "troll_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/troll/idle_0",
+        "name": "rpgcraftmod:mobs/troll/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/troll/idle_1",
+        "name": "rpgcraftmod:mobs/troll/idle_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.troll_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.troll_idle"
   },
   "troll_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/troll/roar",
+        "name": "rpgcraftmod:mobs/troll/roar",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.troll_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.troll_roar"
   },
   "troll_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/troll/hurt_0",
+        "name": "rpgcraftmod:mobs/troll/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/troll/hurt_1",
+        "name": "rpgcraftmod:mobs/troll/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.troll_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.troll_hurt"
   },
   "troll_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/troll/die",
+        "name": "rpgcraftmod:mobs/troll/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.troll_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.troll_die"
   },
   "naga_attack": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/naga/idle",
+        "name": "rpgcraftmod:mobs/naga/idle",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.naga_attack"
+    "subtitle": "rpgcraftmod.sound.subtitle.naga_attack"
   },
   "naga_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/naga/idle",
+        "name": "rpgcraftmod:mobs/naga/idle",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.naga_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.naga_idle"
   },
   "naga_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/naga/hurt_0",
+        "name": "rpgcraftmod:mobs/naga/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/naga/hurt_1",
+        "name": "rpgcraftmod:mobs/naga/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.naga_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.naga_hurt"
   },
   "naga_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/naga/die",
+        "name": "rpgcraftmod:mobs/naga/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.naga_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.naga_die"
   },
   "mermaid_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/mermaid/idle_0",
+        "name": "rpgcraftmod:mobs/mermaid/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/mermaid/idle_1",
+        "name": "rpgcraftmod:mobs/mermaid/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/mermaid/idle_2",
+        "name": "rpgcraftmod:mobs/mermaid/idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/mermaid/idle_3",
+        "name": "rpgcraftmod:mobs/mermaid/idle_3",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/mermaid/idle_4",
+        "name": "rpgcraftmod:mobs/mermaid/idle_4",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.mermaid_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.mermaid_idle"
   },
   "mermaid_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/mermaid/hurt_0",
+        "name": "rpgcraftmod:mobs/mermaid/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/mermaid/hurt_1",
+        "name": "rpgcraftmod:mobs/mermaid/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.mermaid_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.mermaid_hurt"
   },
   "mermaid_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/mermaid/die",
+        "name": "rpgcraftmod:mobs/mermaid/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.mermaid_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.mermaid_die"
   },
   "siren_song": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:effects/siren_song",
+        "name": "rpgcraftmod:effects/siren_song",
         "volume": 0.2
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.siren_song"
+    "subtitle": "rpgcraftmod.sound.subtitle.siren_song"
   },
   "deathworm_giant_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/giant/idle_0",
+        "name": "rpgcraftmod:mobs/deathworm/giant/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/deathworm/giant/idle_1",
+        "name": "rpgcraftmod:mobs/deathworm/giant/idle_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_idle"
   },
   "deathworm_giant_attack": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/giant/attack_0",
+        "name": "rpgcraftmod:mobs/deathworm/giant/attack_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/deathworm/giant/attack_1",
+        "name": "rpgcraftmod:mobs/deathworm/giant/attack_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_attack"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_attack"
   },
   "deathworm_giant_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/giant/hurt_0",
+        "name": "rpgcraftmod:mobs/deathworm/giant/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/deathworm/giant/hurt_1",
+        "name": "rpgcraftmod:mobs/deathworm/giant/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_hurt"
   },
   "deathworm_giant_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/giant/die",
+        "name": "rpgcraftmod:mobs/deathworm/giant/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_die"
   },
   "deathworm_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/idle_0",
+        "name": "rpgcraftmod:mobs/deathworm/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/deathworm/idle_1",
+        "name": "rpgcraftmod:mobs/deathworm/idle_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_idle"
   },
   "deathworm_attack": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/attack_0",
+        "name": "rpgcraftmod:mobs/deathworm/attack_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/deathworm/attack_1",
+        "name": "rpgcraftmod:mobs/deathworm/attack_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_attack"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_attack"
   },
   "deathworm_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/hurt_0",
+        "name": "rpgcraftmod:mobs/deathworm/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/deathworm/hurt_1",
+        "name": "rpgcraftmod:mobs/deathworm/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_hurt"
   },
   "deathworm_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/deathworm/die",
+        "name": "rpgcraftmod:mobs/deathworm/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.deathworm_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.deathworm_die"
   },
   "hippocampus_idle": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hippocampus/idle_0",
+        "name": "rpgcraftmod:mobs/hippocampus/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hippocampus/idle_1",
+        "name": "rpgcraftmod:mobs/hippocampus/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hippocampus/idle_2",
+        "name": "rpgcraftmod:mobs/hippocampus/idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hippocampus/idle_3",
+        "name": "rpgcraftmod:mobs/hippocampus/idle_3",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hippocampus_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.hippocampus_idle"
   },
   "hippocampus_hurt": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hippocampus/hurt_0",
+        "name": "rpgcraftmod:mobs/hippocampus/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hippocampus/hurt_1",
+        "name": "rpgcraftmod:mobs/hippocampus/hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/hippocampus/hurt_2",
+        "name": "rpgcraftmod:mobs/hippocampus/hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hippocampus_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.hippocampus_hurt"
   },
   "hippocampus_die": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hippocampus/die",
+        "name": "rpgcraftmod:mobs/hippocampus/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hippocampus_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.hippocampus_die"
   },
   "cyclops_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cyclops/idle",
+        "name": "rpgcraftmod:mobs/cyclops/idle",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cyclops_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.cyclops_idle"
   },
   "cyclops_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cyclops/hurt_0",
+        "name": "rpgcraftmod:mobs/cyclops/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/cyclops/hurt_1",
+        "name": "rpgcraftmod:mobs/cyclops/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cyclops_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.cyclops_hurt"
   },
   "cyclops_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cyclops/hurt_0",
+        "name": "rpgcraftmod:mobs/cyclops/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/cyclops/hurt_1",
+        "name": "rpgcraftmod:mobs/cyclops/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cyclops_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.cyclops_die"
   },
   "cyclops_bite": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cyclops/bite",
+        "name": "rpgcraftmod:mobs/cyclops/bite",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cyclops_bite"
+    "subtitle": "rpgcraftmod.sound.subtitle.cyclops_bite"
   },
   "cyclops_blinded": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/cyclops/blinded",
+        "name": "rpgcraftmod:mobs/cyclops/blinded",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.cyclops_blinded"
+    "subtitle": "rpgcraftmod.sound.subtitle.cyclops_blinded"
   },
   "dragon_flight": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/flight_0",
+        "name": "rpgcraftmod:mobs/dragon/flight_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/flight_1",
+        "name": "rpgcraftmod:mobs/dragon/flight_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/flight_2",
+        "name": "rpgcraftmod:mobs/dragon/flight_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/flight_3",
+        "name": "rpgcraftmod:mobs/dragon/flight_3",
         "volume": 0.4
       }
     ]
@@ -2406,658 +2406,658 @@
     "category": "block",
     "sounds": [
       {
-        "name": "iceandfire:effects/gold_pile_step",
+        "name": "rpgcraftmod:effects/gold_pile_step",
         "volume": 0.8
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gold_pile_step"
+    "subtitle": "rpgcraftmod.sound.subtitle.gold_pile_step"
   },
   "gold_pile_break": {
     "category": "block",
     "sounds": [
       {
-        "name": "iceandfire:effects/gold_pile_break",
+        "name": "rpgcraftmod:effects/gold_pile_break",
         "volume": 0.8
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gold_pile_break"
+    "subtitle": "rpgcraftmod.sound.subtitle.gold_pile_break"
   },
   "pixie_idle": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/pixie/idle_0",
+        "name": "rpgcraftmod:mobs/pixie/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/idle_1",
+        "name": "rpgcraftmod:mobs/pixie/idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/idle_2",
+        "name": "rpgcraftmod:mobs/pixie/idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/idle_3",
+        "name": "rpgcraftmod:mobs/pixie/idle_3",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/idle_4",
+        "name": "rpgcraftmod:mobs/pixie/idle_4",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.pixie_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.pixie_idle"
   },
   "pixie_hurt": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/pixie/hurt_0",
+        "name": "rpgcraftmod:mobs/pixie/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/hurt_1",
+        "name": "rpgcraftmod:mobs/pixie/hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/hurt_2",
+        "name": "rpgcraftmod:mobs/pixie/hurt_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/hurt_3",
+        "name": "rpgcraftmod:mobs/pixie/hurt_3",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.pixie_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.pixie_hurt"
   },
   "pixie_die": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/pixie/death_0",
+        "name": "rpgcraftmod:mobs/pixie/death_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.pixie_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.pixie_die"
   },
   "pixie_taunt": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/pixie/taunt_0",
+        "name": "rpgcraftmod:mobs/pixie/taunt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/pixie/taunt_1",
+        "name": "rpgcraftmod:mobs/pixie/taunt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.pixie_taunt"
+    "subtitle": "rpgcraftmod.sound.subtitle.pixie_taunt"
   },
   "gorgon_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/gorgon/idle_0",
+        "name": "rpgcraftmod:mobs/gorgon/idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/gorgon/idle_1",
+        "name": "rpgcraftmod:mobs/gorgon/idle_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gorgon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.gorgon_idle"
   },
   "gorgon_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/gorgon/hurt_0",
+        "name": "rpgcraftmod:mobs/gorgon/hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/gorgon/hurt_1",
+        "name": "rpgcraftmod:mobs/gorgon/hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gorgon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.gorgon_hurt"
   },
   "gorgon_die": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/gorgon/die",
+        "name": "rpgcraftmod:mobs/gorgon/die",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gorgon_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.gorgon_die"
   },
   "gorgon_attack": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/gorgon/attack",
+        "name": "rpgcraftmod:mobs/gorgon/attack",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gorgon_attack"
+    "subtitle": "rpgcraftmod.sound.subtitle.gorgon_attack"
   },
   "gorgon_petrify": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/gorgon/petrify",
+        "name": "rpgcraftmod:mobs/gorgon/petrify",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gorgon_petrify"
+    "subtitle": "rpgcraftmod.sound.subtitle.gorgon_petrify"
   },
   "turn_stone": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:effects/turn_stone",
+        "name": "rpgcraftmod:effects/turn_stone",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.gorgon_turn_stone"
+    "subtitle": "rpgcraftmod.sound.subtitle.gorgon_turn_stone"
   },
   "hippogryph_idle": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hippogryph/idle_0",
+        "name": "rpgcraftmod:mobs/hippogryph/idle_0",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/idle_1",
+        "name": "rpgcraftmod:mobs/hippogryph/idle_1",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/idle_2",
+        "name": "rpgcraftmod:mobs/hippogryph/idle_2",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/idle_3",
+        "name": "rpgcraftmod:mobs/hippogryph/idle_3",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/idle_4",
+        "name": "rpgcraftmod:mobs/hippogryph/idle_4",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/idle_5",
+        "name": "rpgcraftmod:mobs/hippogryph/idle_5",
         "volume": 0.6
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hippogryph_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.hippogryph_idle"
   },
   "hippogryph_hurt": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hippogryph/hurt_0",
+        "name": "rpgcraftmod:mobs/hippogryph/hurt_0",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/hurt_1",
+        "name": "rpgcraftmod:mobs/hippogryph/hurt_1",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/hurt_2",
+        "name": "rpgcraftmod:mobs/hippogryph/hurt_2",
         "volume": 0.6
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hippogryph_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.hippogryph_hurt"
   },
   "hippogryph_die": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:mobs/hippogryph/die_0",
+        "name": "rpgcraftmod:mobs/hippogryph/die_0",
         "volume": 0.6
       },
       {
-        "name": "iceandfire:mobs/hippogryph/die_1",
+        "name": "rpgcraftmod:mobs/hippogryph/die_1",
         "volume": 0.6
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.hippogryph_die"
+    "subtitle": "rpgcraftmod.sound.subtitle.hippogryph_die"
   },
   "egg_hatch": {
     "category": "neutral",
     "sounds": [
       {
-        "name": "iceandfire:effects/egg_hatch",
+        "name": "rpgcraftmod:effects/egg_hatch",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.dragon_hatch"
+    "subtitle": "rpgcraftmod.sound.subtitle.dragon_hatch"
   },
   "firedragon_breath": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/breath",
+        "name": "rpgcraftmod:mobs/dragon/fire/breath",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_breath"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_breath"
   },
   "firedragon_child_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/child_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/child_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/child_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_idle"
   },
   "firedragon_child_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/child_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/child_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_hurt"
   },
   "firedragon_child_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/child_die_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_death"
   },
   "firedragon_child_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/child_die_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/child_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_roar"
   },
   "firedragon_teen_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_idle_3",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_idle_3",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_idle_4",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_idle_4",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_idle_5",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_idle_5",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_idle"
   },
   "firedragon_teen_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_hurt_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_hurt"
   },
   "firedragon_teen_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_die_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_death"
   },
   "firedragon_teen_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_roar_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_roar_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/teen_roar_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/teen_roar_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_roar"
   },
   "firedragon_adult_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_idle_3",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_idle_3",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_idle"
   },
   "firedragon_adult_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_hurt"
   },
   "firedragon_adult_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_death"
   },
   "firedragon_adult_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_roar_0",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_roar_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/fire/adult_roar_1",
+        "name": "rpgcraftmod:mobs/dragon/fire/adult_roar_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.firedragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.firedragon_roar"
   },
   "icedragon_adult_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_roar_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_roar_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_roar_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_roar_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_roar"
   },
   "icedragon_breath": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/breath",
+        "name": "rpgcraftmod:mobs/dragon/ice/breath",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_breath"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_breath"
   },
   "icedragon_teen_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_roar_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_roar_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_roar_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_roar_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_roar"
   },
   "icedragon_child_roar": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/child_die_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_die_0",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_roar"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_roar"
   },
   "icedragon_child_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/child_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_idle"
   },
   "icedragon_child_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_3",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_3",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_hurt"
   },
   "icedragon_child_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/child_hurt_3",
+        "name": "rpgcraftmod:mobs/dragon/ice/child_hurt_3",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_death"
   },
   "icedragon_teen_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_idle_2",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_idle_3",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_idle_3",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_idle"
   },
   "icedragon_teen_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_hurt"
   },
   "icedragon_teen_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_die_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_die_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/teen_die_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/teen_die_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_death"
   },
   "icedragon_adult_idle": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_idle_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_idle_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_idle_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_idle_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_idle_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_idle_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_idle"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_idle"
   },
   "icedragon_adult_hurt": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_hurt_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_hurt_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_hurt_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_hurt_1",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_hurt_2",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_hurt_2",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_hurt"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_hurt"
   },
   "icedragon_adult_death": {
     "category": "hostile",
     "sounds": [
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_die_0",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_die_0",
         "volume": 0.4
       },
       {
-        "name": "iceandfire:mobs/dragon/ice/adult_die_1",
+        "name": "rpgcraftmod:mobs/dragon/ice/adult_die_1",
         "volume": 0.4
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.icedragon_death"
+    "subtitle": "rpgcraftmod.sound.subtitle.icedragon_death"
   },
   "dragonflute": {
     "category": "player",
     "sounds": [
       {
-        "name": "iceandfire:items/dragon_flute",
+        "name": "rpgcraftmod:items/dragon_flute",
         "volume": 0.2
       }
     ],
-    "subtitle": "iceandfire.sound.subtitle.dragonflute"
+    "subtitle": "rpgcraftmod.sound.subtitle.dragonflute"
   }
 }

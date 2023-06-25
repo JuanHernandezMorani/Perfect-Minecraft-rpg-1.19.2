@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "infernalexp:block/basaltic_magma",
+      "model": "rpgcraftmodblock/basaltic_magma",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "infernalexp:block/basaltic_magma"
+      "model": "rpgcraftmodblock/basaltic_magma"
     },
     "axis=z": {
-      "model": "infernalexp:block/basaltic_magma",
+      "model": "rpgcraftmodblock/basaltic_magma",
       "x": 90
     }
   }

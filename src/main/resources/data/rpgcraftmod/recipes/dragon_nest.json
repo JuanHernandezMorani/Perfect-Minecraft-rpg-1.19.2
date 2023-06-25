@@ -7,14 +7,14 @@
   ],
   "key": {
     "B": {
-      "item": "iceandfire:dragonbone"
+      "item": "rpgcraftmod:dragonbone"
     },
     "H": {
       "item": "minecraft:hay_block"
     }
   },
   "result": {
-    "item": "iceandfire:nest",
+    "item": "rpgcraftmod:nest",
     "count": 8
   }
 }
