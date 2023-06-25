@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=north": { "model": "pigsteel:block/waxed_vertical_corrupted_cut_pigsteel_slab", "y": 0, "uvlock": true },
+    "type=south": { "model": "pigsteel:block/waxed_vertical_corrupted_cut_pigsteel_slab", "y": 180, "uvlock": true },
+    "type=east": { "model": "pigsteel:block/waxed_vertical_corrupted_cut_pigsteel_slab", "y": 90, "uvlock": true },
+    "type=west": { "model": "pigsteel:block/waxed_vertical_corrupted_cut_pigsteel_slab", "y": 270, "uvlock": true },
+    "type=double": { "model": "pigsteel:block/waxed_corrupted_cut_pigsteel" }
+  }
+}

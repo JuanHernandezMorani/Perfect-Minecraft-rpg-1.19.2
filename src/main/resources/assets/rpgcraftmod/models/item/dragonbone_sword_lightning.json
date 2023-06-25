@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/dragon_sword_lightning"
+    "layer0": "rpgcraftmod:item/dragon_sword_lightning"
   },
   "display": {
     "thirdperson_righthand": {

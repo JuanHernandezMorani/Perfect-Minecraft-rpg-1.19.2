@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/jungle_myrmex_cocoon",
+  "parent": "rpgcraftmod:block/jungle_myrmex_cocoon",
   "display": {
     "thirdperson": {
       "rotation": [

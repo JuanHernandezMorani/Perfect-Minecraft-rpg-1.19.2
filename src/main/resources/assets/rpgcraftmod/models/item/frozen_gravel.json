@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/frozen_gravel",
+  "parent": "rpgcraftmod:block/frozen_gravel",
   "display": {
     "thirdperson": {
       "rotation": [

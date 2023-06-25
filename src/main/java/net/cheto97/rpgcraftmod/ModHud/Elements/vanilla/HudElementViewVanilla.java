@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.ModHud.Elements.vanilla;
 
+import static net.cheto97.rpgcraftmod.util.IntToString.formatearNumero;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 import static net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.INVENTORY_LOCATION;
 
@@ -46,6 +47,8 @@ import net.minecraft.world.entity.player.Player;
 public class HudElementViewVanilla extends HudElement {
     static private boolean infinite = false;
     static private final RayTrace TRACE = new RayTrace();
+    static private LivingEntity entityData;
+    static private Player playerData;
     static public double focusedLife;
     static public double focusedMaxLife;
     static public int focusedId;
@@ -77,7 +80,7 @@ public class HudElementViewVanilla extends HudElement {
         Player player = this.mc.player;
         if(focused != null && player != null) {
             setIdData(focused.getId());
-                String focusedRank;
+            String focusedRank;
 
                 ChatFormatting rankColor = setColor(rank);
                 switch (rank){
@@ -121,7 +124,7 @@ public class HudElementViewVanilla extends HudElement {
                         color = ChatFormatting.DARK_RED;
                     }
                 }
-                Component focusedName = Component.literal("{lvl "+entityLevel+"} "+focused.getName().getString()).withStyle(color);
+                Component focusedName = Component.literal("{lvl "+formatearNumero(entityLevel)+"} "+focused.getName().getString()).withStyle(color);
 
                 int posX = (scaledWidth / 2) + this.settings.getPositionValue(Settings.inspector_position)[0];
                 int posY = 20 + this.settings.getPositionValue(Settings.inspector_position)[1];
@@ -254,9 +257,6 @@ public class HudElementViewVanilla extends HudElement {
     }
     public static int dataNeeded(){
         return focusedId;
-    }
-    public void setFocusedData(){
-
     }
     public static void drawEntityOnScreen(int posX, int posY, LivingEntity entity) {
         int scale;

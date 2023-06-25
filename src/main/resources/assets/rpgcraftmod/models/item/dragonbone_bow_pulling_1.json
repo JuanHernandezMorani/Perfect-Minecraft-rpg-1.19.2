@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/dragonbone_bow_pulling_1"
+    "layer0": "rpgcraftmod:item/dragonbone_bow_pulling_1"
   },
   "display": {
     "thirdperson_righthand": {

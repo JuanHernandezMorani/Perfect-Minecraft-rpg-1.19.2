@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "pigsteel:pigsteel_nugget"
+        }
+    },
+    "result": {
+        "item": "pigsteel:pigsteel_ingot",
+        "count": 1
+    }
+}

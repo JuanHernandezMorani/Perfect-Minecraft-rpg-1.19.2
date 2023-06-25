@@ -1,0 +1,16 @@
+# Rhino
+newmtl Sides
+map_Kd rpgcraftmod:block/side_obsidian
+
+newmtl Bottom
+map_Kd rpgcraftmod:block/side_obsidian
+
+newmtl Top
+map_Kd rpgcraftmod:block/obsidian_with_diamond
+
+newmtl Middleup
+map_Kd rpgcraftmod:block/obsidian_with_diamond
+
+newmtl Middledown
+map_Kd minecraft:block/obsidian
+

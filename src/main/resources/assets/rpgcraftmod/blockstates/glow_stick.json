@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "flipped=false": {
+      "model": "rpgcraftmod:block/glow_stick"
+    },
+    "flipped=true": {
+      "model": "rpgcraftmod:block/glow_stick",
+      "y": 270
+    }
+  }
+}

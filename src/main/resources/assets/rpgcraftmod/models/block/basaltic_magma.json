@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "rpgcraftmod:block/basaltic_magma_top",
+    "side": "rpgcraftmod:block/basaltic_magma_side"
+  }
+}

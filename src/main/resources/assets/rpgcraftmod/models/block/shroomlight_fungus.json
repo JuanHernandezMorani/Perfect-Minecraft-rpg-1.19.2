@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "rpgcraftmod:block/shroomlight_fungus"
+  }
+}

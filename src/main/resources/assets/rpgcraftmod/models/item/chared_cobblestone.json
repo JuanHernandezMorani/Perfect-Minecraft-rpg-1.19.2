@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/chared_cobblestone",
+  "parent": "rpgcraftmod:block/chared_cobblestone",
   "display": {
     "thirdperson": {
       "rotation": [

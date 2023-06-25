@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "iceandfire:block/silver_block"
+    "all": "rpgcraftmod:block/silver_block"
   }
 }

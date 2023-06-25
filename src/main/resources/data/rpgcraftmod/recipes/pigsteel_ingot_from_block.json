@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "pigsteel:pigsteel_block"
+        }
+    ],
+    "result": {
+        "item": "pigsteel:pigsteel_ingot",
+        "count": 9
+    }
+}

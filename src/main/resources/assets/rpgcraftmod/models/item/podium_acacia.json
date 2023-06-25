@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/podium_acacia",
+  "parent": "rpgcraftmod:block/podium_acacia",
   "display": {
     "gui": {
       "rotation": [

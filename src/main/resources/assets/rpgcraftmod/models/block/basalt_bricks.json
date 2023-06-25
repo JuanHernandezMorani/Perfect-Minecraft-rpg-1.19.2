@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "rpgcraftmod:block/basalt_bricks",
+    "side": "rpgcraftmod:block/basalt_bricks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "rpgcraftmod:block/charged_chiseled_soul_slate_bricks_top",
+    "side": "rpgcraftmod:block/charged_chiseled_soul_slate_bricks_anim"
+  }
+}
+

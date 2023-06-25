@@ -72,7 +72,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateDefense(LivingEntity data){
@@ -85,7 +85,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0052);
     }
     private static double GenerateDexterity(LivingEntity data){
@@ -98,7 +98,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateMagicDefense(LivingEntity data){
@@ -111,7 +111,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0052);
     }
     private static double GenerateIntelligence(LivingEntity data){
@@ -124,7 +124,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateLife(LivingEntity data){
@@ -137,7 +137,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.035) + data.getMaxHealth() + data.getAbsorptionAmount();
     }
     private static double GenerateLifeRegeneration(LivingEntity data){
@@ -150,7 +150,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.00002);
     }
     private static double GenerateMana(LivingEntity data){
@@ -163,7 +163,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.065);
     }
     private static double GenerateManaRegeneration(LivingEntity data){
@@ -176,7 +176,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0000856);
     }
     private static double GenerateStrength(LivingEntity data){
@@ -189,7 +189,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1));
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))));
         return res + bonusRank*(bonusLevel*0.0002);
     }
     private static double GenerateExperienceReward(LivingEntity data){
@@ -203,7 +203,7 @@ public class EntityDataProviderDefine {
         if(extra < 1){
             extra = extra + 1;
         }
-        double res = 1 * random.nextDouble((int)(extra+1))+exp;
+        double res = 1 * ((extra+1)*random.nextDouble(random.nextDouble(random.nextDouble(20))))+exp;
         if(res < 0){
             res = 1;
         }

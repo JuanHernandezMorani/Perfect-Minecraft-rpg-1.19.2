@@ -1,6 +1,6 @@
 {
   "parent": "block/torch",
   "textures": {
-    "torch": "iceandfire:block/dread_torch"
+    "torch": "rpgcraftmod:block/dread_torch"
   }
 }

@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/fishing_spear"
+    "layer0": "rpgcraftmod:item/fishing_spear"
   },
   "display": {
     "thirdperson_righthand": {

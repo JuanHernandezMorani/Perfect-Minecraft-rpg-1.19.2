@@ -34,13 +34,9 @@ public class HudElementArmorRPG extends HudElement {
         Player player = this.mc.player;
 
         if(player != null && player.getId() == PlayerData.getPlayerId()){
-            double defense = PlayerData.getPlayerDefense();
-            double magicDefense = PlayerData.getPlayerMagicDefense();
-            double rendererDefense = defense + magicDefense;
-            if (rendererDefense > 0) {
-                this.mc.font.draw(ms,doubleToString(rendererDefense), left + 12, top + 2, -1);
-            }
-
+                int x = 45 + this.settings.getPositionValue(Settings.life_position)[0];
+                int y = 10 + this.settings.getPositionValue(Settings.life_position)[1];
+                this.mc.font.draw(ms,"", left - (x*2)-120, top - (y*9)-128, -1);
             scale = getInvertedScale();
             ms.scale(scale, scale, scale);
         }

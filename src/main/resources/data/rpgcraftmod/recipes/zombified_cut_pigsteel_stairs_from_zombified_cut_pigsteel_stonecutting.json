@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "pigsteel:zombified_cut_pigsteel"
+  },
+  "result": "pigsteel:zombified_cut_pigsteel_stairs",
+  "count": 1
+}

@@ -1,4 +1,1275 @@
 {
+  "item.wings.flying": {
+    "sounds": [
+      {
+        "name": "minecraft:item/elytra/elytra_loop",
+        "volume": 0.6
+      }
+    ]
+  },
+  "item.armor.equip_wings": {
+    "sounds": [
+      "minecraft:item/armor/equip_leather1",
+      "minecraft:item/armor/equip_leather2",
+      "minecraft:item/armor/equip_leather3",
+      "minecraft:item/armor/equip_leather4",
+      "minecraft:item/armor/equip_leather5",
+      "minecraft:item/armor/equip_leather6"
+    ],
+    "subtitle": "subtitles.wings.item.armor.equip_wings"
+  },
+  "charge": { "category": "block", "sounds": ["spectrite:charge"], "subtitle": "subtitle.charge" },
+	"explosion": { "category": "block", "sounds": ["spectrite:explode1", "spectrite:explode2", "spectrite:explode3"], "subtitle": "subtitle.explosion" },
+	"fatality": { "category": "block", "sounds": ["spectrite:fatality"] },
+	"preexplosion": { "category": "block", "sounds": ["spectrite:preexplosion"], "subtitle": "subtitle.preexplosion" },
+	"spectrite_golem.attack": { "sounds": ["mob/irongolem/throw"], "subtitle": "subtitle.spectrite_golem.attack" },
+	"spectrite_golem.death": { "sounds": ["mob/irongolem/death"], "subtitle": "subtitle.spectrite_golem.death" },
+	"spectrite_golem.hurt": { "sounds": ["mob/irongolem/hit1", "mob/irongolem/hit2", "mob/irongolem/hit3", "mob/irongolem/hit4"], "subtitle": "subtitle.spectrite_golem.hurt" },
+	"spectrite_golem.step": { "sounds": ["mob/irongolem/walk1", "mob/irongolem/walk2", "mob/irongolem/walk3", "mob/irongolem/walk4"], "subtitle": "subtitle.spectrite_golem.step" },
+	"spectrite_creeper.death": { "sounds": ["mob/creeper/death"], "subtitle": "subtitle.spectrite_creeper.death" },
+	"spectrite_creeper.hurt": { "sounds": ["mob/creeper/say1", "mob/creeper/say2", "mob/creeper/say3", "mob/creeper/say4"], "subtitle": "subtitle.spectrite_creeper.hurt" },
+	"spectrite_skeleton.ambient": { "sounds": ["mob/skeleton/say1", "mob/skeleton/say2", "mob/skeleton/say3"], "subtitle": "subtitle.spectrite_skeleton.ambient" },
+	"spectrite_skeleton.death": { "sounds": ["mob/skeleton/death"], "subtitle": "subtitle.spectrite_skeleton.death" },
+	"spectrite_skeleton.hurt": { "sounds": ["mob/skeleton/hurt1", "mob/skeleton/hurt2", "mob/skeleton/hurt3", "mob/skeleton/hurt4"], "subtitle": "subtitle.spectrite_skeleton.hurt" },
+	"spectrite_skeleton.step": { "sounds": ["mob/skeleton/step1", "mob/skeleton/step2", "mob/skeleton/step3", "mob/skeleton/step4"], "subtitle": "subtitle.spectrite_skeleton.step" },
+	"spectrite_wither_skeleton.ambient": { "sounds": ["mob/wither_skeleton/idle1", "mob/wither_skeleton/idle2", "mob/wither_skeleton/idle3"], "subtitle": "subtitle.spectrite_wither_skeleton.ambient" },
+	"spectrite_wither_skeleton.death": { "sounds": ["mob/wither_skeleton/death1", "mob/wither_skeleton/death2"], "subtitle": "subtitle.spectrite_wither_skeleton.death" },
+	"spectrite_wither_skeleton.hurt": { "sounds": ["mob/wither_skeleton/hurt1", "mob/wither_skeleton/hurt2", "mob/wither_skeleton/hurt3", "mob/wither_skeleton/hurt4"], "subtitle": "subtitle.spectrite_wither_skeleton.hurt" },
+	"spectrite_wither_skeleton.step": { "sounds": ["mob/wither_skeleton/step1", "mob/wither_skeleton/step2", "mob/wither_skeleton/step3", "mob/wither_skeleton/step4"], "subtitle": "subtitle.spectrite_wither_skeleton.step" },
+	"spectrite_blaze.ambient": { "sounds": ["mob/blaze/breathe1", "mob/blaze/breathe2", "mob/blaze/breathe3", "mob/blaze/breathe4"], "subtitle": "subtitle.spectrite_blaze.ambient" },
+	"spectrite_blaze.death": { "sounds": ["mob/blaze/death"], "subtitle": "subtitle.spectrite_blaze.death" },
+	"spectrite_blaze.hurt": { "sounds": ["mob/blaze/hit1", "mob/blaze/hit2", "mob/blaze/hit3", "mob/blaze/hit4"], "subtitle": "subtitle.spectrite_blaze.hurt" },
+	"spectrite_enderman.ambient": { "sounds": ["mob/endermen/idle1", "mob/endermen/idle2", "mob/endermen/idle3", "mob/endermen/idle4", "mob/endermen/idle5"], "subtitle": "subtitle.spectrite_enderman.ambient" },
+	"spectrite_enderman.death": { "sounds": ["mob/endermen/death"], "subtitle": "subtitle.spectrite_enderman.death" },
+	"spectrite_enderman.hurt": { "sounds": ["mob/endermen/hit1", "mob/endermen/hit2", "mob/endermen/hit3", "mob/endermen/hit4"], "subtitle": "subtitle.spectrite_enderman.hurt" },
+	"spectrite_enderman.scream": { "sounds": ["mob/endermen/scream1", "mob/endermen/scream2", "mob/endermen/scream3", "mob/endermen/scream4"], "subtitle": "subtitle.spectrite_enderman.scream" },
+	"spectrite_enderman.stare": { "sounds": ["mob/endermen/stare"], "subtitle": "subtitle.spectrite_enderman.stare" },
+	"spectrite_enderman.teleport": { "sounds": ["mob/endermen/portal", "mob/endermen/portal2"], "subtitle": "subtitle.spectrite_enderman.teleport" },
+	"spectrite_wither.ambient": { "sounds": ["mob/wither/idle1", "mob/wither/idle2", "mob/wither/idle3", "mob/wither/idle4"], "subtitle": "subtitle.spectrite_wither.ambient" },
+	"spectrite_wither.death": { "sounds": ["mob/wither/death"], "subtitle": "subtitle.spectrite_wither.death" },
+	"spectrite_wither.hurt": { "sounds": ["mob/wither/hurt1", "mob/wither/hurt2"], "subtitle": "subtitle.spectrite_wither.hurt" },
+	"spectrite_wither.spawn": { "sounds": ["mob/wither/spawn"], "subtitle": "subtitle.spectrite_wither.spawn" },
+  "wildfire_ambient": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.wildfire.ambient",
+    "sounds": [
+      {
+        "name": "minecraft:mob/blaze/breathe1",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/blaze/breathe2",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/blaze/breathe3",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/blaze/breathe4",
+        "pitch": 0.8
+      }
+    ]
+  },
+  "wildfire_hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.wildfire.hurt",
+    "sounds": [
+      {
+        "name": "minecraft:mob/blaze/hit1",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/blaze/hit2",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/blaze/hit3",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/blaze/hit4",
+        "pitch": 0.8
+      }
+    ]
+  },
+  "wildfire_death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.wildfire.death",
+    "sounds": [
+      {
+        "name": "minecraft:mob/blaze/death",
+        "pitch": 0.8
+      }
+    ]
+  },
+  "wildfire_burn": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.wildfire.burn",
+    "sounds": [
+      {
+        "name": "minecraft:fire/fire"
+      }
+    ]
+  },
+  "wildfire_shoot": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.wildfire.shoot",
+    "sounds": [
+      {
+        "name": "minecraft:mob/ghast/fireball4"
+      }
+    ]
+  },
+  "glutton_ambient": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.ambient",
+    "sounds": [
+      {
+        "name": "outvoted:entity/glutton"
+      }
+    ]
+  },
+  "glutton_hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.hurt",
+    "sounds": [
+      {
+        "name": "outvoted:entity/glutton_hit1"
+      },
+      {
+        "name": "outvoted:entity/glutton_hit2"
+      },
+      {
+        "name": "outvoted:entity/glutton_hit3"
+      }
+    ]
+  },
+  "glutton_death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.death",
+    "sounds": [
+      {
+        "name": "outvoted:entity/glutton_death1"
+      },
+      {
+        "name": "outvoted:entity/glutton_death2"
+      },
+      {
+        "name": "outvoted:entity/glutton_death3"
+      }
+    ]
+  },
+  "glutton_bite": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.bite",
+    "sounds": [
+      {
+        "name": "outvoted:entity/glutton_bite"
+      }
+    ]
+  },
+  "glutton_spit": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.spit",
+    "sounds": [
+      {
+        "name": "minecraft:mob/fox/spit1",
+        "volume": 0.8,
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/fox/spit2",
+        "volume": 0.8,
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/fox/spit3",
+        "volume": 0.8,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "glutton_eat": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.eat",
+    "sounds": [
+      {
+        "name": "minecraft:mob/strider/eat1",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "minecraft:mob/strider/eat2",
+        "volume": 0.8,
+        "pitch": 0.9
+      },
+      {
+        "name": "minecraft:mob/strider/eat3",
+        "volume": 0.8,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "glutton_dig": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.dig",
+    "sounds": [
+      {
+        "name": "minecraft:dig/gravel1"
+      },
+      {
+        "name": "minecraft:dig/gravel2"
+      },
+      {
+        "name": "minecraft:dig/gravel3"
+      },
+      {
+        "name": "minecraft:dig/gravel4"
+      }
+    ]
+  },
+  "glutton_dig_sand": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.glutton.dig",
+    "sounds": [
+      {
+        "name": "minecraft:dig/sand1"
+      },
+      {
+        "name": "minecraft:dig/sand2"
+      },
+      {
+        "name": "minecraft:dig/sand3"
+      },
+      {
+        "name": "minecraft:dig/sand4"
+      }
+    ]
+  },
+  "barnacle_ambient": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.barnacle.ambient",
+    "sounds": [
+      {
+        "name": "outvoted:entity/barnacle1"
+      },
+      {
+        "name": "outvoted:entity/barnacle2"
+      },
+      {
+        "name": "outvoted:entity/barnacle3"
+      }
+    ]
+  },
+  "barnacle_hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.barnacle.hurt",
+    "sounds": [
+      {
+        "name": "outvoted:entity/barnacle_hit"
+      }
+    ]
+  },
+  "barnacle_death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.barnacle.death",
+    "sounds": [
+      {
+        "name": "outvoted:entity/barnacle_death"
+      }
+    ]
+  },
+  "barnacle_flop": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.outvoted.barnacle.flop",
+    "sounds": [
+      {
+        "name": "minecraft:mob/guardian/flop1"
+      },
+      {
+        "name": "minecraft:mob/guardian/flop2"
+      },
+      {
+        "name": "minecraft:mob/guardian/flop3"
+      },
+      {
+        "name": "minecraft:mob/guardian/flop4"
+      }
+    ]
+  },
+  "meerkat_ambient": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.outvoted.meerkat.ambient",
+    "sounds": [
+      {
+        "name": "outvoted:entity/meerkat1"
+      },
+      {
+        "name": "outvoted:entity/meerkat2"
+      },
+      {
+        "name": "outvoted:entity/meerkat3"
+      }
+    ]
+  },
+  "meerkat_hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.outvoted.meerkat.hurt",
+    "sounds": [
+      {
+        "name": "outvoted:entity/meerkat_hit1"
+      },
+      {
+        "name": "outvoted:entity/meerkat_hit2"
+      },
+      {
+        "name": "outvoted:entity/meerkat_hit3"
+      }
+    ]
+  },
+  "meerkat_death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.outvoted.meerkat.death",
+    "sounds": [
+      {
+        "name": "outvoted:entity/meerkat_death1"
+      },
+      {
+        "name": "outvoted:entity/meerkat_death2"
+      }
+    ]
+  },
+  "ostrich_ambient": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.outvoted.ostrich.ambient",
+    "sounds": [
+      {
+        "name": "outvoted:entity/ostrich1"
+      },
+      {
+        "name": "outvoted:entity/ostrich2"
+      },
+      {
+        "name": "outvoted:entity/ostrich3"
+      }
+    ]
+  },
+  "entity.voline.ambient": {
+    "subtitle": "subtitles.entity.voline.ambient",
+    "sounds": [
+      "infernalexp:entity/voline/voline_ambient"
+    ]
+  },
+  "entity.voline.hurt": {
+    "subtitle": "subtitles.entity.voline.hurt",
+    "sounds": [
+      "infernalexp:entity/voline/voline_hurt"
+    ]
+  },
+  "entity.shroomloin.ambient": {
+    "subtitle": "subtitles.entity.shroomloin.ambient",
+    "sounds": [
+      "infernalexp:entity/shroomloin/shroomloin_ambient"
+    ]
+  },
+  "entity.shroomloin.hurt": {
+    "subtitle": "subtitles.entity.shroomloin.hurt",
+    "sounds": [
+      "infernalexp:entity/shroomloin/shroomloin_hurt"
+    ]
+  },
+  "entity.shroomloin.death": {
+    "subtitle": "subtitles.entity.shroomloin.death",
+    "sounds": [
+      "infernalexp:entity/shroomloin/shroomloin_death"
+    ]
+  },
+  "entity.basalt_giant.ambient": {
+    "subtitle": "subtitles.entity.basalt_giant.ambient",
+    "sounds": [
+      "infernalexp:entity/basalt_giant/basalt_giant_ambient"
+    ]
+  },
+  "entity.basalt_giant.hurt": {
+    "subtitle": "subtitles.entity.basalt_giant.hurt",
+    "sounds": [
+      "infernalexp:entity/basalt_giant/basalt_giant_hurt"
+    ]
+  },
+  "entity.basalt_giant.death": {
+    "subtitle": "subtitles.entity.basalt_giant.death",
+    "sounds": [
+      "infernalexp:entity/basalt_giant/basalt_giant_death"
+    ]
+  },
+  "entity.blindsight.ambient":  {
+    "subtitle": "subtitles.entity.blindsight.ambient",
+    "sounds":[
+      "infernalexp:entity/blindsight/blindsight_ambient_1",
+      "infernalexp:entity/blindsight/blindsight_ambient_2",
+      "infernalexp:entity/blindsight/blindsight_ambient_3"
+    ]
+  },
+  "entity.blindsight.hurt": {
+    "subtitle": "subtitles.entity.blindsight.hurt",
+    "sounds": [
+      "infernalexp:entity/blindsight/blindsight_hurt"
+    ]
+  },
+  "entity.blindsight.death":  {
+    "subtitle": "subtitles.entity.blindsight.death",
+    "sounds": [
+      "infernalexp:entity/blindsight/blindsight_death"
+    ]
+  },
+  "entity.blindsight.leap":  {
+    "subtitle": "subtitles.entity.blindsight.leap",
+    "sounds": [
+      "infernalexp:entity/blindsight/blindsight_leap"
+    ]
+  },
+  "entity.warpbeetle.ambient": {
+    "subtitle": "subtitles.entity.warpbeetle.ambient",
+    "sounds": [
+      "infernalexp:entity/warpbeetle/warpbeetle_ambient"
+    ]
+  },
+  "entity.warpbeetle.hurt": {
+    "subtitle": "subtitles.entity.warpbeetle.hurt",
+    "sounds": [
+      "infernalexp:entity/warpbeetle/warpbeetle_hurt"
+    ]
+  },
+  "entity.warpbeetle.death": {
+    "subtitle": "subtitles.entity.warpbeetle.death",
+    "sounds": [
+      "infernalexp:entity/warpbeetle/warpbeetle_death"
+    ]
+  },
+  "entity.cerobeetle.ambient": {
+    "subtitle": "Cerobeetle squeaks",
+    "sounds": [
+      "infernalexp:entity/cerobeetle/cerobeetle_ambient"
+    ]
+  },
+  "entity.cerobeetle.hurt": {
+    "subtitle": "Cerobeetle hurts",
+    "sounds": [
+      "infernalexp:entity/cerobeetle/cerobeetle_hurt"
+    ]
+  },
+  "entity.cerobeetle.death": {
+    "subtitle": "Cerobeetle dies",
+    "sounds": [
+      "infernalexp:entity/cerobeetle/cerobeetle_death"
+    ]
+  },
+  "entity.cerobeetle.roar": {
+    "subtitle": "Cerobeetle dies",
+    "sounds": [
+      "infernalexp:entity/cerobeetle/cerobeetle_roar"
+    ]
+  },
+  "entity.embody.ambient": {
+    "subtitle": "subtitles.entity.embody.ambient",
+    "sounds": [
+      "infernalexp:entity/embody/embody_ambient"
+    ]
+  },
+  "entity.embody.hurt": {
+    "subtitle": "subtitles.entity.embody.hurt",
+    "sounds": [
+      "infernalexp:entity/embody/embody_hurt"
+    ]
+  },
+  "entity.embody.death": {
+    "subtitle": "subtitles.entity.embody.death",
+    "sounds": [
+      "infernalexp:entity/embody/embody_death"
+    ]
+  },
+  "entity.glowsilk_moth.ambient": {
+    "subtitle": "subtitles.entity.glowsilk_moth.ambient",
+    "sounds": [
+      "infernalexp:entity/glowsilk_moth/glowsilk_moth_ambient"
+    ]
+  },
+  "entity.glowsilk_moth.hurt": {
+    "subtitle": "subtitles.entity.glowsilk_moth.hurt",
+    "sounds": [
+      "infernalexp:entity/glowsilk_moth/glowsilk_moth_hurt"
+    ]
+  },
+  "entity.glowsilk_moth.death": {
+    "subtitle": "subtitles.entity.glowsilk_moth.death",
+    "sounds": [
+      "infernalexp:entity/glowsilk_moth/glowsilk_moth_death"
+    ]
+  },
+  "entity.glowsquito.loop": {
+    "sounds": [
+      {
+        "attenuation_distance": 9,
+        "name": "infernalexp:entity/glowsquito/loop1",
+        "volume": 5
+      },
+      {
+        "attenuation_distance": 9,
+        "name": "infernalexp:entity/glowsquito/loop2",
+        "volume": 5
+      },
+      {
+        "attenuation_distance": 9,
+        "name": "infernalexp:entity/glowsquito/loop3",
+        "volume": 5
+      },
+      {
+        "attenuation_distance": 9,
+        "name": "infernalexp:entity/glowsquito/loop4",
+        "volume": 5
+      }
+    ]
+  },
+  "entity.glowsquito.hurt": {
+    "subtitle": "subtitles.entity.glowsquito.hurt",
+    "sounds": [
+      "infernalexp:entity/glowsquito/hit1",
+      "infernalexp:entity/glowsquito/hit2",
+      "infernalexp:entity/glowsquito/hit3",
+      "infernalexp:entity/glowsquito/hit4"
+    ]
+  },
+  "entity.glowsquito.death": {
+    "subtitle": "subtitles.entity.glowsquito.death",
+    "sounds": [
+      "infernalexp:entity/glowsquito/death1"
+    ]
+  },
+  "ambient.glowstone_canyon.loop": {
+    "sounds": [
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/ambience",
+        "stream": true,
+        "volume": 0.2
+      }
+    ]
+  },
+  "ambient.glowstone_canyon.additions": {
+    "sounds": [
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime1",
+        "weight": 30,
+        "volume": 0.1
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime2",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime3",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime4",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime5",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime6",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/chime7",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/with1",
+        "weight": 50,
+        "volume": 0.3
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/with2",
+        "weight": 50,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/with3",
+        "weight": 50,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/with4",
+        "weight": 50,
+        "volume": 0.3
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/with5",
+        "weight": 50,
+        "volume": 0.4
+      },
+      {
+        "name": "ambient/nether/soulsand_valley/wind1",
+        "weight": 25,
+        "volume": 0.4
+      },
+      {
+        "name": "ambient/nether/soulsand_valley/wind2",
+        "weight": 25,
+        "volume": 0.5
+      },
+      {
+        "name": "ambient/nether/soulsand_valley/wind3",
+        "weight": 25,
+        "volume": 0.5
+      },
+      {
+        "name": "ambient/nether/soulsand_valley/wind4",
+        "weight": 25,
+        "volume": 0.6
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck1",
+        "weight": 20,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck2",
+        "weight": 20,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck3",
+        "weight": 20,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck4",
+        "weight": 20,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck5",
+        "weight": 20,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_pluck6",
+        "weight": 20,
+        "volume": 0.3
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum1",
+        "weight": 25,
+        "volume": 0.25
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum2",
+        "weight": 25,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum3",
+        "weight": 25,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/dullthorn_strum4",
+        "weight": 25,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck1",
+        "weight": 30,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck2",
+        "weight": 30,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck3",
+        "weight": 30,
+        "volume": 0.1
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_pluck4",
+        "weight": 30,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum1",
+        "weight": 35,
+        "volume": 0.2
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum2",
+        "weight": 35,
+        "volume": 0.15
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum3",
+        "weight": 35,
+        "volume": 0.3
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/somber_strum4",
+        "weight": 35,
+        "volume": 0.2
+      }
+    ]
+  },
+  "ambient.glowstone_canyon.mood": {
+    "sounds": [
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/mood1",
+        "volume": 0.5
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/mood2",
+        "volume": 0.5
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/mood3",
+        "volume": 0.5
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/mood4",
+        "volume": 0.5
+      },
+      {
+        "name": "infernalexp:ambient/nether/glowstone_canyon/mood5",
+        "volume": 0.5
+      }
+    ]
+  },
+  "music.nether.glowstone_canyon": {
+    "sounds": [
+      {
+        "name": "infernalexp:music/nether/glowstone_canyon/spindle",
+        "stream": true,
+        "volume": 0.5,
+        "weight": 8
+      },
+      {
+        "name": "music/game/nether/nether1",
+        "stream": true
+      },
+      {
+        "name": "music/game/nether/nether2",
+        "stream": true
+      },
+      {
+        "name": "music/game/nether/nether3",
+        "stream": true
+      },
+      {
+        "name": "music/game/nether/nether4",
+        "stream": true
+      }
+    ]
+  },
+  "record.soul_spunk": {
+    "sounds": [
+      {
+        "name": "infernalexp:record/soul_spunk",
+        "stream": true
+      }
+    ]
+  },
+  "record.flush": {
+    "sounds": [
+      {
+        "name": "infernalexp:record/flush",
+        "stream": true,
+        "volume": 2
+      }
+    ]
+  },
+  "block.soul_stone.break": {
+    "sounds": [
+      "infernalexp:block/soul_stone/break1",
+      "infernalexp:block/soul_stone/break2",
+      "infernalexp:block/soul_stone/break3",
+      "infernalexp:block/soul_stone/break4",
+      "infernalexp:block/soul_stone/break5"
+    ]
+  },
+  "block.dullstone.break": {
+    "sounds": [
+      "infernalexp:block/dullstone/break1",
+      "infernalexp:block/dullstone/break2"
+    ]
+  },
+  "block.dullstone.step": {
+    "sounds": [
+      "infernalexp:block/dullstone/step1",
+      "infernalexp:block/dullstone/step2",
+      "infernalexp:block/dullstone/step3"
+    ]
+  },
+  "block.dullstone.place": {
+    "sounds": [
+      "infernalexp:block/dullstone/step1",
+      "infernalexp:block/dullstone/step2",
+      "infernalexp:block/dullstone/step3"
+    ]
+  },
+  "block.dullstone.hit": {
+    "sounds": [
+      "infernalexp:block/dullstone/step1",
+      "infernalexp:block/dullstone/step2",
+      "infernalexp:block/dullstone/step3"
+    ]
+  },
+  "block.dullstone.fall": {
+    "sounds": [
+      "infernalexp:block/dullstone/break1",
+      "infernalexp:block/dullstone/break2"
+    ]
+  },
+  "block.glowstone.recharge": {
+    "sounds": [
+      "infernalexp:block/glowstone/recharge"
+    ]
+  },
+  "block.quartz_glass.hit": {
+    "sounds": [
+      "infernalexp:block/quartz_glass/hit"
+    ]
+  },
+  "mob.endereye.living": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/living"
+    ]
+},
+"mob.endereye.hurt": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/hurt"
+    ]
+},
+"mob.endereye.death": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/death"
+    ]
+},
+"mob.endereye.attack.poof": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/attack_poof"
+    ]
+},
+"mob.endereye.attack.confusion": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/attack_confusion"
+    ]
+},
+"mob.endereye.attack.laseradd": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/attack_laser_add"
+    ]
+},
+"mob.endereye.attack.laserend": {
+    "category": "hostile",
+    "sounds": [
+        "endereye/attack_laser_end"
+    ]
+},
+"mob.firefiend.hurt": {
+    "category": "hostile",
+    "sounds": [
+        "firefiend/hurt"
+    ]
+},
+"mob.enderdemon.scream": {
+    "category": "hostile",
+    "sounds": [
+        "enderdemon/scream"
+    ]
+},
+"mob.enderdemon.hurt": {
+    "category": "hostile",
+    "sounds": [
+        "enderdemon/hurt"
+    ]
+},
+"mob.enderdemon.death": {
+    "category": "hostile",
+    "sounds": [
+        "enderdemon/death"
+    ]
+},
+"mob.ghost.spawn": {
+    "category": "hostile",
+    "sounds": [
+        "ghost/spawn"
+    ]
+},
+"mob.ghost.death": {
+    "category": "hostile",
+    "sounds": [
+        "ghost/death1",
+        "ghost/death2"
+    ]
+},
+"mob.ghost.move": {
+    "category": "ambient",
+    "sounds": [
+        "ghost/move1",
+        "ghost/move2",
+        "ghost/move3",
+        "ghost/move4",
+        "ghost/move5",
+        "ghost/move6"
+    ]
+},
+"mob.firegolem.hurt": {
+    "category": "hostile",
+    "sounds": [
+        "firegolem/hurt"
+    ]
+},
+"mob.firegolem.death": {
+    "category": "hostile",
+    "sounds": [
+        "firegolem/death"
+    ]
+},
+"mob.scorchinglens.living": {
+    "category": "hostile",
+    "sounds": [
+        "scorchinglens/living"
+    ]
+},
+"mob.scorchinglens.hurt": {
+    "category": "hostile",
+    "sounds": [
+        "scorchinglens/hurt"
+    ]
+},
+"mob.scorchinglens.death": {
+    "category": "hostile",
+    "sounds": [
+        "scorchinglens/death"
+    ]
+},
+"mob.hauntedminer.attack.blast": {
+    "category": "hostile",
+    "sounds": [
+        "hauntedminer/attack_blast"
+    ]
+},
+"mob.endermage.attack": {
+    "category": "hostile",
+    "sounds": [
+        "endermage/attack"
+    ]
+},
+"mob.louse.hit": {
+    "category": "hostile",
+    "sounds": [
+        "louse/hit"
+    ]
+},
+"mob.mirage.appear": {
+    "category": "neutral",
+    "sounds": [
+        "random/mirage"
+    ]
+},
+"mob.random.curse": {
+    "category": "neutral",
+    "sounds": [
+        "random/curse"
+    ]
+},
+"block.random.transform": {
+    "category": "block",
+    "sounds": [
+        "random/transform"
+    ]
+},
+"environment.gem.link": {
+    "category": "ambient",
+    "sounds": [
+        "random/transferencegem_link"
+    ]
+},
+"environment.random.bubble": {
+    "category": "ambient",
+    "sounds": [
+        "random/bubble1",
+        "random/bubble2",
+        "random/bubble3",
+        "random/bubble4"
+    ]
+},
+"environment.random.freeze": {
+    "category": "ambient",
+    "sounds": [
+        "random/freeze1",
+        "random/freeze2",
+        "random/freeze3",
+        "random/freeze4"
+    ]
+},
+"player.random.pageflip": {
+    "category": "player",
+    "sounds": [
+        "random/pageflip"
+    ]
+},
+"player.random.spatialdash": {
+    "category": "player",
+    "sounds": [
+        "random/spatialdash"
+    ]
+},
+  "records.qwertygiy.cryingsoul": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/random_qwertygiy_CryingSoul",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.onion": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/random_qwertygiy_Onion",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.asteroid": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragoncalm_qwertygiy_Asteroid",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.banjolic": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragoncalm_qwertygiy_Banjolic",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.intheend": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragoncalm_qwertygiy_InTheEnd",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.stewed": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragoncalm_qwertygiy_Stewed",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.beatthedragon": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragonangry_qwertygiy_BeatTheDragon",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.granite": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragonangry_qwertygiy_Granite",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.rememberthis": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragonangry_qwertygiy_RememberThis",
+            "stream": "true"
+        }
+    ]
+},
+"records.qwertygiy.spyder": {
+    "category": "record",
+    "sounds": [
+        {
+            "name": "music/dragonangry_qwertygiy_Spyder",
+            "stream": "true"
+        }
+    ]
+},
+"music.game.end": {
+    "category": "music",
+    "sounds": [
+        {
+            "name": "music/random_qwertygiy_CryingSoul",
+            "stream": true
+        },
+        {
+            "name": "music/random_qwertygiy_Onion",
+            "stream": true
+        }
+    ]
+},
+"music.game.end.dragoncalm": {
+    "category": "music",
+    "sounds": [
+        {
+            "name": "music/dragoncalm_qwertygiy_Asteroid",
+            "stream": true
+        },
+        {
+            "name": "music/dragoncalm_qwertygiy_Banjolic",
+            "stream": true
+        },
+        {
+            "name": "music/dragoncalm_qwertygiy_InTheEnd",
+            "stream": true
+        },
+        {
+            "name": "music/dragoncalm_qwertygiy_Stewed",
+            "stream": true
+        }
+    ]
+},
+"music.game.end.dragonangry": {
+    "category": "music",
+    "sounds": [
+        {
+            "name": "music/dragonangry_qwertygiy_BeatTheDragon",
+            "stream": true
+        },
+        {
+            "name": "music/dragonangry_qwertygiy_Granite",
+            "stream": true
+        },
+        {
+            "name": "music/dragonangry_qwertygiy_RememberThis",
+            "stream": true
+        },
+        {
+            "name": "music/dragonangry_qwertygiy_Spyder",
+            "stream": true
+        }
+    ]
+},
+  "0308": {
+    "sounds": [
+      {
+        "name": "rpgcraftmod:records/0308",
+        "stream": true
+      }
+    ]
+  },
+  "1007": {
+    "sounds": [
+      {
+        "name": "rpgcraftmod:records/1007",
+        "stream": true
+      }
+    ]
+  },
+  "1507": {
+    "sounds": [
+      {
+        "name": "rpgcraftmod:records/1507",
+        "stream": true
+      }
+    ]
+  },
+  "entity.dragon.ambient": {
+    "sounds": [
+      {
+        "name": "dragonmounts:entity/dragon/breathe1",
+        "volume": 0.5,
+        "pitch": 0.5,
+        "weight": 3
+      },
+      {
+        "name": "dragonmounts:entity/dragon/breathe2",
+        "volume": 0.5,
+        "pitch": 0.5,
+        "weight": 3
+      },
+      {
+        "name": "minecraft:entity.ender_dragon.growl",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.dragon.ambient"
+  },
+  "entity.dragon.step": {
+    "sounds": [
+      {
+        "name": "dragonmounts:entity/dragon/step1"
+      },
+      {
+        "name": "dragonmounts:entity/dragon/step2"
+      },
+      {
+        "name": "dragonmounts:entity/dragon/step3"
+      },
+      {
+        "name": "dragonmounts:entity/dragon/step4"
+      }
+    ],
+    "subtitle": "subtitles.entity.dragon.step"
+  },
+  "entity.dragon.death": {
+    "sounds": [
+      {
+        "name": "dragonmounts:entity/dragon/death"
+      }
+    ],
+    "subtitle": "subtitles.entity.dragon.death"
+  },
+  "entity.dragon.ambient.ghost": {
+    "sounds": [
+      {
+        "name": "dragonmounts:entity.dragon.ambient",
+        "type": "event"
+      },
+      {
+        "name": "minecraft:entity.skeleton.ambient",
+        "volume": 0.35,
+        "pitch": 0.5,
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.dragon.ambient.ghost"
+  },
   "ghost_jumpscare": {
     "category": "hostile",
     "sounds": [

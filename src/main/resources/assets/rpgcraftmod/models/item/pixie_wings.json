@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/pixie_wings"
+    "layer0": "rpgcraftmod:item/pixie_wings"
   }
 }

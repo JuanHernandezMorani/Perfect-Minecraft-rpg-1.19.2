@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "iceandfire:block/jungle_myrmex_resin"
+    "all": "rpgcraftmod:block/jungle_myrmex_resin"
   }
 }

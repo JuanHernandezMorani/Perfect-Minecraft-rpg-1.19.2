@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/dragon_horn_ice"
+    "layer0": "rpgcraftmod:item/dragon_horn_ice"
   },
   "display": {
     "thirdperson_righthand": {

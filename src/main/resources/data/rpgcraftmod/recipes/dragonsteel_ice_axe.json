@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DD",
+    "TD",
+    "T "
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:ingots/dragonsteel_ice"
+    },
+    "T": {
+      "tag": "forge:bones/wither"
+
+    }
+  },
+  "result": {
+    "item": "iceandfire:dragonsteel_ice_axe"
+  }
+}

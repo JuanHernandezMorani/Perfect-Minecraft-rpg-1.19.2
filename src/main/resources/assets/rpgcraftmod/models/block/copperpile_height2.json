@@ -1,8 +1,8 @@
 {
   "parent": "block/thin_block",
   "textures": {
-    "particle": "iceandfire:block/copper_pile",
-    "texture": "iceandfire:block/copper_pile"
+    "particle": "rpgcraftmod:block/copper_pile",
+    "texture": "rpgcraftmod:block/copper_pile"
   },
   "elements": [
     {

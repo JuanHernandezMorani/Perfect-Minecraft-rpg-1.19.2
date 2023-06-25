@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_up",
+  "textures": {
+    "fire": "rpgcraftmod:block/glow_fire_0"
+  }
+}

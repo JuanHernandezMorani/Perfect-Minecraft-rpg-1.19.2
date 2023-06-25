@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "rpgcraftmod:block/glowsilk_cocoon_top",
+    "side": "rpgcraftmod:block/glowsilk_cocoon"
+  }
+}

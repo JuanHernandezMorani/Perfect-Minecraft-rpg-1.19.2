@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "rpgcraftmod:block/dullthorns_tip"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/frozen_grass_path",
+  "parent": "rpgcraftmod:block/frozen_grass_path",
   "display": {
     "thirdperson": {
       "rotation": [

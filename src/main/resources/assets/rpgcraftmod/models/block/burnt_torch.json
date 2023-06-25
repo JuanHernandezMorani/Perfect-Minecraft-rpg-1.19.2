@@ -1,6 +1,6 @@
 {
   "parent": "block/torch",
   "textures": {
-    "torch": "iceandfire:block/burnt_torch"
+    "torch": "rpgcraftmod:block/burnt_torch"
   }
 }

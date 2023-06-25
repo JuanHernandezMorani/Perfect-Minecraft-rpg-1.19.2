@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "iceandfire:item/dragonsteel_lightning_pickaxe"
+    "layer0": "rpgcraftmod:item/dragonsteel_lightning_pickaxe"
   }
 }

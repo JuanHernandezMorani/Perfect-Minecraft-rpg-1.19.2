@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "U U"
+  ],
+  "key": {
+    "T": {
+      "item": "iceandfire:troll_leather_frost"
+    },
+    "U": {
+      "item": "iceandfire:troll_tusk"
+    }
+  },
+  "result": {
+    "item": "iceandfire:frost_troll_leather_helmet"
+  }
+}

@@ -1,13 +1,13 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "iceandfire:block/myrmex_jungle_resin_glass_all",
-    "down": "iceandfire:block/myrmex_jungle_resin_glass_right",
-    "up": "iceandfire:block/myrmex_jungle_resin_glass_right",
-    "north": "iceandfire:block/myrmex_jungle_resin_glass_left",
-    "east": "iceandfire:block/myrmex_jungle_resin_glass_blank",
-    "south": "iceandfire:block/myrmex_jungle_resin_glass_right",
-    "west": "iceandfire:block/myrmex_jungle_resin_glass_blank"
+    "particle": "rpgcraftmod:block/myrmex_jungle_resin_glass_all",
+    "down": "rpgcraftmod:block/myrmex_jungle_resin_glass_right",
+    "up": "rpgcraftmod:block/myrmex_jungle_resin_glass_right",
+    "north": "rpgcraftmod:block/myrmex_jungle_resin_glass_left",
+    "east": "rpgcraftmod:block/myrmex_jungle_resin_glass_blank",
+    "south": "rpgcraftmod:block/myrmex_jungle_resin_glass_right",
+    "west": "rpgcraftmod:block/myrmex_jungle_resin_glass_blank"
   }
 }
 

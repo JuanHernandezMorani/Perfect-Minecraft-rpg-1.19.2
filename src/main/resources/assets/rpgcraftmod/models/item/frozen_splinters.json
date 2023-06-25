@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/frozen_splinters",
+  "parent": "rpgcraftmod:block/frozen_splinters",
   "display": {
     "thirdperson": {
       "rotation": [

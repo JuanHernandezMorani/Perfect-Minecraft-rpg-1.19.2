@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "iceandfire:block/frozen_splinters"
+    "all": "rpgcraftmod:block/frozen_splinters"
   }
 }

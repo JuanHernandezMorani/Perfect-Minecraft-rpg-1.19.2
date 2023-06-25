@@ -36,9 +36,9 @@ import java.util.Map;
 public class RpgcraftMod {
     public static final String MOD_ID = "rpgcraftmod";
     public static RpgcraftMod instance;
-    public Settings settings;
+    public static Settings settings;
     private static final Logger LOGGER = LogUtils.getLogger();
-    public Map<String, Hud> huds = new LinkedHashMap<String, Hud>();
+    public static Map<String, Hud> huds = new LinkedHashMap<String, Hud>();
     public static boolean[] renderDetailsAgain = { false, false, false };
 
 
@@ -65,16 +65,6 @@ public class RpgcraftMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event){
-        this.settings = new Settings();
-        var hudtype = new RPGHud(Minecraft.getInstance(), "rpg", "Rpg");
-
-        this.registerHud(new HudDefault(Minecraft.getInstance(), "default", "Default"));
-        this.registerHud(new HudVanilla(Minecraft.getInstance(), "vanilla", "Vanilla"));
-        this.registerHud(new HudHotbarWidget(Minecraft.getInstance(), "hotbar", "Hotbar Widget"));
-        this.registerHud(new RPGHud(Minecraft.getInstance(), "rpg", "Rpg"));
-
-        this.settings.setSetting(Settings.hud_type, hudtype);
-
 
         event.enqueueWork(() -> {
             ModMessages.register();
@@ -89,23 +79,24 @@ public class RpgcraftMod {
         public static void onClientSetup(FMLClientSetupEvent event){
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MANA.get(),RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MANA.get(),RenderType.translucent());
+
+            RpgcraftMod.settings = new Settings();
+            var hudtype = new RPGHud(Minecraft.getInstance(), "rpg", "Rpg");
+
+            RpgcraftMod.registerHud(new HudDefault(Minecraft.getInstance(), "default", "Default"));
+            RpgcraftMod.registerHud(new HudVanilla(Minecraft.getInstance(), "vanilla", "Vanilla"));
+            RpgcraftMod.registerHud(new HudHotbarWidget(Minecraft.getInstance(), "hotbar", "Hotbar Widget"));
+            RpgcraftMod.registerHud(new RPGHud(Minecraft.getInstance(), "rpg", "Rpg"));
+
+            RpgcraftMod.settings.setSetting(Settings.hud_type, hudtype);
+
         }
     }
-    public void registerHud(Hud hud) {
-        this.huds.put(hud.getHudKey(), hud);
+    public static void registerHud(Hud hud) {
+        RpgcraftMod.huds.put(hud.getHudKey(), hud);
     }
-    public Hud getActiveHud() {
-        return this.huds.get(this.settings.getStringValue(Settings.hud_type));
-    }
-    public Hud getVanillaHud() {
-        return this.huds.get("vanilla");
-    }
-
-    public boolean isVanillaHud() {
-        return this.settings.getStringValue(Settings.hud_type).equalsIgnoreCase("vanilla");
-    }
-    public boolean isHudKeyValid(String key) {
-        return this.huds.containsKey(key);
+    public static Hud getActiveHud() {
+        return RpgcraftMod.huds.get(RpgcraftMod.settings.getStringValue(Settings.hud_type));
     }
 
 }

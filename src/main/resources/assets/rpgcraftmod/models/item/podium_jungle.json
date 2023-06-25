@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/podium_jungle",
+  "parent": "rpgcraftmod:block/podium_jungle",
   "display": {
     "gui": {
       "rotation": [

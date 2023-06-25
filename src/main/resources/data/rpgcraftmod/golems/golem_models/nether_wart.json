@@ -1,0 +1,12 @@
+{
+  "multitexture": {
+    "base_map": {
+      "0": "minecraft:nether_wart_block",
+	  "1": "minecraft:warped_wart_block"
+    }
+  },
+  "vines": {
+	"texture": "#golems:layer/vines",
+	"color": 23157
+  }
+}

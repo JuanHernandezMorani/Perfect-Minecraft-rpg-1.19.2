@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/dragon_egg",
+  "textures": {
+    "particle": "rpgcraftmod:block/water_dragon_egg",
+    "all": "rpgcraftmod:block/water_dragon_egg"
+  }
+}

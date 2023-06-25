@@ -30,7 +30,7 @@ public class ClientEvents {
 
         @SubscribeEvent
         public void onChatRender(CustomizeGuiOverlayEvent.Chat event) {
-            if (RpgcraftMod.instance.getActiveHud() instanceof HudHotbarWidget) {
+            if (RpgcraftMod.getActiveHud() instanceof HudHotbarWidget) {
                 event.setPosY(event.getPosY() - 22);
             }
         }
@@ -39,24 +39,20 @@ public class ClientEvents {
         public static void onRenderGameOverlay(RenderGuiOverlayEvent event){
             Minecraft mc = Minecraft.getInstance();
             RpgcraftMod mod = RpgcraftMod.instance;
-
-            if (event.getOverlay().id().toString().contains("air_level")) {
+                if (event.getOverlay().id().toString().contains("air_level")) {
                     event.setCanceled(true);
-            } else if (event.getOverlay().id().toString().contains("armor_level")) {
+                } else if (event.getOverlay().id().toString().contains("armor_level")) {
                     event.setCanceled(true);
-            } else if (event.getOverlay().id().toString().contains("experience_bar")) {
+                } else if (event.getOverlay().id().toString().contains("experience_bar")) {
                     event.setCanceled(true);
-            } else if (event.getOverlay().id().toString().contains("food") || event.getOverlay().toString().contains("stam")) {
+                } else if (event.getOverlay().id().toString().contains("food") || event.getOverlay().toString().contains("stam")) {
                     event.setCanceled(true);
-            } else if (event.getOverlay().id().toString().contains("player_health") || event.getOverlay().id().toString().contains("mount_health")) {
+                } else if (event.getOverlay().id().toString().contains("player_health") || event.getOverlay().id().toString().contains("mount_health")) {
                     event.setCanceled(true);
-            } else if(event.getOverlay().id().toString().contains("jump_bar")){
-                event.setCanceled(true);
-            }
-
-
-
-            RenderOverlay.renderOverlay(mod, mc, event.getPoseStack(), event.getPartialTick());
+                } else if(event.getOverlay().id().toString().contains("jump_bar")){
+                    event.setCanceled(true);
+                }
+                RenderOverlay.renderOverlay(mod, mc, event.getPoseStack(), event.getPartialTick());
         }
     }
 

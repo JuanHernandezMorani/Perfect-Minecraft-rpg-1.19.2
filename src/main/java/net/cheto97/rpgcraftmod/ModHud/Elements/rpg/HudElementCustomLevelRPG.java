@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
-import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
-import net.cheto97.rpgcraftmod.providers.CustomLevelProvider;
 import net.minecraft.client.gui.Gui;
+
+import static net.cheto97.rpgcraftmod.util.IntToString.formatearNumero;
 
 public class HudElementCustomLevelRPG extends HudElement {
     public HudElementCustomLevelRPG() {
@@ -25,7 +25,7 @@ public class HudElementCustomLevelRPG extends HudElement {
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         if(this.mc.player != null && this.mc.player.getId() == PlayerData.getPlayerId()){
             RenderSystem.disableBlend();
-            String level = String.valueOf(PlayerData.getPlayerLevel());
+            String level = formatearNumero(PlayerData.getPlayerLevel());
             Gui.drawString(ms, this.mc.font, level, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 13) + this.settings.getPositionValue(Settings.rpglevel_position)[0] - this.mc.font.width(level) / 2, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 18) + this.settings.getPositionValue(Settings.rpglevel_position)[1], 0x80FF20);
             RenderSystem.enableBlend();
         }

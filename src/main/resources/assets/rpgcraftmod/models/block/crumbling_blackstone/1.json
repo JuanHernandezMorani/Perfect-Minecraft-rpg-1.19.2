@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top": "rpgcraftmod:block/blackstone_top",
+    "bottom": "rpgcraftmod:block/blackstone_top",
+    "side": "rpgcraftmod:block/crumbling_blackstone/1"
+  }
+}

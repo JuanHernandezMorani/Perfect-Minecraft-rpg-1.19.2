@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "iceandfire:block/dragonscale_gray"
+    "all": "rpgcraftmod:block/dragonscale_gray"
   }
 }

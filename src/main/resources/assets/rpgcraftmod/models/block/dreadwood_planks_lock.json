@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_column",
     "textures": {
-        "end": "iceandfire:block/dreadwood_planks",
-        "side": "iceandfire:block/dreadwood_planks_lock"
+        "end": "rpgcraftmod:block/dreadwood_planks",
+        "side": "rpgcraftmod:block/dreadwood_planks_lock"
     }
 }

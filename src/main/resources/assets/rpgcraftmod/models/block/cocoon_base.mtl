@@ -1,0 +1,4 @@
+# Rhino
+newmtl Element
+map_Kd #default
+Ka 0.5 0.5 0.5

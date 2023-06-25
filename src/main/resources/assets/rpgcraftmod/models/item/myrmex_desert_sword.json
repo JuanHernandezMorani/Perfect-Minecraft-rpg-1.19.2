@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "iceandfire:item/myrmex_desert_sword"
+    "layer0": "rpgcraftmod:item/myrmex_desert_sword"
   }
 }

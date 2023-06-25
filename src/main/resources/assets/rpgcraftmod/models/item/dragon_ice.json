@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/dragon_ice",
+  "parent": "rpgcraftmod:block/dragon_ice",
   "display": {
     "thirdperson": {
       "rotation": [

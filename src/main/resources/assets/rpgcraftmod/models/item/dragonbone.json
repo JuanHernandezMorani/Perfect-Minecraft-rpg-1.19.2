@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "iceandfire:item/dragonbone"
+    "layer0": "rpgcraftmod:item/dragonbone"
   }
 }
 

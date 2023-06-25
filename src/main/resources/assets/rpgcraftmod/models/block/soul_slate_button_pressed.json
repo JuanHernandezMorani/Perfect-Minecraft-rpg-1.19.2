@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "rpgcraftmod:block/soul_slate"
+  }
+}

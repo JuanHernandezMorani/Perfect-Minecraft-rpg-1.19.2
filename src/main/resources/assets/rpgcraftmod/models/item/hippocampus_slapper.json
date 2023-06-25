@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "iceandfire:item/hippocampus_slapper"
+    "layer0": "rpgcraftmod:item/hippocampus_slapper"
   }
 }

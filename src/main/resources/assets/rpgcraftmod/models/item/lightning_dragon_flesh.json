@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/lightning_dragon_meat"
+    "layer0": "rpgcraftmod:item/lightning_dragon_meat"
   }
 }

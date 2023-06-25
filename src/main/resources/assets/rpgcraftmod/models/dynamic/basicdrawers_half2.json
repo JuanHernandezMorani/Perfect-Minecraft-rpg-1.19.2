@@ -1,0 +1,38 @@
+{
+    "frontDepth": 1,
+    "slots": [ {
+        "statusAreaFrom": [ 0, 8 ],
+        "statusAreaTo": [ 16, 16 ],
+        "statusActiveFrom": [ 6.25, 9 ],
+        "statusActiveTo": [ 9.75, 10 ],
+        "statusActiveSteps": [ 14, 0 ],
+        "labelAreaFrom": [ 6.25, 9 ],
+        "labelAreaTo": [ 9.75, 10 ],
+        "slotAreaFrom": [ 0, 8 ],
+        "slotAreaTo": [ 16, 16 ],
+        "iconSize": [ 2, 2 ],
+        "textures": {
+            "level1Off": "storagedrawers:blocks/indicator/indicator_2_off",
+            "level1On": "storagedrawers:blocks/indicator/indicator_2_on",
+            "level2Off": "storagedrawers:blocks/indicator/indicator_2_off",
+            "level2On": "storagedrawers:blocks/indicator/indicator_2_on"
+        }
+    }, {
+        "statusAreaFrom": [ 0, 0 ],
+        "statusAreaTo": [ 16, 8 ],
+        "statusActiveFrom": [ 6.25, 1 ],
+        "statusActiveTo": [ 9.75, 2 ],
+        "statusActiveSteps": [ 14, 0 ],
+        "labelAreaFrom": [ 6.25, 1 ],
+        "labelAreaTo": [ 9.75, 2 ],
+        "slotAreaFrom": [ 0, 0 ],
+        "slotAreaTo": [ 16, 8 ],
+        "iconSize": [ 2, 2 ],
+        "textures": {
+            "level1Off": "storagedrawers:blocks/indicator/indicator_2_off",
+            "level1On": "storagedrawers:blocks/indicator/indicator_2_on",
+            "level2Off": "storagedrawers:blocks/indicator/indicator_2_off",
+            "level2On": "storagedrawers:blocks/indicator/indicator_2_on"
+        }
+    } ]
+}

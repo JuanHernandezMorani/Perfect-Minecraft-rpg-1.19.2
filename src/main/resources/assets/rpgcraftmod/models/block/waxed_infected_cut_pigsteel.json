@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+      "all": "rpgcraftmod:block/infected_cut_rpgcraftmod"
+    }
+}
+

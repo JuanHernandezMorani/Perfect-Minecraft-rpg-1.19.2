@@ -1,8 +1,12 @@
 package net.cheto97.rpgcraftmod.networking.packet;
 
+import net.cheto97.rpgcraftmod.customstats.*;
+import net.cheto97.rpgcraftmod.modsystem.*;
 import net.cheto97.rpgcraftmod.networking.data.*;
+import net.cheto97.rpgcraftmod.providers.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +31,26 @@ public class PlayerSyncPacket {
     private double magicDefense;
     private double experience;
 
+
+    public PlayerSyncPacket(Player player){
+        this(player.getId(),
+                player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1),
+                new BlockPos(player.getBlockX(),player.getBlockY(),player.getBlockZ()),
+                player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0),
+                player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0),
+                player.getCapability(ManaProvider.ENTITY_MANA).map(Mana::get).orElse(0.0),
+                player.getCapability(ManaProvider.ENTITY_MANA).map(Mana::getMax).orElse(0.0),
+                player.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(0.0),
+                player.getCapability(CommandProvider.ENTITY_COMMAND).map(Command::get).orElse(0.0),
+                player.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.0),
+                player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(0.0),
+                player.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(0.0),
+                player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).map(Intelligence::get).orElse(0.0),
+                player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0),
+                player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).map(ManaRegeneration::get).orElse(0.0),
+                player.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.0),
+                player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).map(Experience::get).orElse(0.0));
+    }
 
     public PlayerSyncPacket(int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,

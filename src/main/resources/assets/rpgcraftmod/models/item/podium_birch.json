@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/podium_birch",
+  "parent": "rpgcraftmod:block/podium_birch",
   "display": {
     "gui": {
       "rotation": [

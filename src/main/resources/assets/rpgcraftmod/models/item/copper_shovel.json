@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "iceandfire:item/copper_shovel"
+    "layer0": "rpgcraftmod:item/copper_shovel"
   }
 }

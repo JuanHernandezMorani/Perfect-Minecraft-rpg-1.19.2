@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/chared_grass_path",
+  "parent": "rpgcraftmod:block/chared_grass_path",
   "display": {
     "thirdperson": {
       "rotation": [

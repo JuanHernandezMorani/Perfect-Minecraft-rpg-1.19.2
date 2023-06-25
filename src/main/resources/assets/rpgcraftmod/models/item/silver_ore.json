@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/silver_ore",
+  "parent": "rpgcraftmod:block/silver_ore",
   "display": {
     "thirdperson": {
       "rotation": [

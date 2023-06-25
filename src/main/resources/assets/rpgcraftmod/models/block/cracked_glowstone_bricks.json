@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "rpgcraftmod:block/cracked_glowstone_bricks"
+  }
+}

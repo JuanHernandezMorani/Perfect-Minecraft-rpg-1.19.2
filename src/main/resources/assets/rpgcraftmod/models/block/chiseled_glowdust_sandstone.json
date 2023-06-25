@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "rpgcraftmod:block/glowdust_sandstone_top",
+    "side": "rpgcraftmod:block/chiseled_glowdust_sandstone"
+  }
+}

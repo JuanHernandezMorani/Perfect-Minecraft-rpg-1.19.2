@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "iceandfire:dragonbone"
+    }
+  },
+  "result": {
+    "item": "iceandfire:dragon_bone_wall"
+  }
+}

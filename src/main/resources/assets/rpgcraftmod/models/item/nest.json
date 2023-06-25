@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/nest",
+  "parent": "rpgcraftmod:block/nest",
   "display": {
     "thirdperson": {
       "rotation": [

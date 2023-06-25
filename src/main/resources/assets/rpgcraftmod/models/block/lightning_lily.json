@@ -1,6 +1,6 @@
 {
   "parent": "block/cross",
   "textures": {
-    "cross": "iceandfire:block/lightning_lily"
+    "cross": "rpgcraftmod:block/lightning_lily"
   }
 }

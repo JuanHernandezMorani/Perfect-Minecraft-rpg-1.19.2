@@ -1,0 +1,10 @@
+{
+  "base": "minecraft:crying_obsidian",
+  "vines": {},
+  "layers": [
+    {
+	  "texture": "#golems:layer/crying_obsidian",
+	  "light": true
+	}
+  ]
+}

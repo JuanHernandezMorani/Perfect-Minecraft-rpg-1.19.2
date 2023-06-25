@@ -1,0 +1,7 @@
+{
+  "base": "minecraft:diamond_block",
+  "vines": {
+	"texture": "#golems:layer/vines",
+	"color": 2070638
+  }
+}

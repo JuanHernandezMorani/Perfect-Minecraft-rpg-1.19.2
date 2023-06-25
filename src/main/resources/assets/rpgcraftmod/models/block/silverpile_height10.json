@@ -1,7 +1,7 @@
 {
   "textures": {
-    "particle": "iceandfire:block/silverpile",
-    "texture": "iceandfire:block/silverpile"
+    "particle": "rpgcraftmod:block/silverpile",
+    "texture": "rpgcraftmod:block/silverpile"
   },
   "elements": [
     {

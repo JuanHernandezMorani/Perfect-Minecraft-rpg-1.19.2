@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book title="The Book of Elements" fontSize="0.7">
+<!--
+   _____ _   _ _____   ____   ___   ___  _   __
+  |_   _| | | |  ___| |  _ \ / _ \ / _ \| | / /
+    | | | |_| | |_    | |_| | / \ | / \ | |/ /
+    | | |  _  |  _|   |  _ [| | | | | | |   |
+    | | | | | | |___  | |_| | \_/ | \_/ | |\ \
+    |_| |_| |_|_____| |____/ \___/ \___/|_| \_\
+                    ___  _____ 
+                   / _ \|  ___|
+                  | / \ | |_
+                  | | | |  _|
+                  | \_/ | |
+                   \___/|_|
+ _____ _     _____ _   _ _____ _   _ _____  ____
+|  ___| |   |  ___| \ / |  ___| \ | |_   _|/ ___|
+| |_  | |   | |_  |  '  | |_  |  \| | | | | [__
+|  _| | |   |  _| | \ / |  _| |     | | |  \__ \
+| |___| |___| |___| |'| | |___| |\  | | |  ___] |
+|_____|_____|_____|_| |_|_____|_| \_| |_| |____/
+
+(Sadly this does not fit in the ingame book ;P)
+-->
+
+<chapter>
+  <section>
+    <!--
+    'p' tags draw text, and increment the vertical offset.
+    They do NOT behave exactly like in html.
+    The space attribute changes the default spacing added after the paragraph.
+    -->
+    <p color="#606060">This book is a work in progress.</p>
+  </section>
+  <section>
+    <!--
+    'space' tags increment the vertical offset without drawing text.
+    The 'height' attribute specifies how much.
+    The % refers to a % of the section's height, while integer values refer to pixels.
+    -->
+    <space height="33%" />
+    <p space="0" align="center">The Book</p>
+    <p space="0" align="center">of</p>
+    <p space="0" align="center">Elements</p>
+    <p space="6" align="center">__________</p>
+    <p align="center">by Gigaherz</p>
+  </section>
+  <section>
+    <title>Index</title>
+    <link ref="basic"  >1. Getting Started</link>
+    <link ref="spells" >2. Casting Spells</link>
+    <link ref="rings"  >3. Extra Storage</link>
+    <link ref="staves" >4. Improved Casting</link>
+    <link ref="rituals">5. Rituals (UPCOMING)</link>
+    <link ref="recipes">A1. Recipes</link>
+  </section>
+</chapter>
+<chapter id="basic">
+  <section>
+    <title>Getting Started</title>
+    <p space="8">In front of you is the power of raw elemental magic. In the world exist the following elements:</p>
+    <p space="4"><stack item="elementsofpower:fire_orb" /> Fire</p>
+    <p space="8">Fire causes Flames, in the shape of a Sphere around caster.</p>
+    <p space="4"><stack item="elementsofpower:water_orb" /> Water</p>
+    <p space="8">Water spawns flowing water, in the shape of a Ball thrown forward.</p>
+    <p space="4"><stack item="elementsofpower:air_orb" /> Air</p>
+    <p space="8">Air blows things away, in the shape of a Cone in front of the caster.</p>
+    <p space="4"><stack item="elementsofpower:earth_orb" /> Earth</p>
+    <p space="8">Earth endures, ...shape not decided yet.</p>
+    <p space="4"><stack item="elementsofpower:light_orb" /> Light</p>
+    <p space="8">Light protects and illuminates, the shape is a Beam.</p>
+    <p space="4"><stack item="elementsofpower:darkness_orb" /> Darkness</p>
+    <p space="8">Darkness weakens and darkens, the shape is not yet determined.</p>
+    <p space="4"><stack item="elementsofpower:life_orb" /> Life</p>
+    <p space="8">Life heals and repairs, these spells are Self-cast.</p>
+    <p space="4"><stack item="elementsofpower:death_orb" /> Death</p>
+    <p>Death breaks and damages, they take the aspect of Curses applied directly to your target.</p>
+  </section>
+</chapter>
+<chapter id="spells">
+  <section>
+    <title>Casting Spells</title>
+    <p space="4">A spell is a series of elements. Each element has an effect and shape. The order of the elements matters, as their effects change depending on the position within the spell:</p>
+    <p space="4">- The first element in the spell defines its primary effect, while subsequent elements will apply modifiers to it.</p>
+    <p space="4">- The last element in the spell will dictate the shape/casting style of the spell.</p>
+    <p space="4">- Having multiple of the same element one after the other will increase the primary effect, while opposite elements will reduce or cancel this effect.</p>
+    <p space="12">- A modifier effect will not be applied if the effect is cancelled by the previous element, but the shape will still apply.</p>
+    <p space="2">To cast a spell, you hold right-click down with a wand or staff equipped, and while holding the button down, press the element keybinds (by default the numbers 1..8, shared by the hotbar slots), in the desired sequence.</p>
+    <p space="4" indent="5">Example: HOLD right-click, PRESS 5, PRESS 1, RELEASE right-click.</p>
+    <p space="8" indent="10">This combination will cast a light blast, which will place temporary lights all around where you are.</p>
+    <p space="4" indent="5">Example: HOLD right-click, PRESS 3, PRESS 5, RELEASE right-click.</p>
+    <p space="8" indent="10">This combination will cast a push spell, moving you in the direction you are looking toward.</p>
+    <p>The wands remember their last spell, so if you release right-click without pressing any key, the same spell will be repeated. The current spell can be cleared by right-clicking while sneaking, although this is rarely needed.</p>
+  </section>
+</chapter>
+<chapter id="rings">
+  <section>
+    <title>Extra Storage</title>
+    <p>Gemstones can store elemental essences, but you will have to recharge the gemstone in your wands very often if you rely only on that.</p>
+    <p>You discovered that you can carry more magic by setting gemstones into rings, headbands, and necklaces. They can be equipped via the extra slots added through the Curios mod.</p>
+    <p>When casting spells, all the combined reserves of magic from your items is accounted, such that you can cast bigger spells, or cast weak spells more often.</p>
+  </section>
+</chapter>
+<chapter id="staves">
+  <section>
+    <title>Improved Casting</title>
+    <p>Wands are a perfectly good tool, but they are limited in how much essence they can contain.</p>
+    <p>You have discoverd that you can improve the wand, and effectively double the capacity of the gemstone, by crafting it into a Staff, allowing you to to reach even bigger spells.</p>
+  </section>
+</chapter>
+<chapter id="rituals">
+  <section>
+    <title>Rituals</title>
+    <p>You believe there may be some way to perform complex interactions by making use of structures built in the world.</p>
+    <p>Sadly, the specifics of the method escape you. You keep that possibility in your mind, maybe in the future you'll find the key.</p>
+  </section>
+</chapter>
+<chapter id="recipes">
+  <section>
+    <title>Recipes</title>
+    <p>CONTENT UPCOMING</p>
+  </section>
+</chapter>
+</book>

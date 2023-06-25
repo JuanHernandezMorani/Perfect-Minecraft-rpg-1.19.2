@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "rpgcraftmod:block/dimstone_bricks_small"
+  }
+}

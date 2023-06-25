@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:honeycomb"
+        },
+        {
+            "item": "pigsteel:corrupted_cut_pigsteel_slab"
+        }
+    ],
+    "result": {
+        "item": "pigsteel:waxed_corrupted_cut_pigsteel_slab",
+        "count": 1
+    }
+}

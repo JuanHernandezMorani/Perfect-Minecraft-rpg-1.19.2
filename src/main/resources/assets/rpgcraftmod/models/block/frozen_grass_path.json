@@ -1,10 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "particle": "iceandfire:block/frozen_dirt",
-    "top": "iceandfire:block/frozen_grass_path_top",
-    "side": "iceandfire:block/frozen_grass_path_side",
-    "bottom": "iceandfire:block/frozen_dirt"
+    "particle": "rpgcraftmod:block/frozen_dirt",
+    "top": "rpgcraftmod:block/frozen_grass_path_top",
+    "side": "rpgcraftmod:block/frozen_grass_path_side",
+    "bottom": "rpgcraftmod:block/frozen_dirt"
   },
   "elements": [
     {

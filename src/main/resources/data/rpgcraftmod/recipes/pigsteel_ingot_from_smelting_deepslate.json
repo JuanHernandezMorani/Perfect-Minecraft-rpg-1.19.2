@@ -1,0 +1,10 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "pigsteel:deepslate_pigsteel_ore"
+    },
+    "result": "pigsteel:pigsteel_ingot",
+    "experience": 0.2,
+    "cookingtime": 200,
+    "group": "pigsteel_ingot"
+}

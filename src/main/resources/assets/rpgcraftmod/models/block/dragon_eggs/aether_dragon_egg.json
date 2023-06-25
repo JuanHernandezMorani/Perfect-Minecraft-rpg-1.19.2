@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/dragon_egg",
+  "textures": {
+    "particle": "rpgcraftmod:block/aether_dragon_egg",
+    "all": "rpgcraftmod:block/aether_dragon_egg"
+  }
+}

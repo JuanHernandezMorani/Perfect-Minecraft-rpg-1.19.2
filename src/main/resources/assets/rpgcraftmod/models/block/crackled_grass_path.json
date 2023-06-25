@@ -1,10 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "particle": "iceandfire:block/crackled_dirt",
-    "top": "iceandfire:block/crackled_grass_path_top",
-    "side": "iceandfire:block/crackled_grass_path_side",
-    "bottom": "iceandfire:block/crackled_dirt"
+    "particle": "rpgcraftmod:block/crackled_dirt",
+    "top": "rpgcraftmod:block/crackled_grass_path_top",
+    "side": "rpgcraftmod:block/crackled_grass_path_side",
+    "bottom": "rpgcraftmod:block/crackled_dirt"
   },
   "elements": [
     {

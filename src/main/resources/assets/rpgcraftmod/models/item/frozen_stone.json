@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/frozen_stone",
+  "parent": "rpgcraftmod:block/frozen_stone",
   "display": {
     "thirdperson": {
       "rotation": [

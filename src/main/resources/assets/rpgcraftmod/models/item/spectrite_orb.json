@@ -1,0 +1,23 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "spectrite:items/spectrite_orb/spectrite_orb_00",
+		"layer1": "spectrite:items/spectrite_orb/spectrite_orb_01",
+		"layer2": "spectrite:items/spectrite_orb/spectrite_orb_02",
+		"layer3": "spectrite:items/spectrite_orb/spectrite_orb_03",
+		"layer4": "spectrite:items/spectrite_orb/spectrite_orb_04",
+		"layer5": "spectrite:items/spectrite_orb/spectrite_orb_05",
+		"layer6": "spectrite:items/spectrite_orb/spectrite_orb_06",
+		"layer7": "spectrite:items/spectrite_orb/spectrite_orb_07",
+		"layer8": "spectrite:items/spectrite_orb/spectrite_orb_08",
+		"layer9": "spectrite:items/spectrite_orb/spectrite_orb_09",
+		"layer10": "spectrite:items/spectrite_orb/spectrite_orb_10",
+		"layer11": "spectrite:items/spectrite_orb/spectrite_orb_11",
+		"layer12": "spectrite:items/spectrite_orb/spectrite_orb_12",
+		"layer13": "spectrite:items/spectrite_orb/spectrite_orb_13",
+		"layer14": "spectrite:items/spectrite_orb/spectrite_orb_14",
+		"layer15": "spectrite:items/spectrite_orb/spectrite_orb_15",
+		"layer16": "spectrite:items/spectrite_orb/spectrite_orb_16",
+		"layer17": "spectrite:items/spectrite_orb/spectrite_orb_hl"
+    }
+}

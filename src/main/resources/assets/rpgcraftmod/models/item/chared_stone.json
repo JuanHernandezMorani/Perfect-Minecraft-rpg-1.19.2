@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/chared_stone",
+  "parent": "rpgcraftmod:block/chared_stone",
   "display": {
     "thirdperson": {
       "rotation": [

@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/podium_dark_oak",
+  "parent": "rpgcraftmod:block/podium_dark_oak",
   "display": {
     "gui": {
       "rotation": [

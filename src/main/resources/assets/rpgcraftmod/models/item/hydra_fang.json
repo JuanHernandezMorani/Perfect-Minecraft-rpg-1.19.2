@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/hydra_fang"
+    "layer0": "rpgcraftmod:item/hydra_fang"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "base": "minecraft:bookshelf",
+  "eyes": {
+	"texture": "#golems:layer/eyes/glasses"
+  }
+}

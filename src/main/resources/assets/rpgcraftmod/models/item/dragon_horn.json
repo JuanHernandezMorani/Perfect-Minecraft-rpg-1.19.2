@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/dragon_horn"
+    "layer0": "rpgcraftmod:item/dragon_horn"
   },
   "display": {
     "thirdperson_righthand": {
@@ -78,19 +78,19 @@
       "predicate": {
         "iceorfire": 0.25
       },
-      "model": "iceandfire:item/dragon_horn_fire"
+      "model": "rpgcraftmod:item/dragon_horn_fire"
     },
     {
       "predicate": {
         "iceorfire": 0.5
       },
-      "model": "iceandfire:item/dragon_horn_ice"
+      "model": "rpgcraftmod:item/dragon_horn_ice"
     },
     {
       "predicate": {
         "iceorfire": 0.75
       },
-      "model": "iceandfire:item/dragon_horn_lightning"
+      "model": "rpgcraftmod:item/dragon_horn_lightning"
     }
   ]
 }

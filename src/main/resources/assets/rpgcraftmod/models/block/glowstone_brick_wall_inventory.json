@@ -1,0 +1,6 @@
+{
+  "parent": "block/wall_inventory",
+  "textures": {
+    "wall": "rpgcraftmod:block/glowstone_bricks_small"
+  }
+}

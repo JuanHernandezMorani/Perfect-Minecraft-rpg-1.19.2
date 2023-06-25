@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "iceandfire:item/wither_shard"
+    "layer0": "rpgcraftmod:item/wither_shard"
   }
 }

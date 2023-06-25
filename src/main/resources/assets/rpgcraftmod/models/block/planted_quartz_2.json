@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "rpgcraftmod:block/planted_quartz_2"
+  }
+}

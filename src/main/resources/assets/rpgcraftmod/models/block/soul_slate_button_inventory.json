@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "rpgcraftmod:block/soul_slate"
+  }
+}

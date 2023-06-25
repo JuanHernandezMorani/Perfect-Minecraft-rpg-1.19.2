@@ -1,0 +1,18 @@
+{
+  "parent": "forge:item/default",
+  "loader": "rpgcraftmod:nbt_to_model",
+  "tag":"gemstone",
+  "values": {
+    "":  { "parent":"rpgcraftmod:item/bracelet_base" },
+    "ruby":  { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/ruby_bracelet" } },
+    "sapphire":   { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/sapphire_bracelet" } },
+    "citrine": { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/citrine_bracelet" } },
+    "agate": { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/agate_bracelet" } },
+    "quartz": { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/quartz_bracelet" } },
+    "serendibite":  { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/serendibite_bracelet" } },
+    "emerald":  { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/emerald_bracelet" } },
+    "amethyst": { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/amethyst_bracelet" } },
+    "diamond": { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/diamond_bracelet" } },
+    "creativite": { "parent":"rpgcraftmod:item/bracelet_base", "textures": { "layer1": "rpgcraftmod:item/creativite_bracelet" } }
+  }
+}

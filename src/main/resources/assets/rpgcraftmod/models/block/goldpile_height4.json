@@ -1,7 +1,7 @@
 {
   "textures": {
-    "particle": "iceandfire:block/goldpile",
-    "texture": "iceandfire:block/goldpile"
+    "particle": "rpgcraftmod:block/goldpile",
+    "texture": "rpgcraftmod:block/goldpile"
   },
   "elements": [
     {

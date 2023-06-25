@@ -1,9 +1,9 @@
 {
   "textures": {
-    "0": "iceandfire:block/lectern",
-    "1": "iceandfire:block/lectern_top",
-    "2": "iceandfire:block/lectern_side",
-    "particle": "iceandfire:block/lectern"
+    "0": "rpgcraftmod:block/lectern",
+    "1": "rpgcraftmod:block/lectern_top",
+    "2": "rpgcraftmod:block/lectern_side",
+    "particle": "rpgcraftmod:block/lectern"
   },
   "elements": [
     {

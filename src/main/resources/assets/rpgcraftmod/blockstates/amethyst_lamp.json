@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "rpgcraftmod:block/amethyst_lamp"
+    },
+    "lit=true": {
+      "model": "rpgcraftmod:block/amethyst_lamp_on"
+    }
+  }
+}

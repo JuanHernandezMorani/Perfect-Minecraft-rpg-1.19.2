@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:honeycomb"
+        },
+        {
+            "item": "pigsteel:cut_pigsteel"
+        }
+    ],
+    "result": {
+        "item": "pigsteel:waxed_cut_pigsteel",
+        "count": 1
+    }
+}

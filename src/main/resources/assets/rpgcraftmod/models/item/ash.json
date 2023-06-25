@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/ash",
+  "parent": "rpgcraftmod:block/ash",
   "display": {
     "thirdperson": {
       "rotation": [

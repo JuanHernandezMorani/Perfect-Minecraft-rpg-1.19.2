@@ -33,7 +33,7 @@
       "predicate": {
         "throwing": 1
       },
-      "model": "iceandfire:item/tide_trident_throwing"
+      "model": "rpgcraftmod:item/tide_trident_throwing"
     }
   ]
 }
