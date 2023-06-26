@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:smithing",
-  "base": {"item": "minecraft:netherite_axe"},
-  "addition": {"item": "rpgcraftmodgold_ring"},
-  "result": {"item": "rpgcraftmodgilded_netherite_axe"}
-}

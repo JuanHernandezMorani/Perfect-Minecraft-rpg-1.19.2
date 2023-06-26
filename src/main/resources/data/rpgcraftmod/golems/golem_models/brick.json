@@ -1,9 +1,0 @@
-{
-  "base": "minecraft:bricks",
-  "layers": [
-	{
-	  "texture": "minecraft:bricks",
-	  "template": "rpgcraftmodlayer/hands_template"
-	}
-  ]
-}

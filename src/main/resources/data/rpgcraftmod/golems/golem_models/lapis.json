@@ -1,8 +1,0 @@
-{
-  "base": "minecraft:lapis_block",
-  "layers": [
-    {
-	  "texture": "#rpgcraftmodlayer/gold_edging"
-	}
-  ]
-}

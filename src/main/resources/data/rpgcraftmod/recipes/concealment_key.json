@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        { "item": "rpgcraftmoddrawer_key" },
-        { "item": "minecraft:ender_eye" }
-    ],
-    "result": { "item": "rpgcraftmodshroud_key" }
-}

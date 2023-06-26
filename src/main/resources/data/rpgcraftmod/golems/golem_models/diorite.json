@@ -1,9 +1,0 @@
-{
-  "base": "minecraft:polished_diorite",
-  "layers": [
-	{
-	  "texture": "minecraft:polished_diorite",
-	  "template": "rpgcraftmodlayer/hands_template"
-	}
-  ]
-}

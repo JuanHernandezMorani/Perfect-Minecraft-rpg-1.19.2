@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "rpgcraftmodcut_pigsteel"
-  },
-  "result": "rpgcraftmodcut_pigsteel_slab",
-  "count": 2
-}

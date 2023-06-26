@@ -13,6 +13,21 @@ public class NumberUtils {
         return decimalFormat.format(number).replace(".", ",");
     }
 
+    public static String doubleToIntString(double number) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        decimalFormat.setMaximumFractionDigits(0);
+        decimalFormat.setMinimumFractionDigits(0);
+        decimalFormat.setGroupingUsed(false);
+
+        return decimalFormat.format(number).replace(".", ",");
+    }
+    public static String defTogether(double magicArmor, double physicalArmor) {
+        double sumaTotal = magicArmor + physicalArmor;
+        double percentageMagic = (magicArmor / sumaTotal) * 100;
+        double percentagePhysic = (physicalArmor / sumaTotal) * 100;
+
+        return doubleToIntString(sumaTotal)+" ("+ doubleToString(percentagePhysic)+"% phy/"+ doubleToString(percentageMagic)+"% mag)";
+    }
     public static int randomInt(int maxValue,int minValue){
 
         Random random = new Random();

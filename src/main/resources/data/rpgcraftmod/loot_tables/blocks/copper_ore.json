@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "copper_ore",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:copper_ore"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

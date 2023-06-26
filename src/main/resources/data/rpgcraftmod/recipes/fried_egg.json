@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:egg"
-  },
-  "result": "rpgcraftmodfried_egg",
-  "cookingtime": 200,
-  "experience": 0.35
-}

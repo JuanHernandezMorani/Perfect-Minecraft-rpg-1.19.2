@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "dragonscale_copper",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:dragonscale_copper"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:smithing",
-  "base": {"item": "minecraft:netherite_shovel"},
-  "addition": {"item": "rpgcraftmodgold_ring"},
-  "result": {"item": "rpgcraftmodgilded_netherite_shovel"}
-}

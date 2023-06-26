@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "rpgcraftmod:amythest_ore"
-  },
-  "result": "rpgcraftmod:amythest_gem",
-  "experience": 0.35,
-  "cookingtime": 200
-}

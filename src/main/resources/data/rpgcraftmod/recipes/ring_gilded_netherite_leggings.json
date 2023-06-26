@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:smithing",
-  "base": {"item": "minecraft:netherite_leggings"},
-  "addition": {"item": "rpgcraftmodgold_ring"},
-  "result": {"item": "rpgcraftmodgilded_netherite_leggings"}
-}

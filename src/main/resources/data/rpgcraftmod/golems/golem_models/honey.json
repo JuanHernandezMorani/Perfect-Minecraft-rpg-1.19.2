@@ -1,6 +1,0 @@
-{
-  "base": "minecraft:honey_block_top",
-  "base_template": "rpgcraftmodtranslucent_template",
-  "translucent": true,
-  "vines": {}
-}

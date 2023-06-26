@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "rpgcraftmod:copper_ore"
-  },
-  "result": "rpgcraftmod:copper_ingot",
-  "experience": 0.35,
-  "cookingtime": 100
-}

@@ -2,8 +2,10 @@ package net.cheto97.rpgcraftmod.networking.data;
 
 import net.minecraft.core.BlockPos;
 
+import java.util.UUID;
+
 public class PlayerData {
-    private static  int playerId;
+    private static int playerId;
     private static  int playerLevel;
     private static  BlockPos playerPos;
     private static double playerExperience;

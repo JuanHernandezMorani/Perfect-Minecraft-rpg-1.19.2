@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "dragonscale_bronze",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:dragonscale_bronze"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

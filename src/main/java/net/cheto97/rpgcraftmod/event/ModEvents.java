@@ -9,11 +9,10 @@ import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.modsystem.Experience;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
-import net.cheto97.rpgcraftmod.networking.packet.*;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
-import static net.cheto97.rpgcraftmod.ModHud.Elements.vanilla.HudElementViewVanilla.*;
 import static net.cheto97.rpgcraftmod.ranks.Boss.bossModify;
 import static net.cheto97.rpgcraftmod.ranks.Brutal.brutalModify;
 import static net.cheto97.rpgcraftmod.ranks.Champion.championModify;
@@ -30,7 +29,6 @@ import static net.cheto97.rpgcraftmod.util.NumberUtils.randomInt;
 import static net.cheto97.rpgcraftmod.util.RPGutil.setBonusValue;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -80,11 +78,7 @@ public class ModEvents {
     static private double expBonus = 1;
     static private double totalDamage;
     private static void updatePlayerCapabilities(ServerPlayer player) {
-        player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(experience -> ModMessages.sendToPlayer(new PlayerSyncPacket(player),player)))))))))))))));
-
-    }
-    private static void updateMobCapabilities(LivingEntity livingEntity) {
-        livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> livingEntity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> livingEntity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> livingEntity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> livingEntity.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> livingEntity.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> livingEntity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> livingEntity.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> livingEntity.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> livingEntity.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> livingEntity.getCapability(ExperienceRewardProvider.ENTITY_EXPERIENCE_REWARD).ifPresent(experienceReward -> ModMessages.sendToTracking(new EntitySyncPacket(livingEntity),livingEntity)))))))))))))));
+        ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
     }
     private static int getRandomRank(){
         double[] RANK_PERCENTAGES = {0.4, 0.25, 0.15, 0.09, 0.05, 0.03, 0.02, 0.01, 0.005, 0.0005, 0.00005};
@@ -184,7 +178,6 @@ public class ModEvents {
             agility.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
             command.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
             luck.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
-            updateMobCapabilities(entity);
         }))))))))))));
     }
     @SubscribeEvent
@@ -268,7 +261,7 @@ public class ModEvents {
         if(event.getObject() != null){
             Entity entity = event.getObject();
             if(entity instanceof LivingEntity livingEntity) {
-                if (livingEntity instanceof Player player) {
+                if (livingEntity instanceof Player) {
 
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "experience"), new ExperienceProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
@@ -284,8 +277,6 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "manaregeneration"), new ManaRegenerationProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
-
-                    updatePlayerCapabilities((ServerPlayer)player);
 
                 } else {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "rank"), new RankProvider());
@@ -303,8 +294,6 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"experiencereward"), new ExperienceRewardProvider());
-
-                    updateMobCapabilities(livingEntity);
                 }
             }
         }
@@ -379,7 +368,7 @@ public class ModEvents {
             lvlReduce = finalLevel;
         }
         Random random = new Random();
-        int fnLvl = (finalLevel - lvlReduce) != 0 ? (finalLevel + entityRank * 5) : random.nextInt(20)*2+random.nextInt(8)*3;
+        int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5,(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10))) : randomInt(random.nextInt(20)*2+random.nextInt(8)*3,1);
 
         livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
             customLevel.setLevel(fnLvl);
@@ -642,12 +631,27 @@ public class ModEvents {
                             reduceArmorDurability(target, totalDamage);
                         }
                     });
-                } else {
+                }
+                else {
                     double defense = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
                     double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
                     totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
+                    if(source.isFall()){
+                        target.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
+                            if(target instanceof Player && mana.get() != 0.0){
+                            if(mana.get() >= totalDamage){
+                                mana.consumeMana(totalDamage);
+                                totalDamage = 0.0;
+                                target.sendSystemMessage(Component.literal("You consume your mana, to complete decrease fall damage"));
+                                }else{
+                                totalDamage = totalDamage - mana.get();
+                                target.sendSystemMessage(Component.literal("You consume your mana, to decrease fall damage, but run out of mana, before complete decrease fall damage, you receive: "+totalDamage+" of damage."));
+                            }
+                            }
+                        });
+                    }
                     target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
-                        if(totalDamage != -111111 && totalDamage < 1){
+                        if(!source.isFall() && totalDamage < 1){
                             totalDamage = 1;
                         }
                         life.consumeLife(totalDamage);
@@ -693,6 +697,9 @@ public class ModEvents {
             if (livingEntity != null) {
                 if(livingEntity instanceof ServerPlayer player){
                         player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> {
+                            if(mana.get() != mana.getMax() || life.get() != life.getMax()){
+                                updatePlayerCapabilities(player);
+                            }
                             if (life.get() <= 0) {
                                 player.setHealth(0.0f);
                                 player.die(DamageSource.GENERIC);
@@ -703,8 +710,8 @@ public class ModEvents {
                             if (mana.get() < mana.getMax()) {
                                 mana.add(manaRegeneration.get() * 0.04);
                             }
-                            updatePlayerCapabilities(player);
                     }))));
+
                 }
                 else{
                     if(livingEntity instanceof Animal || livingEntity instanceof Monster || livingEntity instanceof WaterAnimal || livingEntity instanceof Villager){
@@ -723,14 +730,6 @@ public class ModEvents {
                             if (mana.get() < mana.getMax()) {
                                 mana.add(manaRegeneration.get() * 0.04);
                             }
-                            ////////////////////////////////////////////////////////////////////////////////////////////////////
-                            if (Minecraft.getInstance().level != null && Minecraft.getInstance().level.isClientSide() && Minecraft.getInstance().getConnection() != null) {
-                                int id = dataNeeded();
-                                if (id == livingEntity.getId()) {
-                                    livingEntity.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> livingEntity.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank1 -> setData(life.get(), life.getMax(), mana.get(), mana.getMax(), (defense.get()) + magicDefense.get(), rank1.get(), customLevel.get()))));
-                            }
-                        }
-                            updateMobCapabilities(livingEntity);
                     })))));
                     }
             }
@@ -785,53 +784,53 @@ public class ModEvents {
     public static void onPlayerGetExperience(PlayerXpEvent.PickupXp event) {
         if (!event.getEntity().getLevel().isClientSide() && event.getEntity() != null && event.getOrb() != null) {
             int xp = event.getOrb().getValue();
-            Player player = event.getEntity();
+            if (event.getEntity() instanceof ServerPlayer player) {
+                player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(experience -> {
+                    experience.add(xp);
+                    if (experience.get() >= level.experienceNeeded()) {
+                        boolean flag = true;
+                        int count = 0;
+                        do {
+                            experience.consume(level.experienceNeeded());
+                            count++;
+                            level.add(count);
+                            int opt = randomInt(6, 0);
+                            switch (opt) {
+                                case 1 -> {
+                                    levelUpPlayer(player, 1, 1, 0.00025, 0.0005, 2, 2, 1, 6, 0, 8, 8, 8);
+                                    player.sendSystemMessage(Component.literal("You have level up, and receive Arches bless"));
+                                }
 
-            player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(experience -> {
-                experience.add(xp);
-                if (experience.get() >= level.experienceNeeded()) {
-                    boolean flag = true;
-                    int count = 0;
-                    do {
-                        experience.consume(level.experienceNeeded());
-                        count++;
-                        level.add(count);
-                        int opt = randomInt(6,0);
-                        switch (opt){
-                            case 1 -> {
-                                levelUpPlayer((ServerPlayer) player, 1, 1, 0.00025, 0.0005, 2, 2, 1, 6, 0, 8, 8, 8);
-                                player.sendSystemMessage(Component.literal("You have level up, and receive Arches bless"));
+                                case 2 -> {
+                                    levelUpPlayer(player, 8, 0, 0.00045, 0.0, 8, 0, 0, 1, 7, 3, 0, 1);
+                                    player.sendSystemMessage(Component.literal("You have level up, and receive Warriors bless"));
+                                }
+
+                                case 3 -> {
+                                    levelUpPlayer(player, 2.5, 8, 0.00025, 0.005, 2, 7, 8, 2, 0, 0, 3, 3);
+                                    player.sendSystemMessage(Component.literal("You have level up, and receive Mages bless"));
+                                }
+
+                                case 4 -> {
+                                    levelUpPlayer(player, 10, 50, 0.0025, 0.005, 4.45, 7.55, 8, 8, 12, 7, 14, 9);
+                                    player.sendSystemMessage(Component.literal("You have level up, and receive Gods bless"));
+                                }
+
+                                default -> {
+                                    levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
+                                    player.sendSystemMessage(Component.literal("You have level up."));
+                                }
                             }
-
-                            case 2 -> {
-                                levelUpPlayer((ServerPlayer) player, 8, 0, 0.00045, 0.0, 8, 0, 0, 1, 7, 3, 0, 1);
-                                player.sendSystemMessage(Component.literal("You have level up, and receive Warriors bless"));
+                            //play sound event level_up
+                            if (experience.get() < level.experienceNeeded()) {
+                                flag = false;
                             }
+                        } while (flag);
 
-                            case 3 -> {
-                                levelUpPlayer((ServerPlayer) player, 2.5, 8, 0.00025, 0.005, 2, 7, 8, 2, 0, 0, 3, 3);
-                                player.sendSystemMessage(Component.literal("You have level up, and receive Mages bless"));
-                            }
-
-                            case 4 -> {
-                                levelUpPlayer((ServerPlayer) player, 10, 50, 0.0025, 0.005, 4.45, 7.55, 8, 8, 12, 7, 14, 9);
-                                player.sendSystemMessage(Component.literal("You have level up, and receive Gods bless"));
-                            }
-
-                            default -> {
-                                levelUpPlayer((ServerPlayer) player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
-                                player.sendSystemMessage(Component.literal("You have level up."));
-                            }
-                        }
-                        //play sound event level_up
-                        if (experience.get() < level.experienceNeeded()) {
-                            flag = false;
-                        }
-                    } while (flag);
-
-                }
-            }));
-            player.sendSystemMessage(Component.literal("Obtained experience: " + formatDouble(xp)));
+                    }
+                }));
+                player.sendSystemMessage(Component.literal("Obtained experience: " + formatDouble(xp)));
+            }
         }
     }
     @SubscribeEvent

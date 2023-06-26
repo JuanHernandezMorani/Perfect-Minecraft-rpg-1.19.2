@@ -1,9 +1,0 @@
-{
-  "base": "minecraft:polished_granite",
-  "layers": [
-	{
-	  "texture": "minecraft:polished_granite",
-	  "template": "rpgcraftmodlayer/hands_template"
-	}
-  ]
-}

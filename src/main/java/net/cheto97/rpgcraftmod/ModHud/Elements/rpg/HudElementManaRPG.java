@@ -6,7 +6,9 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.customstats.Mana;
+import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
+import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerDataSyncPacket;
 import net.cheto97.rpgcraftmod.providers.ManaProvider;
 import net.minecraft.client.gui.Gui;
 
@@ -24,14 +26,11 @@ public class HudElementManaRPG extends HudElement {
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         if(this.mc.player != null){
-            double mana = -1;
-            double manaMax = -1;
+            double mana = PlayerData.getPlayerMana();
+            double manaMax = PlayerData.getPlayerManaMax();
             bind(INTERFACE);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-            if(this.mc.player.getId() == PlayerData.getPlayerId()){
-                mana = PlayerData.getPlayerMana();
-                manaMax = PlayerData.getPlayerManaMax();
-            }
+
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.hunger_position)[0];
             int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 22 : 18) + this.settings.getPositionValue(Settings.hunger_position)[1];
 

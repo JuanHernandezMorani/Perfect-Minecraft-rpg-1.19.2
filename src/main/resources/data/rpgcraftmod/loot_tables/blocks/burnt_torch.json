@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "burnt_torch",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:burnt_torch"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

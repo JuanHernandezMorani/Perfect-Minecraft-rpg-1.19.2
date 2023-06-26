@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "podium_birch",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:podium_birch"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

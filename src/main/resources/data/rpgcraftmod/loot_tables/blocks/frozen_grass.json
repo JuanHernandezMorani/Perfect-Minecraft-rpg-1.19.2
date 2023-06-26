@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "frozen_grass",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:frozen_grass"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

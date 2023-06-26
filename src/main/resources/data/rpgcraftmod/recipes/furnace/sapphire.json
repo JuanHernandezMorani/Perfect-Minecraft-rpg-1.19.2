@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "rpgcraftmod:sapphire_ore"
-  },
-  "result": "rpgcraftmod:sapphire_gem",
-  "experience": 0.35,
-  "cookingtime": 200
-}

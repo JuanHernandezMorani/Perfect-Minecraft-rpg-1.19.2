@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "myrmex_desert_resin_glass",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:myrmex_desert_resin_glass"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

@@ -1,6 +1,7 @@
 package net.cheto97.rpgcraftmod.ModHud.Elements.vanilla;
 
 import static net.cheto97.rpgcraftmod.util.IntToString.formatearNumero;
+import static net.cheto97.rpgcraftmod.util.NumberUtils.defTogether;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 import static net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.INVENTORY_LOCATION;
 
@@ -17,11 +18,11 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.customstats.Defense;
+import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.EntityData;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
-import net.cheto97.rpgcraftmod.networking.packet.EntitySyncPacket;
+import net.cheto97.rpgcraftmod.networking.packet.C2S.EntityInfoRequestPacket;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.RayTrace;
 import net.minecraft.ChatFormatting;
@@ -34,7 +35,6 @@ import net.minecraft.client.resources.MobEffectTextureManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -47,17 +47,6 @@ import net.minecraft.world.entity.player.Player;
 public class HudElementViewVanilla extends HudElement {
     static private boolean infinite = false;
     static private final RayTrace TRACE = new RayTrace();
-    static private LivingEntity entityData;
-    static private Player playerData;
-    static public double focusedLife;
-    static public double focusedMaxLife;
-    static public int focusedId;
-    static public double focusedArmor;
-    static public double focusedMana;
-    static public double focusedMaxMana;
-    static public int playerLevel;
-    static public int entityLevel;
-    static public int rank;
     protected static final ResourceLocation DAMAGE_INDICATOR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/view_hud.png");
     protected static final ResourceLocation HEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/health_bar.png");
     protected static final ResourceLocation FROZENHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/frozen_health_bar.png");
@@ -79,9 +68,27 @@ public class HudElementViewVanilla extends HudElement {
         LivingEntity focused = TRACE.getEntityInCrosshair(1.0f,32);
         Player player = this.mc.player;
         if(focused != null && player != null) {
-            setIdData(focused.getId());
-            String focusedRank;
 
+            ModMessages.sendToServer(new EntityInfoRequestPacket(focused));
+
+            int playerLevel = PlayerData.getPlayerLevel();
+            int rank = 0;
+            int entityLevel = 0;
+            double focusedLife = 0.0;
+            double focusedMaxLife = 0.0;
+            double focusedArmor = 0.0;
+            double focusedMagicArmor = 0.0;
+
+            if(focused.getId() == EntityData.getEntityId()){
+                rank = EntityData.getEntityRank();
+                entityLevel = EntityData.getEntityLevel();
+                focusedMaxLife = EntityData.getEntityLifeMax();
+                focusedLife = EntityData.getEntityLife();
+                focusedArmor = EntityData.getEntityDefense();
+                focusedMagicArmor = EntityData.getEntityMagicDefense();
+            }
+
+            String focusedRank;
                 ChatFormatting rankColor = setColor(rank);
                 switch (rank){
                     case 1 -> focusedRank = "Common";
@@ -165,21 +172,18 @@ public class HudElementViewVanilla extends HudElement {
 
                 drawEntityOnScreen(posX - 44, 49 + posY, focused);
                 if(settings.getBoolValue(Settings.show_entity_armor)) {
-                    if(focusedArmor > 0) {
-                        String value = doubleToString(focusedArmor);
-                        bind(DAMAGE_INDICATOR);
-                        gui.blit(ms, posX - 26, posY+44, 0, 36, 19, 8);
-                        bind(Gui.GUI_ICONS_LOCATION);
+                    if(focusedArmor > 0 || focusedMagicArmor > 0) {
+
+                        String value = defTogether(focusedMagicArmor,focusedArmor);
                         ms.scale(0.5f, 0.5f, 0.5f);
-                        gui.blit(ms, (posX - 24) * 2 - 4, (posY + 45) * 2, 34, 9, 9, 9);
-                        Gui.drawCenteredString(ms,this.mc.font,value,(posX - 18) * 2 + 4, (posY + 45) * 2 + 1, -1);
+                        Gui.drawString(ms,this.mc.font,value,(posX - 18) * 2 - 17, (posY + 45) * 2 + 1, -1);
                         ms.scale(2f, 2f, 2f);
                     }
                 }
 
-                Collection<MobEffectInstance> collection = focused.getActiveEffects();
+                Collection<MobEffectInstance> collection = EntityData.getEffects();
 
-                if(!collection.isEmpty()) {
+                if(collection != null && !collection.isEmpty()) {
                     ms.scale(0.5f, 0.5f, 0.5f);
                     RenderSystem.enableBlend();
                     int i = 0;
@@ -224,7 +228,7 @@ public class HudElementViewVanilla extends HudElement {
 
                             Gui.blit(ms, k + 3, l + 3, gui.getBlitOffset(), 18, 18, textureatlassprite);
 
-                            if(rpgHud.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
+                            if(RpgcraftMod.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
                                 int duration = effectinstance.getDuration() / 20;
                                 String s;
                                 if (effectinstance.getDuration() < 999500 && !infinite) {
@@ -242,21 +246,6 @@ public class HudElementViewVanilla extends HudElement {
                     }
                 }
         }
-    }
-    public static void setIdData(int id){
-        focusedId = id;
-    }
-    public static void setData(double lifeData,double lifeMaxData,double manaData,double manaMaxData,double armorData,int rankData,int levelData){
-        focusedLife = lifeData;
-        focusedMaxLife = lifeMaxData;
-        focusedMana = manaData;
-        focusedMaxMana = manaMaxData;
-        focusedArmor = armorData;
-        entityLevel = levelData;
-        rank = rankData;
-    }
-    public static int dataNeeded(){
-        return focusedId;
     }
     public static void drawEntityOnScreen(int posX, int posY, LivingEntity entity) {
         int scale;

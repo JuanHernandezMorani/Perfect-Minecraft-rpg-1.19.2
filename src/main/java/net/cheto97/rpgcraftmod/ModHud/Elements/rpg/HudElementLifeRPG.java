@@ -5,7 +5,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
+import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
+import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerDataSyncPacket;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -33,6 +35,10 @@ public class HudElementLifeRPG extends HudElement {
             double health = PlayerData.getPlayerLife();
             int absorption = Mth.ceil(this.mc.player.getAbsorptionAmount());
             double healthMax = PlayerData.getPlayerLifeMax();
+
+            ModMessages.sendToServer(new PlayerDataSyncPacket(this.mc.player));
+
+
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.life_position)[0];
             int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 9 : 5) + this.settings.getPositionValue(Settings.life_position)[1];
             if (absorption > 1)

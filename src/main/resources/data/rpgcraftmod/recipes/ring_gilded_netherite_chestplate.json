@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:smithing",
-  "base": {"item": "minecraft:netherite_chestplate"},
-  "addition": {"item": "rpgcraftmodgold_ring"},
-  "result": {"item": "rpgcraftmodgilded_netherite_chestplate"}
-}

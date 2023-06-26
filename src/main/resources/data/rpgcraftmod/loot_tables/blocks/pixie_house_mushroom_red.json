@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "pixie_house_mushroom_red",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:pixie_house_mushroom_red"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "crackled_gravel",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:crackled_gravel"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}

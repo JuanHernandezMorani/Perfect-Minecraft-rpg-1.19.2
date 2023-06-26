@@ -1,9 +1,0 @@
-{
-  "base": "minecraft:purpur_pillar",
-  "layers": [
-	{
-	  "texture": "minecraft:purpur_pillar",
-	  "template": "rpgcraftmodlayer/hands_template"
-	}
-  ]
-}

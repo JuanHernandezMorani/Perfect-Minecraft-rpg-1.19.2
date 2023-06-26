@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:smithing",
-  "base": {"item": "minecraft:iron_axe"},
-  "addition": {"item": "rpgcraftmodrose_gold_alloy"},
-  "result": {"item": "rpgcraftmodrose_gold_axe"}
-}

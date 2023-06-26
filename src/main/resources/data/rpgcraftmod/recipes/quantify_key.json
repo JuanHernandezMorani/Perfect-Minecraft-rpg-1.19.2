@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        { "item": "rpgcraftmoddrawer_key" },
-        { "item": "minecraft:writable_book" }
-    ],
-    "result": { "item": "rpgcraftmodquantify_key" }
-}

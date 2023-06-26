@@ -1,18 +1,16 @@
 package net.cheto97.rpgcraftmod.networking;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.networking.packet.*;
-import net.minecraft.client.player.LocalPlayer;
+import net.cheto97.rpgcraftmod.networking.packet.C2S.*;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.server.ServerLifecycleHooks;
-import org.apache.logging.log4j.core.jmx.Server;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -32,6 +30,8 @@ public class ModMessages {
 
         INSTANCE = net;
 
+         // Packets Player -> Server
+
         net.messageBuilder(DrinkManaFluidC2SPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DrinkManaFluidC2SPacket::new)
                 .encoder(DrinkManaFluidC2SPacket::toBytes)
@@ -44,10 +44,36 @@ public class ModMessages {
                 .consumerMainThread(ViewStatsC2SPacket::handle)
                 .add();
 
+        net.messageBuilder(EntityInfoRequestPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(EntityInfoRequestPacket::new)
+                .encoder(EntityInfoRequestPacket::toBytes)
+                .consumerMainThread(EntityInfoRequestPacket::handle)
+                .add();
+
+        net.messageBuilder(PlayerMountSyncDataPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PlayerMountSyncDataPacket::new)
+                .encoder(PlayerMountSyncDataPacket::toBytes)
+                .consumerMainThread(PlayerMountSyncDataPacket::handle)
+                .add();
+
+        net.messageBuilder(PlayerDataSyncPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PlayerDataSyncPacket::new)
+                .encoder(PlayerDataSyncPacket::toBytes)
+                .consumerMainThread(PlayerDataSyncPacket::handle)
+                .add();
+
+         // Packets Server -> Player
+
         net.messageBuilder(EntitySyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(EntitySyncPacket::new)
                 .encoder(EntitySyncPacket::toBytes)
                 .consumerMainThread(EntitySyncPacket::handle)
+                .add();
+
+        net.messageBuilder(PlayerMountSyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PlayerMountSyncPacket::new)
+                .encoder(PlayerMountSyncPacket::toBytes)
+                .consumerMainThread(PlayerMountSyncPacket::handle)
                 .add();
 
         net.messageBuilder(PlayerSyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
@@ -61,20 +87,11 @@ public class ModMessages {
     public static <MSG> void sendToServer(MSG message){
         INSTANCE.sendToServer(message);
     }
-
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player){
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
-    public static <MSG> void sendToTracking(MSG message, LivingEntity track) {
-        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> track), message);
-    }
     public static <MSG> void sendToClients(MSG message) {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);
-    }
-    public static <MSG> void sendMSGToAll(MSG message) {
-        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            INSTANCE.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
-        }
     }
 
 }

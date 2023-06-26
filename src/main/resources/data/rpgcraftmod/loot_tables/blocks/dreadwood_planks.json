@@ -1,1 +1,0 @@
-{  "type": "minecraft:block",  "pools": [    {      "name": "dreadwood_planks",      "rolls": 1,      "entries": [        {          "type": "minecraft:item",          "name": "rpgcraftmod:dreadwood_planks"        }      ],      "conditions": [        {          "condition": "minecraft:survives_explosion"        }      ]    }  ]}
