@@ -8,10 +8,7 @@ import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.menu.PlayerClassSelectMenu;
-import net.cheto97.rpgcraftmod.modsystem.CustomClass;
-import net.cheto97.rpgcraftmod.modsystem.Customlevel;
-import net.cheto97.rpgcraftmod.modsystem.Experience;
-import net.cheto97.rpgcraftmod.modsystem.FirstJoin;
+import net.cheto97.rpgcraftmod.modsystem.*;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
@@ -105,7 +102,6 @@ public class ModEvents {
         }
         return MAX_RANK;
     }
-
     private static void levelUpPlayer(ServerPlayer player,double lifeIncrease,double manaIncrease,
                                 double lifeRegenerationIncrease,double manaRegenerationIncrease,
                                 double defenseIncrease,double magicDefenseIncrease,double intelligenceIncrease,
@@ -248,6 +244,7 @@ public class ModEvents {
         event.register(StatPoint.class);
         event.register(FirstJoin.class);
         event.register(CustomClass.class);
+        event.register(RegenerationDelay.class);
     }
     @SubscribeEvent
     public static void onHitCriticalChance(CriticalHitEvent event){
@@ -267,10 +264,6 @@ public class ModEvents {
                 event.setResult(Event.Result.DENY);
             }
         }
-    }
-    @SubscribeEvent
-    public static void onPlayerPickUpItem(EntityItemPickupEvent event){
-        // create logic for player pick up notification
     }
     @SubscribeEvent
     public static void onAttachCapabilityEntity(AttachCapabilitiesEvent<Entity> event){
@@ -297,6 +290,7 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"statpoint"),new StatPointProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"customclass"), new CustomClassProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "regenerationdelay"), new RegenerationDelayProvider());
                 } else {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "rank"), new RankProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
@@ -316,6 +310,7 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"experiencereward"), new ExperienceRewardProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "regenerationdelay"), new RegenerationDelayProvider());
                 }
             }
         }
@@ -656,6 +651,12 @@ public class ModEvents {
                             if(totalDamage != -111111 && totalDamage < 1){
                                 totalDamage = 1;
                             }
+                            if(target instanceof Player && livingAttacker instanceof Player){
+                                target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
+                            }else if(!(target instanceof Player)){
+                                target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
+                            }
+
                             life.consumeLife(totalDamage);
                             reduceArmorDurability(target, totalDamage);
                         }
@@ -683,6 +684,9 @@ public class ModEvents {
                         if(!source.isFall() && totalDamage < 1){
                             totalDamage = 1;
                         }
+
+                        target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
+
                         life.consumeLife(totalDamage);
                         reduceArmorDurability(target, totalDamage);
                     });
@@ -732,8 +736,14 @@ public class ModEvents {
                             if (life.get() <= 0) {
                                 player.setHealth(0.0f);
                             }
-                            if (life.get() < lifeMax.get() && life.get() > 0 && !player.getCombatTracker().isTakingDamage()) {
+                            if (life.get() < lifeMax.get() && life.get() > 0 && player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
                                 life.add(lifeRegeneration.get() * 0.05);
+                            }else{
+                                int cooldown = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
+                                if(cooldown == 100){
+                                    player.sendSystemMessage(Component.literal("You have receive damage, regeneration disable for 5 seconds.").withStyle(ChatFormatting.RED));
+                                }
+                                player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
                             }
                             if (mana.get() < manaMax.get()) {
                                 mana.add(manaRegeneration.get() * 0.05);
@@ -759,11 +769,19 @@ public class ModEvents {
                                 livingEntity.die(DamageSource.GENERIC);
                             }
                             if(rank.get() < 10){
-                                if (life.get() < lifeMax.get() && life.get() > 0  && !livingEntity.getCombatTracker().isTakingDamage()) {
+                                if (life.get() < lifeMax.get() && life.get() > 0  && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
+                                    life.add(lifeRegeneration.get());
+                                }
+                            }else if(rank.get() > 6){
+                                if (life.get() < lifeMax.get() && life.get() > 0 && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
+                                    life.add(lifeRegeneration.get() * 0.75);
+                                }
+                            }else if(rank.get() > 3){
+                                if (life.get() < lifeMax.get() && life.get() > 0 && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
                                     life.add(lifeRegeneration.get() * 0.5);
                                 }
                             }else{
-                                if (life.get() < lifeMax.get() && life.get() > 0) {
+                                if (life.get() < lifeMax.get() && life.get() > 0 && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
                                     life.add(lifeRegeneration.get() * 0.25);
                                 }
                             }
