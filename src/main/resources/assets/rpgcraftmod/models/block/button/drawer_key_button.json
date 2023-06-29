@@ -1,7 +1,0 @@
-{
-    "parent": "rpgcraftmodblock/button/key_button",
-    "textures": {
-        "texture": "rpgcraftmodblocks/key_button",
-        "label": "rpgcraftmodblocks/button_face_drawer_key"
-    }
-}

@@ -61,4 +61,73 @@ public class NumberUtils {
         return amount;
 
     }
+
+    public static int randomIntWithLuck(int maxValue, int minValue, double luck) {
+        Random random = new Random();
+
+        int amount = minValue;
+
+        double rankFactor = (double) (maxValue - minValue) / maxValue;
+
+        double[] probabilities = new double[maxValue];
+        for (int i = 0; i < maxValue; i++) {
+            double baseProbability = (double) (i + 1) / (maxValue - 1);
+            double luckModifier = Math.pow(luck, (double) (maxValue - i) / maxValue);
+            probabilities[i] = baseProbability * rankFactor * luckModifier;
+        }
+
+        double totalProbability = 0.0;
+        for (double probability : probabilities) {
+            totalProbability += probability;
+        }
+
+        double randomNumber = random.nextDouble() * totalProbability;
+
+        double cumulativeProbability = 0.0;
+        for (int i = 0; i < probabilities.length; i++) {
+            cumulativeProbability += probabilities[i];
+            if (randomNumber < cumulativeProbability) {
+                amount = i;
+                break;
+            }
+        }
+
+        return amount;
+    }
+
+    public static double randomDouble(double maxValue,double minValue){
+
+        Random random = new Random();
+
+        double amount = minValue;
+
+        double rankFactor = (maxValue - minValue) / maxValue;
+
+        int max = (int) Math.round(maxValue) + 1;
+        double[] probabilities = new double[max];
+
+        for (int i = 0; i < maxValue; i++) {
+            double baseProbability = (double) (i + 1) / (maxValue-1);
+            probabilities[i] = baseProbability * rankFactor;
+        }
+
+        double totalProbability = 0.0;
+        for (double probability : probabilities) {
+            totalProbability += probability;
+        }
+
+        double randomNumber = random.nextDouble() * totalProbability;
+
+        double cumulativeProbability = 0.0;
+        for (int i = 0; i < probabilities.length; i++) {
+            cumulativeProbability += probabilities[i];
+            if (randomNumber < cumulativeProbability) {
+                amount = i;
+                break;
+            }
+        }
+
+        return amount;
+
+    }
 }

@@ -1,9 +1,0 @@
-{
-  "parent": "block/block",
-  "loader": "forge:obj",
-  "model": "rpgcraftmod:models/block/essentializer.obj",
-  "automatic_culling": true,
-  "textures": {
-    "particle": "rpgcraftmod:block/side_obsidian"
-  }
-}

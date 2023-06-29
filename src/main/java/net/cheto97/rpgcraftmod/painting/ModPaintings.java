@@ -86,6 +86,42 @@ public class ModPaintings {
     public static final RegistryObject<PaintingVariant> MOD_WAVE = PAINTING_VARIANTS.register("mod_wave",
             () -> new PaintingVariant(32,32));
 
+    public static final RegistryObject<PaintingVariant> chilling_isles = PAINTING_VARIANTS.register("chilling_isles",
+            () -> new PaintingVariant(32,32));
+
+    public static final RegistryObject<PaintingVariant> da_salt = PAINTING_VARIANTS.register("da_salt",
+            () -> new PaintingVariant(32,16));
+
+    public static final RegistryObject<PaintingVariant> glow_like_helly = PAINTING_VARIANTS.register("glow_like_helly",
+            () -> new PaintingVariant(16,16));
+
+    public static final RegistryObject<PaintingVariant> glowstone_canyon_painting = PAINTING_VARIANTS.register("glowstone_canyon_painting",
+            () -> new PaintingVariant(64,64));
+
+    public static final RegistryObject<PaintingVariant> infernal_back = PAINTING_VARIANTS.register("infernal_back",
+            () -> new PaintingVariant(16,16));
+
+    public static final RegistryObject<PaintingVariant> pigs_greed = PAINTING_VARIANTS.register("pigs_greed",
+            () -> new PaintingVariant(16,16));
+
+    public static final RegistryObject<PaintingVariant> pineapple_under_the_lava_sea = PAINTING_VARIANTS.register("pineapple_under_the_lava_sea",
+            () -> new PaintingVariant(64,64));
+
+    public static final RegistryObject<PaintingVariant> shroom_duality = PAINTING_VARIANTS.register("shroom_duality",
+            () -> new PaintingVariant(16,16));
+
+    public static final RegistryObject<PaintingVariant> soul_by_soul = PAINTING_VARIANTS.register("soul_by_soul",
+            () -> new PaintingVariant(32,32));
+
+    public static final RegistryObject<PaintingVariant> soul_hole = PAINTING_VARIANTS.register("soul_hole",
+            () -> new PaintingVariant(16,16));
+
+    public static final RegistryObject<PaintingVariant> the_fallen_ones = PAINTING_VARIANTS.register("the_fallen_ones",
+            () -> new PaintingVariant(64,64));
+
+    public static final RegistryObject<PaintingVariant> voline = PAINTING_VARIANTS.register("voline",
+            () -> new PaintingVariant(16,16));
+
     public static void register(IEventBus eventBus){
         PAINTING_VARIANTS.register(eventBus);
     }

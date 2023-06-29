@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/dragon_egg",
-  "textures": {
-    "particle": "rpgcraftmod:block/ghost_dragon_egg",
-    "all": "rpgcraftmod:block/ghost_dragon_egg"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "rpgcraftmod:block/vertical_slab",
-  "textures": {
-    "side": "rpgcraftmod:block/zombified_cut_rpgcraftmod",
-    "top": "rpgcraftmod:block/zombified_cut_rpgcraftmod",
-    "bottom": "rpgcraftmod:block/zombified_cut_rpgcraftmod"
-  }
-}

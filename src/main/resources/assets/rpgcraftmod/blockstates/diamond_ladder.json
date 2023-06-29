@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "rpgcraftmoddiamond_ladder" },
-        "facing=east":  { "model": "rpgcraftmoddiamond_ladder", "y": 90 },
-        "facing=south": { "model": "rpgcraftmoddiamond_ladder", "y": 180 },
-        "facing=west":  { "model": "rpgcraftmoddiamond_ladder", "y": 270 }
-    }
-}

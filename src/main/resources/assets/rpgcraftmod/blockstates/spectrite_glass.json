@@ -1,6 +1,0 @@
-{
-	"variants": {
-		"odd=false": { "model": "rpgcraftmodspectrite_glass" },
-		"odd=true": { "model": "rpgcraftmodspectrite_glass_odd" }
-	}
-}

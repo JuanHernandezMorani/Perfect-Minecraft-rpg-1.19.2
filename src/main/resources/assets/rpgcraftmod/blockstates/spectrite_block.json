@@ -1,6 +1,0 @@
-{
-	"variants": {
-		"odd=false": { "model": "rpgcraftmodspectrite_block" },
-		"odd=true": { "model": "rpgcraftmodspectrite_block_odd" }
-	}
-}

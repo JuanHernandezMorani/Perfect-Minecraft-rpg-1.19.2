@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "rpgcraftmod:block/luminous_stem_top",
-    "side": "rpgcraftmod:block/luminous_stem"
-  }
-}

@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "rpgcraftmodspectrite_chest_trapped" },
-        "facing=east": { "model": "rpgcraftmodspectrite_chest_trapped", "y": 90  },
-        "facing=south": { "model": "rpgcraftmodspectrite_chest_trapped", "y": 180  },
-        "facing=west": { "model": "rpgcraftmodspectrite_chest_trapped", "y": 270  }
-    }
-}

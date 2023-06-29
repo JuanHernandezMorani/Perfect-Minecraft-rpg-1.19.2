@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "rpgcraftmod:block/trapped_glowdust_sand_animated"
-  }
-}

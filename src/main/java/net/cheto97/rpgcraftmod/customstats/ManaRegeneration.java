@@ -11,23 +11,15 @@ public class ManaRegeneration {
     public void set(double value){
         this.manaregeneration = value;
     }
-
-    public double getMin(){
-        return 0;
-    }
-
-    public void increaseMax(){
+    public void add(){
         manaregeneration++;
     }
-
     public void resetStat(){
         manaregeneration = 1;
     }
-
     public void add(double value){
             this.manaregeneration =  this.manaregeneration + value;
     }
-
     public void copyFrom(ManaRegeneration source){
         this.manaregeneration = source.manaregeneration;
     }

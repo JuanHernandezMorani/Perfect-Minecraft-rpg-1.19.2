@@ -1,11 +1,8 @@
 package net.cheto97.rpgcraftmod.block;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.block.custom.BlueberryCropBlock;
-import net.cheto97.rpgcraftmod.block.custom.MagicLampBlock;
-import net.cheto97.rpgcraftmod.block.custom.ManaBlock;
+import net.cheto97.rpgcraftmod.block.custom.*;
 import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
-import net.cheto97.rpgcraftmod.custom.WizardTableBlock;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -76,11 +73,20 @@ public class ModBlocks {
                     .noOcclusion()
             ));
 
+    public static final RegistryObject<Block> GEM_INFUSING_STATION = registerBlock("gem_infusing_station",
+            () -> new GemInfusingStationBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(6f).requiresCorrectToolForDrops().noOcclusion()));
+
     public static final RegistryObject<Block> BLUEBERRY_CROP = BLOCKS.register("blueberry_crop",
             () -> new BlueberryCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
     public static final RegistryObject<LiquidBlock> LIQUID_MANA_BLOCK = BLOCKS.register( "liquid_mana_block",
             () -> new LiquidBlock(ModFluids.SOURCE_MANA, BlockBehaviour.Properties.copy((Blocks.WATER))));
+
+
+
+
+
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name,block);

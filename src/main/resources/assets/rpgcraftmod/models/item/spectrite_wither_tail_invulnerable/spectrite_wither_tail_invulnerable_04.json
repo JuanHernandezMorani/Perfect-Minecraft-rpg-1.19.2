@@ -1,6 +1,0 @@
-{
-    "parent": "rpgcraftmoditem/spectrite_wither_tail",
-    "textures": {
-        "tail": "rpgcraftmodentities/spectrite_wither_rod_invulnerable/4"
-    }
-}

@@ -2,6 +2,7 @@ package net.cheto97.rpgcraftmod.networking.packet.S2C;
 
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
+import net.cheto97.rpgcraftmod.modsystem.FirstJoin;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
 import static net.cheto97.rpgcraftmod.networking.data.EntityData.*;
@@ -17,38 +18,36 @@ import java.util.Collection;
 import java.util.function.Supplier;
 
 public class EntitySyncPacket {
-    private int id;
-    private int level;
-    private int rank;
-    private BlockPos pos;
-    private double life ;
-    private double lifeMax;
-    private double lifeRegeneration;
-    private double mana;
-    private double manaMax;
-    private double manaRegeneration;
-    private double intelligence;
-    private double agility;
-    private double strength;
-    private double command;
-    private double dexterity;
-    private double defense;
-    private double magicDefense;
-    private double experienceReward;
+    private final int id;
+    private final int level;
+    private final int rank;
+    private final BlockPos pos;
+    private final double life ;
+    private final double lifeMax;
+    private final double lifeRegeneration;
+    private final double mana;
+    private final double manaMax;
+    private final double manaRegeneration;
+    private final double intelligence;
+    private final double agility;
+    private final double strength;
+    private final double command;
+    private final double dexterity;
+    private final double defense;
+    private final double magicDefense;
+    private final double experienceReward;
     private double luck;
-    private String name;
-    private Collection<MobEffectInstance> effectActives;
+    private final String name;
+    private final Collection<MobEffectInstance> effectActives;
+    private final boolean join;
 
     public EntitySyncPacket(LivingEntity entity){
-            this(
-                    entity.getName().getString(),
-                    entity.getId(),
-                    entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1),
+            this(entity.getName().getString(), entity.getId(), entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1),
                     new BlockPos(entity.getBlockX(),entity.getBlockY(),entity.getBlockZ()),
                     entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0),
-                    entity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0),
+                    entity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(0.0),
                     entity.getCapability(ManaProvider.ENTITY_MANA).map(Mana::get).orElse(0.0),
-                    entity.getCapability(ManaProvider.ENTITY_MANA).map(Mana::getMax).orElse(0.0),
+                    entity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(0.0),
                     entity.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(0.0),
                     entity.getCapability(CommandProvider.ENTITY_COMMAND).map(Command::get).orElse(0.0),
                     entity.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.0),
@@ -61,93 +60,57 @@ public class EntitySyncPacket {
                     entity.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0),
                     entity.getCapability(ExperienceRewardProvider.ENTITY_EXPERIENCE_REWARD).map(ExperienceReward::get).orElse(1.0),
                     entity.getCapability(LuckProvider.ENTITY_LUCK).map(Luck::get).orElse(1.0),
+                    entity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).map(FirstJoin::get).orElse(true),
                     entity.getActiveEffects());
     }
     public EntitySyncPacket(String name, int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
-                            int rank, double experienceReward, double luck,Collection<MobEffectInstance> effects){
+                            int rank, double experienceReward,double luck, boolean join,Collection<MobEffectInstance> effects){
 
-        if(name != null){
             this.name = name;
-        }
-        if(id >= 0){
-            this.id = id;
-        }
-        
-        if(level >= 0){
-            this.level = level;
-        }
-        
-        if(pos != null){
-            this.pos = pos;
-        }
-        
-        if(life >= 0){
-            this.life = life;
-        }
-        
-        if(lifeMax >= 0){
-            this.lifeMax = lifeMax;
-        }
-        
-        if(lifeRegeneration >= 0){
-            this.lifeRegeneration = lifeRegeneration;
-        }
-        
-        if(mana >= 0){
-            this.mana = mana;
-        }
-        
-        if(manaMax >= 0){
-            this.manaMax = manaMax;
-        }
-        
-        if(manaRegeneration >= 0){
-            this.manaRegeneration = manaRegeneration;
-        }
-        
-        if(agility >= 0){
-            this.agility = agility;
-        }
-        
-        if(command >= 0){
-            this.command = command;
-        }
-        
-        if(defense >= 0){
-            this.defense = defense;
-        }
-        
-        if(magicDefense >= 0){
-            this.magicDefense = magicDefense;
-        }
-        
-        if(dexterity >= 0){
-            this.dexterity = dexterity;
-        }
-        
-        if(intelligence >= 0){
-            this.intelligence = intelligence;
-        }
-        
-        if(strength >= 0){
-            this.strength = strength;
-        }
-        
-        if(rank >= 0){
-            this.rank = rank;
-        }
-        if(experienceReward >= 0){
-            this.experienceReward = experienceReward;
-        }
-        if(luck >= 0){
-            this.luck = luck;
-        }
-        if(effects != null){
-            this.effectActives = effects;
-        }
 
+            this.id = id;
+
+            this.level = level;
+
+            this.pos = pos;
+
+            this.life = life;
+
+            this.lifeMax = lifeMax;
+
+            this.lifeRegeneration = lifeRegeneration;
+
+            this.mana = mana;
+
+            this.manaMax = manaMax;
+
+            this.manaRegeneration = manaRegeneration;
+
+            this.agility = agility;
+
+            this.command = command;
+
+            this.defense = defense;
+
+            this.magicDefense = magicDefense;
+
+            this.dexterity = dexterity;
+
+            this.intelligence = intelligence;
+
+            this.strength = strength;
+
+            this.rank = rank;
+
+            this.experienceReward = experienceReward;
+
+            this.luck = luck;
+
+        this.join = join;
+
+            this.effectActives = effects;
     }
 
     public EntitySyncPacket(FriendlyByteBuf buf){
@@ -170,6 +133,7 @@ public class EntitySyncPacket {
         this.strength = buf.readDouble();
         this.rank = buf.readInt();
         this.experienceReward = buf.readDouble();
+        this.join = buf.readBoolean();
         this.effectActives = buf.readList((buffer) -> {
             int effectId = buffer.readInt();
             int amplifier = buffer.readInt();
@@ -198,6 +162,7 @@ public class EntitySyncPacket {
         buf.writeDouble(strength);
         buf.writeInt(rank);
         buf.writeDouble(experienceReward);
+        buf.writeBoolean(join);
         buf.writeCollection(effectActives, (buffer, effectInstance) -> {
             buffer.writeInt(MobEffect.getIdFromNullable(effectInstance.getEffect()));
             buffer.writeInt(effectInstance.getAmplifier());
@@ -229,6 +194,7 @@ public class EntitySyncPacket {
             setEntityAgility(agility);
             setEntityPos(pos);
             setEntityLuck(luck);
+            setJoin(join);
             setEffects(effectActives);
         });
         return true;

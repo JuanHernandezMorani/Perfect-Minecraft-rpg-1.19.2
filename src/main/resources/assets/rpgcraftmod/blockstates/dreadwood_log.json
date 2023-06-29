@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "axis=y":  { "model": "rpgcraftmod:block/dreadwood_log" },
-        "axis=z":   { "model": "rpgcraftmod:block/dreadwood_log", "x": 90 },
-        "axis=x":   { "model": "rpgcraftmod:block/dreadwood_log", "x": 90, "y": 90 }
-    }
-}

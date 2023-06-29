@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_fire_floor",
-  "textures": {
-    "fire": "rpgcraftmod:block/glow_fire_1"
-  }
-}

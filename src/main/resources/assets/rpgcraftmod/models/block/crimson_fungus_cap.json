@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "rpgcraftmod:block/crimson_fungus_cap_top",
-    "bottom": "rpgcraftmod:block/crimson_fungus_cap_bottom",
-    "side": "rpgcraftmod:block/crimson_fungus_cap_side"
-  }
-}

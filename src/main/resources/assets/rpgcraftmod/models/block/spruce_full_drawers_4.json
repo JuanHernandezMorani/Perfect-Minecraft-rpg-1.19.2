@@ -1,9 +1,0 @@
-{
-    "parent": "rpgcraftmodblock/full_drawers_orientable",
-    "textures": {
-        "top": "rpgcraftmodblocks/drawers_spruce_side",
-        "front": "rpgcraftmodblocks/drawers_spruce_front_4",
-        "side": "rpgcraftmodblocks/drawers_spruce_side",
-        "trim": "rpgcraftmodblocks/drawers_spruce_trim"
-    }
-}

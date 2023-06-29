@@ -13,33 +13,37 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class PlayerSyncPacket {
-    private int id;
-    private int level;
-    private BlockPos pos;
-    private double life ;
-    private double lifeMax;
-    private double lifeRegeneration;
-    private double mana;
-    private double manaMax;
-    private double manaRegeneration;
-    private double intelligence;
-    private double agility;
-    private double strength;
-    private double command;
-    private double dexterity;
-    private double defense;
-    private double magicDefense;
-    private double experience;
-
+    private final int id;
+    private final int level;
+    private final BlockPos pos;
+    private final double life;
+    private final double lifeMax;
+    private final double lifeRegeneration;
+    private final double mana;
+    private final double manaMax;
+    private final double manaRegeneration;
+    private final double intelligence;
+    private final double agility;
+    private final double strength;
+    private final double command;
+    private final double dexterity;
+    private final double defense;
+    private final double magicDefense;
+    private final double experience;
+    private final double luck;
+    private final int statPoints;
+    private final double expNeed;
+    private final boolean join;
+    private final int playerClass;
 
     public PlayerSyncPacket(Player player){
         this(player.getId(),
                 player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1),
                 new BlockPos(player.getBlockX(),player.getBlockY(),player.getBlockZ()),
                 player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(0.0),
-                player.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getMax).orElse(0.0),
+                player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(0.0),
                 player.getCapability(ManaProvider.ENTITY_MANA).map(Mana::get).orElse(0.0),
-                player.getCapability(ManaProvider.ENTITY_MANA).map(Mana::getMax).orElse(0.0),
+                player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(0.0),
                 player.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(0.0),
                 player.getCapability(CommandProvider.ENTITY_COMMAND).map(Command::get).orElse(0.0),
                 player.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(0.0),
@@ -49,79 +53,40 @@ public class PlayerSyncPacket {
                 player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0),
                 player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).map(ManaRegeneration::get).orElse(0.0),
                 player.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.0),
-                player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).map(Experience::get).orElse(0.0));
+                player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).map(Experience::get).orElse(0.0),
+                player.getCapability(LuckProvider.ENTITY_LUCK).map(Luck::get).orElse(0.0),
+                player.getCapability(StatPointProvider.ENTITY_STATPOINT).map(StatPoint::get).orElse(-1),
+                player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::experienceNeeded).orElse(0.0),
+                player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).map(FirstJoin::get).orElse(false),
+                player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0));
     }
 
     public PlayerSyncPacket(int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
-                            double experience){
-        if(id >= 0){
-            this.id = id;
-        }
-
-        if(level >= 0){
-            this.level = level;
-        }
-
-        if(pos != null){
-            this.pos = pos;
-        }
-
-        if(life >= 0){
-            this.life = life;
-        }
-
-        if(lifeMax >= 0){
-            this.lifeMax = lifeMax;
-        }
-
-        if(lifeRegeneration >= 0){
-            this.lifeRegeneration = lifeRegeneration;
-        }
-
-        if(mana >= 0){
-            this.mana = mana;
-        }
-
-        if(manaMax >= 0){
-            this.manaMax = manaMax;
-        }
-
-        if(manaRegeneration >= 0){
-            this.manaRegeneration = manaRegeneration;
-        }
-
-        if(agility >= 0){
-            this.agility = agility;
-        }
-
-        if(command >= 0){
-            this.command = command;
-        }
-
-        if(defense >= 0){
-            this.defense = defense;
-        }
-
-        if(magicDefense >= 0){
-            this.magicDefense = magicDefense;
-        }
-
-        if(dexterity >= 0){
-            this.dexterity = dexterity;
-        }
-
-        if(intelligence >= 0){
-            this.intelligence = intelligence;
-        }
-
-        if(strength >= 0){
-            this.strength = strength;
-        }
-        if(experience >= 0){
-            this.experience = experience;
-        }
+                            double experience,double luck,int stat,double expNeed, boolean join, int playerClass){
+        this.id = id;
+        this.level = level;
+        this.pos = pos;
+        this.life = life;
+        this.lifeMax = lifeMax;
+        this.lifeRegeneration = lifeRegeneration;
+        this.mana = mana;
+        this.manaMax = manaMax;
+        this.manaRegeneration = manaRegeneration;
+        this.agility = agility;
+        this.command = command;
+        this.defense = defense;
+        this.magicDefense = magicDefense;
+        this.dexterity = dexterity;
+        this.intelligence = intelligence;
+        this.strength = strength;
+        this.experience = experience;
+        this.luck = luck;
+        this.statPoints = stat;
+        this.expNeed = expNeed;
+        this.join = join;
+        this.playerClass = playerClass;
     }
 
     public PlayerSyncPacket(FriendlyByteBuf buf){
@@ -142,6 +107,11 @@ public class PlayerSyncPacket {
         this.intelligence = buf.readDouble();
         this.strength = buf.readDouble();
         this.experience = buf.readDouble();
+        this.luck = buf.readDouble();
+        this.statPoints = buf.readInt();
+        this.expNeed = buf.readDouble();
+        this.join = buf.readBoolean();
+        this.playerClass = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf){
@@ -162,6 +132,11 @@ public class PlayerSyncPacket {
         buf.writeDouble(intelligence);
         buf.writeDouble(strength);
         buf.writeDouble(experience);
+        buf.writeDouble(luck);
+        buf.writeInt(statPoints);
+        buf.writeDouble(expNeed);
+        buf.writeBoolean(join);
+        buf.writeInt(playerClass);
     }
 
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){
@@ -184,6 +159,11 @@ public class PlayerSyncPacket {
             PlayerData.setPlayerIntelligence(intelligence);
             PlayerData.setPlayerStrength(strength);
             PlayerData.setPlayerExperience(experience);
+            PlayerData.setPlayerLuck(luck);
+            PlayerData.setPlayerStatPoints(statPoints);
+            PlayerData.setExpNeed(expNeed);
+            PlayerData.setJoin(join);
+            PlayerData.setPlayerClass(playerClass);
         });
         return true;
     }

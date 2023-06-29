@@ -1,7 +1,0 @@
-{
-    "parent": "rpgcraftmodblock/spectrite_fire/spectrite_fire_floor",
-    "textures": {
-        "particle": "rpgcraftmodblocks/spectrite_fire_layer_0",
-        "fire": "rpgcraftmodblocks/spectrite_fire_layer_0"
-    }
-}

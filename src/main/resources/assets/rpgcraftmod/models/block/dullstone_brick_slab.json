@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "rpgcraftmod:block/dullstone_bricks",
-    "top": "rpgcraftmod:block/dullstone_bricks",
-    "side": "rpgcraftmod:block/dullstone_bricks"
-  }
-}

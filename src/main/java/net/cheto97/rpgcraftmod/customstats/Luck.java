@@ -14,6 +14,7 @@ public class Luck {
     public void add(){
         this.luck++;
     }
+    public void set(double value){this.luck = value;}
     public void resetStat(){
         luck = 1;
     }

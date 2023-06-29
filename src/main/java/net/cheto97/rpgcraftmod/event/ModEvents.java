@@ -1,13 +1,17 @@
 package net.cheto97.rpgcraftmod.event;
 
+import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
+import net.cheto97.rpgcraftmod.menu.PlayerClassSelectMenu;
+import net.cheto97.rpgcraftmod.modsystem.CustomClass;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.modsystem.Experience;
+import net.cheto97.rpgcraftmod.modsystem.FirstJoin;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
@@ -29,11 +33,14 @@ import static net.cheto97.rpgcraftmod.util.NumberUtils.randomInt;
 import static net.cheto97.rpgcraftmod.util.RPGutil.setBonusValue;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -46,8 +53,10 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
@@ -64,6 +73,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -95,24 +105,17 @@ public class ModEvents {
         }
         return MAX_RANK;
     }
-    private static String formatDouble(double value) {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator(',');
-
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.###", symbols);
-        return decimalFormat.format(value);
-    }
 
     private static void levelUpPlayer(ServerPlayer player,double lifeIncrease,double manaIncrease,
                                 double lifeRegenerationIncrease,double manaRegenerationIncrease,
                                 double defenseIncrease,double magicDefenseIncrease,double intelligenceIncrease,
                                 double dexterityIncrease, double strengthIncrease, double agilityIncrease,
                                 double commandIncrease, double luckIncrease){
-        player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> {
-            life.increaseMax(lifeIncrease);
-            life.set(life.getMax());
-            mana.increaseMax(manaIncrease);
-            mana.set(mana.getMax());
+        player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax ->{
+            lifeMax.add(lifeIncrease);
+            life.set(lifeMax.get());
+            manaMax.add(manaIncrease);
+            mana.set(manaMax.get());
             lifeRegeneration.add(lifeRegenerationIncrease);
             manaRegeneration.add(manaRegenerationIncrease);
             defense.add(defenseIncrease);
@@ -123,12 +126,20 @@ public class ModEvents {
             agility.add(agilityIncrease);
             command.add(commandIncrease);
             luck.add(luckIncrease);
+
+            int difficultyLevel = switch(player.getLevel().getDifficulty()){
+                        case PEACEFUL -> 1;
+                        case EASY -> 2;
+                        case NORMAL -> 5;
+                        case HARD -> 8;
+                    };
+            stats.add(difficultyLevel);
             updatePlayerCapabilities(player);
-        }))))))))))));
+        })))))))))))))));
     }
 
     private static void levelUpMob(LivingEntity entity, int multiplier,int rank){
-        entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> entity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> entity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> entity.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> entity.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> entity.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> entity.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> entity.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> entity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> {
+        entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> entity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> entity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> entity.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> entity.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> entity.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> entity.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> entity.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> entity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> entity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> entity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
             double MIN_VALUE;
             double MAX_VALUE;
 
@@ -164,13 +175,13 @@ public class ModEvents {
                 }
             }
 
-            life.increaseMax(multiplier*(MIN_VALUE + (MAX_VALUE - MIN_VALUE)));
-            mana.increaseMax(2*(MIN_VALUE + (MAX_VALUE - MIN_VALUE))*multiplier);
-            life.set(life.getMax());
-            mana.set(mana.getMax());
+            lifeMax.add(multiplier*(MIN_VALUE + (MAX_VALUE - MIN_VALUE)));
+            manaMax.add(2*(MIN_VALUE + (MAX_VALUE - MIN_VALUE))*multiplier);
+            life.set(lifeMax.get());
+            mana.set(manaMax.get());
             lifeRegeneration.add(0.000025);
             manaRegeneration.add(0.0005);
-            defense.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
+            defense.add(((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier)*0.20);
             magicDefense.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
             intelligence.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
             dexterity.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
@@ -178,7 +189,7 @@ public class ModEvents {
             agility.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
             command.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
             luck.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
-        }))))))))))));
+        }))))))))))))));
     }
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event){
@@ -219,8 +230,10 @@ public class ModEvents {
         event.register(Customlevel.class);
         event.register(Experience.class);
         event.register(Mana.class);
+        event.register(ManaMax.class);
         event.register(ManaRegeneration.class);
         event.register(Life.class);
+        event.register(LifeMax.class);
         event.register(LifeRegeneration.class);
         event.register(Agility.class);
         event.register(Defense.class);
@@ -232,6 +245,9 @@ public class ModEvents {
         event.register(Rank.class);
         event.register(MagicDefense.class);
         event.register(ExperienceReward.class);
+        event.register(StatPoint.class);
+        event.register(FirstJoin.class);
+        event.register(CustomClass.class);
     }
     @SubscribeEvent
     public static void onHitCriticalChance(CriticalHitEvent event){
@@ -262,7 +278,6 @@ public class ModEvents {
             Entity entity = event.getObject();
             if(entity instanceof LivingEntity livingEntity) {
                 if (livingEntity instanceof Player) {
-
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "experience"), new ExperienceProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "command"), new CommandProvider());
@@ -271,13 +286,17 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "dexterity"), new DexterityProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "intelligence"), new IntelligenceProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "life"), new LifeProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"lifemax"), new LifeMaxProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "liferegeneration"), new LifeRegenerationProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "magicdefense"), new MagicDefenseProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "mana"), new ManaProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"manamax"),new ManaMaxProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "manaregeneration"), new ManaRegenerationProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
-
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"statpoint"),new StatPointProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"customclass"), new CustomClassProvider());
                 } else {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "rank"), new RankProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
@@ -287,13 +306,16 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "dexterity"), new DexterityProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "intelligence"), new IntelligenceProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "life"), new LifeProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"lifemax"),new LifeMaxProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "liferegeneration"), new LifeRegenerationProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "magicdefense"), new MagicDefenseProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "mana"), new ManaProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"manamax"), new ManaMaxProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "manaregeneration"), new ManaRegenerationProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"experiencereward"), new ExperienceRewardProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
                 }
             }
         }
@@ -367,8 +389,7 @@ public class ModEvents {
         if (timeLevel < 2) {
             lvlReduce = finalLevel;
         }
-        Random random = new Random();
-        int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5,(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10))) : randomInt(random.nextInt(20)*2+random.nextInt(8)*3,1);
+        int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) : randomInt(15,1);
 
         livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
             customLevel.setLevel(fnLvl);
@@ -504,9 +525,13 @@ public class ModEvents {
 
             event.getOriginal().getCapability(ManaProvider.ENTITY_MANA).ifPresent(oldStore -> event.getEntity().getCapability(ManaProvider.ENTITY_MANA).ifPresent(newStore -> newStore.copyFrom(oldStore)));
 
+            event.getOriginal().getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(oldStore -> event.getEntity().getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+
             event.getOriginal().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(oldStore -> event.getEntity().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(newStore -> newStore.copyFrom(oldStore)));
 
             event.getOriginal().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(oldStore -> event.getEntity().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+
+            event.getOriginal().getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(oldStore -> event.getEntity().getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(newStore -> newStore.copyFrom(oldStore)));
 
             event.getOriginal().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(oldStore -> event.getEntity().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(newStore -> newStore.copyFrom(oldStore)));
 
@@ -525,6 +550,10 @@ public class ModEvents {
             event.getOriginal().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(oldStore -> event.getEntity().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(newStore -> newStore.copyFrom(oldStore)));
 
             event.getOriginal().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(oldStore -> event.getEntity().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+
+            event.getOriginal().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(oldStore -> event.getEntity().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+
+            event.getOriginal().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(oldStore -> event.getEntity().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(newStore -> newStore.copyFrom(oldStore)));
         }
     }
     @SubscribeEvent
@@ -640,7 +669,7 @@ public class ModEvents {
                         target.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                             if(target instanceof Player && mana.get() != 0.0){
                             if(mana.get() >= totalDamage){
-                                mana.consumeMana(totalDamage);
+                                mana.consumeMana(totalDamage*2);
                                 totalDamage = 0.0;
                                 target.sendSystemMessage(Component.literal("You consume your mana, to complete decrease fall damage"));
                                 }else{
@@ -696,41 +725,53 @@ public class ModEvents {
             LivingEntity livingEntity = event.getEntity();
             if (livingEntity != null) {
                 if(livingEntity instanceof ServerPlayer player){
-                        player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> {
-                            if(mana.get() != mana.getMax() || life.get() != life.getMax()){
+                        player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
+                            if(mana.get() != manaMax.get() || life.get() != lifeMax.get()){
                                 updatePlayerCapabilities(player);
                             }
                             if (life.get() <= 0) {
                                 player.setHealth(0.0f);
-                                player.die(DamageSource.GENERIC);
                             }
-                            if (life.get() < life.getMax() && life.get() > 0) {
-                                life.add(lifeRegeneration.get() * 0.025);
+                            if (life.get() < lifeMax.get() && life.get() > 0 && !player.getCombatTracker().isTakingDamage()) {
+                                life.add(lifeRegeneration.get() * 0.05);
                             }
-                            if (mana.get() < mana.getMax()) {
-                                mana.add(manaRegeneration.get() * 0.04);
+                            if (mana.get() < manaMax.get()) {
+                                mana.add(manaRegeneration.get() * 0.05);
                             }
-                    }))));
+                            if(mana.get() > manaMax.get()){
+                                mana.set(manaMax.get());
+                            }
+                            if(life.get() > lifeMax.get()){
+                                life.set(lifeMax.get());
+                            }
+                    }))))));
 
                 }
                 else{
                     if(livingEntity instanceof Animal || livingEntity instanceof Monster || livingEntity instanceof WaterAnimal || livingEntity instanceof Villager){
-                        livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> livingEntity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> livingEntity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
-                            if (customLevel.hasEnteredLevel()) {
-                                customLevel.setEnteredWorld();
+                        livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> livingEntity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> livingEntity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> livingEntity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(join -> livingEntity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> {
+                            if (!join.get()) {
                                 setCapabilities(livingEntity);
+                                join.set();
                             }
                             if (life.get() <= 0) {
                                 livingEntity.setHealth(0.0f);
                                 livingEntity.die(DamageSource.GENERIC);
                             }
-                            if (life.get() < life.getMax() && livingEntity.getHealth() > 0.1f) {
-                                life.add(lifeRegeneration.get() * 0.025);
+                            if(rank.get() < 10){
+                                if (life.get() < lifeMax.get() && life.get() > 0  && !livingEntity.getCombatTracker().isTakingDamage()) {
+                                    life.add(lifeRegeneration.get() * 0.5);
+                                }
+                            }else{
+                                if (life.get() < lifeMax.get() && life.get() > 0) {
+                                    life.add(lifeRegeneration.get() * 0.25);
+                                }
                             }
-                            if (mana.get() < mana.getMax()) {
-                                mana.add(manaRegeneration.get() * 0.04);
+
+                            if (mana.get() < manaMax.get()) {
+                                mana.add(manaRegeneration.get() * 0.5);
                             }
-                    })))));
+                    })))))))));
                     }
             }
         }
@@ -782,43 +823,61 @@ public class ModEvents {
     }
     @SubscribeEvent
     public static void onPlayerGetExperience(PlayerXpEvent.PickupXp event) {
+        Random random = new Random();
         if (!event.getEntity().getLevel().isClientSide() && event.getEntity() != null && event.getOrb() != null) {
             int xp = event.getOrb().getValue();
             if (event.getEntity() instanceof ServerPlayer player) {
                 player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(experience -> {
                     experience.add(xp);
-                    if (experience.get() >= level.experienceNeeded()) {
+                    if (experience.get() >= level.experienceNeeded() && random.nextFloat() > 0.05f) {
                         boolean flag = true;
-                        int count = 0;
                         do {
                             experience.consume(level.experienceNeeded());
-                            count++;
-                            level.add(count);
-                            int opt = randomInt(6, 0);
+                            level.add();
+
+                            int opt = player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0);
                             switch (opt) {
                                 case 1 -> {
-                                    levelUpPlayer(player, 1, 1, 0.00025, 0.0005, 2, 2, 1, 6, 0, 8, 8, 8);
-                                    player.sendSystemMessage(Component.literal("You have level up, and receive Arches bless"));
+                                    levelUpPlayer(player,
+                                            1, 1,
+                                            0.00025, 0.0005,
+                                            0.5, 0.25, 1,
+                                            6, 0, 8, 8, 8);
                                 }
 
                                 case 2 -> {
-                                    levelUpPlayer(player, 8, 0, 0.00045, 0.0, 8, 0, 0, 1, 7, 3, 0, 1);
-                                    player.sendSystemMessage(Component.literal("You have level up, and receive Warriors bless"));
+                                    levelUpPlayer(player, 0.25, 5,
+                                            0.00045, 0.025, 0.01,
+                                            0.03, 1, 0, 0, 1, 0, 0.1);
                                 }
 
                                 case 3 -> {
-                                    levelUpPlayer(player, 2.5, 8, 0.00025, 0.005, 2, 7, 8, 2, 0, 0, 3, 3);
-                                    player.sendSystemMessage(Component.literal("You have level up, and receive Mages bless"));
+                                    levelUpPlayer(player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
                                 }
 
                                 case 4 -> {
-                                    levelUpPlayer(player, 10, 50, 0.0025, 0.005, 4.45, 7.55, 8, 8, 12, 7, 14, 9);
-                                    player.sendSystemMessage(Component.literal("You have level up, and receive Gods bless"));
+                                    levelUpPlayer(player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
                                 }
 
+                                case 6 -> {
+                                    levelUpPlayer(player, 0.25, 1,
+                                            0.00045, 0.025, 0.1,
+                                            0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
+                                }
+
+                                case 7 -> {
+                                    levelUpPlayer(player, 0.65, 5,
+                                            0.0005, 0.015, 0.31,
+                                            0.43, 1, 0, 0, 1, 0, 0.1);
+                                }
+
+                                case 8 -> {
+                                    levelUpPlayer(player, 1.25, 0,
+                                            0.0045, 0.00025, 0.71,
+                                            0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
+                                }
                                 default -> {
                                     levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
-                                    player.sendSystemMessage(Component.literal("You have level up."));
                                 }
                             }
                             //play sound event level_up
@@ -829,7 +888,6 @@ public class ModEvents {
 
                     }
                 }));
-                player.sendSystemMessage(Component.literal("Obtained experience: " + formatDouble(xp)));
             }
         }
     }
@@ -837,6 +895,22 @@ public class ModEvents {
     public static void onPlayerJoin(EntityJoinLevelEvent event) {
         if (!event.getLevel().isClientSide() && event.getEntity() != null) {
             if (event.getEntity() instanceof ServerPlayer player) {
+                player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(firstJoin -> {
+                    if(!firstJoin.get()){
+                        BlockPos pos = new BlockPos(player.getX(),player.getY(),player.getZ());
+                        NetworkHooks.openScreen(player, new MenuProvider() {
+                            @Override
+                            public Component getDisplayName() {
+                                return Component.literal("Select Class Menu");
+                            }
+
+                            @Override
+                            public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                                return new PlayerClassSelectMenu(id,inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
+                            }
+                        },pos);
+                    }
+                });
                 updatePlayerCapabilities(player);
             }
         }

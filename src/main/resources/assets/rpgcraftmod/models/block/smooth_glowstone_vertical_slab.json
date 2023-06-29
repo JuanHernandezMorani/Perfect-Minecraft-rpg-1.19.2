@@ -1,8 +1,0 @@
-{
-  "parent": "rpgcraftmod:block/vertical_slab",
-  "textures": {
-    "bottom": "rpgcraftmod:block/smooth_glowstone",
-    "top": "rpgcraftmod:block/smooth_glowstone",
-    "side": "rpgcraftmod:block/smooth_glowstone"
-  }
-}

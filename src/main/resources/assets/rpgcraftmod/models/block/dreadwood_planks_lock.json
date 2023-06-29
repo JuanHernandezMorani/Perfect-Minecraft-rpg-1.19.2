@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "rpgcraftmod:block/dreadwood_planks",
-        "side": "rpgcraftmod:block/dreadwood_planks_lock"
-    }
-}

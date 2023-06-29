@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "rpgcraftmodblock/birch_half_drawers_2" },
-        "facing=east": { "model": "rpgcraftmodblock/birch_half_drawers_2", "y": 90 },
-        "facing=south": { "model": "rpgcraftmodblock/birch_half_drawers_2", "y": 180 },
-        "facing=west": { "model": "rpgcraftmodblock/birch_half_drawers_2", "y": 270 }
-    }
-}

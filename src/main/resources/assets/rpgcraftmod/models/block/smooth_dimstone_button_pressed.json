@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "rpgcraftmod:block/smooth_dimstone"
-  }
-}

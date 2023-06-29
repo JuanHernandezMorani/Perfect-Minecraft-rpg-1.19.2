@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.custom;
 
+import net.cheto97.rpgcraftmod.providers.ManaMaxProvider;
 import net.cheto97.rpgcraftmod.providers.ManaProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class EspadaMuerteItem extends SwordItem {
     private static final String MESSAGE_NO_ENOUGH_MANA = "message.rpgcraftmod.not_enough_mana";
@@ -26,21 +28,21 @@ public class EspadaMuerteItem extends SwordItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if(!level.isClientSide() && hand == InteractionHand.MAIN_HAND){
-            player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
-                double manaCost = mana.getMax()*0.25;
+            player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
+                Random random = new Random();
+                double manaCost = manaMax.get()*(0.25 + (0.75 - 0.25) * random.nextDouble());
                     if(mana.get() >= manaCost){
-
                         mana.consumeMana(manaCost);
                         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION,400,3));
                         player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,400,2));
                         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,400,4));
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,400,3));
                         player.addEffect(new MobEffectInstance(MobEffects.JUMP,400,1));
-                        player.getCooldowns().addCooldown(this,60);
+                        player.getCooldowns().addCooldown(this,30);
                     }else{
                         player.sendSystemMessage(Component.translatable(MESSAGE_NO_ENOUGH_MANA).withStyle(ChatFormatting.RED));
                     }
-            });
+            }));
         }
 
         return super.use(level, player, hand);
@@ -54,7 +56,7 @@ public class EspadaMuerteItem extends SwordItem {
             stack.enchant(Enchantments.FIRE_ASPECT, 2);
         }
         if(Screen.hasShiftDown()){
-            components.add(Component.literal("Mana cost: 25% of maximum mana").withStyle(ChatFormatting.BLUE));
+            components.add(Component.literal("Mana cost: 25%-75% of maximum mana").withStyle(ChatFormatting.BLUE));
             components.add(Component.literal(""));
             components.add(Component.literal(""));
             components.add(Component.literal("Right click to get for 20 seconds:").withStyle(ChatFormatting.AQUA));

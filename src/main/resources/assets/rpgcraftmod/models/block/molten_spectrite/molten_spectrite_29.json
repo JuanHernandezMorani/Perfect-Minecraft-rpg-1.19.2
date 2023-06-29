@@ -1,7 +1,0 @@
-{
-	"parent": "block/cube_all",
-	"textures": {
-		"all": "rpgcraftmodblocks/molten_spectrite_still/29",
-		"flowing": "rpgcraftmodblocks/molten_spectrite_flow/29"
-	}
-}

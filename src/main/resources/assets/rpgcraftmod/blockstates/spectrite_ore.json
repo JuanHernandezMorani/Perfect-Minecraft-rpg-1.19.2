@@ -1,7 +1,0 @@
-{
-	"variants": {
-		"type=0":  { "model": "rpgcraftmodspectrite_ore_surface" },
-		"type=1":  { "model": "rpgcraftmodspectrite_ore_nether" },
-        "type=2": { "model": "rpgcraftmodspectrite_ore_end" }
-	}
-}

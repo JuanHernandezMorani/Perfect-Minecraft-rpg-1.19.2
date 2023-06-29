@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "rpgcraftmod:block/soul_slate_bricks",
-    "top": "rpgcraftmod:block/soul_slate_bricks",
-    "side": "rpgcraftmod:block/soul_slate_bricks"
-  }
-}

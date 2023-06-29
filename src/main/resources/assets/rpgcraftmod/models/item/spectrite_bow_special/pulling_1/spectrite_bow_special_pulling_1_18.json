@@ -1,6 +1,0 @@
-{
-    "parent": "rpgcraftmoditem/spectrite_bow_special",
-    "textures": {
-        "layer0": "rpgcraftmoditems/spectrite_bow_special/pulling_1/18"
-    }
-}

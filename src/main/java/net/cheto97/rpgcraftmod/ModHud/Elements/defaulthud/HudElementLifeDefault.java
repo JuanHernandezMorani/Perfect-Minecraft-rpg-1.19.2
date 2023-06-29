@@ -3,6 +3,7 @@ package net.cheto97.rpgcraftmod.ModHud.Elements.defaulthud;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
+import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.providers.LifeProvider;
 import net.minecraft.client.gui.Gui;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
@@ -24,12 +25,11 @@ public class HudElementLifeDefault extends HudElement {
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledHeight, int scaledWidth) {
-        if(this.mc.player != null){
-            this.mc.player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(hp -> {
-                life = Mth.ceil(hp.get());
-                lifeMax = Mth.ceil(hp.getMax());
-            });
-        }
+        assert this.mc.player != null;
+
+        life = PlayerData.getPlayerLife();
+        lifeMax = PlayerData.getPlayerLifeMax();
+
         int absorption = Mth.ceil(this.mc.player.getAbsorptionAmount());
         int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 24) + this.settings.getPositionValue(Settings.life_position)[0];
         int posY = (this.settings.getBoolValue(Settings.render_player_face) ? 13 : 5) + this.settings.getPositionValue(Settings.life_position)[1];

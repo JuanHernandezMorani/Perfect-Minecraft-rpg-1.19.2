@@ -28,6 +28,7 @@ public class EntityData {
     private static double entityIntelligence;
     private static double entityStrength;
     private static String entityName;
+    private static boolean join;
     private static Collection<MobEffectInstance> entityEffects;
 
     public static int getEntityId() {
@@ -39,6 +40,8 @@ public class EntityData {
     public static int getEntityLevel() {
         return entityLevel;
     }
+    public static boolean getJoin(){return join;}
+    public static void setJoin(boolean value){EntityData.join = value;}
     public static void setEntityLevel(int entityLevel) {
         EntityData.entityLevel =
                 entityLevel;

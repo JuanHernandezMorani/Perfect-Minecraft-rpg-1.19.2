@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "half=bottom,odd=false": { "model": "rpgcraftmodspectrite_brick_slab_bottom" },
-        "half=top,odd=false": { "model": "rpgcraftmodspectrite_brick_slab_top" },
-		"half=bottom,odd=true": { "model": "rpgcraftmodspectrite_brick_slab_bottom_odd" },
-        "half=top,odd=true": { "model": "rpgcraftmodspectrite_brick_slab_top_odd" }
-    }
-}

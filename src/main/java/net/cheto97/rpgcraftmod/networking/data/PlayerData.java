@@ -2,9 +2,8 @@ package net.cheto97.rpgcraftmod.networking.data;
 
 import net.minecraft.core.BlockPos;
 
-import java.util.UUID;
-
 public class PlayerData {
+    private static int playerStatPoints;
     private static int playerId;
     private static  int playerLevel;
     private static  BlockPos playerPos;
@@ -22,15 +21,36 @@ public class PlayerData {
     private static  double playerDexterity;
     private static  double playerIntelligence;
     private static  double playerStrength;
+    private static double playerLuck;
+    private static double expNeed;
+    private static boolean join;
+    private static int playerClass;
 
     public static int getPlayerId() {
         return playerId;
     }
-
+    public static double getExpNeed(){return expNeed;}
+    public static void setExpNeed(double value){PlayerData.expNeed = value;}
     public static void setPlayerId(int playerId) {
         PlayerData.playerId =
                 playerId;
     }
+    public static void setJoin(boolean value){
+        PlayerData.join = value;
+    }
+    public static boolean getJoin(){
+        return join;
+    }
+    public static void setPlayerClass(int value){
+        PlayerData.playerClass = value;
+    }
+    public static int getPlayerClass(){
+        return playerClass;
+    }
+    public static double getPlayerLuck(){return playerLuck;}
+    public static void setPlayerLuck(double luck){PlayerData.playerLuck = luck;}
+    public static int getPlayerStatPoints(){return playerStatPoints;}
+    public static void setPlayerStatPoints(int value){PlayerData.playerStatPoints = value;}
 
     public static int getPlayerLevel() {
         return playerLevel;

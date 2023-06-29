@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "rpgcraftmod:block/glowdust_stone_bricks_animated",
-    "top": "rpgcraftmod:block/glowdust_stone_bricks_animated",
-    "side": "rpgcraftmod:block/glowdust_stone_bricks_animated"
-  }
-}

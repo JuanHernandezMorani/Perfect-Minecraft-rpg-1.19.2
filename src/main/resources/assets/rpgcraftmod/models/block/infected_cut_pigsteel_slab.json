@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "rpgcraftmod:block/infected_cut_rpgcraftmod",
-    "top": "rpgcraftmod:block/infected_cut_rpgcraftmod",
-    "side": "rpgcraftmod:block/infected_cut_rpgcraftmod"
-  }
-}

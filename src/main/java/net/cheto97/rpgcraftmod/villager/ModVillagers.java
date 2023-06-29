@@ -20,7 +20,7 @@ public class ModVillagers {
     public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, RpgcraftMod.MOD_ID);
 
     public static final RegistryObject<PoiType> MANA_BLOCK_POI = POI_TYPES.register("mana_block_poi",
-            () -> new PoiType(ImmutableSet.copyOf(ModBlocks.bloque_mana.get().getStateDefinition().getPossibleStates()),
+            () -> new PoiType(ImmutableSet.copyOf(ModBlocks.wizard_table.get().getStateDefinition().getPossibleStates()),
                     1, 1));
 
     public static final RegistryObject<VillagerProfession> MAGIC_MASTER = VILLAGER_PROFESSIONS.register("magic_master",

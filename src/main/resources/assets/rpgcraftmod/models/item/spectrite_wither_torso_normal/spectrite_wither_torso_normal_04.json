@@ -1,6 +1,0 @@
-{
-    "parent": "rpgcraftmoditem/spectrite_wither_torso",
-    "textures": {
-        "torso": "rpgcraftmodentities/spectrite_wither_rod_normal/4"
-    }
-}

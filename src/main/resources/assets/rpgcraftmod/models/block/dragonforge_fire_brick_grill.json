@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "bottom": "rpgcraftmod:block/dragonforge_fire_brick",
-    "top": "rpgcraftmod:block/dragonforge_fire_brick",
-    "side": "rpgcraftmod:block/dragonforge_fire_brick_grill"
-  }
-}

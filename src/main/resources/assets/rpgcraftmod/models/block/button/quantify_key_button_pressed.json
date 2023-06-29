@@ -1,7 +1,0 @@
-{
-    "parent": "rpgcraftmodblock/button/key_button_pressed",
-    "textures": {
-        "texture": "rpgcraftmodblocks/key_button",
-        "label": "rpgcraftmodblocks/button_face_quantify_key"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "rpgcraftmodblock/acacia_half_drawers_4" },
-        "facing=east": { "model": "rpgcraftmodblock/acacia_half_drawers_4", "y": 90 },
-        "facing=south": { "model": "rpgcraftmodblock/acacia_half_drawers_4", "y": 180 },
-        "facing=west": { "model": "rpgcraftmodblock/acacia_half_drawers_4", "y": 270 }
-    }
-}

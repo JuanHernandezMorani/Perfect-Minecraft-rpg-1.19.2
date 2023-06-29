@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "rpgcraftmod:block/basalt_iron_ore_top",
-    "side": "rpgcraftmod:block/basalt_iron_ore_side"
-  }
-}

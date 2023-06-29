@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "rpgcraftmod:block/dread_stone_bricks",
-    "top": "rpgcraftmod:block/dread_stone_bricks",
-    "side": "rpgcraftmod:block/dread_stone_bricks"
-  }
-}

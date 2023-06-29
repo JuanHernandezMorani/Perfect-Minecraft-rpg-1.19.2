@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "rpgcraftmod:block/polished_basalt_tiles",
-    "top": "rpgcraftmod:block/polished_basalt_tiles",
-    "side": "rpgcraftmod:block/polished_basalt_tiles"
-  }
-}

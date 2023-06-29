@@ -1,8 +1,0 @@
-{
-	"parent": "rpgcraftmodblock/spectrite_ore",
-	"textures": {
-		"base": "blocks/netherrack",
-        "overlay": "rpgcraftmodblocks/spectrite_ore",
-		"particle": "blocks/netherrack"
-    }
-}

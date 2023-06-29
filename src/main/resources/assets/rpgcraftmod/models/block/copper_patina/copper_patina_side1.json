@@ -1,6 +1,0 @@
-{
-    "parent": "rpgcraftmod:block/copper_patina/copper_patina_side",
-    "textures": {
-        "line": "rpgcraftmod:block/copper_patina_line1"
-    }
-}

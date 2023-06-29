@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=east":  { "model": "rpgcraftmod:block/dread_torch_wall" },
-        "facing=south":  { "model": "rpgcraftmod:block/dread_torch_wall", "y": 90 },
-        "facing=west":  { "model": "rpgcraftmod:block/dread_torch_wall", "y": 180 },
-        "facing=north":  { "model": "rpgcraftmod:block/dread_torch_wall", "y": 270 }
-    }
-}

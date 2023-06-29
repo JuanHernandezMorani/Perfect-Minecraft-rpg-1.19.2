@@ -1,6 +1,0 @@
-{
-    "parent": "rpgcraftmoditem/spectrite_shield",
-    "textures": {
-        "shield": "rpgcraftmodentities/spectrite_shield/4"
-    }
-}

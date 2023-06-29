@@ -1,9 +1,0 @@
-{
-	"parent": "rpgcraftmodblock/spectrite_anvil",
-	"textures": {
-		"base": "rpgcraftmodblocks/spectrite_anvil_base_odd",
-		"top": "rpgcraftmodblocks/spectrite_anvil_top_damaged_0_odd",
-		"bottom": "rpgcraftmodblocks/spectrite_anvil_bottom_odd",
-		"particle": "rpgcraftmodblocks/spectrite_anvil_base_odd"
-	}
-}

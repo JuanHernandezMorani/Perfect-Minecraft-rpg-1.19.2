@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "rpgcraftmodblocks/drawers_comp_side",
-        "side": "rpgcraftmodblocks/drawers_comp_side_2"
-    }
-}

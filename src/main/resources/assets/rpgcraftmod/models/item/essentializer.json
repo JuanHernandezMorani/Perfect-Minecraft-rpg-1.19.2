@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "rpgcraftmod:block/side_obsidian",
-    "up": "rpgcraftmod:block/side_obsidian_with_diamond"
-  }
-}

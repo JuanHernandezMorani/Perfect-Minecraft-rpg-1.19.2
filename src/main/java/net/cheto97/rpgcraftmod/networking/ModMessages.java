@@ -62,6 +62,24 @@ public class ModMessages {
                 .consumerMainThread(PlayerDataSyncPacket::handle)
                 .add();
 
+        net.messageBuilder(PlayerStatSyncPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PlayerStatSyncPacket::new)
+                .encoder(PlayerStatSyncPacket::toBytes)
+                .consumerMainThread(PlayerStatSyncPacket::handle)
+                .add();
+
+        net.messageBuilder(PlayerNoReqPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PlayerNoReqPacket::new)
+                .encoder(PlayerNoReqPacket::toBytes)
+                .consumerMainThread(PlayerNoReqPacket::handle)
+                .add();
+
+        net.messageBuilder(PlayerClassSelectPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PlayerClassSelectPacket::new)
+                .encoder(PlayerClassSelectPacket::toBytes)
+                .consumerMainThread(PlayerClassSelectPacket::handle)
+                .add();
+
          // Packets Server -> Player
 
         net.messageBuilder(EntitySyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)

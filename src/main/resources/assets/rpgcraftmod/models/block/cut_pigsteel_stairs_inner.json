@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "rpgcraftmod:block/cut_rpgcraftmod",
-    "top": "rpgcraftmod:block/cut_rpgcraftmod",
-    "side": "rpgcraftmod:block/cut_rpgcraftmod"
-  }
-}

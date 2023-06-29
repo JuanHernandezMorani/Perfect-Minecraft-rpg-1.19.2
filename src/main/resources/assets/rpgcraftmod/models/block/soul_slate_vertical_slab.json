@@ -1,8 +1,0 @@
-{
-  "parent": "rpgcraftmod:block/vertical_slab",
-  "textures": {
-    "bottom": "rpgcraftmod:block/soul_slate",
-    "top": "rpgcraftmod:block/soul_slate",
-    "side": "rpgcraftmod:block/soul_slate"
-  }
-}
