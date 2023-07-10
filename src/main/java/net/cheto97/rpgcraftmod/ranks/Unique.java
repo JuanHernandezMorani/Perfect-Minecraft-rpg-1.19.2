@@ -33,6 +33,7 @@ public class Unique {
                 entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,7));
             }
         }
+        entity.getDimensions(entity.getPose()).scale(1.47F,1.47F);
     }
     private static MobEffect getRandomEffect() {
         MobEffect[] effects = {

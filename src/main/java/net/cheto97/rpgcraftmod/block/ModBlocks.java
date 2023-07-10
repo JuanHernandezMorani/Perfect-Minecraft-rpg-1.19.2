@@ -5,6 +5,7 @@ import net.cheto97.rpgcraftmod.block.custom.*;
 import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
+import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -81,9 +82,14 @@ public class ModBlocks {
             () -> new BlueberryCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
     public static final RegistryObject<LiquidBlock> LIQUID_MANA_BLOCK = BLOCKS.register( "liquid_mana_block",
-            () -> new LiquidBlock(ModFluids.SOURCE_MANA, BlockBehaviour.Properties.copy((Blocks.WATER))));
+            () -> new LiquidBlock(ModFluids.SOURCE_MANA, BlockBehaviour.Properties.copy((Blocks.WATER))
+                    .hasPostProcess((bs, br, bp) -> true)
+                    .emissiveRendering((bs, br, bp) -> true)
+                    .noCollission()
+                    .lightLevel(s -> 7)));
 
 
+    public static final RegistryObject<Block> TLT_BLOCK = registerBlock(Names.TABLE, ToolLevelingTableBlock::new);
 
 
 

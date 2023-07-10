@@ -2,5 +2,41 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "rpgcraftmod:item/epicsword"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        20,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        7,
+        6.5
+      ],
+      "scale": [
+        2.25,
+        2.25,
+        2.25
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        23,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        7,
+        6.48
+      ],
+      "scale": [
+        1.7,
+        1.7,
+        1.7
+      ]
+    }
   }
 }

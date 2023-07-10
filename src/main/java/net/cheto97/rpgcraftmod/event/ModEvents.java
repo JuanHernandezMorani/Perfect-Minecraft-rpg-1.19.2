@@ -13,6 +13,7 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
+import net.cheto97.rpgcraftmod.util.levelConfig.utils.ConfigSyncing;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
 import static net.cheto97.rpgcraftmod.ranks.Boss.bossModify;
 import static net.cheto97.rpgcraftmod.ranks.Brutal.brutalModify;
@@ -45,6 +46,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
@@ -63,7 +65,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -71,9 +72,8 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkHooks;
+import top.theillusivec4.curios.api.CuriosApi;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.*;
 import java.util.List;
 
@@ -84,6 +84,7 @@ public class ModEvents {
     private static int lvlReduce = 0;
     static private double expBonus = 1;
     static private double totalDamage;
+    static private boolean sendMSG = true;
     private static void updatePlayerCapabilities(ServerPlayer player) {
         ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
     }
@@ -353,9 +354,25 @@ public class ModEvents {
             } else {
                 entityClass = 25 * (int) (entityRank + difficultyLevel + bonus);
             }
-
+        }
+        ItemStack auraItemStack;
+        
+        switch (entityRank){
+            case 2 -> auraItemStack = ModItems.ELITE_AURA.get().getDefaultInstance();
+            case 3 -> auraItemStack = ModItems.BRUTAL_AURA.get().getDefaultInstance();
+            case 4 -> auraItemStack = ModItems.CHAMPION_AURA.get().getDefaultInstance();
+            case 5 -> auraItemStack = ModItems.HERO_AURA.get().getDefaultInstance();
+            case 6 -> auraItemStack = ModItems.DEMON_AURA.get().getDefaultInstance();
+            case 7 -> auraItemStack = ModItems.LEGENDARY_AURA.get().getDefaultInstance();
+            case 8 -> auraItemStack = ModItems.MYTHICAL_AURA.get().getDefaultInstance();
+            case 9 -> auraItemStack = ModItems.UNIQUE_AURA.get().getDefaultInstance();
+            case 10 -> auraItemStack = ModItems.SEMI_BOSS_AURA.get().getDefaultInstance();
+            case 11 -> auraItemStack = ModItems.BOSS_AURA.get().getDefaultInstance();
+            default -> auraItemStack = ModItems.COMMON_AURA.get().getDefaultInstance();
         }
 
+        CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).ifPresent(handler -> handler.getStacksHandler("aura").ifPresent(stacksHandler -> stacksHandler.getStacks().setStackInSlot(0, auraItemStack)));
+        
         int dimensionLevel = 0;
         if (level instanceof ServerLevel serverLevel) {
             if (serverLevel.dimension().equals(Level.NETHER)) {
@@ -549,6 +566,8 @@ public class ModEvents {
             event.getOriginal().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(oldStore -> event.getEntity().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(newStore -> newStore.copyFrom(oldStore)));
 
             event.getOriginal().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(oldStore -> event.getEntity().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+
+            event.getOriginal().getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(oldStore -> event.getEntity().getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(newStore -> newStore.copyFrom(oldStore)));
         }
     }
     @SubscribeEvent
@@ -667,15 +686,22 @@ public class ModEvents {
                     double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
                     totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
                     if(source.isFall()){
+                        double y = target.getY() < 0 ? (target.getY()*(-1)) : target.getY();
+                        double oldY = target.yOld < 0 ? (target.yOld*(-1)) : target.yOld;
+
+                        totalDamage = totalDamage*(target.fallDistance+1)+((oldY-y)*2);
+
                         target.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                             if(target instanceof Player && mana.get() != 0.0){
                             if(mana.get() >= totalDamage){
-                                mana.consumeMana(totalDamage*2);
+
+                                mana.consumeMana(totalDamage);
                                 totalDamage = 0.0;
                                 target.sendSystemMessage(Component.literal("You consume your mana, to complete decrease fall damage"));
                                 }else{
                                 totalDamage = totalDamage - mana.get();
-                                target.sendSystemMessage(Component.literal("You consume your mana, to decrease fall damage, but run out of mana, before complete decrease fall damage, you receive: "+totalDamage+" of damage."));
+                                mana.consumeMana(totalDamage);
+                                target.sendSystemMessage(Component.literal("You run out of mana, before complete decrease fall damage, you receive: "+totalDamage+" of damage."));
                             }
                             }
                         });
@@ -740,8 +766,13 @@ public class ModEvents {
                                 life.add(lifeRegeneration.get() * 0.05);
                             }else{
                                 int cooldown = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
-                                if(cooldown == 100){
-                                    player.sendSystemMessage(Component.literal("You have receive damage, regeneration disable for 5 seconds.").withStyle(ChatFormatting.RED));
+                                if(cooldown == 100 && sendMSG){
+                                    player.sendSystemMessage(Component.literal("You have receive damage, regeneration disable for 5 seconds, if you receive damage again cooldown will be reset to 5 seconds.").withStyle(ChatFormatting.RED));
+                                    sendMSG = false;
+                                }
+                                if(cooldown == 1 && !sendMSG){
+                                    sendMSG = true;
+                                    player.sendSystemMessage(Component.literal("Regeneration enable again").withStyle(ChatFormatting.GOLD));
                                 }
                                 player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
                             }
@@ -851,6 +882,7 @@ public class ModEvents {
                         boolean flag = true;
                         do {
                             experience.consume(level.experienceNeeded());
+                            level.setPreviousLevelExp(level.get());
                             level.add();
 
                             int opt = player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0);
@@ -915,6 +947,15 @@ public class ModEvents {
             if (event.getEntity() instanceof ServerPlayer player) {
                 player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(firstJoin -> {
                     if(!firstJoin.get()){
+                        firstJoin.set();
+                        /*
+                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                            handler.getStacksHandler("ring").ifPresent(stacks -> {
+                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
+                            });
+                        });
+                         */
+
                         BlockPos pos = new BlockPos(player.getX(),player.getY(),player.getZ());
                         NetworkHooks.openScreen(player, new MenuProvider() {
                             @Override
@@ -929,6 +970,7 @@ public class ModEvents {
                         },pos);
                     }
                 });
+                ConfigSyncing.syncAllConfigsToOneClient(player);
                 updatePlayerCapabilities(player);
             }
         }

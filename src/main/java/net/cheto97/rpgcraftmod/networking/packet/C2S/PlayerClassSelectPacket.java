@@ -43,10 +43,25 @@ public class PlayerClassSelectPacket {
                 case "mage" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(2));
                 case "warrior" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(3));
                 case "assassin" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(4));
-                case "beasttamer" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(6));
-                case "magetank" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(7));
-                case "tank" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(8));
-                case "random" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(random.nextInt(8) + 1));
+                case "beast tamer" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(6));
+                case "priest" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(7));
+                case "knight" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(8));
+                case "random" -> {
+                    result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> {
+                        pClass.set(random.nextInt(8) + 1);
+                        switch (pClass.getPlayerClass()){
+                            case 1 -> playerClass = "archer";
+                            case 2 ->playerClass = "mage";
+                            case 3 ->playerClass = "warrior";
+                            case 4 ->playerClass = "assassin";
+                            case 5 ->playerClass = "balanced";
+                            case 6 ->playerClass = "beast tamer";
+                            case 7 ->playerClass = "priest";
+                            case 8 ->playerClass = "knight";
+                        }
+                    });
+
+                }
                 default -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(5));
             }
             setPlayerStat(result.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0),result);

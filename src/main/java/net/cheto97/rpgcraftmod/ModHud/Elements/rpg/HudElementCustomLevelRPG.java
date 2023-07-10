@@ -18,12 +18,12 @@ public class HudElementCustomLevelRPG extends HudElement {
 
     @Override
     public boolean checkConditions() {
-        return !this.mc.options.hideGui;
+        return  this.mc.player != null && !this.mc.player.isCreative() && !this.mc.player.isSpectator();
     }
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        if(this.mc.player != null){
+        if(checkConditions()){
             RenderSystem.disableBlend();
             String level = formatearNumero(PlayerData.getPlayerLevel());
             Gui.drawString(ms, this.mc.font, level, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 13) + this.settings.getPositionValue(Settings.rpglevel_position)[0] - this.mc.font.width(level) / 2, (this.settings.getBoolValue(Settings.render_player_face) ? 38 : 18) + this.settings.getPositionValue(Settings.rpglevel_position)[1], 0x80FF20);

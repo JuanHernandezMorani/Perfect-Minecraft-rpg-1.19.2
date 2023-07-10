@@ -6,6 +6,7 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
+import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.data.PlayerMountData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerMountSyncDataPacket;
 import net.minecraft.client.gui.Gui;
@@ -22,16 +23,15 @@ public class HudElementMountLifeRPG extends HudElement {
         super(HudType.MOUNT_LIFE, 0, 0, 0, 0, false);
         parent = HudType.WIDGET;
     }
-
     @Override
     public boolean checkConditions() {
         assert this.mc.player != null;
-        return this.mc.player.getVehicle() instanceof LivingEntity && !this.mc.options.hideGui;
+        return !this.mc.player.isCreative() && this.mc.player.getVehicle() instanceof LivingEntity && !this.mc.player.isCreative() && !this.mc.player.isSpectator();
     }
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        if(this.mc.player != null && this.mc.player.getVehicle() != null && this.mc.player.getVehicle() instanceof LivingEntity mount){
+        if(checkConditions() && this.mc.player.getVehicle() instanceof LivingEntity mount){
 
             ModMessages.sendToServer(new PlayerMountSyncDataPacket());
 
@@ -39,9 +39,17 @@ public class HudElementMountLifeRPG extends HudElement {
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 
-                double health = PlayerMountData.getEntityLife();
-                double healthMax =  PlayerMountData.getEntityLifeMax();
-                double absortion = mount.getAbsorptionAmount();
+                double health = 0;
+                double healthMax =  0;
+                double absortion = 0;
+
+            assert this.mc.player != null;
+            if(PlayerData.getPlayerId() == this.mc.player.getId()){
+                    health = PlayerMountData.getEntityLife();
+                     healthMax =  PlayerMountData.getEntityLifeMax();
+                    absortion = mount.getAbsorptionAmount();
+                }
+
                 if(absortion > 0){
                     health = health + absortion;
                     healthMax = healthMax + absortion;

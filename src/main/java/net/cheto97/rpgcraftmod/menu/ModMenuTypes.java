@@ -1,6 +1,7 @@
 package net.cheto97.rpgcraftmod.menu;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -25,6 +26,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<GemInfusingStationMenu>> GEM_INFUSING_STATION_MENU =
             registerMenuType(GemInfusingStationMenu::new, "gem_infusing_station_menu");
+
+    public static final RegistryObject<MenuType<ToolLevelingTableMenu>> TLT_CONTAINER =
+            registerMenuType(ToolLevelingTableMenu::new,"tool_leveling_table_menu");
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
                                                                                                   String name) {

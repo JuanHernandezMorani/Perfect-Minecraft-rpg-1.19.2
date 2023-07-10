@@ -19,6 +19,7 @@ public class Hero {
                 entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,3));
             }
         }
+        entity.getDimensions(entity.getPose()).scale(1.13F,1.13F);
     }
 
     private static MobEffect getRandomEffect() {

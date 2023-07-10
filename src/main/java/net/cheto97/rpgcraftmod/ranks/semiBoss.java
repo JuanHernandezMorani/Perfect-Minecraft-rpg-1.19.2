@@ -31,16 +31,7 @@ public class semiBoss {
                 entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,10));
             }
         }
-
-        if (random.nextDouble() <= 0.33) {
-            int numEffects = random.nextInt(8) + 1;
-            LivingEntity attacker = entity.getLastHurtByMob();
-            if (attacker != null) {
-                for (int i = 0; i < numEffects; i++) {
-                    attacker.addEffect(new MobEffectInstance(getRandomBadEffect(), 10, 1));
-                }
-            }
-        }
+        entity.getDimensions(entity.getPose()).scale(2.0F,2.0F);
     }
     private static MobEffect getRandomEffect() {
         MobEffect[] effects = {
@@ -51,23 +42,6 @@ public class semiBoss {
                 MobEffects.FIRE_RESISTANCE,
                 MobEffects.DOLPHINS_GRACE,
                 MobEffects.DAMAGE_RESISTANCE
-        };
-
-        Random random = new Random();
-        int index = random.nextInt(effects.length);
-        return effects[index];
-    }
-
-    private static MobEffect getRandomBadEffect() {
-        MobEffect[] effects = {
-                MobEffects.BLINDNESS,
-                MobEffects.CONFUSION,
-                MobEffects.DARKNESS,
-                MobEffects.DIG_SLOWDOWN,
-                MobEffects.HUNGER,
-                MobEffects.WEAKNESS,
-                MobEffects.POISON,
-                MobEffects.WITHER
         };
 
         Random random = new Random();

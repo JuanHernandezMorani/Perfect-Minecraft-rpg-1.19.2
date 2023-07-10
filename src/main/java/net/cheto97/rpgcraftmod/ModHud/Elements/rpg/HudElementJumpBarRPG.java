@@ -16,16 +16,16 @@ public class HudElementJumpBarRPG extends HudElement {
 
     @Override
     public boolean checkConditions() {
-        assert this.mc.player != null;
-        return  this.mc.player.getVehicle() instanceof LivingEntity && (!this.settings.getBoolValue(Settings.limit_jump_bar) || this.mc.player.getJumpRidingScale() > 0F);
+        return  this.mc.player != null && this.mc.player.getVehicle() != null && !this.mc.player.isCreative() && this.mc.player.getVehicle() instanceof LivingEntity && (!this.settings.getBoolValue(Settings.limit_jump_bar) || this.mc.player.getJumpRidingScale() > 0F);
     }
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        if(this.mc.player != null && this.mc.player.getVehicle() != null){
+        if(checkConditions()){
             bind(INTERFACE);
             int height = scaledHeight + this.settings.getPositionValue(Settings.jump_bar_position)[1];
             int adjustedWidth = (scaledWidth / 2) + this.settings.getPositionValue(Settings.jump_bar_position)[0];
+            assert this.mc.player != null;
             float var14 = this.mc.player.getJumpRidingScale();
             int color = (int) (var14 * 100.0F);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);

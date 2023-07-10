@@ -1,6 +1,7 @@
 package net.cheto97.rpgcraftmod.ModHud.huds;
 
 import net.cheto97.rpgcraftmod.ModHud.Elements.hotbar.*;
+import net.cheto97.rpgcraftmod.ModHud.Elements.rpg.HudElementCustomExperienceRPG;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.minecraft.client.Minecraft;
 
@@ -41,7 +42,8 @@ public class HudHotbarWidget extends HudDefault {
     public HudElement setElementWidget() {
         return new HudElementWidgetHotbar();
     }
-
+    @Override
+    public HudElement setElementCustomExperience(){return new HudElementCustomExperienceRPG();}
     @Override
     public HudElement setElementHotbar() {
         return new HudElementHotbarHotbar();

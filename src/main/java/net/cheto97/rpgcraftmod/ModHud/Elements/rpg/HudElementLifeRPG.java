@@ -24,17 +24,25 @@ public class HudElementLifeRPG extends HudElement {
 
     @Override
     public boolean checkConditions() {
-        return !this.mc.options.hideGui;
+        return  this.mc.player != null && !this.mc.player.isCreative() && !this.mc.player.isSpectator();
     }
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledHeight, int scaledWidth) {
-        if(this.mc.player != null && this.mc.player.getId() == PlayerData.getPlayerId()){
+        if(this.mc.player != null && this.mc.player.getId() == PlayerData.getPlayerId() && checkConditions()){
             bind(INTERFACE);
+            ModMessages.sendToServer(new PlayerDataSyncPacket(this.mc.player));
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-            double health = PlayerData.getPlayerLife();
-            int absorption = Mth.ceil(this.mc.player.getAbsorptionAmount());
-            double healthMax = PlayerData.getPlayerLifeMax();
+            double health = 0;
+            int absorption = 0;
+            double healthMax = 0;
+
+            if(PlayerData.getPlayerId() == this.mc.player.getId()){
+                health = PlayerData.getPlayerLife();
+                absorption = Mth.ceil(this.mc.player.getAbsorptionAmount());
+                healthMax  = PlayerData.getPlayerLifeMax();
+            }
+
 
             ModMessages.sendToServer(new PlayerDataSyncPacket(this.mc.player));
 

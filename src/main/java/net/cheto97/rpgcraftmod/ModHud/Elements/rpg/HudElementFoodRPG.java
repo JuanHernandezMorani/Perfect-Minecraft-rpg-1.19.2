@@ -16,14 +16,15 @@ public class HudElementFoodRPG extends HudElement {
     }
     @Override
     public boolean checkConditions() {
-        return true;
+        return  this.mc.player != null && !this.mc.player.isCreative() && !this.mc.player.isSpectator();
     }
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        if(this.mc.player != null){
+        if(checkConditions()){
             bind(INTERFACE);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+            assert this.mc.player != null;
             int stamina = this.mc.player.getFoodData().getFoodLevel();
             int staminaMax = 20;
             int posX = (this.settings.getBoolValue(Settings.render_player_face) ? 49 : 25) + this.settings.getPositionValue(Settings.rpgexperience_position)[0];
@@ -33,7 +34,7 @@ public class HudElementFoodRPG extends HudElement {
 
             gui.blit(ms, posX, posY, 0, 132, staminaWidth, 8);
 
-            String stringExp = stamina + "/" + staminaMax;
+            String stringExp = stamina + " / " + staminaMax;
 
             if (this.settings.getBoolValue(Settings.show_numbers_rpgexperience)) {
                 ms.scale(0.5f, 0.5f, 0.5f);

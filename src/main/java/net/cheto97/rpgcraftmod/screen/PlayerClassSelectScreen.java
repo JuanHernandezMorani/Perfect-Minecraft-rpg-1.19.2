@@ -75,13 +75,13 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             }
         }));
         this.addRenderableWidget(new Button(this.leftPos +90, this.topPos + 85, 32, 20, Component.literal("Priest").withStyle(ChatFormatting.DARK_AQUA), e ->{
-            ModMessages.sendToServer(new PlayerClassSelectPacket("magetank"));
+            ModMessages.sendToServer(new PlayerClassSelectPacket("priest"));
             if(this.minecraft.screen == this) {
                 this.minecraft.setScreen(null);
             }
         }));
         this.addRenderableWidget(new Button(this.leftPos +150, this.topPos + 85, 32, 20, Component.literal("Knight").withStyle(ChatFormatting.DARK_AQUA), e ->{
-            ModMessages.sendToServer(new PlayerClassSelectPacket("tank"));
+            ModMessages.sendToServer(new PlayerClassSelectPacket("knight"));
             if(this.minecraft.screen == this) {
                 this.minecraft.setScreen(null);
             }
@@ -95,7 +95,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
 
 
         this.addRenderableWidget(new Button(this.leftPos +30, this.topPos + 165, 32, 20, Component.literal("Tamer").withStyle(ChatFormatting.DARK_AQUA), e ->{
-            ModMessages.sendToServer(new PlayerClassSelectPacket("beasttamer"));
+            ModMessages.sendToServer(new PlayerClassSelectPacket("beast tamer"));
             if(this.minecraft.screen == this) {
                 this.minecraft.setScreen(null);
             }

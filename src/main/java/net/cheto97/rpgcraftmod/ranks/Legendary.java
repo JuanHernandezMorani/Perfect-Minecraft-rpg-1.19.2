@@ -22,6 +22,7 @@ public class Legendary {
                 entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,3));
             }
         }
+        entity.getDimensions(entity.getPose()).scale(1.25F,1.25F);
     }
     private static MobEffect getRandomEffect() {
         MobEffect[] effects = {

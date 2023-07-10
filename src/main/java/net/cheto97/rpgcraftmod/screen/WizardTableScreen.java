@@ -4,16 +4,24 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.menu.WizardTableMenu;
+import net.cheto97.rpgcraftmod.screen.renderer.EnergyInfoArea;
+import net.cheto97.rpgcraftmod.screen.renderer.FluidTankRenderer;
+import net.cheto97.rpgcraftmod.util.MouseUtil;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.TooltipFlag;
+
+import java.util.Optional;
 
 public class WizardTableScreen extends AbstractContainerScreen<WizardTableMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/wizard_table_gui.png");
 
+    private EnergyInfoArea energyInfoArea;
+    private FluidTankRenderer renderer;
 
     public WizardTableScreen(WizardTableMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
@@ -22,6 +30,42 @@ public class WizardTableScreen extends AbstractContainerScreen<WizardTableMenu> 
     @Override
     protected void init() {
         super.init();
+        assignEnergyInfoArea();
+        assignFluidRenderer();
+    }
+
+    private void assignFluidRenderer() {
+        renderer = new FluidTankRenderer(600000,true,16,61);
+    }
+
+    private void assignEnergyInfoArea() {
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+
+        energyInfoArea = new EnergyInfoArea(x + 156, y + 13, menu.blockEntity.getEnergyStorage());
+    }
+
+    @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+
+        renderEnergyAreaTooltips(pPoseStack,pMouseX,pMouseY,x,y);
+        renderFluidAreaTooltips(pPoseStack,pMouseX,pMouseY,x,y);
+    }
+
+    private void renderFluidAreaTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y) {
+        if(isMouseAboveArea(pMouseX, pMouseY, x, y, 55,15)) {
+            renderTooltip(pPoseStack, renderer.getTooltip(menu.getFluidStack(), TooltipFlag.Default.NORMAL),
+                    Optional.empty(), pMouseX - x, pMouseY - y);
+        }
+    }
+
+    private void renderEnergyAreaTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y) {
+        if(isMouseAboveArea(pMouseX, pMouseY, x, y, 156, 13, 8, 64)) {
+            renderTooltip(pPoseStack, energyInfoArea.getTooltips(),
+                    Optional.empty(), pMouseX - x, pMouseY - y);
+        }
     }
 
     @Override
@@ -35,6 +79,10 @@ public class WizardTableScreen extends AbstractContainerScreen<WizardTableMenu> 
         this.blit(stack, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(stack, x, y);
+
+        energyInfoArea.draw(stack);
+
+        renderer.render(stack, x+55,y+15,menu.getFluidStack());
     }
 
     private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
@@ -48,5 +96,13 @@ public class WizardTableScreen extends AbstractContainerScreen<WizardTableMenu> 
         renderBackground(pPoseStack);
         super.render(pPoseStack, mouseX, mouseY, delta);
         renderTooltip(pPoseStack, mouseX, mouseY);
+    }
+
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
+    }
+
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());
     }
 }

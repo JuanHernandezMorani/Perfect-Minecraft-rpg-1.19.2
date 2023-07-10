@@ -2,6 +2,7 @@ package net.cheto97.rpgcraftmod.menu;
 
 import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.block.entity.WizardTableBlockEntity;
+import net.minecraft.commands.arguments.coordinates.Coordinates;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -10,12 +11,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class WizardTableMenu extends AbstractContainerMenu {
     public final WizardTableBlockEntity blockEntity;
     private final Level level;
     private final ContainerData blockData;
+    private FluidStack fluidStack;
 
     public WizardTableMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         this(id,inv,inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
@@ -27,6 +30,7 @@ public class WizardTableMenu extends AbstractContainerMenu {
         blockEntity = (WizardTableBlockEntity) entity;
         this.level = inv.player.level;
         this.blockData = data;
+        this.fluidStack = blockEntity.getFluidStack();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -41,6 +45,17 @@ public class WizardTableMenu extends AbstractContainerMenu {
 
     public boolean isCrafting() {
         return blockData.get(0) > 0;
+    }
+    public WizardTableBlockEntity getBlockEntity() {
+        return this.blockEntity;
+    }
+
+    public void setFluid(FluidStack fluidStack) {
+        this.fluidStack = fluidStack;
+    }
+
+    public FluidStack getFluidStack(){
+        return this.fluidStack;
     }
 
     public int getScaledProgress() {
@@ -119,5 +134,7 @@ public class WizardTableMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
         }
     }
+
+
 
 }

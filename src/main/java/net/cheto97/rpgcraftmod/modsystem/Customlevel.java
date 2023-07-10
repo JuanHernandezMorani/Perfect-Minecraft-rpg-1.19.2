@@ -13,7 +13,6 @@ public class Customlevel {
         return 1;
     }
     public void add(){
-        setPreviousLevelExp(experienceNeeded());
         customlevel++;
     }
     public void makeReset(){
@@ -24,17 +23,14 @@ public class Customlevel {
     public int getReset(){
         return resetLevel;
     }
-    public void setPreviousLevelExp(double exp){
-        previousLevelExp = exp;
+    public void setPreviousLevelExp(int level){
+        previousLevelExp = previousLevelExp + (22.5*level);
     }
     public double experienceNeeded(){
         return (22.5*customlevel)+previousLevelExp;
     }
     public void setLevel(int value){
         customlevel = value;
-    }
-    public void add(int value){
-        customlevel = customlevel + value;
     }
     public void copyFrom(Customlevel source){
         customlevel = source.customlevel;

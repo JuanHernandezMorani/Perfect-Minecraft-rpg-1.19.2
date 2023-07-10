@@ -1,0 +1,7 @@
+{
+	"variants" : {
+		"" : {
+			"model" : "rpgcraftmod:block/tool_leveling_table"
+		}
+	}
+}

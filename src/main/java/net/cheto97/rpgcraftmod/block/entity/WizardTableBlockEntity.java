@@ -1,9 +1,14 @@
 package net.cheto97.rpgcraftmod.block.entity;
 
+import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.menu.GemInfusingStationMenu;
 import net.cheto97.rpgcraftmod.menu.WizardTableMenu;
+import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.EnergySyncPacket;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.FluidSyncPacket;
+import net.cheto97.rpgcraftmod.util.ModEnergyStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +34,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -46,13 +55,59 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
         protected void onContentsChanged(int slot) {
             setChanged();
         }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack){
+            return switch (slot){
+                case 0 -> stack.getItem() == ModItems.ULTIMATE_COAL.get() || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+                case 1 -> stack.getItem() != ModItems.ULTIMATE_COAL.get() || !stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+                case 2 -> false;
+                default -> super.isItemValid(slot,stack);
+            };
+        }
     };
 
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(500000,2560) {
+        @Override
+        public void onEnergyChanged() {
+            setChanged();
+            ModMessages.sendToClients(new EnergySyncPacket(this.energy, getBlockPos()));
+        }
+    };
+
+    private static final int ENERGY_REQ = 40;
+
+    private final FluidTank FLUID_TANK = new FluidTank(600000){
+        @Override
+        protected void onContentsChanged() {
+            setChanged();
+            assert level != null;
+            if(!level.isClientSide()){
+                ModMessages.sendToClients(new FluidSyncPacket(this.fluid, worldPosition));
+            }
+        }
+
+        @Override
+        public boolean isFluidValid(FluidStack stack) {
+            return stack.getFluid() == ModFluids.SOURCE_MANA.get();
+        }
+    };
+
+    public void setFluid(FluidStack stack){
+        this.FLUID_TANK.setFluid(stack);
+    }
+
+    public FluidStack getFluidStack(){
+        return this.FLUID_TANK.getFluid();
+    }
+
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
+    private LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.empty();
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 78;
+    private int maxProgress = 120;
 
     public WizardTableBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.WIZARD_TABLE.get(), pos, state);
@@ -81,6 +136,14 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
         };
     }
 
+    public IEnergyStorage getEnergyStorage() {
+        return ENERGY_STORAGE;
+    }
+
+    public void setEnergyLevel(int energy) {
+        this.ENERGY_STORAGE.setEnergy(energy);
+    }
+
     @Override
     public Component getDisplayName() {
         return Component.literal("Wizard Table");
@@ -89,13 +152,24 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        ModMessages.sendToClients(new EnergySyncPacket(this.ENERGY_STORAGE.getEnergyStored(), getBlockPos()));
+        ModMessages.sendToClients(new FluidSyncPacket(this.getFluidStack(), worldPosition));
+
         return new WizardTableMenu(id, inventory, this, this.data);
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if(cap == ForgeCapabilities.ENERGY){
+            return lazyEnergyHandler.cast();
+        }
+
         if(cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
+        }
+
+        if(cap == ForgeCapabilities.FLUID_HANDLER){
+            return lazyFluidHandler.cast();
         }
 
         return super.getCapability(cap, side);
@@ -105,18 +179,24 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
+        lazyFluidHandler = LazyOptional.of(() -> FLUID_TANK);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+        lazyEnergyHandler.invalidate();
+        lazyFluidHandler.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.putInt("wizard_table.progress", this.progress);
+        nbt.putInt("wizard_table.energy", ENERGY_STORAGE.getEnergyStored());
+        nbt = FLUID_TANK.writeToNBT(nbt);
 
         super.saveAdditional(nbt);
     }
@@ -126,6 +206,8 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         progress = nbt.getInt("wizard_table.progress");
+        ENERGY_STORAGE.setEnergy(nbt.getInt("wizard_table.energy"));
+        FLUID_TANK.readFromNBT(nbt);
     }
 
     public void drops() {
@@ -142,8 +224,14 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
             return;
         }
 
-        if(hasRecipe(pEntity) && !pEntity.itemHandler.getStackInSlot(1).isEmpty()) {
+        if(hasFuel(pEntity)){
+            pEntity.ENERGY_STORAGE.receiveEnergy(64*pEntity.itemHandler.getStackInSlot(0).getCount(),false);
+            pEntity.itemHandler.extractItem(0,1,false);
+        }
+
+        if(hasRecipe(pEntity) && !pEntity.itemHandler.getStackInSlot(1).isEmpty() && hasEnoughEnergy(pEntity) && hasEnoughFluid(pEntity)) {
             pEntity.progress++;
+            extractEnergy(pEntity);
             setChanged(level, pos, state);
 
             if(pEntity.progress >= pEntity.maxProgress) {
@@ -153,6 +241,49 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
             pEntity.resetProgress();
             setChanged(level, pos, state);
         }
+
+        if(hasFluidItemInSourceSlot(pEntity)){
+            transferItemFluidToFluidTank(pEntity);
+        }
+    }
+
+    private static boolean hasEnoughFluid(WizardTableBlockEntity pEntity) {
+        return pEntity.FLUID_TANK.getFluidAmount() >= 1500;
+    }
+
+    private static void transferItemFluidToFluidTank(WizardTableBlockEntity pEntity) {
+        pEntity.itemHandler.getStackInSlot(0).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(handler ->{
+            int drainAmount = Math.min(pEntity.FLUID_TANK.getSpace(),1000);
+
+            FluidStack stack = handler.drain(drainAmount, IFluidHandler.FluidAction.SIMULATE);
+            if(pEntity.FLUID_TANK.isFluidValid(stack)){
+                stack = handler.drain(drainAmount,IFluidHandler.FluidAction.EXECUTE);
+                fillTankWithFluid(pEntity,stack,handler.getContainer());
+            }
+        });
+    }
+
+    private static void fillTankWithFluid(WizardTableBlockEntity pEntity, FluidStack stack, ItemStack container) {
+        pEntity.FLUID_TANK.fill(stack, IFluidHandler.FluidAction.EXECUTE);
+
+        pEntity.itemHandler.extractItem(0,1,false);
+        pEntity.itemHandler.insertItem(0,container,false);
+    }
+
+    private static boolean hasFluidItemInSourceSlot(WizardTableBlockEntity pEntity) {
+        return pEntity.itemHandler.getStackInSlot(0).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+    }
+    
+    private static void extractEnergy(WizardTableBlockEntity pEntity) {
+        pEntity.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
+    }
+
+    private static boolean hasEnoughEnergy(WizardTableBlockEntity pEntity) {
+        return pEntity.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ * pEntity.maxProgress;
+    }
+
+    private static boolean hasFuel(WizardTableBlockEntity pEntity) {
+        return pEntity.itemHandler.getStackInSlot(0).getItem() == ModItems.ULTIMATE_COAL.get();
     }
 
     private void resetProgress() {
@@ -162,6 +293,7 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
     private static void craftItem(WizardTableBlockEntity pEntity) {
 
         if(hasRecipe(pEntity)) {
+            pEntity.FLUID_TANK.drain(1500,IFluidHandler.FluidAction.EXECUTE);
             ItemStack item = modifyItem(pEntity.itemHandler.getStackInSlot(1));
             pEntity.itemHandler.extractItem(1, item.getCount(), false);
             pEntity.itemHandler.setStackInSlot(2, item);
@@ -535,4 +667,6 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
 
         return appliedEnchantments;
     }
+
+
 }

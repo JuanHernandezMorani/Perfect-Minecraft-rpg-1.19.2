@@ -23,6 +23,7 @@ public class ModFluids {
 
     public static final ForgeFlowingFluid.Properties MANA_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MANA_FLUID_TYPE, SOURCE_MANA, FLOWING_MANA)
+            .explosionResistance(999.99f)
             .slopeFindDistance(2)
             .levelDecreasePerBlock(2)
             .block(ModBlocks.LIQUID_MANA_BLOCK)

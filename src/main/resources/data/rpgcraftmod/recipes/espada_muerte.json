@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "rpgcraftmod:bloque_zafiro"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "OXO",
+    "OXO",
+    " # "
+  ],
+  "result": {
+    "item": "rpgcraftmod:espada_muerte"
+  }
+}

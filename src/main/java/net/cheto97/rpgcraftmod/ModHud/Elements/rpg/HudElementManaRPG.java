@@ -21,13 +21,22 @@ public class HudElementManaRPG extends HudElement {
         parent = HudType.WIDGET;
     }
     @Override
-    public boolean checkConditions() {return !this.mc.options.hideGui;}
+    public boolean checkConditions() {
+        assert this.mc.player != null;
+        return !this.mc.player.isCreative();
+    }
 
     @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        if(this.mc.player != null){
-            double mana = PlayerData.getPlayerMana();
-            double manaMax = PlayerData.getPlayerManaMax();
+        if(this.mc.player != null && checkConditions()){
+            double mana = 0;
+            double manaMax = 0;
+
+            if(PlayerData.getPlayerId() == this.mc.player.getId()){
+                mana = PlayerData.getPlayerMana();
+                manaMax = PlayerData.getPlayerManaMax();
+            }
+
             bind(INTERFACE);
             RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 

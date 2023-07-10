@@ -54,7 +54,9 @@ public abstract class HudElement {
         this.parent = type;
     }
     public void draw(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        this.drawElement(gui, ms, zLevel, partialTicks, scaledWidth, scaledHeight);
+        if(checkConditions()){
+            this.drawElement(gui, ms, zLevel, partialTicks, scaledWidth, scaledHeight);
+        }
     }
     public abstract void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight);
     public int getPosX(int scaledWidth) {
@@ -76,7 +78,7 @@ public abstract class HudElement {
         return this.type;
     }
     public boolean checkConditions() {
-        return true;
+        return  this.mc.player != null;
     }
     public static int offsetColorPercent(int color, int offsetPercent) {
         int colorOffset;

@@ -22,6 +22,7 @@ public class Mythical {
                 entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,4));
             }
         }
+        entity.getDimensions(entity.getPose()).scale(1.34F,1.34F);
     }
     private static MobEffect getRandomEffect() {
         MobEffect[] effects = {

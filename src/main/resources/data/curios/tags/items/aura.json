@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "rpgcraftmod:commonaura",
+    "rpgcraftmod:bossaura",
+    "rpgcraftmod:brutalaura",
+    "rpgcraftmod:championaura",
+    "rpgcraftmod:demonaura",
+    "rpgcraftmod:eliteaura",
+    "rpgcraftmod:heroaura",
+    "rpgcraftmod:legendaryaura",
+    "rpgcraftmod:mythicalaura",
+    "rpgcraftmod:semibossaura",
+    "rpgcraftmod:uniqueaura"
+  ]
+}

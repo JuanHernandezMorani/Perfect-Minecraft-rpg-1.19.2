@@ -1,0 +1,16 @@
+{
+  "type": "rpgcraftmod:gem_infusing",
+  "experience": 95.7,
+  "ingredients": [
+    {
+      "item": "rpgcraftmod:zafiro_crudo"
+    }
+  ],
+  "fluid": {
+    "FluidName": "rpgcraftmod:mana_fluid",
+    "Amount": 600
+  },
+  "output": {
+    "item": "rpgcraftmod:zafiro"
+  }
+}

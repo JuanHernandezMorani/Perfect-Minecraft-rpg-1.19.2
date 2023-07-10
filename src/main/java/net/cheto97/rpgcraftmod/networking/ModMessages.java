@@ -1,6 +1,9 @@
 package net.cheto97.rpgcraftmod.networking;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.networking.ToolLeveling.packets.OpenItemValueScreenPacket;
+import net.cheto97.rpgcraftmod.networking.ToolLeveling.packets.SetEnchantmentToolLevelingTable;
+import net.cheto97.rpgcraftmod.networking.ToolLeveling.packets.SyncToolLevelingConfig;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.*;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.*;
 import net.minecraft.resources.ResourceLocation;
@@ -80,6 +83,24 @@ public class ModMessages {
                 .consumerMainThread(PlayerClassSelectPacket::handle)
                 .add();
 
+        net.messageBuilder(SetEnchantmentToolLevelingTable.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SetEnchantmentToolLevelingTable::decode)
+                .encoder(SetEnchantmentToolLevelingTable::encode)
+                .consumerMainThread(SetEnchantmentToolLevelingTable::handle)
+                .add();
+
+        net.messageBuilder(SyncToolLevelingConfig.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SyncToolLevelingConfig::decode)
+                .encoder(SyncToolLevelingConfig::encode)
+                .consumerMainThread(SyncToolLevelingConfig::handle)
+                .add();
+
+        net.messageBuilder(OpenItemValueScreenPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenItemValueScreenPacket::decode)
+                .encoder(OpenItemValueScreenPacket::encode)
+                .consumerMainThread(OpenItemValueScreenPacket::handle)
+                .add();
+
          // Packets Server -> Player
 
         net.messageBuilder(EntitySyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
@@ -98,6 +119,24 @@ public class ModMessages {
                 .decoder(PlayerSyncPacket::new)
                 .encoder(PlayerSyncPacket::toBytes)
                 .consumerMainThread(PlayerSyncPacket::handle)
+                .add();
+
+        net.messageBuilder(EnergySyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EnergySyncPacket::new)
+                .encoder(EnergySyncPacket::toBytes)
+                .consumerMainThread(EnergySyncPacket::handle)
+                .add();
+
+        net.messageBuilder(FluidSyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(FluidSyncPacket::new)
+                .encoder(FluidSyncPacket::toBytes)
+                .consumerMainThread(FluidSyncPacket::handle)
+                .add();
+
+        net.messageBuilder(SyncToolLevelingConfig.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncToolLevelingConfig::decode)
+                .encoder(SyncToolLevelingConfig::encode)
+                .consumerMainThread(SyncToolLevelingConfig::handle)
                 .add();
 
     }

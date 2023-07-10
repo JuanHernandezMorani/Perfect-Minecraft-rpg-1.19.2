@@ -1,0 +1,16 @@
+{
+  "type": "rpgcraftmod:gem_infusing",
+  "experience": 15.7,
+  "ingredients": [
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "fluid": {
+    "FluidName": "rpgcraftmod:mana_fluid",
+    "Amount": 600
+  },
+  "output": {
+    "item": "minecraft:beef"
+  }
+}

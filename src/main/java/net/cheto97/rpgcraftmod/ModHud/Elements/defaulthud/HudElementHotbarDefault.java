@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.minecraft.client.AttackIndicatorStatus;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.GameType;
 
 public class HudElementHotbarDefault extends HudElement {
 
-    protected static final ResourceLocation WIDGETS_TEX_PATH = new ResourceLocation("textures/gui/widgets.png");
+    protected static final ResourceLocation WIDGETS_TEX_PATH = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/widgets.png");
 
     public int offset = -9;
 

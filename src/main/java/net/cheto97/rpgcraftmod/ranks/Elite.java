@@ -17,6 +17,7 @@ public class Elite {
         if (random.nextDouble() <= ELITE_EFFECT_CHANCE) {
             entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,1));
         }
+        entity.getDimensions(entity.getPose()).scale(1.03F,1.03F);
     }
 
     private static MobEffect getRandomEffect() {

@@ -21,6 +21,11 @@ public abstract class Hud {
         this.hudKey = hudKey;
         this.setElements();
     }
+
+    public boolean checkConditions() {
+        return  this.mc.player != null && !this.mc.player.isSpectator();
+    }
+
     public void setElements() {
         this.elements.put(HOTBAR, setElementHotbar());
         this.elements.put(LIFE, setElementLife());
@@ -56,6 +61,8 @@ public abstract class Hud {
     protected abstract HudElement setElementCompass();
     protected abstract HudElement setElementMobEffects();
     public void drawElement(HudType type, Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
-        this.elements.get(type).draw(gui, ms, zLevel, partialTicks, scaledWidth, scaledHeight);
+        if(checkConditions()){
+            this.elements.get(type).draw(gui, ms, zLevel, partialTicks, scaledWidth, scaledHeight);
+        }
     }
 }

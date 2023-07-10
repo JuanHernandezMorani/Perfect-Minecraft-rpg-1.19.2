@@ -61,7 +61,13 @@ Test yourself and become the most powerfull warrior in all worlds...
 [[dependencies.rpgcraftmod]]
     modId="minecraft"
     mandatory=true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="[1.19.2,1.20)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.rpgcraftmod]]
+    modId = "curios"
+    mandatory = true
+    versionRange = "[1.19.2-5.1.4.1]"
     ordering="NONE"
     side="BOTH"

@@ -15,11 +15,6 @@ public class HudElementWidgetHotbar extends HudElement {
     }
 
     @Override
-    public boolean checkConditions() {
-        return !this.mc.options.hideGui;
-    }
-
-    @Override
     public void drawElement(Gui gui, PoseStack ms, float zLevel, float partialTicks, int scaledWidth, int scaledHeight) {
         bind(INTERFACE);
         int posX = this.settings.getPositionValue(Settings.widget_position)[0];
@@ -28,7 +23,7 @@ public class HudElementWidgetHotbar extends HudElement {
 
         int facePosX = this.settings.getPositionValue(Settings.face_position)[0];
         int facePosY = this.settings.getPositionValue(Settings.face_position)[1];
-        if (RpgcraftMod.instance.settings.getBoolValue(Settings.render_player_face)) {
+        if (RpgcraftMod.settings.getBoolValue(Settings.render_player_face)) {
             gui.blit(ms, posX + facePosX, posY - 16 - 52 + 7 + facePosY, 164, 20, 50, 52);
             if(this.mc.player !=null){
                 bind(getPlayerSkin(this.mc.player));

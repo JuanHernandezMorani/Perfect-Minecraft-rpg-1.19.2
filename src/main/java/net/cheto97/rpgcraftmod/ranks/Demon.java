@@ -19,6 +19,7 @@ public class Demon {
                 entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,4));
             }
         }
+        entity.getDimensions(entity.getPose()).scale(1.19F,1.19F);
     }
 
     private static MobEffect getRandomEffect() {

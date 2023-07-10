@@ -14,6 +14,7 @@ public class Brutal {
         if (random.nextDouble() <= EFFECT_CHANCE) {
             entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,1));
         }
+        entity.getDimensions(entity.getPose()).scale(1.05F,1.05F);
     }
 
     private static MobEffect getRandomEffect() {

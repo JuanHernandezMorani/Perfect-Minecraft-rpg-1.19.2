@@ -16,6 +16,7 @@ public class Champion {
             entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,2));
             entity.addEffect(new MobEffectInstance(getRandomEffect(),1000000,1));
         }
+        entity.getDimensions(entity.getPose()).scale(1.09F,1.09F);
     }
     private static MobEffect getRandomEffect() {
         MobEffect[] effects = {

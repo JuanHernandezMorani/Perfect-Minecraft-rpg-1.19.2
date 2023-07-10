@@ -2,5 +2,41 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "rpgcraftmod:item/espada_muerte"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        20,
+        90,
+        0
+      ],
+      "translation": [
+        -2,
+        7,
+        6.5
+      ],
+      "scale": [
+        1.7,
+        1.7,
+        1.7
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        23,
+        90,
+        0
+      ],
+        "translation": [
+          0,
+          7,
+          5.75
+        ],
+      "scale": [
+        1.7,
+        1.7,
+        1.7
+      ]
+  }
   }
 }

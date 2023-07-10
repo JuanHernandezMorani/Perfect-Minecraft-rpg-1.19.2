@@ -57,7 +57,7 @@ public class HudElementViewVanilla extends HudElement {
 
     @Override
     public boolean checkConditions() {
-        return this.settings.getBoolValue(Settings.enable_view);
+        return  this.mc.player != null && !this.mc.player.isCreative() && !this.mc.player.isSpectator();
     }
     public HudElementViewVanilla() {
         super(HudType.VIEW, 0, 0, 0, 0, true);
@@ -79,8 +79,8 @@ public class HudElementViewVanilla extends HudElement {
             double focusedArmor = 0.0;
             double focusedMagicArmor = 0.0;
 
-            if(focused.getId() == EntityData.getEntityId()){
-                rank = EntityData.getEntityRank();
+            if(focused.getId() == EntityData.getEntityId() && player.getId() == PlayerData.getPlayerId()){
+                rank = EntityData.getEntityRank() > 0 ? EntityData.getEntityRank() : -1;
                 entityLevel = EntityData.getEntityLevel();
                 focusedMaxLife = EntityData.getEntityLifeMax();
                 focusedLife = EntityData.getEntityLife();
@@ -91,6 +91,7 @@ public class HudElementViewVanilla extends HudElement {
             String focusedRank;
                 ChatFormatting rankColor = setColor(rank);
                 switch (rank){
+                    case -1 -> focusedRank = "Player";
                     case 1 -> focusedRank = "Common";
                     case 2 -> focusedRank = "Elite";
                     case 3 -> focusedRank = "Brutal";
