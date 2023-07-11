@@ -4,8 +4,12 @@ import net.cheto97.rpgcraftmod.ModHud.Hud;
 import net.cheto97.rpgcraftmod.ModHud.huds.*;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.block.entity.ModBlockEntities;
+import net.cheto97.rpgcraftmod.block.entity.renderer.CraftingTableBlockEntityRenderer;
+import net.cheto97.rpgcraftmod.block.entity.renderer.GemInfusingStationBlockEntityRenderer;
+import net.cheto97.rpgcraftmod.block.entity.renderer.WizardTableBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.fluid.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
+import net.cheto97.rpgcraftmod.item.wings.renderer.WingsFeatureRenderer;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.painting.ModPaintings;
 import net.cheto97.rpgcraftmod.menu.ModMenuTypes;
@@ -22,9 +26,11 @@ import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.inventory.CraftingScreen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,17 +46,21 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @Mod(RpgcraftMod.MOD_ID)
-public class RpgcraftMod {
+public class RpgcraftMod{
     public static final String MOD_ID = "rpgcraftmod";
     public static RpgcraftMod instance;
     public static Settings settings;
     public static final Logger LOGGER = LogManager.getLogger(RpgcraftMod.MOD_ID);
+    public static EntityRendererProvider.Context context;
+
     public static Map<String, Hud> huds = new LinkedHashMap<>();
     public static final Function<Entity, WingsValues> WINGS = (entity) -> DefaultWingsValues.INSTANCE;
 
@@ -85,14 +95,11 @@ public class RpgcraftMod {
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        /* **
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.CHARM.getMessageBuilder().build());
 
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.RING.getMessageBuilder().build());
-
-         */
 
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("aura")
@@ -142,9 +149,14 @@ public class RpgcraftMod {
             MenuScreens.register(ModMenuTypes.PLAYER_CLASS_SELECT_MENU.get(), PlayerClassSelectScreen::new);
             MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), GemInfusingStationScreen::new);
             MenuScreens.register(ModMenuTypes.TLT_CONTAINER.get(), ToolLevelingTableScreen::new);
+            MenuScreens.register(ModMenuTypes.CRAFTING_MENU_TYPE.get(), CraftingScreen::new);
 
             BlockEntityRenderers.register(ModBlockEntities.TLT_TILE_ENTITY.get(), ToolLevelingTableRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.GEM_INFUSING_STATION.get(), GemInfusingStationBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.WIZARD_TABLE.get(), WizardTableBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.CRAFTING_TABLE_BLOCK_ENTITY.get(), CraftingTableBlockEntityRenderer::new);
 
+            CuriosRendererRegistry.register(ModItems.BLACK_DRAGON_WINGS.get(), () -> new WingsFeatureRenderer<>());
         }
     }
     public static void registerHud(Hud hud) {

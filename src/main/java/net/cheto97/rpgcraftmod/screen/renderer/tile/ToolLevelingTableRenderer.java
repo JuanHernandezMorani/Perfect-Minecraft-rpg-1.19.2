@@ -1,6 +1,9 @@
 package net.cheto97.rpgcraftmod.screen.renderer.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.cheto97.rpgcraftmod.block.custom.ToolLevelingTableBlock;
+import net.cheto97.rpgcraftmod.block.custom.WizardTableBlock;
 import net.cheto97.rpgcraftmod.block.entity.ToolLevelingTableBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -26,7 +29,14 @@ public class ToolLevelingTableRenderer implements BlockEntityRenderer<ToolLeveli
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5D, 0.83D, 0.5D);
             matrixStackIn.scale(0.6F, 0.6F, 0.6F);
-            matrixStackIn.mulPose(Direction.NORTH.getRotation());
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90));
+
+            switch (tileEntityIn.getBlockState().getValue(ToolLevelingTableBlock.FACING)) {
+                case NORTH -> matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(0));
+                case EAST -> matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90));
+                case SOUTH -> matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180));
+                case WEST -> matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(270));
+            }
             renderItem(stack, partialTicks, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
             matrixStackIn.popPose();
 

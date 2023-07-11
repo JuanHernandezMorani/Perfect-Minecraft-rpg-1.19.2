@@ -7,6 +7,7 @@ import net.cheto97.rpgcraftmod.menu.GemInfusingStationMenu;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.EnergySyncPacket;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.FluidSyncPacket;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.ItemStackSyncS2CPacket;
 import net.cheto97.rpgcraftmod.recipe.GemInfusingStationRecipe;
 import net.cheto97.rpgcraftmod.util.ModEnergyStorage;
 import net.minecraft.core.BlockPos;
@@ -45,6 +46,10 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+            assert level != null;
+            if(!level.isClientSide()) {
+                ModMessages.sendToClients(new ItemStackSyncS2CPacket(this, worldPosition));
+            }
         }
 
         @Override
@@ -90,6 +95,24 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
 
     public FluidStack getFluidStack(){
         return this.FLUID_TANK.getFluid();
+    }
+
+    public ItemStack getRenderStack() {
+        ItemStack stack;
+
+        if(!itemHandler.getStackInSlot(2).isEmpty()) {
+            stack = itemHandler.getStackInSlot(2);
+        } else {
+            stack = itemHandler.getStackInSlot(1);
+        }
+
+        return stack;
+    }
+
+    public void setHandler(ItemStackHandler itemStackHandler) {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
+            itemHandler.setStackInSlot(i, itemStackHandler.getStackInSlot(i));
+        }
     }
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -356,6 +379,4 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
         return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
     }
-
-
 }

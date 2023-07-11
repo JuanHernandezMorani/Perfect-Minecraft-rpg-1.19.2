@@ -3,9 +3,6 @@ package net.cheto97.rpgcraftmod.item.wings.model;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexMultiConsumer;
-import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.item.wings.WingItem;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,16 +10,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.model.pipeline.VertexConsumerWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
-/* **
 public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
 
     public final ModelPart rightWing;
@@ -46,7 +37,7 @@ public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
     }
 
     @Override
-    public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    public void setupAnim(LivingEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         state = State.IDLE;
         float a = 0.125F;
         float b = 0.1F;
@@ -110,26 +101,15 @@ public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
         return ImmutableList.of();
     }
 
-
-
     protected Iterable<ModelPart> getBodyParts() {
         return ImmutableList.of(this.rightWing, this.leftWing);
+    }
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int packedLight ,int packedOverlay, float red, float green, float blue, float alpha) {
+
     }
 
     public enum State {
         IDLE, CROUCHING, FLYING
     }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumerWrapper vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        String wingType = wingItem.getWingType() != WingItem.WingType.UNIQUE ? wingItem.getWingType().toString().toLowerCase(Locale.ROOT) : ForgeRegistries.ITEMS.getKey(wingItem).getPath().replaceAll("_wings", "");
-
-        VertexConsumer leftWingVertexConsumer = vertexConsumer.vertex(RenderType.entityCutout(RpgcraftMod.MOD_ID,"textures/entity/" + wingType + "_wings.png"));
-        VertexConsumer rightWingVertexConsumer = vertexConsumer.vertex(RenderType.entityCutout(RpgcraftMod.MOD_ID,"textures/entity/" + wingType + "_wings_2.png"));
-
-        leftWing.render(poseStack, leftWingVertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightWing.render(poseStack, rightWingVertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-    }
 }
-
- */

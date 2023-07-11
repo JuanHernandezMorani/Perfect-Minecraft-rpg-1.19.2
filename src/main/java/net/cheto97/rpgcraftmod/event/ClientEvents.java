@@ -4,25 +4,40 @@ import net.cheto97.rpgcraftmod.ModHud.huds.HudHotbarWidget;
 import net.cheto97.rpgcraftmod.RenderOverlay;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
+import net.cheto97.rpgcraftmod.item.wings.model.*;
+import net.cheto97.rpgcraftmod.item.wings.renderer.WingsFeatureRenderer;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.DrinkManaFluidC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.ViewStatsC2SPacket;
 import net.cheto97.rpgcraftmod.util.ColourHelper;
 import net.cheto97.rpgcraftmod.util.KeyBinding;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.HashMap;
 
 import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 public class ClientEvents {
+    public static final ModelLayerLocation FEATHERED = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/feathered"), "main");
+    public static final ModelLayerLocation LEATHER = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/leather"), "main");
+    public static final ModelLayerLocation LIGHT = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/light"), "main");
+    public static final ModelLayerLocation FLANDRE = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/flandre"), "main");
+    public static final ModelLayerLocation DISCORD = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/discord"), "main");
+    public static final ModelLayerLocation ZANZA = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/zanza"), "main");
+    
     @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents{
+        
 
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event){
@@ -64,7 +79,15 @@ public class ClientEvents {
             event.register(KeyBinding.DRINKING_KEY);
             event.register(KeyBinding.STATS_KEY);
         }
-
+        @SubscribeEvent
+        public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(FEATHERED, FeatheredWingsModel::getLayerDefinition);
+            event.registerLayerDefinition(LEATHER, LeatherWingsModel::getLayerDefinition);
+            event.registerLayerDefinition(LIGHT, LightWingsModel::getLayerDefinition);
+            event.registerLayerDefinition(FLANDRE, FlandresWingsModel::getLayerDefinition);
+            event.registerLayerDefinition(DISCORD, DiscordsWingsModel::getLayerDefinition);
+            event.registerLayerDefinition(ZANZA, ZanzasWingsModel::getLayerDefinition);
+        }
         @SubscribeEvent
         public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
             HashMap<Integer, Item> customItems = new HashMap<>();
@@ -75,7 +98,6 @@ public class ClientEvents {
                         customItems.get(i));
             }
         }
-
         public static void fillHashMap(HashMap<Integer, Item> customItems) {
             customItems.put(0, WHITE_FEATHERED_WINGS.get().asItem());
             customItems.put(1, ORANGE_FEATHERED_WINGS.get().asItem());
@@ -162,6 +184,7 @@ public class ClientEvents {
             customItems.put(78, RED_LIGHT_WINGS.get().asItem());
             customItems.put(79, BLACK_LIGHT_WINGS.get().asItem());
         }
+
 
     }
 }

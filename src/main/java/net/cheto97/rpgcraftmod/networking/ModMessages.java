@@ -139,8 +139,13 @@ public class ModMessages {
                 .consumerMainThread(SyncToolLevelingConfig::handle)
                 .add();
 
-    }
+        net.messageBuilder(ItemStackSyncS2CPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ItemStackSyncS2CPacket::new)
+                .encoder(ItemStackSyncS2CPacket::toBytes)
+                .consumerMainThread(ItemStackSyncS2CPacket::handle)
+                .add();
 
+    }
     public static <MSG> void sendToServer(MSG message){
         INSTANCE.sendToServer(message);
     }

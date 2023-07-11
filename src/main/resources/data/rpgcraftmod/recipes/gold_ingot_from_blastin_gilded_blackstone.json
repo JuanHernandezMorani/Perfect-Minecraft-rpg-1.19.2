@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 280,
+  "experience": 12.7,
+  "group": "zafiro",
+  "ingredient": {
+    "item": "minecraft:gilded_blackstone"
+  },
+  "result": "minecraft:gold_ingot",
+  "count": 1
+}

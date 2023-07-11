@@ -8,6 +8,7 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.EnergySyncPacket;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.FluidSyncPacket;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.ItemStackSyncS2CPacket;
 import net.cheto97.rpgcraftmod.util.ModEnergyStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -54,6 +55,10 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+            assert level != null;
+            if(!level.isClientSide()) {
+                ModMessages.sendToClients(new ItemStackSyncS2CPacket(this, worldPosition));
+            }
         }
 
         @Override
@@ -99,6 +104,24 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
 
     public FluidStack getFluidStack(){
         return this.FLUID_TANK.getFluid();
+    }
+
+    public ItemStack getRenderStack() {
+        ItemStack stack;
+
+        if(!itemHandler.getStackInSlot(2).isEmpty()) {
+            stack = itemHandler.getStackInSlot(2);
+        } else {
+            stack = itemHandler.getStackInSlot(1);
+        }
+
+        return stack;
+    }
+
+    public void setHandler(ItemStackHandler itemStackHandler) {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
+            itemHandler.setStackInSlot(i, itemStackHandler.getStackInSlot(i));
+        }
     }
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -667,6 +690,4 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
 
         return appliedEnchantments;
     }
-
-
 }

@@ -29,6 +29,7 @@ import static net.cheto97.rpgcraftmod.util.CriticalDamageModifierCalculator.calc
 import static net.cheto97.rpgcraftmod.util.CriticalHitCalculator.calculateCriticalHit;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.randomInt;
 import static net.cheto97.rpgcraftmod.util.RPGutil.setBonusValue;
+import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -46,7 +47,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
@@ -192,36 +192,157 @@ public class ModEvents {
     public static void addCustomTrades(VillagerTradesEvent event){
         if(event.getType() == ModVillagers.MAGIC_MASTER.get()){
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-            ItemStack stack = new ItemStack(ModBlocks.bloque_mana.get(),2);
-            ItemStack stack2 = new ItemStack(ModItems.espada_muerte.get(),1);
-            ItemStack stack3 = new ItemStack(ModItems.hacha_zafiro.get(),1);
+            ItemStack stack = new ItemStack(ModBlocks.bloque_mana.get(),1);
+            ItemStack stack2 = new ItemStack(epicsword.get(),1);
+            ItemStack stack3 = new ItemStack(hacha_zafiro.get(),1);
             ItemStack stack4 = new ItemStack(ModBlocks.bloque_luz_magica.get(),1);
-            ItemStack stack5 = new ItemStack(ModItems.BLUEBERRY_SEEDS.get(),12);
+            ItemStack stack5 = new ItemStack(BLUEBERRY_SEEDS.get(),12);
+            ItemStack stack6 = new ItemStack(ModBlocks.bloque_mana.get(),8);
+            ItemStack costo = new ItemStack(ModBlocks.bloque_zafiro.get(),7);
+
+            HashMap<Integer,ItemStack> wings = new HashMap<>();
+
+            fillMap(wings);
 
             int villagerLevel = 1;
 
             trades.get(villagerLevel).add((trader,rand) -> new MerchantOffer(
                     new ItemStack(ModItems.zafiro.get(),15),
-                    stack,10,8,0.02F
+                    stack,10,Integer.MAX_VALUE,0.02F
             ));
             trades.get(villagerLevel).add((trader,rand) -> new MerchantOffer(
                     new ItemStack(ModBlocks.bloque_mineral_zafiro.get(),3),
                     stack2,10,8,0.02F
             ));
-            trades.get(villagerLevel).add((trader,rand) -> new MerchantOffer(
+            trades.get(2).add((trader,rand) -> new MerchantOffer(
                     new ItemStack(ModItems.zafiro_crudo.get(),1),
                     stack3,10,8,0.02F
             ));
-            trades.get(villagerLevel).add((trader,rand) -> new MerchantOffer(
+            trades.get(2).add((trader,rand) -> new MerchantOffer(
                     new ItemStack(ModBlocks.bloque_profundo_mineral_zafiro.get(),50),
                     stack4,10,8,0.02F
             ));
-            trades.get(villagerLevel).add((trader,rand) -> new MerchantOffer(
+            trades.get(3).add((trader,rand) -> new MerchantOffer(
                     new ItemStack(ModBlocks.bloque_mana.get(),1),
                     stack5,10,8,0.02F
             ));
+            for (Map.Entry<Integer, ItemStack> entry : wings.entrySet()) {
+                ItemStack item = entry.getValue();
+                for (int i = 0; i < wings.size(); i++) {
+                    trades.get(3).add((trader, rand) -> new MerchantOffer(
+                            costo, item, 10, 2, 0.02F
+                    ));
+                }
+            }
+            for (Map.Entry<Integer, ItemStack> entry : wings.entrySet()) {
+                ItemStack item = entry.getValue();
+                for (int i = 0; i < wings.size(); i++) {
+                    trades.get(4).add((trader, rand) -> new MerchantOffer(
+                            costo, item, 10, 2, 0.02F
+                    ));
+                }
+            }
+            trades.get(5).add((trader,rand) -> new MerchantOffer(
+                    stack6,
+                    new ItemStack(ModBlocks.GEM_INFUSING_STATION.get(),1),10,8,0.02F
+            ));
+            for (Map.Entry<Integer, ItemStack> entry : wings.entrySet()) {
+                ItemStack item = entry.getValue();
+                for (int i = 0; i < wings.size(); i++) {
+                    trades.get(5).add((trader, rand) -> new MerchantOffer(
+                            costo, item, 10, 2, 0.02F
+                    ));
+                }
+            }
         }
     }
+
+    private static void fillMap(HashMap<Integer, ItemStack> wingsMap) {
+        wingsMap.put(1, WHITE_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(2, ORANGE_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(3, MAGENTA_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(4, LIGHT_BLUE_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(5, YELLOW_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(6, LIME_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(7, PINK_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(8, GREY_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(9, LIGHT_GREY_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(10, CYAN_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(11, PURPLE_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(12, BLUE_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(13, BROWN_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(14, GREEN_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(15, RED_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(16, BLACK_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(17, WHITE_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(18, ORANGE_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(19, MAGENTA_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(20, LIGHT_BLUE_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(21, YELLOW_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(22, LIME_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(23, PINK_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(24, GREY_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(25, LIGHT_GREY_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(26, CYAN_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(27, PURPLE_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(28, BLUE_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(29, BROWN_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(30, GREEN_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(31, RED_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(32, BLACK_DRAGON_WINGS.get().getDefaultInstance());
+        wingsMap.put(33, WHITE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(34, ORANGE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(35, MAGENTA_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(36, LIGHT_BLUE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(37, YELLOW_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(38, LIME_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(39, PINK_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(40, GREY_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(41, LIGHT_GREY_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(42, CYAN_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(43, PURPLE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(44, BLUE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(45, BROWN_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(46, GREEN_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(47, RED_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(48, BLACK_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
+        wingsMap.put(49, WHITE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(50, ORANGE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(51, MAGENTA_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(52, LIGHT_BLUE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(53, YELLOW_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(54, LIME_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(55, PINK_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(56, GREY_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(57, LIGHT_GREY_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(58, CYAN_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(59, PURPLE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(60, BLUE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(61, BROWN_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(62, GREEN_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(63, RED_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(64, BLACK_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
+        wingsMap.put(65, WHITE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(66, ORANGE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(67, MAGENTA_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(68, LIGHT_BLUE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(69, YELLOW_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(70, LIME_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(71, PINK_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(72, GREY_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(73, LIGHT_GREY_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(74, CYAN_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(75, PURPLE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(76, BLUE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(77, BROWN_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(78, GREEN_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(79, RED_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(80, BLACK_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(81, FLANDRES_WINGS.get().getDefaultInstance());
+        wingsMap.put(82, DISCORDS_WINGS.get().getDefaultInstance());
+        wingsMap.put(83, ZANZAS_WINGS.get().getDefaultInstance());
+    }
+
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event){
         event.register(Customlevel.class);

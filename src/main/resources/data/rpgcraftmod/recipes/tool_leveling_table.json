@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "item": "rpgcraftmod:bloque_mana"
+    },
+    "R": {
+      "item": "minecraft:enchanting_table"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GRG",
+    "GGG"
+  ],
+  "result": {
+    "item": "rpgcraftmod:tool_leveling_table"
+  }
+}

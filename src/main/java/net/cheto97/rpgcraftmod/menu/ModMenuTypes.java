@@ -30,6 +30,9 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<ToolLevelingTableMenu>> TLT_CONTAINER =
             registerMenuType(ToolLevelingTableMenu::new,"tool_leveling_table_menu");
 
+    public static final RegistryObject<MenuType<ModCraftingMenu>> CRAFTING_MENU_TYPE =
+            registerMenuType(ModCraftingMenu::new,"crafting");
+
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
                                                                                                   String name) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));

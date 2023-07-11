@@ -3,9 +3,12 @@
   "minVersion": "0.8",
   "package": "net.cheto97.rpgcraftmod.client.mixing",
   "compatibilityLevel": "JAVA_16",
+  "plugin": "net.cheto97.rpgcraftmod.client.mixing.ModMixinConfigPlugin",
+  "refmap": "rpgcraftmod.refmap.json",
   "mixins": [
-    "EntityMixin",
-    "PlayerEntityMixin"
+    "CraftingTableBlockMixin",
+    "PlayerEntityMixin",
+    "accessor.CraftingMenuAccessor"
   ],
   "client": [],
   "injectors": {

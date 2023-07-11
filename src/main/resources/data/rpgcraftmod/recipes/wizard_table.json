@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "item": "rpgcraftmod:bloque_mana"
+    },
+    "R": {
+      "item": "minecraft:crafting_table"
+    },
+    "B": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "GRG",
+    "BBB"
+  ],
+  "result": {
+    "item": "rpgcraftmod:wizard_table"
+  }
+}

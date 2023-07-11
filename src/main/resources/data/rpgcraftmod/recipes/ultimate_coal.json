@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#O#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "rpgcraftmod:bloque_zafiro"
+    },
+    "O": {
+      "item": "minecraft:coal_block"
+    }
+  },
+  "result": {
+    "item": "rpgcraftmod:ultimate_coal"
+  }
+}
