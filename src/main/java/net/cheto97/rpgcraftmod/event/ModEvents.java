@@ -25,14 +25,18 @@ import static net.cheto97.rpgcraftmod.ranks.Legendary.legendaryModify;
 import static net.cheto97.rpgcraftmod.ranks.Mythical.mythicalModify;
 import static net.cheto97.rpgcraftmod.ranks.Unique.uniqueModify;
 import static net.cheto97.rpgcraftmod.ranks.semiBoss.semiBossModify;
+import static net.cheto97.rpgcraftmod.util.AuraDropChances.generateRandomValue;
+import static net.cheto97.rpgcraftmod.util.AuraDropChances.willDropAura;
 import static net.cheto97.rpgcraftmod.util.CriticalDamageModifierCalculator.calculateCriticalDamageModifier;
 import static net.cheto97.rpgcraftmod.util.CriticalHitCalculator.calculateCriticalHit;
-import static net.cheto97.rpgcraftmod.util.NumberUtils.randomInt;
+import static net.cheto97.rpgcraftmod.util.Effects.Helper.*;
+import static net.cheto97.rpgcraftmod.util.NumberUtils.*;
 import static net.cheto97.rpgcraftmod.util.RPGutil.setBonusValue;
 import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -44,9 +48,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
@@ -54,12 +56,15 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -72,6 +77,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.*;
@@ -81,27 +87,103 @@ import java.util.List;
 public class ModEvents {
     private static final String MESSAGE_LEVEL_TOO_HIGH = "message.rpgcraftmod.level_too_high";
     private static int lvls = 0;
+    private static int result = 0;
     private static int lvlReduce = 0;
-    static private double expBonus = 1;
+    static private final int expBonus = 1;
     static private double totalDamage;
+    static private double regEffectBonus = 0.0;
     static private boolean sendMSG = true;
     private static void updatePlayerCapabilities(ServerPlayer player) {
         ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
     }
-    private static int getRandomRank(){
-        double[] RANK_PERCENTAGES = {0.4, 0.25, 0.15, 0.09, 0.05, 0.03, 0.02, 0.01, 0.005, 0.0005, 0.00005};
+    private static int getRandomRank(LivingEntity entity) {
+        double[] RANK_PERCENTAGES = {0.4, 0.25, 0.15, 0.094, 0.055, 0.033, 0.022, 0.013, 0.01, 0.005, 0.0005};
         final int MAX_RANK = 11;
         Random random = new Random();
         double totalPercentage = 0.0;
         double randomNumber = random.nextDouble();
 
+        double[] probabilitiesByDimension = getProbabilitiesByDimension(entity);
+
         for (int rank = 1; rank <= MAX_RANK; rank++) {
-            totalPercentage += RANK_PERCENTAGES[rank - 1];
+            totalPercentage += ((RANK_PERCENTAGES[rank] + 1) * (probabilitiesByDimension[rank] + 1)) - 1;
             if (randomNumber <= totalPercentage) {
                 return rank;
             }
         }
-        return MAX_RANK;
+        return 1;
+    }
+
+    private static double[] getProbabilitiesByDimension(LivingEntity entity) {
+        double[] baseProbabilities = {0.25, 0.025, 0.25, 0.025, 0.12, 0.012, 0.12, 0.007, 0.07, 0.07, 0.05};
+        Level level = entity.getLevel();
+
+        if (level instanceof ServerLevel serverLevel) {
+            if (serverLevel.dimension().equals(Level.OVERWORLD)) {
+                return new double[]{0.4, 0.3, 0.2, 0.1, 0.01, 0.07, 0.007, 0.005, 0.005, 0.005, 0.003};
+            }
+            else if (serverLevel.dimension().equals(Level.NETHER)) {
+                return new double[]{0.001, 0.001, 0.002, 0.002, 0.15, 0.15, 0.1, 0.07, 0.007, 0.005, 0.003};
+            }
+            else if (serverLevel.dimension().equals(Level.END)) {
+                return new double[]{0.0003, 0.005, 0.007, 0.007, 0.01, 0.01, 0.15, 0.15, 0.2, 0.2, 0.01};
+            }
+        }
+        return baseProbabilities;
+    }
+
+    private static int dropExperience(LivingEntity target, Player entity,int originalExp){
+
+        entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(customExp -> entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel -> target.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> target.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(targetLevel -> {
+            Difficulty difficulty = target.getLevel().getDifficulty();
+
+            MobEffectInstance luckEff = entity.hasEffect(MobEffects.LUCK) ? entity.getEffect(MobEffects.LUCK) : null;
+            double luckBonus = luckEff != null ? calculateValue(luckEff, luck.get(),"add") : 0.0;
+
+            double rankMultiplier = randomValueWithConstraints(randomDoubleWithLuck(randomDouble(9.65,4.26),randomDouble(4.25,1.000001) ,luck.get()+luckBonus),rank.get());
+
+            double hardcoreXP = target.getLevel().getLevelData().isHardcore() ? 3.5 : 1;
+
+            double difficultyXP = switch (difficulty) {
+                case PEACEFUL -> 1;
+                case EASY -> 2.3;
+                case NORMAL -> 6.5;
+                case HARD -> 12.5;
+            };
+            double droppedExperience = (originalExp * difficultyXP) * hardcoreXP;
+            double playerLevelValue = playerLevel.get();
+            double targetLevelValue = targetLevel.get();
+            double multiplier = 0.0;
+
+            if(playerLevelValue > 10){
+                if (playerLevelValue < targetLevelValue) {
+                    multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
+                }
+                else if (playerLevelValue - (playerLevelValue * 0.05) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.1) > targetLevelValue) {
+                    multiplier = 1.0;
+                }
+                else if (playerLevelValue - (playerLevelValue * 0.1) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.25) > targetLevelValue) {
+                    multiplier = 0.75;
+                }
+                else if (playerLevelValue - (playerLevelValue * 0.25) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.45) > targetLevelValue) {
+                    multiplier = 0.4;
+                }
+            }else{
+                if (playerLevelValue < targetLevelValue && playerLevelValue * 2 <= targetLevelValue) {
+                    multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
+                }else{
+                    multiplier = 1.0;
+                }
+            }
+
+
+            double exp = (droppedExperience + expBonus) * targetLevelValue;
+            result = (int) (exp * multiplier * rankMultiplier);
+            if (multiplier == 0.0) {
+                entity.sendSystemMessage(Component.translatable(MESSAGE_LEVEL_TOO_HIGH).withStyle(ChatFormatting.DARK_RED));
+            }
+        })))));
+        return result;
     }
     private static void levelUpPlayer(ServerPlayer player,double lifeIncrease,double manaIncrease,
                                 double lifeRegenerationIncrease,double manaRegenerationIncrease,
@@ -226,123 +308,39 @@ public class ModEvents {
                     new ItemStack(ModBlocks.bloque_mana.get(),1),
                     stack5,10,8,0.02F
             ));
-            for (Map.Entry<Integer, ItemStack> entry : wings.entrySet()) {
-                ItemStack item = entry.getValue();
-                for (int i = 0; i < wings.size(); i++) {
-                    trades.get(3).add((trader, rand) -> new MerchantOffer(
-                            costo, item, 10, 2, 0.02F
-                    ));
-                }
-            }
-            for (Map.Entry<Integer, ItemStack> entry : wings.entrySet()) {
-                ItemStack item = entry.getValue();
-                for (int i = 0; i < wings.size(); i++) {
-                    trades.get(4).add((trader, rand) -> new MerchantOffer(
-                            costo, item, 10, 2, 0.02F
-                    ));
-                }
-            }
-            trades.get(5).add((trader,rand) -> new MerchantOffer(
+            trades.get(3).add((trader,rand) -> new MerchantOffer(
                     stack6,
                     new ItemStack(ModBlocks.GEM_INFUSING_STATION.get(),1),10,8,0.02F
             ));
             for (Map.Entry<Integer, ItemStack> entry : wings.entrySet()) {
                 ItemStack item = entry.getValue();
-                for (int i = 0; i < wings.size(); i++) {
-                    trades.get(5).add((trader, rand) -> new MerchantOffer(
+                for (int i = 0; i < 17; i++) {
+                    trades.get(4).add((trader, rand) -> new MerchantOffer(
                             costo, item, 10, 2, 0.02F
                     ));
                 }
             }
         }
     }
-
     private static void fillMap(HashMap<Integer, ItemStack> wingsMap) {
-        wingsMap.put(1, WHITE_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(2, ORANGE_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(3, MAGENTA_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(4, LIGHT_BLUE_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(5, YELLOW_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(6, LIME_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(7, PINK_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(8, GREY_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(9, LIGHT_GREY_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(10, CYAN_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(11, PURPLE_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(12, BLUE_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(13, BROWN_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(14, GREEN_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(15, RED_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(16, BLACK_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(17, WHITE_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(18, ORANGE_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(19, MAGENTA_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(20, LIGHT_BLUE_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(21, YELLOW_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(22, LIME_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(23, PINK_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(24, GREY_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(25, LIGHT_GREY_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(26, CYAN_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(27, PURPLE_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(28, BLUE_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(29, BROWN_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(30, GREEN_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(31, RED_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(32, BLACK_DRAGON_WINGS.get().getDefaultInstance());
-        wingsMap.put(33, WHITE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(34, ORANGE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(35, MAGENTA_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(36, LIGHT_BLUE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(37, YELLOW_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(38, LIME_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(39, PINK_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(40, GREY_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(41, LIGHT_GREY_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(42, CYAN_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(43, PURPLE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(44, BLUE_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(45, BROWN_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(46, GREEN_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(47, RED_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(48, BLACK_MECHANICAL_FEATHERED_WINGS.get().getDefaultInstance());
-        wingsMap.put(49, WHITE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(50, ORANGE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(51, MAGENTA_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(52, LIGHT_BLUE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(53, YELLOW_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(54, LIME_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(55, PINK_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(56, GREY_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(57, LIGHT_GREY_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(58, CYAN_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(59, PURPLE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(60, BLUE_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(61, BROWN_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(62, GREEN_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(63, RED_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(64, BLACK_MECHANICAL_LEATHER_WINGS.get().getDefaultInstance());
-        wingsMap.put(65, WHITE_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(66, ORANGE_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(67, MAGENTA_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(68, LIGHT_BLUE_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(69, YELLOW_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(70, LIME_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(71, PINK_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(72, GREY_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(73, LIGHT_GREY_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(74, CYAN_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(75, PURPLE_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(76, BLUE_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(77, BROWN_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(78, GREEN_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(79, RED_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(80, BLACK_LIGHT_WINGS.get().getDefaultInstance());
-        wingsMap.put(81, FLANDRES_WINGS.get().getDefaultInstance());
-        wingsMap.put(82, DISCORDS_WINGS.get().getDefaultInstance());
-        wingsMap.put(83, ZANZAS_WINGS.get().getDefaultInstance());
+        wingsMap.put(0, WHITE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(1, ORANGE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(2, MAGENTA_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(3, LIGHT_BLUE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(4, YELLOW_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(5, LIME_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(6, PINK_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(7, GREY_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(8, LIGHT_GREY_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(9, CYAN_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(10, PURPLE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(11, BLUE_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(12, BROWN_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(13, GREEN_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(14, RED_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(15, BLACK_LIGHT_WINGS.get().getDefaultInstance());
+        wingsMap.put(16, ZANZAS_WINGS.get().getDefaultInstance());
     }
-
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event){
         event.register(Customlevel.class);
@@ -367,6 +365,7 @@ public class ModEvents {
         event.register(FirstJoin.class);
         event.register(CustomClass.class);
         event.register(RegenerationDelay.class);
+        event.register(Reset.class);
     }
     @SubscribeEvent
     public static void onHitCriticalChance(CriticalHitEvent event){
@@ -374,8 +373,12 @@ public class ModEvents {
         if(entity != null){
             if(entity.getCapability(LuckProvider.ENTITY_LUCK).isPresent())
                 entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> entity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> {
+
+                    MobEffectInstance luckEff = entity.hasEffect(MobEffects.LUCK) ? entity.getEffect(MobEffects.LUCK) : null;
+                    double luckBonus = luckEff != null ? calculateValue(luckEff, luck.get(),"add") : 0.0;
+
                     event.setDamageModifier(calculateCriticalDamageModifier(agility.get()));
-                    boolean flag = calculateCriticalHit(luck.get());
+                    boolean flag = calculateCriticalHit(luck.get()+luckBonus);
                     if (flag) {
                         event.setResult(Event.Result.ALLOW);
                     } else {
@@ -413,6 +416,7 @@ public class ModEvents {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"customclass"), new CustomClassProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "regenerationdelay"), new RegenerationDelayProvider());
+                    event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"reset"), new ResetProvider());
                 } else {
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "rank"), new RankProvider());
                     event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
@@ -468,7 +472,7 @@ public class ModEvents {
             double bonus = setBonusValue(entityRank);
             entityClass = 50 * (int) (11 + difficultyLevel + bonus);
         } else {
-            entityRank = getRandomRank();
+            entityRank = getRandomRank(livingEntity);
             double bonus = setBonusValue(entityRank);
             if (entityRank < 10) {
                 entityClass = (int) (entityRank + difficultyLevel + bonus);
@@ -476,24 +480,7 @@ public class ModEvents {
                 entityClass = 25 * (int) (entityRank + difficultyLevel + bonus);
             }
         }
-        ItemStack auraItemStack;
-        
-        switch (entityRank){
-            case 2 -> auraItemStack = ModItems.ELITE_AURA.get().getDefaultInstance();
-            case 3 -> auraItemStack = ModItems.BRUTAL_AURA.get().getDefaultInstance();
-            case 4 -> auraItemStack = ModItems.CHAMPION_AURA.get().getDefaultInstance();
-            case 5 -> auraItemStack = ModItems.HERO_AURA.get().getDefaultInstance();
-            case 6 -> auraItemStack = ModItems.DEMON_AURA.get().getDefaultInstance();
-            case 7 -> auraItemStack = ModItems.LEGENDARY_AURA.get().getDefaultInstance();
-            case 8 -> auraItemStack = ModItems.MYTHICAL_AURA.get().getDefaultInstance();
-            case 9 -> auraItemStack = ModItems.UNIQUE_AURA.get().getDefaultInstance();
-            case 10 -> auraItemStack = ModItems.SEMI_BOSS_AURA.get().getDefaultInstance();
-            case 11 -> auraItemStack = ModItems.BOSS_AURA.get().getDefaultInstance();
-            default -> auraItemStack = ModItems.COMMON_AURA.get().getDefaultInstance();
-        }
 
-        CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).ifPresent(handler -> handler.getStacksHandler("aura").ifPresent(stacksHandler -> stacksHandler.getStacks().setStackInSlot(0, auraItemStack)));
-        
         int dimensionLevel = 0;
         if (level instanceof ServerLevel serverLevel) {
             if (serverLevel.dimension().equals(Level.NETHER)) {
@@ -503,7 +490,7 @@ public class ModEvents {
             }
         }
 
-        int hardcoreLevel = level.getLevelData().isHardcore() ? 5 : 0;
+        int hardcoreLevel = level.getLevelData().isHardcore() ? 15 : 1;
 
         int totalCustomLevels = level.players().stream()
                 .mapToInt(player -> {
@@ -522,7 +509,7 @@ public class ModEvents {
         if (timeLevel < 2) {
             lvlReduce = finalLevel;
         }
-        int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) : randomInt(15,1);
+        int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) : randomInt(7,1);
 
         livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
             customLevel.setLevel(fnLvl);
@@ -545,13 +532,22 @@ public class ModEvents {
         });
     }
     public static boolean setChance(int numero) {
-        if (numero == 11) {
-            return true;
-        } else {
-            int probabilidad = 11 - numero;
-            int random = (int) (Math.random() * 10) + 1;
-            return random <= probabilidad;
-        }
+        double random = Math.random() * 100;
+
+        return switch (numero) {
+            case 1 -> random >= 1 && random <= 3;
+            case 2 -> random > 3 && random <= 5;
+            case 3 -> random > 5 && random <= 7;
+            case 4 -> random > 7 && random <= 12;
+            case 5 -> random > 12 && random <= 15;
+            case 6 -> random > 15 && random <= 20;
+            case 7 -> random > 20 && random <= 27;
+            case 8 -> random > 27 && random <= 35;
+            case 9 -> random > 40 && random <= 55;
+            case 10 -> random > 55 && random <= 80;
+            case 11 -> random > 80 && random <= 95;
+            default -> false;
+        };
     }
     public static MobEffect[] selectEffects(int amount){
         Random random = new Random();
@@ -651,44 +647,33 @@ public class ModEvents {
     }
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event){
-        if(!event.getEntity().getLevel().isClientSide() && event.getEntity() != null){
-            event.getOriginal().getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(oldStore -> event.getEntity().getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(oldStore -> event.getEntity().getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(ManaProvider.ENTITY_MANA).ifPresent(oldStore -> event.getEntity().getCapability(ManaProvider.ENTITY_MANA).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(oldStore -> event.getEntity().getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(oldStore -> event.getEntity().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(oldStore -> event.getEntity().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(oldStore -> event.getEntity().getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(oldStore -> event.getEntity().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(LuckProvider.ENTITY_LUCK).ifPresent(oldStore -> event.getEntity().getCapability(LuckProvider.ENTITY_LUCK).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(oldStore -> event.getEntity().getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(oldStore -> event.getEntity().getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(oldStore -> event.getEntity().getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(oldStore -> event.getEntity().getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(oldStore -> event.getEntity().getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(oldStore -> event.getEntity().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(oldStore -> event.getEntity().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(oldStore -> event.getEntity().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(oldStore -> event.getEntity().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(newStore -> newStore.copyFrom(oldStore)));
-
-            event.getOriginal().getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(oldStore -> event.getEntity().getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+        if(!event.getEntity().getLevel().isClientSide() && event.getOriginal() != null && event.getEntity() != null){
+            event.getOriginal().reviveCaps();
+            event.getOriginal().setHealth(10.0f);
+            event.getOriginal().getFoodData().setFoodLevel(20);
+                event.getOriginal().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(oldStore -> event.getEntity().getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(oldStore -> event.getEntity().getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(oldStore -> event.getEntity().getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(ResetProvider.ENTITY_RESET).ifPresent(oldStore -> event.getEntity().getCapability(ResetProvider.ENTITY_RESET).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(oldStore -> event.getEntity().getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(ManaProvider.ENTITY_MANA).ifPresent(oldStore -> event.getEntity().getCapability(ManaProvider.ENTITY_MANA).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(oldStore -> event.getEntity().getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(oldStore -> event.getEntity().getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(oldStore -> event.getEntity().getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
+                    event.getEntity().getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.set(newStore.get()));
+                }));
+                event.getOriginal().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(oldStore -> event.getEntity().getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(LuckProvider.ENTITY_LUCK).ifPresent(oldStore -> event.getEntity().getCapability(LuckProvider.ENTITY_LUCK).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(oldStore -> event.getEntity().getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(oldStore -> event.getEntity().getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(oldStore -> event.getEntity().getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(oldStore -> event.getEntity().getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(oldStore -> event.getEntity().getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(oldStore -> event.getEntity().getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(oldStore -> event.getEntity().getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+                event.getOriginal().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(oldStore -> event.getEntity().getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(newStore -> newStore.copyFrom(oldStore)));
+            event.getOriginal().invalidateCaps();
         }
     }
     @SubscribeEvent
@@ -700,7 +685,18 @@ public class ModEvents {
             event.setAmount(0.0f);
             DamageSource source = event.getSource();
             if (target != null) {
+                double armor = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
+                MobEffectInstance defInstance = target.getEffect(MobEffects.DAMAGE_RESISTANCE);
+
+                armor = target.hasEffect(MobEffects.DAMAGE_RESISTANCE) && defInstance != null ?  armor + calculateValue(defInstance,armor,"add") : armor;
+
                 if (attacker instanceof LivingEntity livingAttacker) {
+                    MobEffectInstance damageBoostEffect = livingAttacker.getEffect(MobEffects.DAMAGE_BOOST);
+                    MobEffectInstance damageDecreaseEffect = livingAttacker.getEffect(MobEffects.WEAKNESS);
+                    double dmg = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.001);
+
+                    double dmgEff = damageBoostEffect != null && damageDecreaseEffect != null ? calculateDamageAndReduce(damageBoostEffect,damageDecreaseEffect,dmg) : damageBoostEffect != null ? calculateValue(damageBoostEffect,dmg,"add") : damageDecreaseEffect != null ? calculateValue(damageDecreaseEffect,dmg,"reduce") : 0.0;
+
                     int attackerLevel = livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
                     int targetLevel = target.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
                     double damageReduce = 0;
@@ -709,7 +705,6 @@ public class ModEvents {
                         damageReduce = attackerLevel * 0.5 > targetLevel ? livingAttacker.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(500.0) : 0;
                     }
 
-                    double armor = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
                     double percentDamageReduce = (armor + damageReduce) / (damage + armor + damageReduce);
                     double magicArmor = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
                     double percentMagicDamageReduce = (magicArmor + damageReduce) / (damage + magicArmor + damageReduce);
@@ -717,8 +712,18 @@ public class ModEvents {
                     if (source.isMagic() || source.isFire()) {
                         double attackerMagicDamage = livingAttacker.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).map(Intelligence::get).orElse(1.0);
                         damage = (((damage + attackerMagicDamage) * percentMagicDamageReduce));
+
+                        Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
+                        for (MobEffectInstance effectInstance : activeEffects) {
+                            MobEffect effect = effectInstance.getEffect();
+                            if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
+                                int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
+                                damage = damage * amplification;
+                                break;
+                            }
+                        }
                     } else if (source.isProjectile()) {
-                        double attackerRangeDamage = livingAttacker.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(1.0);
+                        double attackerRangeDamage = livingAttacker.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(1.0) + dmgEff;
                         damage = ((damage + attackerRangeDamage) * percentDamageReduce);
                     } else if (source.isExplosion()) {
                         double attackerAgility = livingAttacker.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(1.0);
@@ -727,7 +732,7 @@ public class ModEvents {
                         damage = 0;
                     } else {
                         double attackerStrength = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(1.0);
-                        damage = ((damage + attackerStrength) * percentDamageReduce);
+                        damage = ((damage + attackerStrength + dmgEff) * percentDamageReduce);
                     }
                     if (livingAttacker instanceof Player && target instanceof Player) {
                         totalDamage = attackerLevel * 0.2 > targetLevel ? -111111 : damage - damageReduce;
@@ -756,33 +761,23 @@ public class ModEvents {
 
                             } else {
                                 livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customlevel -> {
-                                    int amount = 0;
-                                    int extraAmount = 0;
+                                    int entityRank = livingAttacker.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0);
+                                    int amount = 1;
                                     int count = customlevel.get();
                                     if (count >= 10000) {
                                         do {
                                             count = count - 10000;
                                             amount++;
-                                        } while (count > 10000 && amount < 10);
+                                        } while (count > 10000 && amount < 12);
                                     }
+                                            boolean shouldApply = setChance(amount);
 
-                                    Random random = new Random();
-                                    int value = random.nextInt(3);
-                                    if(value > 0){
-                                        extraAmount = setAmount(value);
-                                    }
-
-
-                                    amount = amount + extraAmount;
-
-                                            boolean shouldApply = setChance(random.nextInt(12)+1);
-
-                                            if(shouldApply && amount > 0) {
+                                            if(shouldApply) {
                                                 MobEffect[] effects = selectEffects(amount);
                                                 int[] durations = applyDuration(amount);
                                                 int[] levels = applyLevel(amount);
 
-                                                for (int i = 0; i < amount; i++) {
+                                                for (int i = 0; i < entityRank; i++) {
                                                     target.addEffect(new MobEffectInstance(effects[i], durations[i], levels[i]));
                                                 }
                                             }
@@ -798,7 +793,7 @@ public class ModEvents {
                             }
 
                             life.consumeLife(totalDamage);
-                            reduceArmorDurability(target, totalDamage);
+                            reduceArmorDurability(target, (totalDamage * 0.012));
                         }
                     });
                 }
@@ -827,6 +822,21 @@ public class ModEvents {
                             }
                         });
                     }
+                    if(source.isMagic()){
+                        Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
+                        for (MobEffectInstance effectInstance : activeEffects) {
+                            MobEffect effect = effectInstance.getEffect();
+
+                            if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
+                                int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
+                                totalDamage = totalDamage * amplification;
+                                break;
+                            }
+                        }
+                    }
+                    if(source ==  DamageSource.OUT_OF_WORLD) {
+                        totalDamage = target.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(10.0);
+                    }
                     target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
                         if(!source.isFall() && totalDamage < 1){
                             totalDamage = 1;
@@ -835,7 +845,7 @@ public class ModEvents {
                         target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
 
                         life.consumeLife(totalDamage);
-                        reduceArmorDurability(target, totalDamage);
+                        reduceArmorDurability(target, (totalDamage * 0.012));
                     });
                 }
             }
@@ -844,20 +854,15 @@ public class ModEvents {
     private static void reduceArmorDurability(LivingEntity entity, double damage) {
         for (ItemStack armorStack : entity.getArmorSlots()) {
             if (!armorStack.isEmpty()) {
-                Item armorItem = armorStack.getItem();
-                if (armorItem instanceof ArmorItem) {
+                Item item = armorStack.getItem();
+                if ( item instanceof ArmorItem armorItem) {
                     int maxDurability = armorStack.getMaxDamage();
                     int currentDurability = armorStack.getDamageValue();
                     int newDurability = currentDurability - (int)(Math.ceil(damage)*0.0025);
+                    EquipmentSlot equipmentSlot = armorItem.getSlot();
                     if (newDurability >= maxDurability) {
-                        entity.broadcastBreakEvent(EquipmentSlot.HEAD);
-                        entity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-                        entity.broadcastBreakEvent(EquipmentSlot.CHEST);
-                        entity.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-                        entity.broadcastBreakEvent(EquipmentSlot.LEGS);
-                        entity.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
-                        entity.broadcastBreakEvent(EquipmentSlot.FEET);
-                        entity.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
+                        entity.broadcastBreakEvent(equipmentSlot);
+                        entity.setItemSlot(equipmentSlot, ItemStack.EMPTY);
                     } else {
                         armorStack.setDamageValue(newDurability);
                     }
@@ -865,26 +870,84 @@ public class ModEvents {
             }
         }
     }
+    private static void dropChest(NonNullList<ItemStack> chest, double x, double y, double z,Level level) {
+        level.setBlockAndUpdate(new BlockPos(x, y, z), Blocks.CHEST.defaultBlockState());
+        BlockEntity blockEntity = level.getBlockEntity(new BlockPos(x, y, z));
+        if (blockEntity instanceof ChestBlockEntity chestBlockEntity) {
+            for (int slot = 0; slot < chest.size(); slot++) {
+                ItemStack stack = chest.get(slot);
+                if (!stack.isEmpty()) {
+                    chestBlockEntity.setItem(slot, stack);
+                }
+            }
+            if(chestBlockEntity.isEmpty()){
+                chestBlockEntity.setRemoved();
+            }
+        }
+    }
+    private static @NotNull NonNullList<ItemStack> createChestContents(ItemStack itemStack) {
+        NonNullList<ItemStack> chest = NonNullList.create();
+        chest.add(itemStack);
+        return chest;
+    }
     @SubscribeEvent
-    public static void onLivingHealEvent(LivingHealEvent event){
-        if(event.getEntity() != null&& !event.getEntity().getLevel().isClientSide()){
-            event.setCanceled(true);
+    public static void onLivingEntityDeath(LivingDeathEvent event) {
+        if(!event.getEntity().getLevel().isClientSide()){
+            if(!(event.getEntity() instanceof Player) && !(event.getEntity() instanceof ServerPlayer)){
+                LivingEntity livingEntity = event.getEntity();
+                boolean auraChest = livingEntity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getDie).orElse(true);
+                if(!auraChest){
+                    livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.setDie(true));
+                    int rank = livingEntity.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0);
+                    double dropRate = generateRandomValue(rank);
+
+                    ItemStack auraItemStack;
+
+                    switch (rank){
+                        case 2 -> auraItemStack = ModItems.ELITE_AURA.get().getDefaultInstance();
+                        case 3 -> auraItemStack = ModItems.BRUTAL_AURA.get().getDefaultInstance();
+                        case 4 -> auraItemStack = ModItems.CHAMPION_AURA.get().getDefaultInstance();
+                        case 5 -> auraItemStack = ModItems.HERO_AURA.get().getDefaultInstance();
+                        case 6 -> auraItemStack = ModItems.DEMON_AURA.get().getDefaultInstance();
+                        case 7 -> auraItemStack = ModItems.LEGENDARY_AURA.get().getDefaultInstance();
+                        case 8 -> auraItemStack = ModItems.MYTHICAL_AURA.get().getDefaultInstance();
+                        case 9 -> auraItemStack = ModItems.UNIQUE_AURA.get().getDefaultInstance();
+                        case 10 -> auraItemStack = ModItems.SEMI_BOSS_AURA.get().getDefaultInstance();
+                        case 11 -> auraItemStack = ModItems.BOSS_AURA.get().getDefaultInstance();
+                        default -> auraItemStack = ModItems.COMMON_AURA.get().getDefaultInstance();
+                    }
+
+                    if(willDropAura(dropRate) && livingEntity.getKillCredit() instanceof Player){
+                        dropChest(createChestContents(auraItemStack), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), livingEntity.getLevel());
+                    }
+                }
+            }
+            if (event.getEntity() instanceof ServerPlayer player) {
+                player.sendSystemMessage(Component.literal("You die at [X: "+player.getX()+", Y: "+player.getY()+", Z: "+player.getZ()+"]."));
+            }
         }
     }
     @SubscribeEvent
     public static void onLivingEntityUpdate(LivingEvent.LivingTickEvent event){
             LivingEntity livingEntity = event.getEntity();
             if (livingEntity != null) {
+                MobEffectInstance regenerationEffect = livingEntity.hasEffect(MobEffects.REGENERATION) ? livingEntity.getEffect(MobEffects.REGENERATION) : null;
+                regEffectBonus = regenerationEffect != null && regenerationEffect.getDuration() > 1 ? calculateValue(regenerationEffect,livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(1.0),"add") : 0.0;
+
                 if(livingEntity instanceof ServerPlayer player){
                         player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
                             if(mana.get() != manaMax.get() || life.get() != lifeMax.get()){
                                 updatePlayerCapabilities(player);
                             }
-                            if (life.get() <= 0) {
+                            if (life.get() <= 0 && !life.getDie()) {
+                                player.skipDropExperience();
+                                life.setDie(true);
                                 player.setHealth(0.0f);
+                                player.die(DamageSource.GENERIC);
                             }
-                            if (life.get() < lifeMax.get() && life.get() > 0 && player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
-                                life.add(lifeRegeneration.get() * 0.05);
+                            int delay = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
+                            if (life.get() < lifeMax.get() && life.get() > 0 && delay == 0) {
+                                life.add((lifeRegeneration.get()+regEffectBonus) * 0.05);
                             }else{
                                 int cooldown = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
                                 if(cooldown == 100 && sendMSG){
@@ -920,22 +983,18 @@ public class ModEvents {
                                 livingEntity.setHealth(0.0f);
                                 livingEntity.die(DamageSource.GENERIC);
                             }
-                            if(rank.get() < 10){
-                                if (life.get() < lifeMax.get() && life.get() > 0  && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
-                                    life.add(lifeRegeneration.get());
-                                }
-                            }else if(rank.get() > 6){
-                                if (life.get() < lifeMax.get() && life.get() > 0 && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
-                                    life.add(lifeRegeneration.get() * 0.75);
-                                }
-                            }else if(rank.get() > 3){
-                                if (life.get() < lifeMax.get() && life.get() > 0 && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
-                                    life.add(lifeRegeneration.get() * 0.5);
+                            if(livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0){
+                                if (life.get() < lifeMax.get() && life.get() > 0) {
+                                    switch (rank.get()){
+                                        case 11 -> life.add((lifeRegeneration.get())+regEffectBonus);
+                                        case 10 -> life.add((lifeRegeneration.get()*0.88)+regEffectBonus);
+                                        case 6,7,8,9 -> life.add((lifeRegeneration.get() * 0.75)+regEffectBonus);
+                                        case 3,4,5 -> life.add((lifeRegeneration.get() * 0.5)+regEffectBonus);
+                                        default -> life.add((lifeRegeneration.get() * 0.25)+regEffectBonus);
+                                    }
                                 }
                             }else{
-                                if (life.get() < lifeMax.get() && life.get() > 0 && livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0) {
-                                    life.add(lifeRegeneration.get() * 0.25);
-                                }
+                                livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
                             }
 
                             if (mana.get() < manaMax.get()) {
@@ -951,45 +1010,8 @@ public class ModEvents {
         if(!event.getEntity().getLevel().isClientSide() && event.getEntity() != null && event.getAttackingPlayer() != null) {
             LivingEntity target = event.getEntity();
             Player entity = event.getAttackingPlayer();
-
-            if (!target.shouldDropExperience()) {
-                expBonus = target.getCapability(ExperienceRewardProvider.ENTITY_EXPERIENCE_REWARD).map(ExperienceReward::get).orElse(1.0);
+            event.setDroppedExperience(dropExperience(target,entity,event.getOriginalExperience()));
             }
-
-            if (!target.getLevel().isClientSide() && entity != null) {
-                entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(customExp -> entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel -> target.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(targetLevel -> {
-                    Difficulty difficulty = event.getEntity().getLevel().getDifficulty();
-                    double hardcoreXP = event.getEntity().getLevel().getLevelData().isHardcore() ? 3.5 : 1;
-
-                    double difficultyXP = switch (difficulty) {
-                        case PEACEFUL -> 1;
-                        case EASY -> 2.3;
-                        case NORMAL -> 6.5;
-                        case HARD -> 12.5;
-                    };
-                    double droppedExperience = (event.getOriginalExperience() * difficultyXP) * hardcoreXP;
-                    double playerLevelValue = playerLevel.get();
-                    double targetLevelValue = targetLevel.get();
-                    double multiplier = 0.0;
-
-                    if (playerLevelValue < targetLevelValue) {
-                        multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
-                    } else if (playerLevelValue - (playerLevelValue * 0.05) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.1) > targetLevelValue) {
-                        multiplier = 1.0;
-                    } else if (playerLevelValue - (playerLevelValue * 0.1) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.25) > targetLevelValue) {
-                        multiplier = 0.75;
-                    } else if (playerLevelValue - (playerLevelValue * 0.25) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.45) > targetLevelValue) {
-                        multiplier = 0.4;
-                    }
-
-                    double exp = (droppedExperience + expBonus) * targetLevelValue;
-                    event.setDroppedExperience((int) (exp * multiplier));
-                    if (multiplier == 0.0) {
-                        entity.sendSystemMessage(Component.translatable(MESSAGE_LEVEL_TOO_HIGH).withStyle(ChatFormatting.DARK_RED));
-                    }
-                })));
-            }
-        }
     }
     @SubscribeEvent
     public static void onPlayerGetExperience(PlayerXpEvent.PickupXp event) {
@@ -1008,48 +1030,32 @@ public class ModEvents {
 
                             int opt = player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0);
                             switch (opt) {
-                                case 1 -> {
-                                    levelUpPlayer(player,
-                                            1, 1,
-                                            0.00025, 0.0005,
-                                            0.5, 0.25, 1,
-                                            6, 0, 8, 8, 8);
-                                }
+                                case 1 -> levelUpPlayer(player,
+                                        1, 1,
+                                        0.00025, 0.0005,
+                                        0.5, 0.25, 1,
+                                        6, 0, 8, 8, 8);
 
-                                case 2 -> {
-                                    levelUpPlayer(player, 0.25, 5,
-                                            0.00045, 0.025, 0.01,
-                                            0.03, 1, 0, 0, 1, 0, 0.1);
-                                }
+                                case 2 -> levelUpPlayer(player, 0.25, 5,
+                                        0.00045, 0.025, 0.01,
+                                        0.03, 1, 0, 0, 1, 0, 0.1);
 
-                                case 3 -> {
-                                    levelUpPlayer(player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
-                                }
+                                case 3 -> levelUpPlayer(player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
 
-                                case 4 -> {
-                                    levelUpPlayer(player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
-                                }
+                                case 4 -> levelUpPlayer(player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
 
-                                case 6 -> {
-                                    levelUpPlayer(player, 0.25, 1,
-                                            0.00045, 0.025, 0.1,
-                                            0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
-                                }
+                                case 6 -> levelUpPlayer(player, 0.25, 1,
+                                        0.00045, 0.025, 0.1,
+                                        0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
 
-                                case 7 -> {
-                                    levelUpPlayer(player, 0.65, 5,
-                                            0.0005, 0.015, 0.31,
-                                            0.43, 1, 0, 0, 1, 0, 0.1);
-                                }
+                                case 7 -> levelUpPlayer(player, 0.65, 5,
+                                        0.0005, 0.015, 0.31,
+                                        0.43, 1, 0, 0, 1, 0, 0.1);
 
-                                case 8 -> {
-                                    levelUpPlayer(player, 1.25, 0,
-                                            0.0045, 0.00025, 0.71,
-                                            0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
-                                }
-                                default -> {
-                                    levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
-                                }
+                                case 8 -> levelUpPlayer(player, 1.25, 0,
+                                        0.0045, 0.00025, 0.71,
+                                        0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
+                                default -> levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
                             }
                             //play sound event level_up
                             if (experience.get() < level.experienceNeeded()) {
@@ -1068,15 +1074,6 @@ public class ModEvents {
             if (event.getEntity() instanceof ServerPlayer player) {
                 player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(firstJoin -> {
                     if(!firstJoin.get()){
-                        firstJoin.set();
-                        /*
-                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                            handler.getStacksHandler("ring").ifPresent(stacks -> {
-                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
-                            });
-                        });
-                         */
-
                         BlockPos pos = new BlockPos(player.getX(),player.getY(),player.getZ());
                         NetworkHooks.openScreen(player, new MenuProvider() {
                             @Override

@@ -8,7 +8,7 @@ public class DefaultWingsValues implements WingsValues {
 
     @Override
     public Item getWings() {
-        return ModItems.WHITE_FEATHERED_WINGS.get();
+        return ModItems.WHITE_LIGHT_WINGS.get();
     }
 
     @Override

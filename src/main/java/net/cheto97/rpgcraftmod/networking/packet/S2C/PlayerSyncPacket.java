@@ -35,6 +35,7 @@ public class PlayerSyncPacket {
     private final double expNeed;
     private final boolean join;
     private final int playerClass;
+    private final int playerReset;
 
     public PlayerSyncPacket(Player player){
         this(player.getId(),
@@ -58,13 +59,14 @@ public class PlayerSyncPacket {
                 player.getCapability(StatPointProvider.ENTITY_STATPOINT).map(StatPoint::get).orElse(-1),
                 player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::experienceNeeded).orElse(0.0),
                 player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).map(FirstJoin::get).orElse(false),
-                player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0));
+                player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0),
+                player.getCapability(ResetProvider.ENTITY_RESET).map(Reset::get).orElse(0));
     }
 
     public PlayerSyncPacket(int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
-                            double experience,double luck,int stat,double expNeed, boolean join, int playerClass){
+                            double experience,double luck,int stat,double expNeed, boolean join, int playerClass,int playerReset){
         this.id = id;
         this.level = level;
         this.pos = pos;
@@ -87,6 +89,7 @@ public class PlayerSyncPacket {
         this.expNeed = expNeed;
         this.join = join;
         this.playerClass = playerClass;
+        this.playerReset = playerReset;
     }
 
     public PlayerSyncPacket(FriendlyByteBuf buf){
@@ -112,6 +115,7 @@ public class PlayerSyncPacket {
         this.expNeed = buf.readDouble();
         this.join = buf.readBoolean();
         this.playerClass = buf.readInt();
+        this.playerReset = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf){
@@ -137,6 +141,7 @@ public class PlayerSyncPacket {
         buf.writeDouble(expNeed);
         buf.writeBoolean(join);
         buf.writeInt(playerClass);
+        buf.writeInt(playerReset);
     }
 
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){
@@ -164,6 +169,7 @@ public class PlayerSyncPacket {
             PlayerData.setExpNeed(expNeed);
             PlayerData.setJoin(join);
             PlayerData.setPlayerClass(playerClass);
+            PlayerData.setPlayerReset(playerReset);
         });
         return true;
     }

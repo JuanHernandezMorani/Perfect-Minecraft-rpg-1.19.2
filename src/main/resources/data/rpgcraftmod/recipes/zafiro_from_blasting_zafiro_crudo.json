@@ -1,6 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "cookingtime": 320,
+  "cookingtime": 3600,
   "experience": 122.7,
   "group": "zafiro",
   "ingredient": {

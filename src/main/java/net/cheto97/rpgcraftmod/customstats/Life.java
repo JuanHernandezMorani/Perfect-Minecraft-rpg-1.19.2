@@ -4,12 +4,15 @@ import net.minecraft.nbt.CompoundTag;
 
 public class Life {
     private double life = 20;
+    private boolean die = false;
     public double get(){
         return life;
     }
     public void set(double value){
         life = value;
     }
+    public void setDie(boolean value){die = value;}
+    public boolean getDie(){return die;}
     public void resetStat(){
         life = 20;
     }

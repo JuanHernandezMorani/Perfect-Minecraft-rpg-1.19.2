@@ -25,6 +25,7 @@ public class PlayerData {
     private static double expNeed;
     private static boolean join;
     private static int playerClass;
+    private static int playerReset;
 
     public static int getPlayerId() {
         return playerId;
@@ -34,6 +35,12 @@ public class PlayerData {
     public static void setPlayerId(int playerId) {
         PlayerData.playerId =
                 playerId;
+    }
+    public static int getPlayerReset(){
+        return playerReset;
+    }
+    public static void setPlayerReset(int value){
+        PlayerData.playerReset = value;
     }
     public static void setJoin(boolean value){
         PlayerData.join = value;

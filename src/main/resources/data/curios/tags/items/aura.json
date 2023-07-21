@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "rpgcraftmod:commonaura",
-    "rpgcraftmod:bossaura",
-    "rpgcraftmod:brutalaura",
-    "rpgcraftmod:championaura",
-    "rpgcraftmod:demonaura",
-    "rpgcraftmod:eliteaura",
-    "rpgcraftmod:heroaura",
-    "rpgcraftmod:legendaryaura",
-    "rpgcraftmod:mythicalaura",
-    "rpgcraftmod:semibossaura",
-    "rpgcraftmod:uniqueaura"
+    "rpgcraftmod:common_aura",
+    "rpgcraftmod:boss_aura",
+    "rpgcraftmod:brutal_aura",
+    "rpgcraftmod:champion_aura",
+    "rpgcraftmod:demon_aura",
+    "rpgcraftmod:elite_aura",
+    "rpgcraftmod:hero_aura",
+    "rpgcraftmod:legendary_aura",
+    "rpgcraftmod:mythical_aura",
+    "rpgcraftmod:semi_boss_aura",
+    "rpgcraftmod:unique_aura"
   ]
 }

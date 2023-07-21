@@ -31,4 +31,11 @@ public class Defense {
     public void loadNBTData(CompoundTag nbt){
         defense = nbt.getDouble("defense");
     }
+
+    public void reduce(double defenseBoost) {
+        if(this.defense - defenseBoost < 0){
+            this.defense = 0;
+        }
+        this.defense = this.defense - defenseBoost;
+    }
 }

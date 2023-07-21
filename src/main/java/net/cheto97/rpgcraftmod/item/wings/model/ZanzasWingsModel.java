@@ -8,7 +8,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.LivingEntity;
 
-public class ZanzasWingsModel<T extends LivingEntity> extends WingEntityModel<T> {
+public class ZanzasWingsModel extends WingEntityModel<LivingEntity> {
     private final ModelPart lWing01;
     private final ModelPart lWing02;
     private final ModelPart lWingCircle;
@@ -61,8 +61,5 @@ public class ZanzasWingsModel<T extends LivingEntity> extends WingEntityModel<T>
         return LayerDefinition.create(modelData, 64, 64);
     }
 
-    @Override
-    public void setupAnim(LivingEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        super.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-    }
+
 }

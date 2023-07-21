@@ -1,5 +1,7 @@
 package net.cheto97.rpgcraftmod.ModHud.Elements.vanilla;
 
+import static net.cheto97.rpgcraftmod.util.Effects.Helper.calculateDamageAndReduce;
+import static net.cheto97.rpgcraftmod.util.Effects.Helper.calculateValue;
 import static net.cheto97.rpgcraftmod.util.IntToString.formatearNumero;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.defTogether;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
@@ -57,7 +59,7 @@ public class HudElementViewVanilla extends HudElement {
 
     @Override
     public boolean checkConditions() {
-        return  this.mc.player != null && !this.mc.player.isCreative() && !this.mc.player.isSpectator();
+        return  this.mc.player != null && !this.mc.player.isSpectator();
     }
     public HudElementViewVanilla() {
         super(HudType.VIEW, 0, 0, 0, 0, true);
@@ -78,20 +80,29 @@ public class HudElementViewVanilla extends HudElement {
             double focusedMaxLife = 0.0;
             double focusedArmor = 0.0;
             double focusedMagicArmor = 0.0;
+            int resetQ = 0;
+            double defBonus = -1;
 
             if(focused.getId() == EntityData.getEntityId() && player.getId() == PlayerData.getPlayerId()){
                 rank = EntityData.getEntityRank() > 0 ? EntityData.getEntityRank() : -1;
+                resetQ = rank == -1 ? EntityData.getResetQ() : -1;
                 entityLevel = EntityData.getEntityLevel();
                 focusedMaxLife = EntityData.getEntityLifeMax();
                 focusedLife = EntityData.getEntityLife();
-                focusedArmor = EntityData.getEntityDefense();
+
+                MobEffectInstance defEff = focused.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? focused.getEffect(MobEffects.DAMAGE_RESISTANCE) : null;
+
+                defBonus = defEff != null ? calculateValue(defEff,EntityData.getEntityDefense(),"add") : 0.0;
+
+                focusedArmor = EntityData.getEntityDefense() + defBonus;
+
                 focusedMagicArmor = EntityData.getEntityMagicDefense();
             }
 
             String focusedRank;
                 ChatFormatting rankColor = setColor(rank);
                 switch (rank){
-                    case -1 -> focusedRank = "Player";
+                    case -1 -> focusedRank = "[reset: "+resetQ+"] Player";
                     case 1 -> focusedRank = "Common";
                     case 2 -> focusedRank = "Elite";
                     case 3 -> focusedRank = "Brutal";
@@ -175,7 +186,7 @@ public class HudElementViewVanilla extends HudElement {
                 if(settings.getBoolValue(Settings.show_entity_armor)) {
                     if(focusedArmor > 0 || focusedMagicArmor > 0) {
 
-                        String value = defTogether(focusedMagicArmor,focusedArmor);
+                        Component value = defBonus > 0 ? Component.literal(defTogether(focusedMagicArmor,focusedArmor)).withStyle(ChatFormatting.GOLD) : Component.literal(defTogether(focusedMagicArmor,focusedArmor));
                         ms.scale(0.5f, 0.5f, 0.5f);
                         Gui.drawString(ms,this.mc.font,value,(posX - 18) * 2 - 17, (posY + 45) * 2 + 1, -1);
                         ms.scale(2f, 2f, 2f);
@@ -232,6 +243,8 @@ public class HudElementViewVanilla extends HudElement {
                             if(RpgcraftMod.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
                                 int duration = effectinstance.getDuration() / 20;
                                 String s;
+                                int amp = effectinstance.isAmbient() ? effectinstance.getAmplifier() + 1 : effectinstance.getAmplifier();
+                                String statLevel = formatearNumero(amp);
                                 if (effectinstance.getDuration() < 999500 && !infinite) {
                                     s = "*:**";
                                     if (duration < 600)
@@ -241,6 +254,7 @@ public class HudElementViewVanilla extends HudElement {
                                     infinite = true;
                                 }
                                 k -= mc.font.width(s) / 2;
+                                this.drawStringWithBackground(ms,statLevel,k + 12,l+1);
                                 this.drawStringWithBackground(ms, s, k + 12, l + 14);
                             }
                         }

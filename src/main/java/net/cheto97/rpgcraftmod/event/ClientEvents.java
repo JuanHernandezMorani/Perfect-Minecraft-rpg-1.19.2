@@ -5,7 +5,7 @@ import net.cheto97.rpgcraftmod.RenderOverlay;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 import net.cheto97.rpgcraftmod.item.wings.model.*;
-import net.cheto97.rpgcraftmod.item.wings.renderer.WingsFeatureRenderer;
+import net.cheto97.rpgcraftmod.custom.curios.auras.model.*;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.DrinkManaFluidC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.ViewStatsC2SPacket;
@@ -13,7 +13,6 @@ import net.cheto97.rpgcraftmod.util.ColourHelper;
 import net.cheto97.rpgcraftmod.util.KeyBinding;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -21,19 +20,24 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.HashMap;
 
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.*;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.BOSS_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.BRUTAL_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.CHAMPION_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.COMMON_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.DEMON_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.ELITE_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.HERO_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.LEGENDARY_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.MYTHICAL_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.SEMI_BOSS_AURA;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.UNIQUE_AURA;
 import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 public class ClientEvents {
-    public static final ModelLayerLocation FEATHERED = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/feathered"), "main");
-    public static final ModelLayerLocation LEATHER = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/leather"), "main");
-    public static final ModelLayerLocation LIGHT = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/light"), "main");
-    public static final ModelLayerLocation FLANDRE = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/flandre"), "main");
-    public static final ModelLayerLocation DISCORD = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/discord"), "main");
-    public static final ModelLayerLocation ZANZA = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/zanza"), "main");
     
     @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents{
@@ -81,13 +85,27 @@ public class ClientEvents {
         }
         @SubscribeEvent
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            event.registerLayerDefinition(FEATHERED, FeatheredWingsModel::getLayerDefinition);
-            event.registerLayerDefinition(LEATHER, LeatherWingsModel::getLayerDefinition);
             event.registerLayerDefinition(LIGHT, LightWingsModel::getLayerDefinition);
-            event.registerLayerDefinition(FLANDRE, FlandresWingsModel::getLayerDefinition);
-            event.registerLayerDefinition(DISCORD, DiscordsWingsModel::getLayerDefinition);
             event.registerLayerDefinition(ZANZA, ZanzasWingsModel::getLayerDefinition);
+
+            event.registerLayerDefinition(COMMON_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(CHAMPION_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(DEMON_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(BOSS_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(BRUTAL_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(ELITE_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(HERO_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(LEGENDARY_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(MYTHICAL_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(SEMI_BOSS_AURA, AuraModel::createLayer);
+            event.registerLayerDefinition(UNIQUE_AURA, AuraModel::createLayer);
         }
+        @SubscribeEvent
+        public static void onRegisterAtlasSprites(TextureStitchEvent.Pre event){
+            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/aura_slot.png"));
+            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot.png"));
+        }
+
         @SubscribeEvent
         public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
             HashMap<Integer, Item> customItems = new HashMap<>();
@@ -99,90 +117,22 @@ public class ClientEvents {
             }
         }
         public static void fillHashMap(HashMap<Integer, Item> customItems) {
-            customItems.put(0, WHITE_FEATHERED_WINGS.get().asItem());
-            customItems.put(1, ORANGE_FEATHERED_WINGS.get().asItem());
-            customItems.put(2, MAGENTA_FEATHERED_WINGS.get().asItem());
-            customItems.put(3, LIGHT_BLUE_FEATHERED_WINGS.get().asItem());
-            customItems.put(4, YELLOW_FEATHERED_WINGS.get().asItem());
-            customItems.put(5, LIME_FEATHERED_WINGS.get().asItem());
-            customItems.put(6, PINK_FEATHERED_WINGS.get().asItem());
-            customItems.put(7, GREY_FEATHERED_WINGS.get().asItem());
-            customItems.put(8, LIGHT_GREY_FEATHERED_WINGS.get().asItem());
-            customItems.put(9, CYAN_FEATHERED_WINGS.get().asItem());
-            customItems.put(10, PURPLE_FEATHERED_WINGS.get().asItem());
-            customItems.put(11, BLUE_FEATHERED_WINGS.get().asItem());
-            customItems.put(12, BROWN_FEATHERED_WINGS.get().asItem());
-            customItems.put(13, GREEN_FEATHERED_WINGS.get().asItem());
-            customItems.put(14, RED_FEATHERED_WINGS.get().asItem());
-            customItems.put(15, BLACK_FEATHERED_WINGS.get().asItem());
-
-            customItems.put(16, WHITE_DRAGON_WINGS.get().asItem());
-            customItems.put(17, ORANGE_DRAGON_WINGS.get().asItem());
-            customItems.put(18, MAGENTA_DRAGON_WINGS.get().asItem());
-            customItems.put(19, LIGHT_BLUE_DRAGON_WINGS.get().asItem());
-            customItems.put(20, YELLOW_DRAGON_WINGS.get().asItem());
-            customItems.put(21, LIME_DRAGON_WINGS.get().asItem());
-            customItems.put(22, PINK_DRAGON_WINGS.get().asItem());
-            customItems.put(23, GREY_DRAGON_WINGS.get().asItem());
-            customItems.put(24, LIGHT_GREY_DRAGON_WINGS.get().asItem());
-            customItems.put(25, CYAN_DRAGON_WINGS.get().asItem());
-            customItems.put(26, PURPLE_DRAGON_WINGS.get().asItem());
-            customItems.put(27, BLUE_DRAGON_WINGS.get().asItem());
-            customItems.put(28, BROWN_DRAGON_WINGS.get().asItem());
-            customItems.put(29, GREEN_DRAGON_WINGS.get().asItem());
-            customItems.put(30, RED_DRAGON_WINGS.get().asItem());
-            customItems.put(31, BLACK_DRAGON_WINGS.get().asItem());
-
-            customItems.put(32, WHITE_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(33, ORANGE_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(34, MAGENTA_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(35, LIGHT_BLUE_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(36, YELLOW_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(37, LIME_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(38, PINK_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(39, GREY_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(40, LIGHT_GREY_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(41, CYAN_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(42, PURPLE_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(43, BLUE_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(44, BROWN_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(45, GREEN_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(46, RED_MECHANICAL_FEATHERED_WINGS.get().asItem());
-            customItems.put(47, BLACK_MECHANICAL_FEATHERED_WINGS.get().asItem());
-
-            customItems.put(48, WHITE_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(49, ORANGE_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(50, MAGENTA_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(51, LIGHT_BLUE_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(52, YELLOW_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(53, LIME_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(54, PINK_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(55, GREY_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(56, LIGHT_GREY_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(57, CYAN_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(58, PURPLE_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(59, BLUE_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(60, BROWN_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(61, GREEN_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(62, RED_MECHANICAL_LEATHER_WINGS.get().asItem());
-            customItems.put(63, BLACK_MECHANICAL_LEATHER_WINGS.get().asItem());
-
-            customItems.put(64, WHITE_LIGHT_WINGS.get().asItem());
-            customItems.put(65, ORANGE_LIGHT_WINGS.get().asItem());
-            customItems.put(66, MAGENTA_LIGHT_WINGS.get().asItem());
-            customItems.put(67, LIGHT_BLUE_LIGHT_WINGS.get().asItem());
-            customItems.put(68, YELLOW_LIGHT_WINGS.get().asItem());
-            customItems.put(69, LIME_LIGHT_WINGS.get().asItem());
-            customItems.put(70, PINK_LIGHT_WINGS.get().asItem());
-            customItems.put(71, GREY_LIGHT_WINGS.get().asItem());
-            customItems.put(72, LIGHT_GREY_LIGHT_WINGS.get().asItem());
-            customItems.put(73, CYAN_LIGHT_WINGS.get().asItem());
-            customItems.put(74, PURPLE_LIGHT_WINGS.get().asItem());
-            customItems.put(75, BLUE_LIGHT_WINGS.get().asItem());
-            customItems.put(76, BROWN_LIGHT_WINGS.get().asItem());
-            customItems.put(77, GREEN_LIGHT_WINGS.get().asItem());
-            customItems.put(78, RED_LIGHT_WINGS.get().asItem());
-            customItems.put(79, BLACK_LIGHT_WINGS.get().asItem());
+            customItems.put(0, WHITE_LIGHT_WINGS.get().asItem());
+            customItems.put(1, ORANGE_LIGHT_WINGS.get().asItem());
+            customItems.put(2, MAGENTA_LIGHT_WINGS.get().asItem());
+            customItems.put(3, LIGHT_BLUE_LIGHT_WINGS.get().asItem());
+            customItems.put(4, YELLOW_LIGHT_WINGS.get().asItem());
+            customItems.put(5, LIME_LIGHT_WINGS.get().asItem());
+            customItems.put(6, PINK_LIGHT_WINGS.get().asItem());
+            customItems.put(7, GREY_LIGHT_WINGS.get().asItem());
+            customItems.put(8, LIGHT_GREY_LIGHT_WINGS.get().asItem());
+            customItems.put(9, CYAN_LIGHT_WINGS.get().asItem());
+            customItems.put(10, PURPLE_LIGHT_WINGS.get().asItem());
+            customItems.put(11, BLUE_LIGHT_WINGS.get().asItem());
+            customItems.put(12, BROWN_LIGHT_WINGS.get().asItem());
+            customItems.put(13, GREEN_LIGHT_WINGS.get().asItem());
+            customItems.put(14, RED_LIGHT_WINGS.get().asItem());
+            customItems.put(15, BLACK_LIGHT_WINGS.get().asItem());
         }
 
 

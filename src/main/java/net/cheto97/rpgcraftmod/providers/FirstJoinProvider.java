@@ -22,7 +22,6 @@ public class FirstJoinProvider implements ICapabilityProvider, INBTSerializable<
         if(this.join == null){
             this.join = new FirstJoin();
         }
-
         return this.join;
     }
     @Override

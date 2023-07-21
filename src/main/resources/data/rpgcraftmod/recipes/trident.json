@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "P": {
+      "item": "minecraft:prismarine_shard"
+    }
+  },
+  "pattern": [
+    "QQQ",
+    "PPP",
+    " P "
+  ],
+  "result": {
+    "item": "minecraft:trident"
+  }
+}

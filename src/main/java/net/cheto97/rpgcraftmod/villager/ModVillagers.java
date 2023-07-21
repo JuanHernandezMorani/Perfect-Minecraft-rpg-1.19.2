@@ -21,7 +21,7 @@ public class ModVillagers {
 
     public static final RegistryObject<PoiType> MANA_BLOCK_POI = POI_TYPES.register("mana_block_poi",
             () -> new PoiType(ImmutableSet.copyOf(ModBlocks.wizard_table.get().getStateDefinition().getPossibleStates()),
-                    1, 1));
+                    1, 2));
 
     public static final RegistryObject<VillagerProfession> MAGIC_MASTER = VILLAGER_PROFESSIONS.register("magic_master",
             () -> new VillagerProfession("magic_master", x -> x.get() == MANA_BLOCK_POI.get(),

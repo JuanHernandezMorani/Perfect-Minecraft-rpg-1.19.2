@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.ModHud.Elements.vanilla;
 
+import static net.cheto97.rpgcraftmod.util.IntToString.formatearNumero;
 import static net.minecraft.client.gui.screens.inventory.AbstractContainerScreen.INVENTORY_LOCATION;
 
 import java.util.Collection;
@@ -10,6 +11,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
@@ -20,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 
 public class HudElementMobEffectsVanilla extends HudElement {
+    static private boolean infinite = false;
 
     public HudElementMobEffectsVanilla() {
         super(HudType.STATUS_EFFECTS, 0, 0, 0, 0, true);
@@ -87,13 +90,23 @@ public class HudElementMobEffectsVanilla extends HudElement {
                     bind(textureatlassprite.atlas().location());
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f);
                     Gui.blit(ms, k + 3, l + 3, gui.getBlitOffset(), 18, 18, textureatlassprite);
-                    // Main
-                    if(rpgHud.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
-                        int duration = effectinstance.getDuration()/20;
-                        String s = "*:**";
-                        if(duration < 600) s = duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60));
-                        k -= mc.font.width(s)/2;
-                        this.drawStringWithBackground(ms, s, k +12, l +14);
+
+                    if(RpgcraftMod.settings.getBoolValue(Settings.status_time) && !effectinstance.isAmbient()) {
+                        int duration = effectinstance.getDuration() / 20;
+                        String s;
+                        int amp = effectinstance.isAmbient() ? effectinstance.getAmplifier() + 1 : effectinstance.getAmplifier();
+                        String statLevel = formatearNumero(amp);
+                        if (effectinstance.getDuration() < 999500 && !infinite) {
+                            s = "*:**";
+                            if (duration < 600)
+                                s = duration / 60 + ":" + (duration % 60 < 10 ? "0" + (duration % 60) : (duration % 60));
+                        } else {
+                            s = "∞";
+                            infinite = true;
+                        }
+                        k -= mc.font.width(s) / 2;
+                        this.drawStringWithBackground(ms,statLevel,k+12,l+1);
+                        this.drawStringWithBackground(ms, s, k + 12, l + 14);
                     }
                 }
             }

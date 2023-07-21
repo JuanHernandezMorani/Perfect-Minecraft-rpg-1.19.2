@@ -9,9 +9,11 @@ import net.cheto97.rpgcraftmod.providers.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -46,8 +48,7 @@ public class PlayerClassSelectPacket {
                 case "beast tamer" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(6));
                 case "priest" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(7));
                 case "knight" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(8));
-                case "random" -> {
-                    result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> {
+                case "random" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> {
                         pClass.set(random.nextInt(8) + 1);
                         switch (pClass.getPlayerClass()){
                             case 1 -> playerClass = "archer";
@@ -60,12 +61,58 @@ public class PlayerClassSelectPacket {
                             case 8 ->playerClass = "knight";
                         }
                     });
-
-                }
                 default -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(5));
             }
             setPlayerStat(result.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0),result);
             result.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(FirstJoin::set);
+
+            CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                handler.getStacksHandler("body").ifPresent(stacks -> {
+                    stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), -1, AttributeModifier.Operation.ADDITION));
+                });
+            });
+            /*
+            if(playerClass.equalsIgnoreCase("knight") || playerClass.equalsIgnoreCase("warrior")){
+                CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                    handler.getStacksHandler("combat_arts").ifPresent(stacks -> {
+                        stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 0, AttributeModifier.Operation.ADDITION));
+                    });
+                });
+            }
+            else{
+                if(playerClass.equalsIgnoreCase("balanced")){
+                    CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                        handler.getStacksHandler("combat_arts").ifPresent(stacks -> {
+                            stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
+                        });
+                    });
+                    CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                        handler.getStacksHandler("spells").ifPresent(stacks -> {
+                            stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
+                        });
+                    });
+                }else{
+                    if(playerClass.equalsIgnoreCase("mage")){
+                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                            handler.getStacksHandler("spells").ifPresent(stacks -> {
+                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 3, AttributeModifier.Operation.ADDITION));
+                            });
+                        });
+                    }else{
+                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                            handler.getStacksHandler("spells").ifPresent(stacks -> {
+                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
+                            });
+                        });
+                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
+                            handler.getStacksHandler("combat_arts").ifPresent(stacks -> {
+                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 1, AttributeModifier.Operation.ADDITION));
+                            });
+                        });
+                    }
+                }
+            }
+            */
             ModMessages.sendToPlayer(new PlayerSyncPacket(result),player);
             player.sendSystemMessage(Component.literal("Your class is: "+playerClass));
         });

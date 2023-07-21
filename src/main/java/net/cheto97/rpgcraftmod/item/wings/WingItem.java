@@ -6,6 +6,7 @@ import net.cheto97.rpgcraftmod.util.WingHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public class WingItem extends Item implements ICurioItem {
@@ -33,6 +35,12 @@ public class WingItem extends Item implements ICurioItem {
         this.wingType = wingType;
     }
 
+    @NotNull
+    @Override
+    public ICurio.DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
+        return ICurio.DropRule.ALWAYS_DROP;
+    }
+
     @Override
     public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
         return true;
@@ -40,9 +48,7 @@ public class WingItem extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        if(slotContext.entity() instanceof Player player){
-            player.level.addParticle(ParticleTypes.CRIT, player.getX(), player.getY() + 0.5, player.getZ(), 0, 0, 0);
-        }
+            slotContext.entity().level.addParticle(ParticleTypes.CRIT, slotContext.entity().getX(), slotContext.entity().getY() + 0.5, slotContext.entity().getZ(), 0, 0, 0);
     }
 
     @Override
@@ -63,7 +69,7 @@ public class WingItem extends Item implements ICurioItem {
                     }
                     WingHelper.applySpeed(player,stack);
                 }
-                if(player.isShiftKeyDown() && !player.isUnderWater() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
+                if(player.isCrouching() && !player.isUnderWater() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
                     WingHelper.stopFlying(player);
                     slowFalling = true;
                 }
@@ -87,7 +93,7 @@ public class WingItem extends Item implements ICurioItem {
                         player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1000000, 1));
                     }
                 }
-                if( !slowFalling && !isFlying && !player.isOnGround() && !player.isShiftKeyDown() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION) && player.fallDistance > 0.1F) {
+                if( !player.isOnGround() && !slowFalling && !isFlying && !player.isCrouching() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION) && player.fallDistance > 0.06F) {
                     player.startFallFlying();
                     isFlying = true;
                 }

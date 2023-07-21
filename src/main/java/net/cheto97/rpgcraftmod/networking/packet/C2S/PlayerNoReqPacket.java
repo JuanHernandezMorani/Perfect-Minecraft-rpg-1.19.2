@@ -33,7 +33,7 @@ public class PlayerNoReqPacket {
             switch (stat){
                 case "reset" -> {
                     int level = result.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(0);
-                    result.sendSystemMessage(Component.literal("You don't have enough levels. Required level 1000, need "+(1000 - level)+" levels to reset."));
+                    result.sendSystemMessage(Component.literal("You don't have enough levels. You need "+(10000 - level)+" more levels to reset."));
                 }
                 case "stat" -> result.sendSystemMessage(Component.literal("You don't have enough stat points to do that"));
                 default -> result.sendSystemMessage(Component.literal("Invalid parameter"));

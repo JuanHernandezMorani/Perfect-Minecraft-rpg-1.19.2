@@ -3,6 +3,7 @@ package net.cheto97.rpgcraftmod.networking.packet.S2C;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.modsystem.FirstJoin;
+import net.cheto97.rpgcraftmod.modsystem.Reset;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
 import static net.cheto97.rpgcraftmod.networking.data.EntityData.*;
@@ -38,6 +39,7 @@ public class EntitySyncPacket {
     private final double experienceReward;
     private double luck;
     private final String name;
+    private final int resetQ;
     private final Collection<MobEffectInstance> effectActives;
     private final boolean join;
 
@@ -61,12 +63,13 @@ public class EntitySyncPacket {
                     entity.getCapability(ExperienceRewardProvider.ENTITY_EXPERIENCE_REWARD).map(ExperienceReward::get).orElse(1.0),
                     entity.getCapability(LuckProvider.ENTITY_LUCK).map(Luck::get).orElse(1.0),
                     entity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).map(FirstJoin::get).orElse(true),
+                    entity.getCapability(ResetProvider.ENTITY_RESET).map(Reset::get).orElse(0),
                     entity.getActiveEffects());
     }
     public EntitySyncPacket(String name, int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
-                            int rank, double experienceReward,double luck, boolean join,Collection<MobEffectInstance> effects){
+                            int rank, double experienceReward,double luck, boolean join,int resetQ,Collection<MobEffectInstance> effects){
 
             this.name = name;
 
@@ -108,7 +111,9 @@ public class EntitySyncPacket {
 
             this.luck = luck;
 
-        this.join = join;
+            this.join = join;
+
+            this.resetQ = resetQ;
 
             this.effectActives = effects;
     }
@@ -134,6 +139,7 @@ public class EntitySyncPacket {
         this.rank = buf.readInt();
         this.experienceReward = buf.readDouble();
         this.join = buf.readBoolean();
+        this.resetQ = buf.readInt();
         this.effectActives = buf.readList((buffer) -> {
             int effectId = buffer.readInt();
             int amplifier = buffer.readInt();
@@ -163,6 +169,7 @@ public class EntitySyncPacket {
         buf.writeInt(rank);
         buf.writeDouble(experienceReward);
         buf.writeBoolean(join);
+        buf.writeInt(resetQ);
         buf.writeCollection(effectActives, (buffer, effectInstance) -> {
             buffer.writeInt(MobEffect.getIdFromNullable(effectInstance.getEffect()));
             buffer.writeInt(effectInstance.getAmplifier());
@@ -196,6 +203,7 @@ public class EntitySyncPacket {
             setEntityLuck(luck);
             setJoin(join);
             setEffects(effectActives);
+            setResetQ(resetQ);
         });
         return true;
     }

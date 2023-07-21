@@ -7,9 +7,9 @@ import net.cheto97.rpgcraftmod.block.entity.ModBlockEntities;
 import net.cheto97.rpgcraftmod.block.entity.renderer.CraftingTableBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.block.entity.renderer.GemInfusingStationBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.block.entity.renderer.WizardTableBlockEntityRenderer;
+import net.cheto97.rpgcraftmod.client.curio.CurioRenderer;
 import net.cheto97.rpgcraftmod.fluid.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
-import net.cheto97.rpgcraftmod.item.wings.renderer.WingsFeatureRenderer;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.painting.ModPaintings;
 import net.cheto97.rpgcraftmod.menu.ModMenuTypes;
@@ -45,9 +45,9 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -96,34 +96,77 @@ public class RpgcraftMod{
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
-                () -> SlotTypePreset.CHARM.getMessageBuilder().build());
+                () -> SlotTypePreset.CHARM.getMessageBuilder()
+                        .size(0)
+                        .build());
 
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
-                () -> SlotTypePreset.RING.getMessageBuilder().build());
+                () -> SlotTypePreset.HEAD.getMessageBuilder()
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.NECKLACE.getMessageBuilder()
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.BACK.getMessageBuilder()
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.BRACELET.getMessageBuilder()
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.HANDS.getMessageBuilder()
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.BELT.getMessageBuilder()
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.RING.getMessageBuilder()
+                        .size(0)
+                        .build());
 
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("aura")
                         .size(1)
-                        .icon(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/slots/aura_slot.png"))
+                        .build());
+
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> new SlotTypeMessage.Builder("spells")
+                        .size(0)
+                        .build());
+
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> new SlotTypeMessage.Builder("combat_arts")
+                        .size(0)
                         .build());
 
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("wing")
                         .size(1)
-                        .icon(new ResourceLocation(RpgcraftMod.MOD_ID, "textures/slots/wing_slot.png"))
                         .build());
     }
+
+    //
 
     private void processIMC(final InterModProcessEvent event) {
 
     }
     private void commonSetup(final FMLCommonSetupEvent event){
         ConfigManager.setup();
-
         event.enqueueWork(() -> {
             ModMessages.register();
             ModVillagers.registerPOIs();
-
         });
     }
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -156,7 +199,8 @@ public class RpgcraftMod{
             BlockEntityRenderers.register(ModBlockEntities.WIZARD_TABLE.get(), WizardTableBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.CRAFTING_TABLE_BLOCK_ENTITY.get(), CraftingTableBlockEntityRenderer::new);
 
-            CuriosRendererRegistry.register(ModItems.BLACK_DRAGON_WINGS.get(), () -> new WingsFeatureRenderer<>());
+            CurioRenderer.register();
+
         }
     }
     public static void registerHud(Hud hud) {

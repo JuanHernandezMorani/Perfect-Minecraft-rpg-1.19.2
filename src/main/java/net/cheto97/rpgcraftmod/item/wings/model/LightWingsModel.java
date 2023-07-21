@@ -9,7 +9,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.LivingEntity;
 
 
-public class LightWingsModel<T extends LivingEntity> extends WingEntityModel<T> {
+public class LightWingsModel extends WingEntityModel<LivingEntity> {
     private final ModelPart rWingMain;
     private final ModelPart rWing01;
     private final ModelPart rWing02;
@@ -44,8 +44,10 @@ public class LightWingsModel<T extends LivingEntity> extends WingEntityModel<T> 
         MeshDefinition modelData = getModelData();
         PartDefinition modelPartData = modelData.getRoot();
 
+
         PartDefinition modelPartData1 = modelPartData.getChild("rightWing").addOrReplaceChild("rWingMain", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(8.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.836332F));
+
         modelPartData1.addOrReplaceChild("rWing01", CubeListBuilder.create().texOffs(26, 18)
                         .addBox(-1.0F, -4.0F, 0.0F, 2.0F, 13.0F, 0.0F, true),
                 PartPose.offsetAndRotation(-3.0F, -1.0F, 1.0F, 0.0F, 0.0F, 0.3054F));
@@ -61,8 +63,11 @@ public class LightWingsModel<T extends LivingEntity> extends WingEntityModel<T> 
         modelPartData1.addOrReplaceChild("rWing05", CubeListBuilder.create().texOffs(12, 21)
                         .addBox(-0.5F, -2.0F, 0.0F, 2.0F, 10.0F, 0.0F, true),
                 PartPose.offsetAndRotation(-12.25F, -11.75F, 1.0F, 0.0F, 0.0F, 1.0908F));
+
+
         PartDefinition modelPartData2 = modelPartData.getChild("leftWing").addOrReplaceChild("lWingMain", CubeListBuilder.create(),
                 PartPose.offsetAndRotation(-8.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.836332F));
+
         modelPartData2.addOrReplaceChild("lWing01", CubeListBuilder.create().texOffs(26, 18)
                         .addBox(-1.0F, -4.0F, 0.0F, 2.0F, 13.0F, 0.0F),
                 PartPose.offsetAndRotation(3.0F, -1.0F, 1.0F, 0.0F, 0.0F, -0.3054F));

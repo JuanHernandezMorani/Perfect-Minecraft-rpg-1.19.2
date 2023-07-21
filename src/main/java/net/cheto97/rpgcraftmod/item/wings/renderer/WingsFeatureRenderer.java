@@ -6,11 +6,10 @@ import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 import net.cheto97.rpgcraftmod.item.wings.model.*;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,27 +22,14 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-import static net.cheto97.rpgcraftmod.event.ClientEvents.*;
-
-public class WingsFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> implements ICurioRenderer {
-    private WingEntityModel<T> wingModel;
-    private final FeatheredWingsModel<T> featheredWings;
-    private final LeatherWingsModel<T> leatherWings;
-    private final LightWingsModel<T> lightWings;
-    private final FlandresWingsModel<T> flandresWings;
-    private final DiscordsWingsModel<T> discordsWings;
-    private final ZanzasWingsModel<T> zanzasWings;
-
-    public WingsFeatureRenderer(EntityRendererProvider.Context context) {
-        super();
-        this.featheredWings = new FeatheredWingsModel<>(context.bakeLayer(FEATHERED));
-        this.leatherWings = new LeatherWingsModel<>(context.bakeLayer(LEATHER));
-        this.lightWings = new LightWingsModel<>(context.bakeLayer(LIGHT));
-        this.flandresWings = new FlandresWingsModel<>(context.bakeLayer(FLANDRE));
-        this.discordsWings = new DiscordsWingsModel<>(context.bakeLayer(DISCORD));
-        this.zanzasWings = new ZanzasWingsModel<>(context.bakeLayer(ZANZA));
+public class WingsFeatureRenderer implements ICurioRenderer {
+    private WingEntityModel<LivingEntity> wingModel;
+    private final LightWingsModel lightWings;
+    private final ZanzasWingsModel zanzasWings;
+    public  WingsFeatureRenderer(ModelPart modelLight, ModelPart modelZanzas) {
+        this.lightWings = new LightWingsModel(modelLight);
+        this.zanzasWings = new ZanzasWingsModel(modelZanzas);
     }
-
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext,
                                                                           PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent,
@@ -62,16 +48,8 @@ public class WingsFeatureRenderer<T extends LivingEntity, M extends EntityModel<
 
             String wingType = wingItem.getWingType() != WingItem.WingType.UNIQUE ? wingItem.getWingType().toString().toLowerCase(Locale.ROOT) : ForgeRegistries.ITEMS.getKey(wingItem.asItem()).getPath().replaceAll("_wings", "");
 
-            if(wingItem.getWingType() == WingItem.WingType.FEATHERED || wingItem.getWingType() == WingItem.WingType.MECHANICAL_FEATHERED)
-                wingModel = featheredWings;
-            if(wingItem.getWingType() == WingItem.WingType.DRAGON || wingItem.getWingType() == WingItem.WingType.MECHANICAL_LEATHER)
-                wingModel = leatherWings;
             if(wingItem.getWingType() == WingItem.WingType.LIGHT)
                 wingModel = lightWings;
-            if(wingType.equals("flandres"))
-                wingModel = flandresWings;
-            if(wingType.equals("discords"))
-                wingModel = discordsWings;
             if(wingType.equals("zanzas"))
                 wingModel = zanzasWings;
 
@@ -100,16 +78,8 @@ public class WingsFeatureRenderer<T extends LivingEntity, M extends EntityModel<
 
                     String wingType = wingItem.getWingType() != WingItem.WingType.UNIQUE ? wingItem.getWingType().toString().toLowerCase(Locale.ROOT) : ForgeRegistries.ITEMS.getKey(wingItem.asItem()).getPath().replaceAll("_wings", "");
 
-                    if(wingItem.getWingType() == WingItem.WingType.FEATHERED || wingItem.getWingType() == WingItem.WingType.MECHANICAL_FEATHERED)
-                        wingModel = featheredWings;
-                    if(wingItem.getWingType() == WingItem.WingType.DRAGON || wingItem.getWingType() == WingItem.WingType.MECHANICAL_LEATHER)
-                        wingModel = leatherWings;
                     if(wingItem.getWingType() == WingItem.WingType.LIGHT)
                         wingModel = lightWings;
-                    if(wingType.equals("flandres"))
-                        wingModel = flandresWings;
-                    if(wingType.equals("discords"))
-                        wingModel = discordsWings;
                     if(wingType.equals("zanzas"))
                         wingModel = zanzasWings;
 
@@ -126,10 +96,8 @@ public class WingsFeatureRenderer<T extends LivingEntity, M extends EntityModel<
             });
         }
     }
-
     public void renderWings(PoseStack matrices, MultiBufferSource renderTypeBuffer, @Nullable ItemStack stack, RenderType renderType, int light, float r, float g, float b) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, renderType, false, stack != null && stack.isEnchanted());
         this.wingModel.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1F);
     }
-
 }

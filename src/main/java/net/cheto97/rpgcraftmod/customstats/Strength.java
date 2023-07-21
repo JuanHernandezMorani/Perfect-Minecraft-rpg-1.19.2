@@ -32,4 +32,10 @@ public class Strength {
     public void loadNBTData(CompoundTag nbt){
         strength = nbt.getDouble("strength");
     }
+    public void reduce(double damageBoost) {
+        if(this.strength - damageBoost < 0.01){
+            this.strength = 0.01;
+        }
+        this.strength = this.strength - damageBoost;
+    }
 }

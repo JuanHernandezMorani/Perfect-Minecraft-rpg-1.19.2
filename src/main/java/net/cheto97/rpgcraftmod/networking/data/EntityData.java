@@ -29,11 +29,14 @@ public class EntityData {
     private static double entityStrength;
     private static String entityName;
     private static boolean join;
+    private static int resetQ;
     private static Collection<MobEffectInstance> entityEffects;
 
     public static int getEntityId() {
         return entityId;
     }
+    public static int getResetQ(){return resetQ;}
+    public static void setResetQ(int value){EntityData.resetQ = value;}
     public static void setEntityId(int entityId) {
         EntityData.entityId = entityId;
     }
