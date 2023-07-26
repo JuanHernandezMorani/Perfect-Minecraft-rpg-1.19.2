@@ -810,14 +810,13 @@ public class ModEvents {
                         target.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
                             if(target instanceof Player && mana.get() != 0.0){
                             if(mana.get() >= totalDamage){
-
                                 mana.consumeMana(totalDamage);
                                 totalDamage = 0.0;
                                 target.sendSystemMessage(Component.literal("You consume your mana, to complete decrease fall damage"));
                                 }else{
                                 totalDamage = totalDamage - mana.get();
                                 mana.consumeMana(totalDamage);
-                                target.sendSystemMessage(Component.literal("You run out of mana, before complete decrease fall damage, you receive: "+totalDamage+" of damage."));
+                                target.sendSystemMessage(Component.literal("You run out of mana, you receive: "+doubleToString(totalDamage)+" of damage."));
                             }
                             }
                         });

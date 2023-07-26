@@ -87,7 +87,6 @@ public class ClientEvents {
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(LIGHT, LightWingsModel::getLayerDefinition);
             event.registerLayerDefinition(ZANZA, ZanzasWingsModel::getLayerDefinition);
-
             event.registerLayerDefinition(COMMON_AURA, AuraModel::createLayer);
             event.registerLayerDefinition(CHAMPION_AURA, AuraModel::createLayer);
             event.registerLayerDefinition(DEMON_AURA, AuraModel::createLayer);
@@ -134,7 +133,5 @@ public class ClientEvents {
             customItems.put(14, RED_LIGHT_WINGS.get().asItem());
             customItems.put(15, BLACK_LIGHT_WINGS.get().asItem());
         }
-
-
     }
 }

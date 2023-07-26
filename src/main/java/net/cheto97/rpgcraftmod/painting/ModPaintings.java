@@ -122,6 +122,40 @@ public class ModPaintings {
     public static final RegistryObject<PaintingVariant> voline = PAINTING_VARIANTS.register("voline",
             () -> new PaintingVariant(16,16));
 
+    public static final RegistryObject<PaintingVariant> in_the_air = painting("in_the_air", 32, 16);
+    public static final RegistryObject<PaintingVariant> skyblock = painting("skyblock", 16, 16);
+    public static final RegistryObject<PaintingVariant> mr_moon = painting("mr_moon", 16, 16);
+    public static final RegistryObject<PaintingVariant> tetromino = painting("tetromino", 16, 32);
+    public static final RegistryObject<PaintingVariant> daybreak = painting("daybreak", 32, 16);
+    public static final RegistryObject<PaintingVariant> planets = painting("planets", 32, 16);
+    public static final RegistryObject<PaintingVariant> village = painting("village", 64, 32);
+    public static final RegistryObject<PaintingVariant> oceanic_view = painting("oceanic_view", 32, 16);
+    public static final RegistryObject<PaintingVariant> watching_the_sunset = painting("watching_the_sunset", 32, 16);
+    public static final RegistryObject<PaintingVariant> enderman = painting("enderman", 32, 16);
+    public static final RegistryObject<PaintingVariant> afternoon_volcano = painting("afternoon_volcano", 16, 32);
+    public static final RegistryObject<PaintingVariant> crimson_taiga = painting("crimson_taiga", 32, 16);
+    public static final RegistryObject<PaintingVariant> lumberjack = painting("lumberjack", 64, 32);
+    public static final RegistryObject<PaintingVariant> summer_heat = painting("summer_heat", 32, 16);
+    public static final RegistryObject<PaintingVariant> the_tower = painting("the_tower", 16, 32);
+    public static final RegistryObject<PaintingVariant> bubbles = painting("bubbles", 16, 16);
+    public static final RegistryObject<PaintingVariant> a_distant_light = painting("a_distant_light", 32, 16);
+    public static final RegistryObject<PaintingVariant> the_wheel = painting("the_wheel", 32, 32);
+    public static final RegistryObject<PaintingVariant> whale_dream = painting("whale_dream", 32, 32);
+    public static final RegistryObject<PaintingVariant> cottage_by_the_river = painting("cottage_by_the_river", 16, 16);
+    public static final RegistryObject<PaintingVariant> seavibe = painting("seavibe", 16, 16);
+    public static final RegistryObject<PaintingVariant> antler_maze = painting("antler_maze", 16, 32);
+    public static final RegistryObject<PaintingVariant> turkey = painting("turkey", 16, 16);
+    public static final RegistryObject<PaintingVariant> kerstball = painting("kerstball", 16, 16);
+    public static final RegistryObject<PaintingVariant> snowman_scenery = painting("snowman_scenery", 32, 16);
+    public static final RegistryObject<PaintingVariant> santa_moon = painting("santa_moon", 32, 32);
+    public static final RegistryObject<PaintingVariant> the_secret_neighborhood = painting("the_secret_neighborhood", 32, 32);
+    public static final RegistryObject<PaintingVariant> last_dreams_at_candyland = painting("last_dreams_at_candyland", 32, 16);
+    public static final RegistryObject<PaintingVariant> the_most_sweet_candy = painting("the_most_sweet_candy", 16, 16);
+    public static final RegistryObject<PaintingVariant> sir_ramfrez_yarn_paradise = painting("sir_ramfrez_yarn_paradise", 16, 16);
+        
+    private static RegistryObject<PaintingVariant> painting(String id, int width, int height) {
+        return PAINTING_VARIANTS.register(id,() -> new PaintingVariant(width, height));
+    }
     public static void register(IEventBus eventBus){
         PAINTING_VARIANTS.register(eventBus);
     }
