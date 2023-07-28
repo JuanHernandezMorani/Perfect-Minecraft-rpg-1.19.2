@@ -33,7 +33,7 @@ public class Commonaura extends Item implements ICurioItem {
     @NotNull
     @Override
     public ICurio.DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
-        return ICurio.DropRule.DESTROY;
+        return ICurio.DropRule.ALWAYS_DROP;
     }
     public DyeColor getPrimaryColour() {
         return DyeColor.WHITE;

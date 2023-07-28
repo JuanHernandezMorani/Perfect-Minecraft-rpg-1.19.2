@@ -1,0 +1,75 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.biggoblin",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bone",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 30, -6], "size": [16, 25, 12], "uv": [0, 63]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "bone",
+					"pivot": [0.5, 54.875, 0],
+					"cubes": [
+						{"origin": [-5, 55, -6], "size": [10, 7, 12], "uv": [96, 63]},
+						{"origin": [-1.5, 53, -9], "size": [3, 5, 3], "uv": [0, 0]},
+						{"origin": [0.5, 55, -10], "size": [3, 0, 3], "uv": [0, 8]},
+						{"origin": [-15, 55, 0], "size": [30, 7, 0], "uv": [72, 40]}
+					]
+				},
+				{
+					"name": "rightleg",
+					"parent": "bone",
+					"pivot": [-4, 30, 0],
+					"cubes": [
+						{"origin": [-8, 0, -6], "size": [8, 30, 12], "uv": [56, 63]}
+					]
+				},
+				{
+					"name": "lfetleg",
+					"parent": "bone",
+					"pivot": [4, 30, 0],
+					"cubes": [
+						{"origin": [0, 0, -6], "size": [8, 30, 12], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "bone",
+					"pivot": [8, 53, 0],
+					"cubes": [
+						{"origin": [8, 27, -6], "size": [8, 28, 12], "uv": [84, 93]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "bone",
+					"pivot": [-8.75, 52.75, -0.5],
+					"cubes": [
+						{"origin": [-16, 27, -6], "size": [8, 28, 12], "uv": [72, 0]}
+					]
+				},
+				{
+					"name": "log",
+					"parent": "rightarm",
+					"pivot": [-7.5, 28.5, -1],
+					"cubes": [
+						{"origin": [-12, 24, -28], "size": [9, 9, 54], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

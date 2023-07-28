@@ -101,8 +101,8 @@ public class ClientEvents {
         }
         @SubscribeEvent
         public static void onRegisterAtlasSprites(TextureStitchEvent.Pre event){
-            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/aura_slot.png"));
-            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot.png"));
+            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/aura_slot"));
+            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot"));
         }
 
         @SubscribeEvent

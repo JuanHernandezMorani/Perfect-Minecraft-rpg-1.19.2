@@ -1,0 +1,139 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"walking": {
+			"loop": true,
+			"animation_length": 1.75,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.8333": {
+							"vector": [-7.5, 0, 0]
+						},
+						"1.4167": {
+							"vector": [5, 0, 0]
+						}
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.8333": {
+							"vector": [5, 0, 0]
+						},
+						"1.4167": {
+							"vector": [-7.5, 0, 0]
+						}
+					}
+				},
+				"right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.8333": {
+							"vector": [7.5, 0, 0]
+						},
+						"1.4167": {
+							"vector": [-12.5, 0, 0]
+						}
+					}
+				},
+				"left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.8333": {
+							"vector": [-12.5, 0, 0]
+						},
+						"1.4167": {
+							"vector": [7.5, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"idle": {
+			"animation_length": 0.29167
+		},
+		"attack": {
+			"animation_length": 1.75,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [-95, 0, 0]
+						},
+						"0.5417": {
+							"vector": [-117.36, 0, 0]
+						},
+						"1.5833": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [-95, 0, 0]
+						},
+						"0.5417": {
+							"vector": [-122.5, 0, 0]
+						},
+						"1.5417": {
+							"vector": [-5, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"dead": {
+			"animation_length": 1.5,
+			"bones": {
+				"body": {
+					"scale": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"head": {
+					"scale": {
+						"vector": [1, 0, 0]
+					}
+				},
+				"right_arm": {
+					"scale": {
+						"vector": [1, 0, 0]
+					}
+				},
+				"left_arm": {
+					"scale": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"right_leg": {
+					"scale": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"left_leg": {
+					"scale": {
+						"vector": [0, 1, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -8,6 +8,8 @@ import net.cheto97.rpgcraftmod.block.entity.renderer.CraftingTableBlockEntityRen
 import net.cheto97.rpgcraftmod.block.entity.renderer.GemInfusingStationBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.block.entity.renderer.WizardTableBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.client.curio.CurioRenderer;
+import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
+import net.cheto97.rpgcraftmod.entity.client.Renderers.MutantGolemRenderer;
 import net.cheto97.rpgcraftmod.fluid.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
@@ -31,6 +33,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.MinecraftForge;
@@ -45,6 +48,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -86,6 +90,9 @@ public class RpgcraftMod{
         ModMenuTypes.register(modEventBus);
 
         ModRecipes.register(modEventBus);
+        ModEntityTypes.register(modEventBus);
+
+        GeckoLib.initialize();
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::enqueueIMC);
@@ -200,6 +207,8 @@ public class RpgcraftMod{
             BlockEntityRenderers.register(ModBlockEntities.CRAFTING_TABLE_BLOCK_ENTITY.get(), CraftingTableBlockEntityRenderer::new);
 
             CurioRenderer.register();
+
+            EntityRenderers.register(ModEntityTypes.MUTANT_GOLEM.get(), MutantGolemRenderer::new);
 
         }
     }

@@ -1,0 +1,46 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"idle": {
+			"animation_length": 3.54167,
+			"bones": {
+				"shield": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"3.5": {
+							"vector": [0, -367.5, 0]
+						}
+					}
+				}
+			}
+		},
+		"walking": {
+			"animation_length": 3.54167,
+			"bones": {
+				"shield": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"3.5": {
+							"vector": [0, -367.5, 0]
+						}
+					}
+				}
+			}
+		},
+		"death": {
+			"animation_length": 1.04167,
+			"bones": {
+				"shield": {
+					"scale": {
+						"vector": [0, 1, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

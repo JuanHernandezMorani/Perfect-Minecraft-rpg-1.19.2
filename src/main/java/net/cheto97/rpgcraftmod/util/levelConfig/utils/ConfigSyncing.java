@@ -2,14 +2,9 @@ package net.cheto97.rpgcraftmod.util.levelConfig.utils;
 
 import com.google.gson.JsonObject;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.event.ModEvents;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
-import net.cheto97.rpgcraftmod.networking.ToolLeveling.PacketHandler;
 import net.cheto97.rpgcraftmod.networking.ToolLeveling.packets.SyncToolLevelingConfig;
-import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.PacketDistributor;
 
 public final class ConfigSyncing {
 

@@ -71,48 +71,7 @@ public class PlayerClassSelectPacket {
                     stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), -1, AttributeModifier.Operation.ADDITION));
                 });
             });
-            /*
-            if(playerClass.equalsIgnoreCase("knight") || playerClass.equalsIgnoreCase("warrior")){
-                CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                    handler.getStacksHandler("combat_arts").ifPresent(stacks -> {
-                        stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 0, AttributeModifier.Operation.ADDITION));
-                    });
-                });
-            }
-            else{
-                if(playerClass.equalsIgnoreCase("balanced")){
-                    CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                        handler.getStacksHandler("combat_arts").ifPresent(stacks -> {
-                            stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
-                        });
-                    });
-                    CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                        handler.getStacksHandler("spells").ifPresent(stacks -> {
-                            stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
-                        });
-                    });
-                }else{
-                    if(playerClass.equalsIgnoreCase("mage")){
-                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                            handler.getStacksHandler("spells").ifPresent(stacks -> {
-                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 3, AttributeModifier.Operation.ADDITION));
-                            });
-                        });
-                    }else{
-                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                            handler.getStacksHandler("spells").ifPresent(stacks -> {
-                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 2, AttributeModifier.Operation.ADDITION));
-                            });
-                        });
-                        CuriosApi.getCuriosHelper().getCuriosHandler(player).ifPresent(handler -> {
-                            handler.getStacksHandler("combat_arts").ifPresent(stacks -> {
-                                stacks.addPermanentModifier(new AttributeModifier(player.getUUID(), player.getName().getString(), 1, AttributeModifier.Operation.ADDITION));
-                            });
-                        });
-                    }
-                }
-            }
-            */
+
             ModMessages.sendToPlayer(new PlayerSyncPacket(result),player);
             player.sendSystemMessage(Component.literal("Your class is: "+playerClass));
         });

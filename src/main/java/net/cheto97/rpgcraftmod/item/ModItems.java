@@ -5,11 +5,15 @@ import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.custom.EspadaMuerteItem;
 import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.custom.curios.auras.item.*;
+import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -90,10 +94,11 @@ public class ModItems {
                     .tab(ModCreativeModeTab.RPGCRAFT_TAB)
                     .fireResistant()
                     .rarity(Rarity.RARE)
-                    .stacksTo(1)
+                    .stacksTo(32)
                     .craftRemainder(Items.BUCKET)
             ));
 
+    // AURAS
     public static final RegistryObject<Item> COMMON_AURA = registerItems("common_aura",
             () -> new Commonaura(new Item.Properties()
                     .tab(ModCreativeModeTab.RPGCRAFT_TAB)
@@ -171,6 +176,7 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
                     .stacksTo(1)));
 
+    // WINGS
     public static final RegistryObject<Item> WHITE_LIGHT_WINGS = registerItems("white_light_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingItem.WingType.LIGHT));
     public static final RegistryObject<Item> ORANGE_LIGHT_WINGS = registerItems("orange_light_wings", () -> new WingItem(DyeColor.ORANGE, DyeColor.ORANGE, WingItem.WingType.LIGHT));
     public static final RegistryObject<Item> MAGENTA_LIGHT_WINGS = registerItems("magenta_light_wings", () -> new WingItem(DyeColor.MAGENTA, DyeColor.MAGENTA, WingItem.WingType.LIGHT));
@@ -189,11 +195,20 @@ public class ModItems {
     public static final RegistryObject<Item> BLACK_LIGHT_WINGS = registerItems("black_light_wings", () -> new WingItem(DyeColor.BLACK, DyeColor.BLACK, WingItem.WingType.LIGHT));
     public static final RegistryObject<Item> ZANZAS_WINGS = registerItems("zanzas_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingItem.WingType.UNIQUE));
 
+ // SPAWN EGSS
+    public static final RegistryObject<Item> MUTANT_GOLEM_SPAWN_EGG = createSpawnEgg("mutant_golem",ModEntityTypes.MUTANT_GOLEM,0x22b341, 0x19732e);
+
     private static <T extends Item> RegistryObject<T> registerItems(String name, Supplier<T> block){
-        RegistryObject<T> toReturn = ITEMS.register(name,block);
-        return toReturn;
+        return ITEMS.register(name,block);
     }
-    
+    private static RegistryObject<Item> createSpawnEgg(String entityName,Supplier<? extends EntityType<? extends Mob>> entityType,int backgroundColor, int highlightColor){
+        return ITEMS.register(entityName+"_spawn_egg",
+                () -> new ForgeSpawnEggItem(entityType, backgroundColor, highlightColor,
+                        new Item.Properties()
+                              .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .stacksTo(64)
+                                .rarity(Rarity.UNCOMMON)));
+    }
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

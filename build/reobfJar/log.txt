@@ -1,10 +1,11 @@
 Java Launcher: C:\Program Files\Java\jdk-17.0.5\bin\java.exe
-Arguments: '--in-jar, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\libs\rpgcraftmod-1.2.0-1.19.2.jar, --out-jar, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\reobfJar\output.jar, --srg-in, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\createMcpToSrg\output.tsrg, --live'
+Arguments: '--in-jar, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\libs\rpgcraftmod-1.2.1-1.19.2.jar, --out-jar, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\reobfJar\output.jar, --srg-in, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\createMcpToSrg\output.tsrg, --live'
 Classpath:
  - C:\Users\Juan\.gradle\caches\forge_gradle\maven_downloader\net\md-5\SpecialSource\1.11.0\SpecialSource-1.11.0-shaded.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\mezz\jei\jei-1.19.2-common-api\11.2.0.247_mapped_official_1.19.2\jei-1.19.2-common-api-11.2.0.247_mapped_official_1.19.2.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\mezz\jei\jei-1.19.2-forge-api\11.2.0.247_mapped_official_1.19.2\jei-1.19.2-forge-api-11.2.0.247_mapped_official_1.19.2.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\top\theillusivec4\curios\curios-forge\1.19.2-5.1.4.1_mapped_official_1.19.2\curios-forge-1.19.2-5.1.4.1_mapped_official_1.19.2-api.jar
+ - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.19_mapped_official_1.19.2\geckolib-forge-1.19-3.1.19_mapped_official_1.19.2.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.19.2-43.2.11_mapped_official_1.19.2\forge-1.19.2-43.2.11_mapped_official_1.19.2-recomp.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\minecraft_repo\versions\1.19.2\client-extra.jar
  - C:\Users\Juan\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlloader\1.19.2-43.2.11\e2c9f0865e5920fc9eae351b25008a62a2920131\fmlloader-1.19.2-43.2.11.jar

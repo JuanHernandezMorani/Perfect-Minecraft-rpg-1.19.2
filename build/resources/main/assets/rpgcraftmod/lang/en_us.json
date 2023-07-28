@@ -32796,6 +32796,7 @@
   "item.rpgcraftmod.red_light_wings": "Red Light Wings",
   "item.rpgcraftmod.black_light_wings": "Black Light Wings",
   "item.rpgcraftmod.zanzas_wings": "Zanza's Wings",
+  "item.rpgcraftmod.mutant_golem_spawn_egg": "Mutant Golem Spawn Egg (Creative Only, dont have animations)",
 
   "itemGroup.rpgcrafttab": "RPGcraft Mod Tab",
   "key.category.rpgcraftmod.rpgcraft": "Rpgcraft Mod",
@@ -32811,6 +32812,7 @@
   "block.rpgcraftmod.gem_infusing_station": "Gem Infusing Station",
 
   "entity.minecraft.villager.rpgcraftmod.magic_master": "Magic Master",
+  "entity.rpgcraftmod.mutant_golem": "Mutant Golem",
 
   "key.rpgcraftmod.drink_mana" : "Drinking Mana",
   "key.rpgcraftmod.show_stats": "Show stats",

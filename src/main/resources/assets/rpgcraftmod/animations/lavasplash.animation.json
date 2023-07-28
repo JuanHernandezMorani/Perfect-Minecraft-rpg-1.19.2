@@ -1,0 +1,49 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.lavasplash.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"bone": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 0.1, 1]
+						},
+						"0.1667": {
+							"vector": [0.7, 1.2, 0.7]
+						},
+						"0.6667": {
+							"vector": [1.7, 0.1, 1.8],
+							"easing": "easeInCubic"
+						},
+						"1.0": {
+							"vector": [2.4, 0.1, 2.5]
+						}
+					}
+				},
+				"bone2": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 0.1, 1]
+						},
+						"0.1667": {
+							"vector": [0.8, 1.2, 0.8]
+						},
+						"0.4583": {
+							"vector": [1.0382, 1.7597, 1.0722]
+						},
+						"0.6667": {
+							"vector": [1.5, 0.2, 1.6],
+							"easing": "easeInQuad"
+						},
+						"1.0": {
+							"vector": [2.2, 0.2, 2.3]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
