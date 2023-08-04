@@ -14,7 +14,7 @@ public class MutantGolemModel extends AnimatedGeoModel<MutantGolemEntity> {
         return geoResourceLocation(entityName);
     }
 
-    @Override
+   @Override
     public ResourceLocation getTextureResource(MutantGolemEntity object) {
         return textureResourceLocation(entityName);
     }

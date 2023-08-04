@@ -1,7 +1,8 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import io.github.how_bout_no.outvoted.config.Config;
-import io.github.how_bout_no.outvoted.init.ModSounds;
+import net.cheto97.rpgcraftmod.util.OV.Config;
+import net.cheto97.rpgcraftmod.util.OV.HealthUtil;
+import net.cheto97.rpgcraftmod.util.OV.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,10 +30,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
@@ -77,8 +75,10 @@ public class Barnacle extends Monster implements IAnimatable {
         this.goalSelector.addGoal(7, this.wander);
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+
         this.wander.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         movetowardsrestrictiongoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Dolphin.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Villager.class, true));
@@ -195,9 +195,6 @@ public class Barnacle extends Monster implements IAnimatable {
 
     }
 
-    /**
-     * Get number of ticks, at least during which the living entity will be silent.
-     */
     public int getAmbientSoundInterval() {
         return 160;
     }
@@ -219,7 +216,7 @@ public class Barnacle extends Monster implements IAnimatable {
     }
 
     public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {
-        return worldIn.getFluidState(pos).is(FluidTags.WATER) ? 10.0F + worldIn.getBrightness(pos) - 0.5F : super.getWalkTargetValue(pos, worldIn);
+        return worldIn.getFluidState(pos).is(FluidTags.WATER) ? 10.0F + worldIn.getBrightness(LightLayer.BLOCK,pos) - 0.5F : super.getWalkTargetValue(pos, worldIn);
     }
 
     @Override
@@ -233,10 +230,6 @@ public class Barnacle extends Monster implements IAnimatable {
         super.knockback(strength / 4, x, z);
     }
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
     public void aiStep() {
         super.aiStep();
         if (this.isAlive()) {

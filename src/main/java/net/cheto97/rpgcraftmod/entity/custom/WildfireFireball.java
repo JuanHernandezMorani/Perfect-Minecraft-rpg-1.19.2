@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import io.github.how_bout_no.outvoted.config.Config;
+import net.cheto97.rpgcraftmod.util.OV.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

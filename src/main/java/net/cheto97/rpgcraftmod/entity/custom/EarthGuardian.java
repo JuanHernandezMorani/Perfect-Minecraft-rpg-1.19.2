@@ -1,10 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.SmashGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.StrikeGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.ThrowRockGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMSounds;
+import net.cheto97.rpgcraftmod.util.AM.AMAttributes;
+import net.cheto97.rpgcraftmod.util.AM.AMSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -43,14 +40,6 @@ public class EarthGuardian extends AbstractBoss {
     @Override
     public SoundEvent getAttackSound() {
         return AMSounds.EARTH_GUARDIAN_ATTACK.get();
-    }
-
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new SmashGoal<>(this));
-        goalSelector.addGoal(1, new StrikeGoal<>(this));
-        goalSelector.addGoal(1, new ThrowRockGoal(this));
     }
 
     @Override

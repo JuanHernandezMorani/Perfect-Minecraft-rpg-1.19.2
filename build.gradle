@@ -1,4 +1,5 @@
 plugins {
+    id 'idea'
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
@@ -7,6 +8,54 @@ plugins {
 version = '1.3.0-1.19.2'
 group = 'net.cheto97.rpgcraftmod'
 archivesBaseName = 'rpgcraftmod'
+
+sourceSets {
+    api {}
+    main.resources {
+        srcDirs += 'src/main/generated'
+        exclude '.cache'
+    }
+    data {}
+}
+
+configurations {
+    library
+    modAPI
+    runtimeMod
+    include { transitive = false }
+
+    sourceSets.forEach((SourceSet sourceSet) -> {
+        Configuration extLib = create(sourceSet.getTaskName(null, 'externalLibrary'))
+        Configuration impl = getByName(sourceSet.implementationConfigurationName)
+        Configuration compile = getByName(sourceSet.compileOnlyConfigurationName)
+        Configuration runtime = getByName(sourceSet.runtimeOnlyConfigurationName)
+        Configuration ccp = getByName(sourceSet.compileClasspathConfigurationName)
+        Configuration rcp = getByName(sourceSet.runtimeClasspathConfigurationName)
+        impl.extendsFrom(extLib)
+        compile.extendsFrom(library)
+        compile.extendsFrom(modAPI)
+        if (sourceSet.name != "api") {
+            if (sourceSet.name != "main") {
+                rcp.extendsFrom(minecraft)
+            }
+            runtime.extendsFrom(runtimeMod)
+        }
+        if (sourceSet.name != "main") {
+            ccp.extendsFrom(minecraft)
+        }
+        impl.extendsFrom(include)
+    })
+    jarJar.extendsFrom(include)
+}
+
+configurations {
+    datagenLibrary {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
+    dataImplementation.extendsFrom(datagenLibrary)
+}
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -27,6 +76,8 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
 
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
+            arg "-mixin.config="+"citadel.mixins.json"
 
             mods {
                 rpgcraftmod {
@@ -123,6 +174,9 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.4.1")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.4.1:api")
     runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
+
+    compileOnly fg.deobf("curse.maven:citadel-331936:4132623")
+    runtimeOnly fg.deobf("curse.maven:citadel-331936:4132623")
 
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3922056")
 

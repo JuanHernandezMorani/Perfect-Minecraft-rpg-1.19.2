@@ -1,7 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.client.Models;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.WintersGrasp;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.entity.custom.WintersGrasp;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Set;
 
 public class WintersGraspModel extends AMEntityModel<WintersGrasp> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ArsMagicaAPI.MOD_ID, "winters_grasp"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION_WG = new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID, "winters_grasp"), "main");
     private final Set<ModelPart> parts;
 
     public WintersGraspModel(ModelPart root) {

@@ -1,14 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
-import com.github.minecraftschurlimods.arsmagicalegacy.api.spell.PrefabSpell;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.ExecuteBossSpellGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.LightningRodGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.StaticGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMSounds;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.cheto97.rpgcraftmod.util.AM.AMAttributes;
+import net.cheto97.rpgcraftmod.util.AM.AMSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,20 +38,6 @@ public class LightningGuardian extends AbstractBoss {
     @Override
     public SoundEvent getAttackSound() {
         return AMSounds.LIGHTNING_GUARDIAN_ATTACK.get();
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new LightningRodGoal(this));
-        goalSelector.addGoal(1, new StaticGoal(this));
-        Registry<PrefabSpell> prefabSpells = level.registryAccess().registryOrThrow(PrefabSpell.REGISTRY_KEY);
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "lightning_bolt")).spell(), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "strong_lightning_bolt")).spell(), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "area_lightning")).spell(), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "lightning_rune")).spell(), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "scramble_synapses")).spell(), 10));
     }
 
     @Override

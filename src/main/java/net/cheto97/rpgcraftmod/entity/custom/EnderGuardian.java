@@ -1,16 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
-import com.github.minecraftschurlimods.arsmagicalegacy.api.spell.PrefabSpell;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.EnderRushGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.EnderTorrentGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.ExecuteBossSpellGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.OtherworldlyRoarGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.ShadowstepGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMSounds;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.cheto97.rpgcraftmod.util.AM.AMAttributes;
+import net.cheto97.rpgcraftmod.util.AM.AMSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.BossEvent;
@@ -49,19 +40,6 @@ public class EnderGuardian extends AbstractBoss {
     @Override
     public SoundEvent getAttackSound() {
         return AMSounds.ENDER_GUARDIAN_ATTACK.get();
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new EnderRushGoal(this));
-        goalSelector.addGoal(1, new ShadowstepGoal(this));
-        Registry<PrefabSpell> prefabSpells = level.registryAccess().registryOrThrow(PrefabSpell.REGISTRY_KEY);
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "ender_bolt")).spell(), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "ender_wave")).spell(), 10));
-        goalSelector.addGoal(1, new EnderTorrentGoal(this));
-        goalSelector.addGoal(1, new OtherworldlyRoarGoal(this));
     }
 
     @Override

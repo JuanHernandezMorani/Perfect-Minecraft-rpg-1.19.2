@@ -33,3 +33,10 @@ Test yourself and become the most powerfull warrior in all worlds...
     versionRange = "[1.19.2-5.1.4.1]"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.rpgcraftmod]]
+modId = "geckolib3"
+mandatory = true
+versionRange = "[1.19-3.1.14,)"
+ordering = "BEFORE"
+side = "BOTH"

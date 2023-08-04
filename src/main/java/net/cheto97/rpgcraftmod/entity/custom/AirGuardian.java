@@ -1,8 +1,6 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.HurricaneGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.WhirlwindGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
+import net.cheto97.rpgcraftmod.util.AM.AMAttributes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,13 +37,6 @@ public class AirGuardian extends AbstractBoss {
     @Override
     public SoundEvent getAttackSound() {
         return null;
-    }
-
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new HurricaneGoal(this));
-        goalSelector.addGoal(1, new WhirlwindGoal(this));
     }
 
     @Override

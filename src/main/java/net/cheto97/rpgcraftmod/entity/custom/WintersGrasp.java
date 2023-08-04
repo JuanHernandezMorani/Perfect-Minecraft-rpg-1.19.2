@@ -1,7 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.util.AMUtil;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.util.AM.AMUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -40,14 +40,14 @@ public class WintersGrasp extends Entity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
-        CompoundTag tag = pCompound.getCompound(ArsMagicaAPI.MOD_ID);
+        CompoundTag tag = pCompound.getCompound(RpgcraftMod.MOD_ID);
         entityData.set(OWNER, tag.getInt("Owner"));
         entityData.set(STACK, ItemStack.of(tag.getCompound("Stack")));
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
-        CompoundTag tag = pCompound.getCompound(ArsMagicaAPI.MOD_ID);
+        CompoundTag tag = pCompound.getCompound(RpgcraftMod.MOD_ID);
         tag.putInt("Owner", entityData.get(OWNER));
         CompoundTag stack = new CompoundTag();
         entityData.get(STACK).save(stack);

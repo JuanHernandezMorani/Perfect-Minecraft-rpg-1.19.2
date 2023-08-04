@@ -83,8 +83,8 @@ public class WingsFeatureRenderer implements ICurioRenderer {
                     if(wingType.equals("zanzas"))
                         wingModel = zanzasWings;
 
-                    ResourceLocation layer1 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/" + wingType + "_wings.png");
-                    ResourceLocation layer2 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/" + wingType + "_wings_2.png");
+                    ResourceLocation layer1 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/" + wingType + "_wings.png");
+                    ResourceLocation layer2 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/" + wingType + "_wings_2.png");
 
                     matrixStack.pushPose();
                     matrixStack.translate(0.0D, 0.0D, 0.125D);

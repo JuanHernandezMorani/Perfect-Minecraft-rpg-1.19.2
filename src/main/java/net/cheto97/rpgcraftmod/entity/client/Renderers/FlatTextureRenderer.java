@@ -53,9 +53,5 @@ public abstract class FlatTextureRenderer<T extends Entity> extends EntityRender
         pMatrixStack.popPose();
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
-
-    /**
-     * @return The amount of single images the texture has. For example, a 16x64 texture should return 4, while a 64x768 texture should return 12.
-     */
     protected abstract int getTextureHeight();
 }

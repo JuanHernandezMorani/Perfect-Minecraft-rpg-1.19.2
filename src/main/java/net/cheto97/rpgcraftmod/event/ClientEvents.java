@@ -3,6 +3,8 @@ package net.cheto97.rpgcraftmod.event;
 import net.cheto97.rpgcraftmod.ModHud.huds.HudHotbarWidget;
 import net.cheto97.rpgcraftmod.RenderOverlay;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.entity.client.Models.DryadModel;
+import net.cheto97.rpgcraftmod.entity.client.Models.WintersGraspModel;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 import net.cheto97.rpgcraftmod.item.wings.model.*;
 import net.cheto97.rpgcraftmod.custom.curios.auras.model.*;
@@ -35,6 +37,8 @@ import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.LEGENDARY_AURA;
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.MYTHICAL_AURA;
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.SEMI_BOSS_AURA;
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.UNIQUE_AURA;
+import static net.cheto97.rpgcraftmod.entity.client.Models.DryadModel.LAYER_LOCATION_D;
+import static net.cheto97.rpgcraftmod.entity.client.Models.WintersGraspModel.LAYER_LOCATION_WG;
 import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 public class ClientEvents {
@@ -98,6 +102,9 @@ public class ClientEvents {
             event.registerLayerDefinition(MYTHICAL_AURA, AuraModel::createLayer);
             event.registerLayerDefinition(SEMI_BOSS_AURA, AuraModel::createLayer);
             event.registerLayerDefinition(UNIQUE_AURA, AuraModel::createLayer);
+
+            event.registerLayerDefinition(LAYER_LOCATION_D, DryadModel::createBodyLayer);
+            event.registerLayerDefinition(LAYER_LOCATION_WG, WintersGraspModel::createBodyLayer);
         }
         @SubscribeEvent
         public static void onRegisterAtlasSprites(TextureStitchEvent.Pre event){

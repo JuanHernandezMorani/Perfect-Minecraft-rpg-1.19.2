@@ -1,13 +1,13 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import io.github.how_bout_no.outvoted.config.Config;
-import io.github.how_bout_no.outvoted.init.ModSounds;
-import io.github.how_bout_no.outvoted.item.WildfireHelmetItem;
-import io.github.how_bout_no.outvoted.util.IMixinBlaze;
+import net.cheto97.rpgcraftmod.item.OV.WildfireHelmetItem;
+import net.cheto97.rpgcraftmod.util.OV.Config;
+import net.cheto97.rpgcraftmod.util.OV.HealthUtil;
+import net.cheto97.rpgcraftmod.util.OV.IMixinBlaze;
+import net.cheto97.rpgcraftmod.util.OV.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -147,7 +147,7 @@ public class Wildfire extends Monster implements IAnimatable {
 
     @Override
     protected Component getTypeName() {
-        return getVariant() == 0 ? super.getTypeName() : new TranslatableComponent("entity.outvoted.wildfire_s");
+        return getVariant() == 0 ? super.getTypeName() : Component.literal("Soul Wildfire");
     }
 
     public int getMaxSpawnClusterSize() {
@@ -234,7 +234,6 @@ public class Wildfire extends Monster implements IAnimatable {
 
             for (int i = 0; i < 2; ++i) {
                 this.level.addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
-                //this.world.addParticle(ParticleTypes.FLAME, this.getPosXRandom(0.5D), this.getPosYRandom(), this.getPosZRandom(0.5D), 0.0D, 0.0D, 0.0D);
             }
 
         }
@@ -288,10 +287,6 @@ public class Wildfire extends Monster implements IAnimatable {
         return false;
     }
 
-    /**
-     * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
-     * Copied from BlazeEntity.java
-     */
     public boolean isOnFire() {
         return this.isCharged();
     }

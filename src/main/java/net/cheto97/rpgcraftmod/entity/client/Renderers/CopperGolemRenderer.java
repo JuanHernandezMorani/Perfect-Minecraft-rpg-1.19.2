@@ -3,9 +3,9 @@ package net.cheto97.rpgcraftmod.entity.client.Renderers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import io.github.how_bout_no.outvoted.Outvoted;
-import io.github.how_bout_no.outvoted.client.model.CopperGolemModel;
-import io.github.how_bout_no.outvoted.entity.CopperGolem;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.entity.client.Models.CopperGolemModel;
+import net.cheto97.rpgcraftmod.entity.custom.CopperGolem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 
 @OnlyIn(Dist.CLIENT)
@@ -22,16 +23,17 @@ public class CopperGolemRenderer extends GeoMobRenderer<CopperGolem> {
         super(ctx, new CopperGolemModel());
     }
 
-    private static final ResourceLocation UNAFFECTED = new ResourceLocation(Outvoted.MOD_ID, "textures/entity/copper_golem/copper_golem.png");
-    private static final ResourceLocation EXPOSED = new ResourceLocation(Outvoted.MOD_ID, "textures/entity/copper_golem/copper_golem2.png");
-    private static final ResourceLocation WEATHERED = new ResourceLocation(Outvoted.MOD_ID, "textures/entity/copper_golem/copper_golem3.png");
-    private static final ResourceLocation OXIDIZED = new ResourceLocation(Outvoted.MOD_ID, "textures/entity/copper_golem/copper_golem4.png");
+    private static final ResourceLocation UNAFFECTED = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/copper_golem/copper_golem.png");
+    private static final ResourceLocation EXPOSED = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/copper_golem/copper_golem2.png");
+    private static final ResourceLocation WEATHERED = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/copper_golem/copper_golem3.png");
+    private static final ResourceLocation OXIDIZED = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/copper_golem/copper_golem4.png");
     @Override
     public RenderType getRenderType(CopperGolem copperGolem, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
         return RenderType.entityCutoutNoCull(this.getTextureLocation(copperGolem));
     }
-    @Override
-    public ResourceLocation getTextureLocation(CopperGolem entity) {
+
+   @Override
+    public @NotNull ResourceLocation getTextureLocation(CopperGolem entity) {
         return switch (entity.getOxidizationLevel()) {
             case 0 -> UNAFFECTED;
             case 1 -> EXPOSED;

@@ -1,10 +1,10 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
 import com.google.common.collect.ImmutableList;
-import io.github.how_bout_no.outvoted.config.Config;
-import io.github.how_bout_no.outvoted.init.ModItems;
-import io.github.how_bout_no.outvoted.init.ModSounds;
-import io.github.how_bout_no.outvoted.init.ModTags;
+import net.cheto97.rpgcraftmod.util.OV.Config;
+import net.cheto97.rpgcraftmod.util.OV.HealthUtil;
+import net.cheto97.rpgcraftmod.util.OV.ModItemsOV;
+import net.cheto97.rpgcraftmod.util.OV.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction8;
@@ -13,7 +13,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +21,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -109,7 +109,7 @@ public class Glutton extends PathfinderMob implements IAnimatable {
     }
 
     public static boolean canSpawn(EntityType<Glutton> entity, LevelAccessor world, MobSpawnType spawnReason, BlockPos blockPos, Random random) {
-        return world.getRawBrightness(blockPos, 0) > 8 && checkMobSpawnRules(entity, world, spawnReason, blockPos, random) && world.getBlockState(blockPos.below()).is(ModTags.GLUTTON_CAN_BURROW);
+        return world.getRawBrightness(blockPos, 0) > 8 && checkMobSpawnRules(entity, world, spawnReason, blockPos, RandomSource.create(random.nextLong()));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -155,8 +155,8 @@ public class Glutton extends PathfinderMob implements IAnimatable {
     @Override
     protected Component getTypeName() {
         return switch (getVariant()) {
-            case 1 -> new TranslatableComponent("entity.outvoted.glutton_r");
-            case 2 -> new TranslatableComponent("entity.outvoted.glutton_s");
+            case 1 -> Component.literal("Red Sand Glutton");
+            case 2 -> Component.literal("Swamp Glutton");
             default -> super.getTypeName();
         };
     }
@@ -252,7 +252,7 @@ public class Glutton extends PathfinderMob implements IAnimatable {
             } else if (!(itemstack.isEnchantable() || itemstack.isEnchanted() || itemstack.getItem() instanceof EnchantedBookItem)) {
                 pair.setRight(ItemStack.EMPTY);
                 return pair;
-            } else if (itemstack.getItem().equals(ModItems.VOID_HEART.get())) {
+            } else if (itemstack.getItem().equals(ModItemsOV.VOID_HEART.get())) {
                 return pair;
             }
 
@@ -323,13 +323,9 @@ public class Glutton extends PathfinderMob implements IAnimatable {
         }
         return pair;
     }
-
-    /**
-     * Returns whether this Entity is invulnerable to the given DamageSource.
-     */
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return super.isInvulnerableTo(source) && !source.msgId.equals("wither") && !source.isMagic() && !source.isExplosion();
+        return super.isInvulnerableTo(source) && !source.msgId.equals("wither") && !source.isMagic();
     }
 
     @Override
@@ -378,10 +374,6 @@ public class Glutton extends PathfinderMob implements IAnimatable {
         return exec;
     }
 
-    /**
-     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
-     * use this to react to sunlight and start to burn.
-     */
     public void aiStep() {
         if (this.isAlive()) {
             this.setInvulnerable(this.isBurrowed());
@@ -438,7 +430,7 @@ public class Glutton extends PathfinderMob implements IAnimatable {
             if (ret) {
                 for (double l = posZ - 1; l <= posZ + 1; ++l) {
                     BlockState block = world.getBlockState(new BlockPos(k, posY - 1, l));
-                    if (block.is(ModTags.GLUTTON_CAN_BURROW) && !gluttonIn.isInWater()) {
+                    if (!gluttonIn.isInWater()) {
                         if (ret) {
                             ret = !gluttonIn.isLeashed();
                         }
@@ -497,7 +489,7 @@ public class Glutton extends PathfinderMob implements IAnimatable {
 
         @Nullable
         protected net.minecraft.world.phys.Vec3 findPossibleSpot() {
-            Random random = this.mob.getRandom();
+            Random random = (Random) this.mob.getRandom();
             BlockPos blockpos = this.mob.blockPosition();
 
             for (int i = 0; i < 10; ++i) {
@@ -532,10 +524,6 @@ public class Glutton extends PathfinderMob implements IAnimatable {
                 this.mob.getNavigation().stop();
         }
     }
-
-    /**
-     * Creates a vector based on caclulated direction of one of the 8 cardinal directions the entity is facing
-     */
     private net.minecraft.world.phys.Vec3 directionVector() {
         net.minecraft.world.phys.Vec3 vec3d = net.minecraft.world.phys.Vec3.ZERO;
         double rotation = this.getYRot() - 180;
@@ -607,7 +595,7 @@ public class Glutton extends PathfinderMob implements IAnimatable {
                 if (this.tick % 16 == 0) {
                     MutablePair<Integer, ItemStack> pair = this.mob.modifyEnchantments(cacheitem, cacheitem.getDamageValue(), 1);
                     ItemStack item = pair.getRight();
-                    if (cacheitem.getItem().equals(ModItems.VOID_HEART.get())) {
+                    if (cacheitem.getItem().equals(ModItemsOV.VOID_HEART.get())) {
                         Explosion.BlockInteraction explosion$mode = this.mob.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
                         this.mob.level.explode(this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), 2.0F, explosion$mode);
                         this.mob.discard();

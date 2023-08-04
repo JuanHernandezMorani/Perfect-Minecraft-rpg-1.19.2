@@ -7,6 +7,8 @@ import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.custom.curios.auras.item.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
+import net.cheto97.rpgcraftmod.item.OV.WildfireHelmetItem;
+import net.cheto97.rpgcraftmod.item.OV.WildfireShieldItem;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +28,8 @@ import static net.cheto97.rpgcraftmod.block.ModBlocks.TLT_BLOCK;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS,RpgcraftMod.MOD_ID);
+
+    public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(ModCreativeModeTab.RPGCRAFT_TAB);
 
     public static final RegistryObject<Item> zafiro = registerItems("zafiro",
             () -> new Item(new Item.Properties()

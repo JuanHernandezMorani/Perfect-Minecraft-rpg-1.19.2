@@ -1,6 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.client.Models;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.EarthGuardian;
+import net.cheto97.rpgcraftmod.entity.custom.EarthGuardian;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 
@@ -10,8 +11,8 @@ public class EarthGuardianModel extends AMGeckolibHeadModel<EarthGuardian> {
     }
 
     @Override
-    public void setCustomAnimations(EarthGuardian animatable, int instanceId, AnimationEvent animationEvent) {
-        super.setCustomAnimations(animatable, instanceId, animationEvent);
+    public void setLivingAnimations(EarthGuardian animatable, Integer instanceId, @Nullable AnimationEvent animationEvent) {
+        super.setLivingAnimations(animatable, instanceId, animationEvent);
         IBone rock = getAnimationProcessor().getBone("rock");
         rock.setHidden(!animatable.shouldRenderRock);
     }

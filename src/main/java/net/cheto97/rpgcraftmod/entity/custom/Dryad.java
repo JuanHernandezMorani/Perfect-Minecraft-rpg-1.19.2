@@ -1,6 +1,5 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -25,7 +24,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class Dryad extends PathfinderMob {
-    private int timer = Config.SERVER.DRYAD_BONEMEAL_TIMER.get();
+    private int timer = 200;
 
     public Dryad(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
@@ -51,9 +50,9 @@ public class Dryad extends PathfinderMob {
         if (!(level instanceof ServerLevel serverLevel)) return;
         timer--;
         if (timer > 0) return;
-        timer = Config.SERVER.DRYAD_BONEMEAL_TIMER.get();
-        if (level.random.nextDouble() < Config.SERVER.DRYAD_BONEMEAL_CHANCE.get()) return;
-        int radius = Config.SERVER.DRYAD_BONEMEAL_RADIUS.get();
+        timer = 200;
+        if (level.random.nextDouble() < 0.01) return;
+        int radius = 2;
         for (final BlockPos pos : BlockPos.betweenClosed(blockPosition().offset(-radius, -radius, -radius), blockPosition().offset(radius, radius, radius))) {
             BlockState state = level.getBlockState(pos);
             if (!(state.getBlock() instanceof BonemealableBlock bonemealableBlock)) continue;

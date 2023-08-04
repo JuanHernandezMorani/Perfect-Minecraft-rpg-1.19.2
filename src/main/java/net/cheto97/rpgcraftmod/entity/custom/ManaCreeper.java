@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMEntities;
+import net.cheto97.rpgcraftmod.util.AM.AMEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,11 +18,23 @@ public class ManaCreeper extends Creeper {
         return createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
+
     @Override
-    protected void explodeCreeper() {
-        super.explodeCreeper();
+    public boolean canDropMobsSkull() {
+        return true;
+    }
+
+    @Override
+    public void tick() {
+        if(this.isIgnited() && this.isDeadOrDying() && !this.level.isClientSide()){
+            summonManaVortex();
+        }
+    }
+
+    protected void summonManaVortex() {
         ManaVortex entity = Objects.requireNonNull(AMEntities.MANA_VORTEX.get().create(level));
         entity.moveTo(position());
         level.addFreshEntity(entity);
     }
+
 }

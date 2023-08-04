@@ -1,10 +1,8 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.SmashGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.StrikeGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.ThrowArmGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMSounds;
+import net.cheto97.rpgcraftmod.util.AM.AMAttributes;
+import net.cheto97.rpgcraftmod.util.AM.AMSounds;
+
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 public class IceGuardian extends AbstractBoss {
@@ -44,14 +43,6 @@ public class IceGuardian extends AbstractBoss {
     @Override
     public SoundEvent getAttackSound() {
         return null;
-    }
-
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new SmashGoal<>(this));
-        goalSelector.addGoal(1, new StrikeGoal<>(this));
-        goalSelector.addGoal(1, new ThrowArmGoal(this));
     }
 
     @Override

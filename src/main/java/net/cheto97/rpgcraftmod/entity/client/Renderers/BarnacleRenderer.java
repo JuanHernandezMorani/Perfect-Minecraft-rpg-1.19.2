@@ -2,9 +2,9 @@ package net.cheto97.rpgcraftmod.entity.client.Renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import io.github.how_bout_no.outvoted.Outvoted;
-import io.github.how_bout_no.outvoted.client.model.BarnacleModel;
-import io.github.how_bout_no.outvoted.entity.Barnacle;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.entity.client.Models.BarnacleModel;
+import net.cheto97.rpgcraftmod.entity.custom.Barnacle;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -26,6 +26,6 @@ public class BarnacleRenderer extends GeoEntityRenderer<Barnacle> {
 
     @Override
     public ResourceLocation getTextureLocation(Barnacle entity) {
-        return new ResourceLocation(Outvoted.MOD_ID, "textures/entity/barnacle.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/barnacle.png");
     }
 }

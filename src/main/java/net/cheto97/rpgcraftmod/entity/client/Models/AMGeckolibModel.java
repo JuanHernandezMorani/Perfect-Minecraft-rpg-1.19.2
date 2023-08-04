@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.entity.client.Models;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -11,9 +11,9 @@ public class AMGeckolibModel<T extends IAnimatable> extends AnimatedGeoModel<T> 
     private final ResourceLocation ANIMATION_LOCATION;
 
     public AMGeckolibModel(String name) {
-        MODEL_LOCATION = new ResourceLocation(ArsMagicaAPI.MOD_ID, "geo/" + name + ".geo.json");
-        TEXTURE_LOCATION = new ResourceLocation(ArsMagicaAPI.MOD_ID, "textures/entity/" + name + ".png");
-        ANIMATION_LOCATION = new ResourceLocation(ArsMagicaAPI.MOD_ID, "animations/" + name + ".animation.json");
+        MODEL_LOCATION = new ResourceLocation(RpgcraftMod.MOD_ID, "geo/" + name + ".geo.json");
+        TEXTURE_LOCATION = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/" + name + ".png");
+        ANIMATION_LOCATION = new ResourceLocation(RpgcraftMod.MOD_ID, "animations/" + name + ".animation.json");
     }
 
     @Override

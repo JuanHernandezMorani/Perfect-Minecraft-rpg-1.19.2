@@ -1,9 +1,9 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import io.github.how_bout_no.outvoted.block.BaseCopperButtonBlock;
-import io.github.how_bout_no.outvoted.config.Config;
-import io.github.how_bout_no.outvoted.init.ModEntities;
-import io.github.how_bout_no.outvoted.util.ModUtil;
+import net.cheto97.rpgcraftmod.util.OV.Config;
+import net.cheto97.rpgcraftmod.util.OV.HealthUtil;
+import net.cheto97.rpgcraftmod.util.OV.ModEntities;
+import net.cheto97.rpgcraftmod.util.OV.ModUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -50,7 +51,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.EnumSet;
 import java.util.Optional;
-import java.util.Random;
 
 public class CopperGolem extends AbstractGolem implements IAnimatable {
     protected static final EntityDataAccessor<Integer> OXIDIZATION_LEVEL;
@@ -208,7 +208,7 @@ public class CopperGolem extends AbstractGolem implements IAnimatable {
         this.setRotationsI(compound.getIntArray("Rotations"));
     }
 
-    public static boolean canSpawn(EntityType<CopperGolem> entity, LevelAccessor world, MobSpawnType spawnReason, BlockPos blockPos, Random random) {
+    public static boolean canSpawn(EntityType<CopperGolem> entity, LevelAccessor world, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
         return checkMobSpawnRules(entity, world, spawnReason, blockPos, random);
     }
 
@@ -355,7 +355,7 @@ public class CopperGolem extends AbstractGolem implements IAnimatable {
                 } else {
                     return InteractionResult.PASS;
                 }
-                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                this.gameEvent(GameEvent.ENTITY_INTERACT, this);
                 if (!player.getAbilities().instabuild) {
                     if (ci || hi) itemStack.shrink(1);
                     else if (!this.level.isClientSide) itemStack.hurt(1, this.random, (ServerPlayer) player);
@@ -367,7 +367,7 @@ public class CopperGolem extends AbstractGolem implements IAnimatable {
             if (!this.level.isClientSide) {
                 float playerRot = getYRotD(player).get();
                 float rotDiff = playerRot - this.getYRot();
-                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                this.gameEvent(GameEvent.ENTITY_INTERACT, this);
 
                 if (rotDiff > 0) {
                     if (this.hasItemInSlot(EquipmentSlot.MAINHAND))
@@ -456,7 +456,7 @@ public class CopperGolem extends AbstractGolem implements IAnimatable {
         @Override
         protected boolean isValidTarget(LevelReader world, BlockPos pos) {
             BlockState blockState = world.getBlockState(pos);
-            return blockState.getBlock() instanceof BaseCopperButtonBlock;
+            return blockState.getBlock() instanceof ButtonBlock;
         }
     }
 

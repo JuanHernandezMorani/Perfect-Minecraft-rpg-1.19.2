@@ -8,14 +8,17 @@ import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
-import net.cheto97.rpgcraftmod.entity.custom.MutantGolemEntity;
+import net.cheto97.rpgcraftmod.entity.custom.*;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.menu.PlayerClassSelectMenu;
+import net.cheto97.rpgcraftmod.modSounds.ModSoundsRPG;
 import net.cheto97.rpgcraftmod.modsystem.*;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
+import net.cheto97.rpgcraftmod.util.AM.AMEntities;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
+import net.cheto97.rpgcraftmod.util.OV.ModEntities;
 import net.cheto97.rpgcraftmod.util.levelConfig.utils.ConfigSyncing;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
 import static net.cheto97.rpgcraftmod.ranks.Boss.bossModify;
@@ -1073,7 +1076,7 @@ public class ModEvents {
                                            0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
                                    default -> levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
                                }
-                               //play sound event level_up
+                               player.playSound(ModSoundsRPG.LEVEL_UP_SOUND.get(),0.2f,0.2f);
                                if (experience.get() < level.experienceNeeded()) {
                                    flag = false;
                                }
@@ -1116,6 +1119,25 @@ public class ModEvents {
         @SubscribeEvent
         public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
             event.put(ModEntityTypes.MUTANT_GOLEM.get(), MutantGolemEntity.setAttributes());
+
+            event.put(ModEntities.WILDFIRE.get(), Wildfire.setCustomAttributes().build());
+            event.put(ModEntities.GLUTTON.get(), Glutton.setCustomAttributes().build());
+            event.put(ModEntities.BARNACLE.get(), Barnacle.setCustomAttributes().build());
+            event.put(ModEntities.COPPER_GOLEM.get(), CopperGolem.setCustomAttributes().build());
+
+            event.put(AMEntities.WATER_GUARDIAN.get(), WaterGuardian.createAttributes().build());
+            event.put(AMEntities.FIRE_GUARDIAN.get(), FireGuardian.createAttributes().build());
+            event.put(AMEntities.EARTH_GUARDIAN.get(), EarthGuardian.createAttributes().build());
+            event.put(AMEntities.AIR_GUARDIAN.get(), AirGuardian.createAttributes().build());
+            event.put(AMEntities.ICE_GUARDIAN.get(), IceGuardian.createAttributes().build());
+            event.put(AMEntities.LIGHTNING_GUARDIAN.get(), LightningGuardian.createAttributes().build());
+            event.put(AMEntities.NATURE_GUARDIAN.get(), NatureGuardian.createAttributes().build());
+            event.put(AMEntities.LIFE_GUARDIAN.get(), LifeGuardian.createAttributes().build());
+            event.put(AMEntities.ARCANE_GUARDIAN.get(), ArcaneGuardian.createAttributes().build());
+            event.put(AMEntities.ENDER_GUARDIAN.get(), EnderGuardian.createAttributes().build());
+            event.put(AMEntities.DRYAD.get(), Dryad.createAttributes().build());
+            event.put(AMEntities.MAGE.get(), Mage.createAttributes().build());
+            event.put(AMEntities.MANA_CREEPER.get(), ManaCreeper.createAttributes().build());
         }
     }
 

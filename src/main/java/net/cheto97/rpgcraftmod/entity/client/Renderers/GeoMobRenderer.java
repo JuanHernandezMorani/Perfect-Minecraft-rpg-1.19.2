@@ -30,7 +30,7 @@ public class GeoMobRenderer<T extends Mob & IAnimatable> extends GeoEntityRender
         }
     }
 
-    private <E extends Entity> void renderLeash(T entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
+    public <E extends Entity> void renderLeash(T entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
         matrices.pushPose();
         Vec3 vec3d = holdingEntity.getRopeHoldPosition(tickDelta);
         double d = (double) (Mth.lerp(tickDelta, entity.yBodyRot, entity.yBodyRotO) * 0.017453292F) + 1.5707963267948966D;

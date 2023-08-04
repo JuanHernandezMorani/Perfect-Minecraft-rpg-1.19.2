@@ -1,8 +1,5 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.spell.ISpellCasterEntity;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.BossNearestAttackableTargetGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.DispelGoal;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -17,9 +14,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -30,12 +25,11 @@ import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractBoss extends Monster implements ISpellCasterEntity, IAnimatable {
+public abstract class AbstractBoss extends Monster implements IAnimatable {
     private final AnimationFactory factory;
     private final ServerBossEvent bossEvent;
     private int ticksInAction = 0;
@@ -49,7 +43,7 @@ public abstract class AbstractBoss extends Monster implements ISpellCasterEntity
     public AbstractBoss(EntityType<? extends AbstractBoss> type, Level level, BossEvent.BossBarColor color) {
         super(type, level);
         noCulling = true;
-        factory = GeckoLibUtil.createFactory(this);
+        factory = new AnimationFactory(this);
         bossEvent = new ServerBossEvent(getType().getDescription(), color, BossEvent.BossBarOverlay.PROGRESS);
         if (!level.isClientSide()) {
             for (ServerPlayer player : ((ServerLevel) level).getPlayers(EntitySelector.ENTITY_STILL_ALIVE.and(EntitySelector.withinDistance(0, 128, 0, 192.0D)))) {
@@ -57,13 +51,6 @@ public abstract class AbstractBoss extends Monster implements ISpellCasterEntity
             }
         }
     }
-
-    /**
-     * Creates a new animation controller that plays this boss's base animation.
-     *
-     * @param registryName The registry name of this boss.
-     * @return A new animation controller that plays this boss's base animation.
-     */
     public AnimationController<? extends AbstractBoss> createBaseAnimationController(String registryName) {
         return new AnimationController<>(this, "base_controller", 2, e -> {
             e.getController().setAnimation(new AnimationBuilder().addAnimation("animation." + registryName + ".base"));
@@ -71,14 +58,6 @@ public abstract class AbstractBoss extends Monster implements ISpellCasterEntity
         });
     }
 
-    /**
-     * Creates a new animation controller that plays the given animation if the given action is currently active.
-     *
-     * @param registryName The registry name of the boss to create the animation controller for.
-     * @param name The name of the animation to play.
-     * @param action The action for which the animation should be played.
-     * @return A new animation controller that plays the given animation if the given action is currently active.
-     */
     public AnimationController<? extends AbstractBoss> createActionAnimationController(String registryName, String name, Action action) {
         return new AnimationController<>(this, action.name() + "_controller", 2, e -> {
             if (getAction() == action) {
@@ -143,12 +122,13 @@ public abstract class AbstractBoss extends Monster implements ISpellCasterEntity
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(0, new DispelGoal<>(this));
         goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 1));
         goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8F));
         goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
+        goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+
         targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        targetSelector.addGoal(1, new BossNearestAttackableTargetGoal<>(this, Player.class, 2, true, false, null));
     }
 
     @Override
@@ -212,58 +192,25 @@ public abstract class AbstractBoss extends Monster implements ISpellCasterEntity
     }
 
     @Override
-    public boolean canCastSpell() {
-        return action == Action.IDLE;
-    }
-
-    @Override
-    public boolean isCastingSpell() {
-        return action == Action.CAST;
-    }
-
-    @Override
-    public void setIsCastingSpell(boolean isCastingSpell) {
-        if (isCastingSpell) {
-            setAction(Action.CAST);
-        } else if (action == Action.CAST) {
-            setAction(Action.IDLE);
-        }
-    }
-
-    @Override
     public AnimationFactory getFactory() {
         return factory;
     }
 
-    /**
-     * @return The attack sound of this boss, or null if no attack sound should be played.
-     */
     @Nullable
     public SoundEvent getAttackSound() {
         return null;
     }
 
-    /**
-     * @return The current action of this boss.
-     */
     public Action getAction() {
         return action;
     }
 
-    /**
-     * Sets the current action.
-     *
-     * @param action The action to set.
-     */
     public void setAction(Action action) {
         this.action = action;
         ticksInAction = 0;
         level.broadcastEntityEvent(this, action.id);
     }
 
-    /**
-     * @return The amount of ticks the boss is already using the current action.
-     */
     public int getTicksInAction() {
         return ticksInAction;
     }

@@ -1,8 +1,11 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
 import com.mojang.math.Vector3f;
+import net.cheto97.rpgcraftmod.customstats.Mana;
+import net.cheto97.rpgcraftmod.customstats.ManaMax;
+import net.cheto97.rpgcraftmod.providers.ManaMaxProvider;
+import net.cheto97.rpgcraftmod.providers.ManaProvider;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -33,14 +36,14 @@ public class ManaVortex extends Entity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
-        CompoundTag tag = pCompound.getCompound(ArsMagicaAPI.MOD_ID);
+        CompoundTag tag = pCompound.getCompound(RpgcraftMod.MOD_ID);
         entityData.set(DURATION, tag.getInt("Duration"));
         entityData.set(MANA, tag.getFloat("Mana"));
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
-        CompoundTag tag = pCompound.getCompound(ArsMagicaAPI.MOD_ID);
+        CompoundTag tag = pCompound.getCompound(RpgcraftMod.MOD_ID);
         tag.putInt("Duration", entityData.get(DURATION));
         tag.putFloat("Mana", entityData.get(MANA));
     }
@@ -66,12 +69,13 @@ public class ManaVortex extends Entity {
         tickCount++;
         if (entityData.get(DURATION) - this.tickCount > 30) {
             for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(4, 4, 4))) {
-                if (e.getAttribute(AMAttributes.MAX_MANA.get()) == null) continue;
+                if (!e.getCapability(ManaProvider.ENTITY_MANA).isPresent()) continue;
                 if (!level.isClientSide()) {
-                    var helper = ArsMagicaAPI.get().getManaHelper();
-                    float stolen = Math.min(helper.getMana(e), helper.getMaxMana(e) / 100f);
-                    entityData.set(MANA, entityData.get(MANA) + stolen);
-                    helper.setMana(e, helper.getMana(e) - stolen);
+                    double mana = e.getCapability(ManaProvider.ENTITY_MANA).map(Mana::get).orElse(0.0);
+                    double maxMana = e.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(0.0);
+                    double stolen = Math.min(mana, maxMana / 100f);
+                    entityData.set(MANA, entityData.get(MANA) + (float)stolen);
+                    e.getCapability(ManaProvider.ENTITY_MANA).ifPresent(manaRPG -> manaRPG.consumeMana(stolen));
                     Vec3 movement = e.position().subtract(position()).normalize();
                     setDeltaMovement(movement.x * 0.075f, movement.y * 0.075f, movement.z * 0.075f);
                 } else {

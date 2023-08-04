@@ -1,19 +1,12 @@
 package net.cheto97.rpgcraftmod.entity.custom;
 
-import com.github.minecraftschurlimods.arsmagicalegacy.api.ArsMagicaAPI;
-import com.github.minecraftschurlimods.arsmagicalegacy.api.spell.PrefabSpell;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.CloneGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.ExecuteBossSpellGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.entity.ai.SpinGoal;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMAttributes;
-import com.github.minecraftschurlimods.arsmagicalegacy.common.init.AMSounds;
+import net.cheto97.rpgcraftmod.util.AM.AMAttributes;
+import net.cheto97.rpgcraftmod.util.AM.AMSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.BossEvent;
@@ -121,18 +114,6 @@ public class WaterGuardian extends AbstractBoss {
         return super.hurt(pSource, pAmount);
     }
 
-    @SuppressWarnings("DataFlowIssue")
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new CloneGoal(this));
-        goalSelector.addGoal(1, new SpinGoal<>(this));
-        Registry<PrefabSpell> prefabSpells = level.registryAccess().registryOrThrow(PrefabSpell.REGISTRY_KEY);
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "water_bolt")).spell(), 40));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "strong_water_bolt")).spell(), 40));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, prefabSpells.get(new ResourceLocation(ArsMagicaAPI.MOD_ID, "chaos_water_bolt")).spell(), 40));
-    }
-
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(createBaseAnimationController("water_guardian"));
@@ -140,11 +121,6 @@ public class WaterGuardian extends AbstractBoss {
         data.addAnimationController(createActionAnimationController("water_guardian", "cast", Action.CAST));
         data.addAnimationController(createActionAnimationController("water_guardian", "cast", Action.LONG_CAST));
         data.addAnimationController(createActionAnimationController("water_guardian", "spin", Action.SPIN));
-    }
-
-    @Override
-    public boolean canCastSpell() {
-        return super.canCastSpell() && !isClone();
     }
 
     public void setClones(WaterGuardian clone1, WaterGuardian clone2) {

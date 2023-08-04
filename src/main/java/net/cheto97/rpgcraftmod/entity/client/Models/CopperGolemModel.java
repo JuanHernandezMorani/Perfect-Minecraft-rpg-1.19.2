@@ -1,7 +1,7 @@
 package net.cheto97.rpgcraftmod.entity.client.Models;
 
-import io.github.how_bout_no.outvoted.Outvoted;
-import io.github.how_bout_no.outvoted.entity.CopperGolem;
+import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.entity.custom.CopperGolem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,18 +14,18 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 @OnlyIn(Dist.CLIENT)
 public class CopperGolemModel extends AnimatedGeoModel<CopperGolem> {
     @Override
-    public ResourceLocation getAnimationFileLocation(CopperGolem entity) {
-        return new ResourceLocation(Outvoted.MOD_ID, "animations/copper_golem.animation.json");
+    public ResourceLocation getAnimationResource(CopperGolem entity) {
+        return new ResourceLocation(RpgcraftMod.MOD_ID, "animations/copper_golem.animation.json");
     }
 
     @Override
-    public ResourceLocation getModelLocation(CopperGolem entity) {
-        return new ResourceLocation(Outvoted.MOD_ID, "geo/copper_golem.geo.json");
+    public ResourceLocation getModelResource(CopperGolem entity) {
+        return new ResourceLocation(RpgcraftMod.MOD_ID, "geo/copper_golem.geo.json");
     }
 
-    @Override
-    public ResourceLocation getTextureLocation(CopperGolem entity) {
-        return new ResourceLocation(Outvoted.MOD_ID, "textures/entity/copper_golem/copper_golem.png");
+   @Override
+    public ResourceLocation getTextureResource(CopperGolem entity) {
+        return new ResourceLocation(RpgcraftMod.MOD_ID, "textures/entity/copper_golem/copper_golem.png");
     }
 
     @Override

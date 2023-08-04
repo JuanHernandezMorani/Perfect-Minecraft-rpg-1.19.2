@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -19,8 +20,8 @@ public class MutantGolemRenderer extends GeoEntityRenderer<MutantGolemEntity> {
         this.shadowRadius = 1.0f;
     }
 
-    @Override
-    public ResourceLocation getTextureLocation(MutantGolemEntity instance) {
+   @Override
+    public @NotNull ResourceLocation getTextureLocation(MutantGolemEntity instance) {
         return textureResourceLocation("mutant_golem");
     }
 

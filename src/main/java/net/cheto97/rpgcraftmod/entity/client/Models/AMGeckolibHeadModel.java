@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.entity.client.Models;
 
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
@@ -11,8 +12,8 @@ public class AMGeckolibHeadModel<T extends IAnimatable> extends AMGeckolibModel<
     }
 
     @Override
-    public void setCustomAnimations(T animatable, int instanceId, AnimationEvent animationEvent) {
-        super.setCustomAnimations(animatable, instanceId, animationEvent);
+    public void setLivingAnimations(T entity, Integer uniqueID, @Nullable AnimationEvent animationEvent) {
+        super.setLivingAnimations(entity, uniqueID, animationEvent);
         if (animationEvent != null) {
             IBone head = getAnimationProcessor().getBone("head");
             EntityModelData extraData = (EntityModelData) animationEvent.getExtraDataOfType(EntityModelData.class).get(0);
