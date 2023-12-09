@@ -33,41 +33,30 @@ public final class ButtonHelper {
         List<Enchantment> blacklist = ToolLevelingConfig.blacklist.getValue();
         ButtonEntry buttonEntry = new ButtonEntry(parent, enchantment, level);
 
-        // if whitelist is not empty, mark all enchantments as blacklisted if they are
-        // not on the whitelist
         if (!whitelist.isEmpty() && !whitelist.contains(enchantment)) {
             buttonEntry.setStatus(ButtonStatus.NOT_WHITELISTED);
             return buttonEntry;
         }
-        // only list enchantments that are not on the blacklist
         if (whitelist.isEmpty() && blacklist.contains(enchantment)) {
             buttonEntry.setStatus(ButtonStatus.BLACKLISTED);
             return buttonEntry;
         }
-        // although the level is defined as an integer, the actual maximum is a short
-        // a higher enchantment level than a short will result in a negative level
-        if (level >= Double.MAX_VALUE) {
+        if (level >= 32767) {
             buttonEntry.setStatus(ButtonStatus.MAX_LEVEL);
             return buttonEntry;
         }
-        // check if the enchantment is allowed to level up
-        // determinated by the config enchantmentCaps
         if (Utils.isEnchantmentAtCap(enchantment, level)) {
             buttonEntry.setStatus(ButtonStatus.CAPPED);
             return buttonEntry;
         }
-        // check if the enchantment is over the set minimum level
         if (!Utils.isEnchantmentOverMinimum(enchantment, level)) {
             buttonEntry.setStatus(ButtonStatus.MIN_LEVEL);
             return buttonEntry;
         }
-        // leveling these enchantments will do absolutely nothing
         if (enchantment.getMaxLevel() == 1) {
             buttonEntry.setStatus(ButtonStatus.USELESS);
             return buttonEntry;
         }
-        // check if the enchantment can still be leveled
-        // some enchantments will break when leveled to high
         if (Utils.willEnchantmentBreak(enchantment, level)) {
             buttonEntry.setStatus(ButtonStatus.BREAK);
             return buttonEntry;
@@ -85,7 +74,7 @@ public final class ButtonHelper {
         final String start = "container.rpgcraftmod.tool_leveling_table";
         if (ButtonHelper.shouldButtonBeActive(data) || Utils.freeCreativeUpgrades(Minecraft.getInstance().player)) {
             tooltip.add(Component.translatable(start + ".current_level", data.currentLevel).withStyle(ChatFormatting.DARK_GRAY));
-            if(data.currentLevel < 255){
+            if(data.currentLevel < Short.MAX_VALUE){
                 tooltip.add(Component.translatable(start + ".next_level", (data.currentLevel + 1)).withStyle(ChatFormatting.DARK_GRAY));
                 tooltip.add(Component.translatable(start + ".cost", data.upgradeCost).withStyle(ChatFormatting.GOLD));
             }else{
@@ -116,13 +105,13 @@ public final class ButtonHelper {
     }
 
     public enum ButtonStatus {
-        NORMAL, // nothing special, can be leveled
-        NOT_WHITELISTED, // not on the whitelist
-        BLACKLISTED, // enchantment is blacklisted
-        USELESS, // leveling this enchantment will have no effect
-        BREAK, // enchantment will break when leveled higher
-        MAX_LEVEL, // enchantment is at the possible maximum level (Double.MAX_VALUE)
-        CAPPED, // enchantment is at the maximum level (enchantmentCaps)
-        MIN_LEVEL // enchantment is not over the set minimum level (minimumEnchantmentLevel)
+        NORMAL,
+        NOT_WHITELISTED,
+        BLACKLISTED,
+        USELESS,
+        BREAK,
+        MAX_LEVEL,
+        CAPPED,
+        MIN_LEVEL
     }
 }

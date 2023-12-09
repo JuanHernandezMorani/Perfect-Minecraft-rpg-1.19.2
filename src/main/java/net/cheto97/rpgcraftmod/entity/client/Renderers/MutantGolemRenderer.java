@@ -21,7 +21,7 @@ public class MutantGolemRenderer extends GeoEntityRenderer<MutantGolemEntity> {
     }
 
    @Override
-    public @NotNull ResourceLocation getTextureLocation(MutantGolemEntity instance) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull MutantGolemEntity instance) {
         return textureResourceLocation("mutant_golem");
     }
 

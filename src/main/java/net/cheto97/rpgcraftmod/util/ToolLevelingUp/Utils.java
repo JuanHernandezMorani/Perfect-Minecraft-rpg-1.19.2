@@ -44,7 +44,7 @@ public final class Utils {
         // global cap is set, use the lowest of the two
         if (globalEnchantmentCap > 0) {
             if (ToolLevelingConfig.enchantmentCaps.getValue().containsKey(enchantment)) {
-                double enchantmentCap = ToolLevelingConfig.enchantmentCaps.getValue().get(enchantment);
+                short enchantmentCap = ToolLevelingConfig.enchantmentCaps.getValue().get(enchantment);
                 if (enchantmentCap < globalEnchantmentCap) {
                     return level >= enchantmentCap;
                 }

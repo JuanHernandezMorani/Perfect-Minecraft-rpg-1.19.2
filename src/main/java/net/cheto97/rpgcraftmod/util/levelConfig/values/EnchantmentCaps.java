@@ -3,7 +3,6 @@ package net.cheto97.rpgcraftmod.util.levelConfig.values;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Type;

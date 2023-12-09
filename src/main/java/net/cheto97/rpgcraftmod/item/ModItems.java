@@ -7,10 +7,7 @@ import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.custom.curios.auras.item.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
-import net.cheto97.rpgcraftmod.item.OV.WildfireHelmetItem;
-import net.cheto97.rpgcraftmod.item.OV.WildfireShieldItem;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
-import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
@@ -23,13 +20,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-import static net.cheto97.rpgcraftmod.block.ModBlocks.TLT_BLOCK;
-
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS,RpgcraftMod.MOD_ID);
-
-    public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(ModCreativeModeTab.RPGCRAFT_TAB);
 
     public static final RegistryObject<Item> zafiro = registerItems("zafiro",
             () -> new Item(new Item.Properties()
@@ -199,11 +192,17 @@ public class ModItems {
     public static final RegistryObject<Item> BLACK_LIGHT_WINGS = registerItems("black_light_wings", () -> new WingItem(DyeColor.BLACK, DyeColor.BLACK, WingItem.WingType.LIGHT));
     public static final RegistryObject<Item> ZANZAS_WINGS = registerItems("zanzas_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingItem.WingType.UNIQUE));
 
- // SPAWN EGSS
+ // SPAWN EGGS
     public static final RegistryObject<Item> MUTANT_GOLEM_SPAWN_EGG = createSpawnEgg("mutant_golem",ModEntityTypes.MUTANT_GOLEM,0x22b341, 0x19732e);
-
-    private static <T extends Item> RegistryObject<T> registerItems(String name, Supplier<T> block){
-        return ITEMS.register(name,block);
+    public static final RegistryObject<Item> DRAKE_1_SPAWN_EGG = createSpawnEgg("drake_1",ModEntityTypes.DRAKE,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> DRAKE_2_SPAWN_EGG = createSpawnEgg("drake_2",ModEntityTypes.DRAKE_2,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> DRAKE_3_SPAWN_EGG = createSpawnEgg("drake_3",ModEntityTypes.DRAKE_3,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> DRAKE_4_SPAWN_EGG = createSpawnEgg("drake_4",ModEntityTypes.DRAKE_4,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> DRAKE_5_SPAWN_EGG = createSpawnEgg("drake_5",ModEntityTypes.DRAKE_5,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> DRAKE_6_SPAWN_EGG = createSpawnEgg("drake_6",ModEntityTypes.DRAKE_6,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> DRAKE_7_SPAWN_EGG = createSpawnEgg("drake_7",ModEntityTypes.DRAKE_7,0x19732e, 0x22b341);
+    private static <T extends Item> RegistryObject<T> registerItems(String name, Supplier<T> item){
+        return ITEMS.register(name,item);
     }
     private static RegistryObject<Item> createSpawnEgg(String entityName,Supplier<? extends EntityType<? extends Mob>> entityType,int backgroundColor, int highlightColor){
         return ITEMS.register(entityName+"_spawn_egg",

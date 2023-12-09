@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"idle": {
+		"animation.idle": {
 			"loop": true,
 			"animation_length": 1.28,
 			"bones": {
@@ -144,7 +144,7 @@
 				}
 			}
 		},
-		"walk": {
+		"animation.walk": {
 			"loop": true,
 			"animation_length": 1.2,
 			"bones": {
@@ -338,7 +338,7 @@
 				}
 			}
 		},
-		"run": {
+		"animation.run": {
 			"loop": true,
 			"animation_length": 0.76,
 			"bones": {
@@ -540,7 +540,7 @@
 				}
 			}
 		},
-		"attack": {
+		"animation.attack": {
 			"animation_length": 0.64,
 			"bones": {
 				"drake": {
@@ -726,7 +726,7 @@
 				}
 			}
 		},
-		"sit": {
+		"animation.sit": {
 			"loop": true,
 			"animation_length": 1.64,
 			"bones": {
@@ -865,7 +865,7 @@
 				}
 			}
 		},
-		"fire": {
+		"animation.fire": {
 			"animation_length": 1.28,
 			"bones": {
 				"drake": {

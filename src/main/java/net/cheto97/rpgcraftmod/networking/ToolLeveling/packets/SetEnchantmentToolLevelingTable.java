@@ -1,6 +1,7 @@
 package net.cheto97.rpgcraftmod.networking.ToolLeveling.packets;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
@@ -31,7 +32,7 @@ public final class SetEnchantmentToolLevelingTable {
 
 	public static void encode(SetEnchantmentToolLevelingTable msg, FriendlyByteBuf buffer) {
 		buffer.writeBlockPos(msg.pos);
-		buffer.writeResourceLocation(ForgeRegistries.ENCHANTMENTS.getKey(msg.enchantment));
+		buffer.writeResourceLocation(Objects.requireNonNull(ForgeRegistries.ENCHANTMENTS.getKey(msg.enchantment)));
 		buffer.writeInt(msg.level);
 	}
 
@@ -57,9 +58,8 @@ public final class SetEnchantmentToolLevelingTable {
 				return;
 			}
 			BlockEntity entity = level.getBlockEntity(msg.pos);
-			if (entity != null && (entity instanceof ToolLevelingTableBlockEntity)) {
+			if ((entity instanceof ToolLevelingTableBlockEntity table)) {
 
-				ToolLevelingTableBlockEntity table = (ToolLevelingTableBlockEntity) entity;
 				ItemStack enchantedItem = table.getStackToEnchant().copy();
 				Map<Enchantment, Integer> enchantmentsMap = EnchantmentHelper.getEnchantments(enchantedItem);
 

@@ -1,6 +1,5 @@
 package net.cheto97.rpgcraftmod.event;
 
-import com.mojang.brigadier.LiteralMessage;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
@@ -16,9 +15,7 @@ import net.cheto97.rpgcraftmod.modsystem.*;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
-import net.cheto97.rpgcraftmod.util.AM.AMEntities;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
-import net.cheto97.rpgcraftmod.util.OV.ModEntities;
 import net.cheto97.rpgcraftmod.util.levelConfig.utils.ConfigSyncing;
 import net.cheto97.rpgcraftmod.villager.ModVillagers;
 import static net.cheto97.rpgcraftmod.ranks.Boss.bossModify;
@@ -45,7 +42,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.*;
-import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -71,7 +67,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -89,7 +84,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.List;
-
 
 public class ModEvents {
     @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID)
@@ -1096,12 +1090,12 @@ public class ModEvents {
                            BlockPos pos = new BlockPos(player.getX(),player.getY(),player.getZ());
                            NetworkHooks.openScreen(player, new MenuProvider() {
                                @Override
-                               public Component getDisplayName() {
+                               public @NotNull Component getDisplayName() {
                                    return Component.literal("Select Class Menu");
                                }
 
                                @Override
-                               public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                               public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
                                    return new PlayerClassSelectMenu(id,inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
                                }
                            },pos);
@@ -1119,25 +1113,13 @@ public class ModEvents {
         @SubscribeEvent
         public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
             event.put(ModEntityTypes.MUTANT_GOLEM.get(), MutantGolemEntity.setAttributes());
-
-            event.put(ModEntities.WILDFIRE.get(), Wildfire.setCustomAttributes().build());
-            event.put(ModEntities.GLUTTON.get(), Glutton.setCustomAttributes().build());
-            event.put(ModEntities.BARNACLE.get(), Barnacle.setCustomAttributes().build());
-            event.put(ModEntities.COPPER_GOLEM.get(), CopperGolem.setCustomAttributes().build());
-
-            event.put(AMEntities.WATER_GUARDIAN.get(), WaterGuardian.createAttributes().build());
-            event.put(AMEntities.FIRE_GUARDIAN.get(), FireGuardian.createAttributes().build());
-            event.put(AMEntities.EARTH_GUARDIAN.get(), EarthGuardian.createAttributes().build());
-            event.put(AMEntities.AIR_GUARDIAN.get(), AirGuardian.createAttributes().build());
-            event.put(AMEntities.ICE_GUARDIAN.get(), IceGuardian.createAttributes().build());
-            event.put(AMEntities.LIGHTNING_GUARDIAN.get(), LightningGuardian.createAttributes().build());
-            event.put(AMEntities.NATURE_GUARDIAN.get(), NatureGuardian.createAttributes().build());
-            event.put(AMEntities.LIFE_GUARDIAN.get(), LifeGuardian.createAttributes().build());
-            event.put(AMEntities.ARCANE_GUARDIAN.get(), ArcaneGuardian.createAttributes().build());
-            event.put(AMEntities.ENDER_GUARDIAN.get(), EnderGuardian.createAttributes().build());
-            event.put(AMEntities.DRYAD.get(), Dryad.createAttributes().build());
-            event.put(AMEntities.MAGE.get(), Mage.createAttributes().build());
-            event.put(AMEntities.MANA_CREEPER.get(), ManaCreeper.createAttributes().build());
+            event.put(ModEntityTypes.DRAKE.get(), DrakeV1Entity.setAttributes());
+            event.put(ModEntityTypes.DRAKE_2.get(), DrakeV2Entity.setAttributes());
+            event.put(ModEntityTypes.DRAKE_3.get(), DrakeV3Entity.setAttributes());
+            event.put(ModEntityTypes.DRAKE_4.get(), DrakeV4Entity.setAttributes());
+            event.put(ModEntityTypes.DRAKE_5.get(), DrakeV5Entity.setAttributes());
+            event.put(ModEntityTypes.DRAKE_6.get(), DrakeV6Entity.setAttributes());
+            event.put(ModEntityTypes.DRAKE_7.get(), DrakeV7Entity.setAttributes());
         }
     }
 

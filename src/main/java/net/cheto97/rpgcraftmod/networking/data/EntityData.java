@@ -1,10 +1,8 @@
 package net.cheto97.rpgcraftmod.networking.data;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class EntityData {

@@ -64,8 +64,7 @@ public final class SuperEnchantCommand {
         Enchantment enchantment = enchantmentIn.value();
 
         for (Entity entity : targets) {
-            if (entity instanceof LivingEntity) {
-                LivingEntity livingentity = (LivingEntity) entity;
+            if (entity instanceof LivingEntity livingentity) {
                 ItemStack stack = livingentity.getMainHandItem();
                 if (!stack.isEmpty()) {
                     if (enchantment.canEnchant(stack) || CommandConfig.allowWrongEnchantments.getValue()) {

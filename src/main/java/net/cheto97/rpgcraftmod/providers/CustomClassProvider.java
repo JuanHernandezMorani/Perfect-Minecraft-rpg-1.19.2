@@ -10,14 +10,23 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Supplier;
 
 public class CustomClassProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
     public static Capability<CustomClass> PLAYER_CLASS = CapabilityManager.get(new CapabilityToken<CustomClass>() {});
     private CustomClass customClass = null;
     private final LazyOptional<CustomClass> optional = LazyOptional.of(this::createCustomClass);
     private CustomClass createCustomClass() {
+        Supplier<CustomClass> supplier = new Supplier<CustomClass>() {
+            @Override
+            public CustomClass get() {
+                return null;
+            }
+        };
         if(this.customClass == null){
             this.customClass = new CustomClass();
         }
