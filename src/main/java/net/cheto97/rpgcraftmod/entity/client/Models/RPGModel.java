@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.entity.client.Models;
 
-import net.cheto97.rpgcraftmod.entity.custom.RPGEntity;
+import net.cheto97.rpgcraftmod.entity.custom.prefabs.RPGEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

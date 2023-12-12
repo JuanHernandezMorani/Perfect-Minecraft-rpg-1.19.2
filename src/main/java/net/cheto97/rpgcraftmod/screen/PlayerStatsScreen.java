@@ -202,28 +202,28 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         this.addRenderableWidget(new Button(this.leftPos + 10, this.topPos + 5, 12, 12, Component.literal("X").withStyle(ChatFormatting.DARK_RED), e -> this.minecraft.setScreen(null)));
 
         if(PlayerData.getPlayerStatPoints() > 0){
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 50, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 80, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 110, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 125, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 140, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 155, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 170, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 185, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 200, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 215, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 50, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 80, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 120, 20, 10, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 125, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 140, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 155, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 170, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 185, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 200, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 215, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility"))));
         }
         else{
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 50, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 80, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 110, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 125, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 140, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 155, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 170, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 185, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 200, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 215, 10, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 50, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 80, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 120, 20, 10, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 125, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 140, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 155, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 170, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 185, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 200, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 215, 20, 20, Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
         }
         if(PlayerData.getPlayerLevel() > 10000){
             this.addRenderableWidget(new Button(this.leftPos +270, this.topPos + 20, 32, 12, Component.literal("Reset").withStyle(ChatFormatting.BLUE), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("reset"))));

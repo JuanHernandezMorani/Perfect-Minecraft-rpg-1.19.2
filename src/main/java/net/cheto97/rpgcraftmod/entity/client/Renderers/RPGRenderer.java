@@ -2,9 +2,8 @@ package net.cheto97.rpgcraftmod.entity.client.Renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.cheto97.rpgcraftmod.entity.client.Models.DrakeV1Model;
 import net.cheto97.rpgcraftmod.entity.client.Models.RPGModel;
-import net.cheto97.rpgcraftmod.entity.custom.RPGEntity;
+import net.cheto97.rpgcraftmod.entity.custom.prefabs.RPGEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

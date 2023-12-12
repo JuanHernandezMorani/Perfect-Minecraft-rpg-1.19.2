@@ -52,13 +52,13 @@ public class PlayerClassSelectPacket {
                         pClass.set(random.nextInt(8) + 1);
                         switch (pClass.getPlayerClass()){
                             case 1 -> playerClass = "archer";
-                            case 2 ->playerClass = "mage";
-                            case 3 ->playerClass = "warrior";
-                            case 4 ->playerClass = "assassin";
-                            case 5 ->playerClass = "balanced";
-                            case 6 ->playerClass = "beast tamer";
-                            case 7 ->playerClass = "priest";
-                            case 8 ->playerClass = "knight";
+                            case 2 -> playerClass = "mage";
+                            case 3 -> playerClass = "warrior";
+                            case 4 -> playerClass = "assassin";
+                            case 5 -> playerClass = "balanced";
+                            case 6 -> playerClass = "beast tamer";
+                            case 7 -> playerClass = "priest";
+                            case 8 -> playerClass = "knight";
                         }
                     });
                 default -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(pClass -> pClass.set(5));

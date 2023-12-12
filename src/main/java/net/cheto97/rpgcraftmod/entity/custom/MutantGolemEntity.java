@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -59,6 +60,7 @@ public class MutantGolemEntity extends Monster implements IAnimatable {
     }
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -132,17 +134,28 @@ public class MutantGolemEntity extends Monster implements IAnimatable {
         }
         if(this.isDeadOrDying()){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mutant_golem.death", false));
-            return PlayState.CONTINUE;
+            return PlayState.STOP;
         }
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mutant_golem.idle", true));
         return PlayState.CONTINUE;
     }
-
+    private <T extends IAnimatable> PlayState attackPredicate(AnimationEvent<T> event) {
+        if(this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)){
+            event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mutant_golem.attack_right_punch", false));
+            this.swinging = false;
+        }
+       return PlayState.CONTINUE;
+    }
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<>(this,"controller",
                 0,this::predicate));
+        data.addAnimationController(new AnimationController<>(this,"attack_controller",
+                0,this::attackPredicate));
     }
+
+
 
     @Override
     public AnimationFactory getFactory() {
