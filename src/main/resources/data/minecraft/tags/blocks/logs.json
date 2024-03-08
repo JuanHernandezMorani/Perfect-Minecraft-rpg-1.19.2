@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "rpgcraftmod:red_maple_log",
+    "rpgcraftmod:red_maple_wood",
+    "rpgcraftmod:stripped_red_maple_log",
+    "rpgcraftmod:stripped_red_maple_wood"
+  ]
+}

@@ -6,12 +6,17 @@ import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;
+import net.cheto97.rpgcraftmod.world.feature.tree.RedMapleTreeGrower;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -65,6 +70,13 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .lightLevel(state -> state.getValue(MagicLampBlock.LIT) ? 15 : 0)
             ));
+    public static final RegistryObject<Block> DEATH_CONTAINER = registerBlock("death_container",
+            () -> new DeathContainerBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
+                    .explosionResistance(50f)
+                    .sound(SoundType.ANCIENT_DEBRIS)
+                    .strength(1.3f)
+                    .lightLevel(state -> state.getValue(DeathContainerBlock.LIT) ? 8 : 3)
+            ));
     public static final RegistryObject<Block> wizard_table = registerBlock("wizard_table",
             () -> new WizardTableBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                     .explosionResistance(99.9f)
@@ -82,13 +94,68 @@ public class ModBlocks {
             () -> new BlueberryCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
     public static final RegistryObject<LiquidBlock> LIQUID_MANA_BLOCK = BLOCKS.register( "liquid_mana_block",
-            () -> new LiquidBlock(ModFluids.SOURCE_MANA, BlockBehaviour.Properties.copy((Blocks.WATER))
-                    .hasPostProcess((bs, br, bp) -> true)
-                    .emissiveRendering((bs, br, bp) -> true)
+            () -> new LiquidBlock(ModFluids.SOURCE_MANA,
+                    BlockBehaviour.Properties.of(Material.WATER)
+                            .noCollission().strength(100.0F).noLootTable()
                     .noCollission()
                     .lightLevel(s -> 7)));
 
+    public static final RegistryObject<Block> RED_MAPLE_LOG = registerBlock("red_maple_log",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)
+                    .requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RED_MAPLE_WOOD = registerBlock("red_maple_wood",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)
+                    .requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STRIPPED_RED_MAPLE_LOG = registerBlock("stripped_red_maple_log",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)
+                    .requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STRIPPED_RED_MAPLE_WOOD = registerBlock("stripped_red_maple_wood",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)
+                    .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> RED_MAPLE_PLANKS = registerBlock("red_maple_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
+                    .requiresCorrectToolForDrops()) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+            });
+
+    public static final RegistryObject<Block> RED_MAPLE_LEAVES = registerBlock("red_maple_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)
+                    .requiresCorrectToolForDrops()){
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+            });
+
+    public static final RegistryObject<Block> RED_MAPLE_SAPLING = registerBlock("red_maple_sapling",
+            () -> new SaplingBlock(new RedMapleTreeGrower(),
+                    BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)
+                            .lightLevel(s -> 5)));
+    
     public static final RegistryObject<Block> TLT_BLOCK = registerBlock(Names.TABLE, ToolLevelingTableBlock::new);
 
 

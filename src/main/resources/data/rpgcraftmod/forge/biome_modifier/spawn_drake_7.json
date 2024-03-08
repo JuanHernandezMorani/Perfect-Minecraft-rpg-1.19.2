@@ -1,0 +1,22 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:desert",
+
+    "minecraft:nether_wastes",
+    "minecraft:soul_sand_valley",
+    "minecraft:crimson_forest",
+    "minecraft:warped_forest",
+    "minecraft:basalt_deltas",
+
+    "minecraft:end_highlands",
+    "minecraft:end_midlands",
+    "minecraft:end_barrens"
+  ],
+  "spawners": {
+    "type": "rpgcraftmod:drake_7",
+    "weight": 170,
+    "minCount": 1,
+    "maxCount": 5
+  }
+}

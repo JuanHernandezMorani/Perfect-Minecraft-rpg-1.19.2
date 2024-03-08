@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:taiga"
+  ],
+  "spawners": {
+    "type": "rpgcraftmod:drake_5",
+    "weight": 170,
+    "minCount": 1,
+    "maxCount": 5
+  }
+}

@@ -1,8 +1,11 @@
 package net.cheto97.rpgcraftmod.world.feature;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -33,7 +36,23 @@ public class ModPlacedFeatures {
             () -> new PlacedFeature(ModConfiguredFeatures.NETHER_ZAFIRO_ORE.getHolder().get(), commonOrePlacement(7,
                     HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
+    public static final RegistryObject<PlacedFeature> LIQUID_MANA_BLOCK_PLACED = PLACED_FEATURES.register("liquid_mana_block_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.LIQUID_MANA_BLOCK.getHolder().get(), rareOrePlacement(7,
+                    HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
+    public static final RegistryObject<PlacedFeature> RED_MAPLE_CHECKED = PLACED_FEATURES.register("red_maple_checked",
+            () -> new PlacedFeature(ModConfiguredFeatures.RED_MAPLE.getHolder().get(),
+                    List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get()))));
+
+    public static final RegistryObject<PlacedFeature> RED_MAPLE_PLACED = PLACED_FEATURES.register("red_maple_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.RED_MAPLE_SPAWN.getHolder().get(), VegetationPlacements.treePlacement(
+                    PlacementUtils.countExtra(6, 0.2f, 4))));
+
+    public static final RegistryObject<PlacedFeature>  SAPPHIRE_GEODE_PLACED = PLACED_FEATURES.register("sapphire_geode_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.SAPPHIRE_GEODE.getHolder().get(),
+                    List.of(RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(),
+                            HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(50)),
+                            BiomeFilter.biome())));
 
     public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
         return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());

@@ -8,10 +8,12 @@ import net.cheto97.rpgcraftmod.custom.curios.auras.item.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -66,6 +68,16 @@ public class ModItems {
                             .fireResistant()
                             .durability(9999)
                             .rarity(Rarity.EPIC)
+            ));
+
+    public static final RegistryObject<Item> SAPPHIRE_PICKAXE = registerItems("sapphire_pickaxe",
+            () -> new PickaxeItem(
+                    ModToolTier.SAPPHIRE,2,1.8f,
+                    new Item.Properties()
+                            .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                            .fireResistant()
+                            .rarity(Rarity.EPIC)
+                            .stacksTo(1)
             ));
 
     public static final RegistryObject<Item> espada_muerte = registerItems("espada_muerte",

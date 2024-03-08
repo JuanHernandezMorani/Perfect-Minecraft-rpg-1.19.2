@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "rpgcraftmod:block/red_maple_log",
+    "side": "rpgcraftmod:block/red_maple_log"
+  }
+}

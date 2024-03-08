@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "rpgcraftmod:block/death_container" }
+  }
+}

@@ -22,7 +22,7 @@ public class DrakeEntity extends RPGEntity{
                     .add(Attributes.ARMOR_TOUGHNESS,3.0D)
                     .add(Attributes.LUCK,5.0D)
                     .add(Attributes.KNOCKBACK_RESISTANCE, 9.0D)
-                    .add(Attributes.MOVEMENT_SPEED, 0.05D)
+                    .add(Attributes.MOVEMENT_SPEED, 0.15D)
                     .build();
     }
 

@@ -1,5 +1,5 @@
-Java Launcher: C:\Program Files\Java\jdk-17.0.5\bin\java.exe
-Arguments: '--in-jar, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\libs\rpgcraftmod-1.3.0-1.19.2.jar, --out-jar, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\reobfJar\output.jar, --srg-in, F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\createMcpToSrg\output.tsrg, --live'
+Java Launcher: C:\Program Files\Eclipse Adoptium\jdk-17.0.10.7-hotspot\bin\java.exe
+Arguments: '--in-jar, E:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\libs\rpgcraftmod-1.3.1-1.19.2.jar, --out-jar, E:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\reobfJar\output.jar, --srg-in, E:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\createMcpToSrg\output.tsrg, --live'
 Classpath:
  - C:\Users\Juan\.gradle\caches\forge_gradle\maven_downloader\net\md-5\SpecialSource\1.11.0\SpecialSource-1.11.0-shaded.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\mezz\jei\jei-1.19.2-common-api\11.2.0.247_mapped_official_1.19.2\jei-1.19.2-common-api-11.2.0.247_mapped_official_1.19.2.jar
@@ -7,7 +7,7 @@ Classpath:
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\top\theillusivec4\curios\curios-forge\1.19.2-5.1.4.1_mapped_official_1.19.2\curios-forge-1.19.2-5.1.4.1_mapped_official_1.19.2-api.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\citadel-331936\4132623_mapped_official_1.19.2\citadel-331936-4132623_mapped_official_1.19.2.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.19_mapped_official_1.19.2\geckolib-forge-1.19-3.1.19_mapped_official_1.19.2.jar
- - C:\Users\Juan\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.19.2-43.2.11_mapped_official_1.19.2\forge-1.19.2-43.2.11_mapped_official_1.19.2-recomp.jar
+ - C:\Users\Juan\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.19.2-43.2.11_mapped_official_1.19.2\forge-1.19.2-43.2.11_mapped_official_1.19.2.jar
  - C:\Users\Juan\.gradle\caches\forge_gradle\minecraft_repo\versions\1.19.2\client-extra.jar
  - C:\Users\Juan\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlloader\1.19.2-43.2.11\e2c9f0865e5920fc9eae351b25008a62a2920131\fmlloader-1.19.2-43.2.11.jar
  - C:\Users\Juan\.gradle\caches\modules-2\files-2.1\net.minecraftforge\JarJarSelector\0.3.16\2a31421fb5e267249da103a644f23afb43d158af\JarJarSelector-0.3.16.jar
@@ -119,7 +119,7 @@ Classpath:
  - C:\Users\Juan\.gradle\caches\modules-2\files-2.1\org.antlr\antlr-runtime\3.5.2\cd9cd41361c155f3af0f653009dcecb08d8b4afd\antlr-runtime-3.5.2.jar
  - C:\Users\Juan\.gradle\caches\modules-2\files-2.1\org.abego.treelayout\org.abego.treelayout.core\1.0.3\457216e8e6578099ae63667bb1e4439235892028\org.abego.treelayout.core-1.0.3.jar
  - C:\Users\Juan\.gradle\caches\modules-2\files-2.1\org.glassfish\javax.json\1.0.4\3178f73569fd7a1e5ffc464e680f7a8cc784b85a\javax.json-1.0.4.jar
-Working directory: F:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\reobfJar
+Working directory: E:\ProgramacionModsMinecraft\Perfect Minecraft rpg(1.19.2)\build\reobfJar
 Main class: net.md_5.specialsource.SpecialSource
 ====================================
 Loading mappings

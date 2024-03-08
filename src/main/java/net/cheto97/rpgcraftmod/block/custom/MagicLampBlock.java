@@ -37,11 +37,4 @@ public class MagicLampBlock extends Block {
         builder.add(LIT);
     }
 
-
-
-
-
-
-
-
 }

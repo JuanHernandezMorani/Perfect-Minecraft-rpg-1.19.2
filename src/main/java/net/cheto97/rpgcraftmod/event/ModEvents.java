@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
+import net.cheto97.rpgcraftmod.block.custom.DeathContainerBlock;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.entity.custom.*;
@@ -32,6 +33,7 @@ import static net.cheto97.rpgcraftmod.util.AuraDropChances.generateRandomValue;
 import static net.cheto97.rpgcraftmod.util.AuraDropChances.willDropAura;
 import static net.cheto97.rpgcraftmod.util.CriticalDamageModifierCalculator.calculateCriticalDamageModifier;
 import static net.cheto97.rpgcraftmod.util.CriticalHitCalculator.calculateCriticalHit;
+import static net.cheto97.rpgcraftmod.util.Dropper.dropInWorld;
 import static net.cheto97.rpgcraftmod.util.Effects.Helper.*;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.*;
 import static net.cheto97.rpgcraftmod.util.RPGutil.setBonusValue;
@@ -39,7 +41,6 @@ import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -54,6 +55,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -64,9 +66,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -84,7 +84,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.List;
-
 public class ModEvents {
     @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID)
    public static class ForgeEvents{
@@ -116,8 +115,7 @@ public class ModEvents {
            }
            return 1;
        }
-
-       private static double[] getProbabilitiesByDimension(LivingEntity entity) {
+       private static double[] getProbabilitiesByDimension(@NotNull LivingEntity entity) {
            double[] baseProbabilities = {0.25, 0.025, 0.25, 0.025, 0.12, 0.012, 0.12, 0.007, 0.07, 0.07, 0.05};
            Level level = entity.getLevel();
 
@@ -134,8 +132,7 @@ public class ModEvents {
            }
            return baseProbabilities;
        }
-
-       private static int dropExperience(LivingEntity target, Player entity,int originalExp){
+       private static int dropExperience(LivingEntity target, @NotNull Player entity, int originalExp){
 
            entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(customExp -> entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel -> target.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> target.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(targetLevel -> {
                Difficulty difficulty = target.getLevel().getDifficulty();
@@ -156,28 +153,7 @@ public class ModEvents {
                double droppedExperience = (originalExp * difficultyXP) * hardcoreXP;
                double playerLevelValue = playerLevel.get();
                double targetLevelValue = targetLevel.get();
-               double multiplier = 0.0;
-
-               if(playerLevelValue > 10){
-                   if (playerLevelValue < targetLevelValue) {
-                       multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
-                   }
-                   else if (playerLevelValue - (playerLevelValue * 0.05) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.1) > targetLevelValue) {
-                       multiplier = 1.0;
-                   }
-                   else if (playerLevelValue - (playerLevelValue * 0.1) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.25) > targetLevelValue) {
-                       multiplier = 0.75;
-                   }
-                   else if (playerLevelValue - (playerLevelValue * 0.25) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.45) > targetLevelValue) {
-                       multiplier = 0.4;
-                   }
-               }else{
-                   if (playerLevelValue < targetLevelValue && playerLevelValue * 2 <= targetLevelValue) {
-                       multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
-                   }else{
-                       multiplier = 1.0;
-                   }
-               }
+               double multiplier = getMultiplier(playerLevelValue, targetLevelValue);
 
 
                double exp = (droppedExperience + expBonus) * targetLevelValue;
@@ -188,9 +164,9 @@ public class ModEvents {
            })))));
            return result;
        }
-       private static void levelUpPlayer(ServerPlayer player,double lifeIncrease,double manaIncrease,
-                                         double lifeRegenerationIncrease,double manaRegenerationIncrease,
-                                         double defenseIncrease,double magicDefenseIncrease,double intelligenceIncrease,
+       private static void levelUpPlayer(@NotNull ServerPlayer player, double lifeIncrease, double manaIncrease,
+                                         double lifeRegenerationIncrease, double manaRegenerationIncrease,
+                                         double defenseIncrease, double magicDefenseIncrease, double intelligenceIncrease,
                                          double dexterityIncrease, double strengthIncrease, double agilityIncrease,
                                          double commandIncrease, double luckIncrease){
            player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax ->{
@@ -219,8 +195,7 @@ public class ModEvents {
                updatePlayerCapabilities(player);
            })))))))))))))));
        }
-
-       private static void levelUpMob(LivingEntity entity, int multiplier,int rank){
+       private static void levelUpMob(@NotNull LivingEntity entity, int multiplier, int rank){
            entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> entity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> entity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> entity.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> entity.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> entity.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> entity.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> entity.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> entity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> entity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> entity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
                double MIN_VALUE;
                double MAX_VALUE;
@@ -456,13 +431,13 @@ public class ModEvents {
            int distanceLevel = (int) (Math.abs(livingEntity.getX() - naturalSpawnX) + Math.abs(livingEntity.getZ() - naturalSpawnZ)) / 100;
            Difficulty difficulty = level.getDifficulty();
            int difficultyLevel = switch (difficulty) {
-               case PEACEFUL -> 1;
-               case EASY -> 2;
-               case NORMAL -> 4;
-               case HARD -> 12;
+               case PEACEFUL -> 0;
+               case EASY -> 1;
+               case NORMAL -> 3;
+               case HARD -> 9;
            };
            int connectedPlayers = 1;
-           if (level.players().size() != 0) {
+           if (!level.players().isEmpty()) {
                connectedPlayers = level.players().size();
            }
 
@@ -470,7 +445,7 @@ public class ModEvents {
                entityRank = 11;
                double bonus = setBonusValue(entityRank);
                entityClass = 100 * (int) (11 + difficultyLevel + bonus);
-           } else if (livingEntity.getType() == EntityType.WITHER || livingEntity.getType() == ModEntityTypes.MUTANT_GOLEM.get()) {
+           } else if (livingEntity.getType() == EntityType.WITHER) {
                entityRank = 10;
                double bonus = setBonusValue(entityRank);
                entityClass = 50 * (int) (11 + difficultyLevel + bonus);
@@ -872,26 +847,6 @@ public class ModEvents {
                }
            }
        }
-       private static void dropChest(NonNullList<ItemStack> chest, double x, double y, double z,Level level) {
-           level.setBlockAndUpdate(new BlockPos(x, y, z), Blocks.CHEST.defaultBlockState());
-           BlockEntity blockEntity = level.getBlockEntity(new BlockPos(x, y, z));
-           if (blockEntity instanceof ChestBlockEntity chestBlockEntity) {
-               for (int slot = 0; slot < chest.size(); slot++) {
-                   ItemStack stack = chest.get(slot);
-                   if (!stack.isEmpty()) {
-                       chestBlockEntity.setItem(slot, stack);
-                   }
-               }
-               if(chestBlockEntity.isEmpty()){
-                   chestBlockEntity.setRemoved();
-               }
-           }
-       }
-       private static @NotNull NonNullList<ItemStack> createChestContents(ItemStack itemStack) {
-           NonNullList<ItemStack> chest = NonNullList.create();
-           chest.add(itemStack);
-           return chest;
-       }
        @SubscribeEvent
        public static void onLivingEntityDeath(LivingDeathEvent event) {
            if(!event.getEntity().getLevel().isClientSide()){
@@ -918,26 +873,30 @@ public class ModEvents {
                            case 11 -> auraItemStack = ModItems.BOSS_AURA.get().getDefaultInstance();
                            default -> auraItemStack = ModItems.COMMON_AURA.get().getDefaultInstance();
                        }
-
                        if(willDropAura(dropRate) && livingEntity.getKillCredit() instanceof Player){
-                           dropChest(createChestContents(auraItemStack), livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), livingEntity.getLevel());
+                           dropInWorld(auraItemStack,livingEntity.getLevel(),new BlockPos(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ()));
                        }
                    }
                }
-               if (event.getEntity() instanceof ServerPlayer player) {
-                   Style deathStyle = Style.EMPTY;
+           }
+       }
+       @SubscribeEvent
+       public static void onPlayerDeath(LivingDropsEvent event){
+           Entity entity = event.getEntity();
+           if(entity instanceof ServerPlayer player){
+              List<ItemEntity> dropItems = event.getDrops().stream().toList();
+              Level level = player.getLevel();
+              BlockPos pos = new BlockPos(player.getBlockX(), player.getBlockY(),player.getBlockZ());
+              BlockState blockState = ModBlocks.DEATH_CONTAINER.get().defaultBlockState();
+              DeathContainerBlock container = (DeathContainerBlock) blockState.getBlock();
 
-                   ClickEvent msgClick =new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp "+ player.getName().getString() + " " + player.getX() + " " + player.getY() + " " + player.getZ());
-                   HoverEvent msgHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT,Component.literal("Click here to go there."));
-                   TextColor msgColor = TextColor.fromRgb(0xFFD700);
-
-                   deathStyle.withColor(msgColor);
-                   deathStyle.withClickEvent(msgClick);
-                   deathStyle.withHoverEvent(msgHover);
-                   deathStyle.withInsertion("Click here to go there.");
-
-                   player.sendSystemMessage(Component.literal("You die at [X: "+player.getX()+", Y: "+player.getY()+", Z: "+player.getZ()+"].").withStyle(deathStyle));
+               for (ItemEntity dropItem : dropItems) {
+                   if(dropItem == null) continue;
+                   container.add(dropItem.getItem());
                }
+
+               event.getDrops().clear();
+               level.setBlockAndUpdate(pos,container.defaultBlockState());
            }
        }
        @SubscribeEvent
@@ -1082,7 +1041,7 @@ public class ModEvents {
            }
        }
        @SubscribeEvent
-       public static void onPlayerJoin(EntityJoinLevelEvent event) {
+       public static void onPlayerJoin(@NotNull EntityJoinLevelEvent event) {
            if (!event.getLevel().isClientSide() && event.getEntity() != null) {
                if (event.getEntity() instanceof ServerPlayer player) {
                    player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(firstJoin -> {
@@ -1107,6 +1066,32 @@ public class ModEvents {
            }
        }
    }
+
+    private static double getMultiplier(double playerLevelValue, double targetLevelValue) {
+        double multiplier = 0.0;
+
+        if(playerLevelValue > 10){
+            if (playerLevelValue < targetLevelValue) {
+                multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
+            }
+            else if (playerLevelValue - (playerLevelValue * 0.05) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.1) > targetLevelValue) {
+                multiplier = 1.0;
+            }
+            else if (playerLevelValue - (playerLevelValue * 0.1) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.25) > targetLevelValue) {
+                multiplier = 0.75;
+            }
+            else if (playerLevelValue - (playerLevelValue * 0.25) <= targetLevelValue && playerLevelValue - (playerLevelValue * 0.45) > targetLevelValue) {
+                multiplier = 0.4;
+            }
+        }else{
+            if (playerLevelValue < targetLevelValue && playerLevelValue * 2 <= targetLevelValue) {
+                multiplier = 1 + ((targetLevelValue - playerLevelValue) / 100.0);
+            }else{
+                multiplier = 1.0;
+            }
+        }
+        return multiplier;
+    }
 
     @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEventBusEvents {

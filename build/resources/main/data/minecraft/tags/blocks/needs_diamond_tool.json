@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "rpgcraftmod:bloque_zafiro",
-    "rpgcraftmod:bloque_mineral_zafiro",
     "rpgcraftmod:bloque_profundo_mineral_zafiro"
   ]
 }
