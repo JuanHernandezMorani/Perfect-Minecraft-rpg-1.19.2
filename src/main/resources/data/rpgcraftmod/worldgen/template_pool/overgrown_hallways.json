@@ -1,0 +1,62 @@
+{
+  "name": "rpgcraftmod:hallways",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/hallway_01",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/hallway_t",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/hallway_x",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/stair_01",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/to_poi",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/transition",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

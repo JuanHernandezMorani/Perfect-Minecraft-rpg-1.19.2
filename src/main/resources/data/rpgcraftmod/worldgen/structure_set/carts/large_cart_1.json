@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:carts/large_cart_1",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 214120245,
+
+    "spacing": 56,
+
+    "separation": 20
+  }
+}

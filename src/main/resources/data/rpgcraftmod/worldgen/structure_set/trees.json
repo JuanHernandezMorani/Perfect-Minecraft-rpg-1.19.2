@@ -1,0 +1,42 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:palm_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:palm_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:palm_3",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:palm_4",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:dead_tree_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:dead_tree_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:cactus_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:cactus_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 5,
+    "salt": 1230122
+  }
+}

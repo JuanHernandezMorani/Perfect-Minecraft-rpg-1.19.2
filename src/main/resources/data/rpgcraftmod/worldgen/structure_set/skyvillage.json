@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:skyvillage",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 23734816,
+    "spacing": 70,
+    "separation": 65,
+    "type": "minecraft:random_spread"
+  }
+}

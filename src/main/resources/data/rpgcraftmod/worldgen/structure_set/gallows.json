@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:gallows",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 248956103,
+
+    "spacing": 36,
+
+    "separation": 28
+  }
+}

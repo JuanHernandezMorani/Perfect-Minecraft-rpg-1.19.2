@@ -1,0 +1,300 @@
+{
+  "name": "rpgcraftmod:point_of_interest",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/cell_block_4x",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/bedroom",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/carpet_room",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/farm_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:poi/mason_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:poi/armorsmith_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:poi/armorsmith_02",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/toolsmith_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:poi/copper_shop",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/fisher_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/brewery",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/crypt",
+        "processors": "rpgcraftmod:crypter",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 20,
+      "element": {
+        "location": "rpgcraftmod:poi/unfinished_corridor",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/bell_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/hallway_spider",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/butcher_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:poi/inn",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/fletcher",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/leatherworker",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+     
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/library_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/library_02",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 60,
+      "element": {
+        "location": "rpgcraftmod:poi/unfinished_room",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 40,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/bee_garden",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 20,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/zombie_conversion",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 20,
+      "element": {
+        "location": "rpgcraftmod:abandoned_poi/nether_room",
+        "processors": "rpgcraftmod:netherer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 4,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/king_mooshroom",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/forbidden_knowledge",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/emerald_vault",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/villager_head",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/the_egg",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/the_button_room",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

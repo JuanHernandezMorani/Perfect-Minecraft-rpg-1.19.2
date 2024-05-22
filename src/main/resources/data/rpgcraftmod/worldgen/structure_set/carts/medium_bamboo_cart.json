@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:carts/medium_bamboo_cart",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 873648576,
+
+    "spacing": 12,
+
+    "separation": 8
+  }
+}

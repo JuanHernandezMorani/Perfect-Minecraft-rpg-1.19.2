@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:railway",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 414069697,
+
+    "spacing": 46,
+
+    "separation": 27
+  }
+}

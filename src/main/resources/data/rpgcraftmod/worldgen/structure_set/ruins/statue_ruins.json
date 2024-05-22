@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:ruins/statue_ruins",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 696985421,
+
+    "spacing": 38,
+
+    "separation": 30
+  }
+}

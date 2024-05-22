@@ -1,0 +1,15 @@
+{
+  "name": "rpgcraftmod:standing_dark_oak_log",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "rpgcraftmod:standing_dark_oak_log",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

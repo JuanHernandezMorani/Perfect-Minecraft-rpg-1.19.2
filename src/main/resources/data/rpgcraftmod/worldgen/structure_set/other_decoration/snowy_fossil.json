@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:other_decoration/snowy_fossil",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 882971107,
+
+    "spacing": 26,
+
+    "separation": 13
+  }
+}

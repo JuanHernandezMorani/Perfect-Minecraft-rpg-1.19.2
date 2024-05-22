@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:lantern/small_jungle_lantern",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 100938475,
+
+    "spacing": 24,
+
+    "separation": 12
+  }
+}

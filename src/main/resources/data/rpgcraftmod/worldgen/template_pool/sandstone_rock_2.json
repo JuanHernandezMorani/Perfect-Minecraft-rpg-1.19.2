@@ -1,0 +1,15 @@
+{
+  "name": "rpgcraftmod:sandstone_rock_2",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "rpgcraftmod:sandstone_rock_2",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

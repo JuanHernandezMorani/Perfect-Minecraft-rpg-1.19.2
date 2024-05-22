@@ -1,0 +1,30 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:stall/red_stall",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:stall/pink_stall",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:stall/orange_stall",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:stall/blue_stall",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 298643200,
+
+    "spacing": 32,
+
+    "separation": 16
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:ruins/stone_pillars",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 730087540,
+
+    "super_exclusion_zone": {
+      "chunk_count": 2,
+      "other_set": "#rpgcraftmod:common_avoid"
+    },
+
+    "spacing": 42,
+
+    "separation": 36
+  }
+}

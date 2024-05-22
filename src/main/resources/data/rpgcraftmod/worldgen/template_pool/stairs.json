@@ -1,0 +1,42 @@
+{
+  "name": "rpgcraftmod:stairs",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:stairs/stairs_medium",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:stairs/fall_medium",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:stairs/fall_medium_hay",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:stairs/elevator_tall",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:villager_house_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:villager_house_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:villager_house_3",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:villager_house_4",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:nether_villager_house_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:farm_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:farm_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 30,
+    "separation": 10,
+    "salt": 53095453
+  }
+}

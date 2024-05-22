@@ -1,0 +1,60 @@
+{
+  "name": "rpgcraftmod:treasures",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/king_mooshroom",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/forbidden_knowledge",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/emerald_vault",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/villager_head",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/the_egg",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:poi/treasures/the_button_room",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

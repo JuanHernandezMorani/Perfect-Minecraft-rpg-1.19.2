@@ -31,18 +31,10 @@ public final class SuperEnchantCommand {
     private static final SimpleCommandExceptionType FAILED_EXCEPTION;
 
     static {
-        NONLIVING_ENTITY_EXCEPTION = new DynamicCommandExceptionType((entityName) -> {
-            return Component.translatable("commands.enchant.failed.entity", entityName);
-        });
-        INCOMPATIBLE_ENCHANTS_EXCEPTION = new DynamicCommandExceptionType((itemName) -> {
-            return Component.translatable("commands.superenchant.failed.incompatible", itemName);
-        });
-        WRONG_ENCHANTS_EXCEPTION = new DynamicCommandExceptionType((itemName) -> {
-            return Component.translatable("commands.superenchant.failed.wrong", itemName);
-        });
-        ITEMLESS_EXCEPTION = new DynamicCommandExceptionType((entityName) -> {
-            return Component.translatable("commands.enchant.failed.itemless", entityName);
-        });
+        NONLIVING_ENTITY_EXCEPTION = new DynamicCommandExceptionType((entityName) -> Component.translatable("commands.enchant.failed.entity", entityName));
+        INCOMPATIBLE_ENCHANTS_EXCEPTION = new DynamicCommandExceptionType((itemName) -> Component.translatable("commands.superenchant.failed.incompatible", itemName));
+        WRONG_ENCHANTS_EXCEPTION = new DynamicCommandExceptionType((itemName) -> Component.translatable("commands.superenchant.failed.wrong", itemName));
+        ITEMLESS_EXCEPTION = new DynamicCommandExceptionType((entityName) -> Component.translatable("commands.enchant.failed.itemless", entityName));
         FAILED_EXCEPTION = new SimpleCommandExceptionType(Component.translatable("commands.enchant.failed"));
     }
 

@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:dead_tree/mangrove",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 846333749,
+
+    "spacing": 28,
+
+    "separation": 24
+  }
+}

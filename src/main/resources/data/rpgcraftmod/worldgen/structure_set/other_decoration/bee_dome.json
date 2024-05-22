@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:other_decoration/bee_dome",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 749523165,
+
+    "spacing": 34,
+
+    "separation": 12
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "rpgcraftmod:fallback_side_pool",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:end",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:poi/stairs",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

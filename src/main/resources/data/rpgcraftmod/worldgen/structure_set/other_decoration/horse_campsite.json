@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:other_decoration/horse_campsite",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 299909574,
+
+    "spacing": 19,
+
+    "separation": 17
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "rpgcraftmod:tree_monument/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "rpgcraftmod:ruins/tree_monument",
+
+        "processors": "rpgcraftmod:tuff_to_ores",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

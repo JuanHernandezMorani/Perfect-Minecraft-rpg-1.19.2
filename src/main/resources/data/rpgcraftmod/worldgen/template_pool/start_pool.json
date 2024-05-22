@@ -1,0 +1,61 @@
+{
+  "name": "rpgcraftmod:start_pool",
+  "fallback": "rpgcraftmod:end",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entrance",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entrance_02",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entrance_03",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entrance_04",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entrance_05",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entrance_06",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

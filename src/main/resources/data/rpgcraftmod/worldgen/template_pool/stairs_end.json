@@ -1,0 +1,15 @@
+{
+  "name": "rpgcraftmod:stairs_end",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:stairs/stairs_end",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:other_decoration/villager_statue",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 766987854,
+
+    "spacing": 56,
+
+    "separation": 40
+  }
+}

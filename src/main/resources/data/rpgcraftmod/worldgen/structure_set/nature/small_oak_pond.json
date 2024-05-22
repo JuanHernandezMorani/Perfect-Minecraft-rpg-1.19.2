@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:nature/small_oak_pond",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 663549872,
+
+    "spacing": 35,
+
+    "separation": 12
+  }
+}

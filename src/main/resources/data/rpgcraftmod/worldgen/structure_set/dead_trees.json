@@ -1,0 +1,118 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:standing_spruce_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:standing_oak_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:standing_dark_oak_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:standing_jungle_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:standing_acacia_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:spruce_log_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:spruce_log_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:oak_log_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:oak_log_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:log_bundle",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:jungle_tree_hole",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:jungle_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_spruce_tree_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_spruce_tree_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_palm_tree_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_palm_tree_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_oak_tree_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_oak_tree_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_jungle_tree_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_dead_tree_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_dead_tree_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:fallen_dead_tree_3",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:birch_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:big_jungle_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:acacia_log",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:damaged_mushroom_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:damaged_mushroom_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 10,
+    "salt": 2342394
+  }
+}

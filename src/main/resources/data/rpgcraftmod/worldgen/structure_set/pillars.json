@@ -1,0 +1,47 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:pillar_ruin_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:pillar_ruin_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:pillar_ruin_3",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:nether_pillar_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:nether_pillar_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:end_pillar_ruin_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:end_pillar_ruin_2",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:desert_pillars_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:desert_pillars_2",
+      "weight": 1
+    }
+
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 5,
+    "salt": 50384294
+  }
+}

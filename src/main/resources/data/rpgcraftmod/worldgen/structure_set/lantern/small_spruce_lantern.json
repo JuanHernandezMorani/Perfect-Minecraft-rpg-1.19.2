@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:lantern/small_spruce_lantern",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 193986423,
+
+    "spacing": 24,
+
+    "separation": 12
+  }
+}

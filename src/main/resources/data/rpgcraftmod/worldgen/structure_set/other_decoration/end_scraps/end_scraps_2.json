@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:other_decoration/end_scraps/end_scraps_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 433585410,
+    "spacing": 30,
+    "separation": 15
+  }
+}

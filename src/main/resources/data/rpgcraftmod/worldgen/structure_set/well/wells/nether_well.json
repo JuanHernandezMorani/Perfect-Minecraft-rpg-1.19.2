@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:well/wells/nether_well",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 298952413,
+
+    "spacing": 48,
+
+    "separation": 30
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "rpgcraftmod:big_oak_tree/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "rpgcraftmod:nature/big_oak_tree",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

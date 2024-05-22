@@ -1,0 +1,22 @@
+{
+  "name": "rpgcraftmod:end_scraps_3/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+
+      "weight": 1,
+      "element": {
+
+        "location": "rpgcraftmod:other_decoration/end_scraps/end_scraps_3",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

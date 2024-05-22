@@ -1,0 +1,34 @@
+{
+  "name": "rpgcraftmod:start_hall",
+  "fallback": "rpgcraftmod:end",
+
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:hallways/hallway_x",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:poi/llama_stable",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:hall_to_highway",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

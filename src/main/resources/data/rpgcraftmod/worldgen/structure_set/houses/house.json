@@ -1,0 +1,23 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:houses/house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 866369854,
+
+    "super_exclusion_zone": {
+      "chunk_count": 3,
+      "other_set": "#rpgcraftmod:common_avoid"
+    },
+
+    "spacing": 38,
+
+    "separation": 31
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:houses/medium_igloo_1",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 746536475,
+
+    "spacing": 27,
+
+    "separation": 21
+  }
+}

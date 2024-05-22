@@ -1,0 +1,20 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:crystal",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 469982354,
+
+    "spacing": 112,
+
+    "separation": 62,
+
+    "min_distance_from_world_origin": 800
+  }
+}

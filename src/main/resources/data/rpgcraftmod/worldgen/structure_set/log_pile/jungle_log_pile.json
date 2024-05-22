@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:log_pile/jungle_log_pile",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 388549865,
+
+    "spacing": 26,
+
+    "separation": 16
+  }
+}

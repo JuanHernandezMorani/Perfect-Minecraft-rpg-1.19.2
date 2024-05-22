@@ -1,10 +1,12 @@
 package net.cheto97.rpgcraftmod.entity.custom.prefabs;
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class DrakeEntity extends RPGEntity{
 
@@ -24,6 +26,11 @@ public class DrakeEntity extends RPGEntity{
                     .add(Attributes.KNOCKBACK_RESISTANCE, 9.0D)
                     .add(Attributes.MOVEMENT_SPEED, 0.15D)
                     .build();
+    }
+
+    @Override
+    public @NotNull MobType getMobType() {
+        return MobType.ARTHROPOD;
     }
 
     @Override

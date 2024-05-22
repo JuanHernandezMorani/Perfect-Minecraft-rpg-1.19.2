@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:lantern/small_birch_lantern",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 289983564,
+
+    "spacing": 24,
+
+    "separation": 12
+  }
+}

@@ -1,6 +1,5 @@
 package net.cheto97.rpgcraftmod.screen;
 
-import com.github.alexthe666.citadel.repack.jcodec.scale.RgbToBgr;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
@@ -74,10 +73,9 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "warrior" -> {
                 setClassDescription("""
                         Masters of the battlefield
-                         warriors boast unparalleled resistance and vitality.
-                         
+                        warriors boast unparalleled resistance and vitality.
                         Their imposing presence makes them formidable opponents
-                         but their dedication to physical strength means they forsake the arcane arts.""");
+                        but their dedication to physical strength means they forsake the arcane arts.""");
                 setInitialStats(22,22,5,
                         5,1.2,1,
                         3,1,1,
@@ -87,11 +85,10 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "priest" -> {
                 setClassDescription("""
                         Priests are bastions of divine resilience
-                         surpassing mages in vitality
-                         while falling just shy of the sheer might of warriors and knights.
-                         
+                        surpassing mages in vitality
+                        while falling just shy of the sheer might of warriors and knights.
                         Their connection to higher powers
-                         grants them potent healing abilities and protective spells.""");
+                        grants them potent healing abilities and protective spells.""");
                 setInitialStats(20,20,20,
                         20,1,3,
                         1,8,2,
@@ -101,11 +98,10 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "knight" -> {
                 setClassDescription("""
                         Clad in impenetrable armor
-                         knights stand as the paragons of endurance and fortitude.
-                         
+                        knights stand as the paragons of endurance and fortitude.
                         While they lack spell-casting prowess
-                         their unyielding defense and commanding presence
-                         make them the bulwark of any group.""");
+                        their unyielding defense and commanding presence
+                        make them the bulwark of any group.""");
                 setInitialStats(35,35,1,
                         1,3.25,0.15,
                         5,5,1,
@@ -115,10 +111,9 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "mage" -> {
                 setClassDescription("""
                         Possessing profound knowledge of ancient mysticism
-                         mages wield incredible intelligence and harness powerful spells.
-                        
+                        mages wield incredible intelligence and harness powerful spells.
                         Their mastery of the arcane allows them to unleash devastating magical attacks
-                         making them a force to be reckoned with.""");
+                        making them a force to be reckoned with.""");
                 setInitialStats(8,8,50,
                         50,0.65,5,
                         0.5,5,0.5,
@@ -128,10 +123,9 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "beast tamer" -> {
                 setClassDescription("""
                         Whispers of the wild follow beast tamers wherever they roam.
-                        
                         With the ability to control and command creatures
-                         they forge bonds with monsters and animals
-                         fighting in tandem with their untamed allies.""");
+                        they forge bonds with monsters and animals
+                        fighting in tandem with their untamed allies.""");
                 setInitialStats(15,15,15,
                         15,1,1,
                         1,1,1,
@@ -141,11 +135,10 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "assassin" -> {
                 setClassDescription("""
                         Shadows are the playground of assassins
-                         nimble and lethal.
-                        
+                        nimble and lethal.
                         Sacrificing life for agility
-                         assassins strike swiftly and silently
-                         dealing substantial damage and evading their foes with unmatched dexterity.""");
+                        assassins strike swiftly and silently
+                        dealing substantial damage and evading their foes with unmatched dexterity.""");
                 setInitialStats(5,5,10,
                         10,0.4,1,
                         0.2,0.2,8.3,
@@ -155,11 +148,10 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "archer" -> {
                 setClassDescription("""
                         Archers, the epitome of precision and marksmanship
-                         unleash death from a distance.
-                         
+                        unleash death from a distance.
                         Armed with a keen eye and deadly accuracy
-                         they excel in ranged combat
-                         picking off enemies from afar with their trusty bow.""");
+                        they excel in ranged combat
+                        picking off enemies from afar with their trusty bow.""");
                 setInitialStats(12,12,10,
                         10,0.75,1,
                         1,1,2,
@@ -169,9 +161,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             case "random" -> {
                 setClassDescription("""
                         Unpredictability defines the path of the random adventurer.
-                        
                         Facing the unknown, they embrace uncertainty with a spirit of curiosity.
-                        
                         What awaits them is a mystery.""");
                 setInitialStats(0,0,0,
                         0,0,0,
@@ -182,11 +172,10 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
             default -> {
                 setClassDescription("""
                         The common class embodies equilibrium
-                         striking a harmonious balance between various attributes.
-                         
+                        striking a harmonious balance between various attributes.
                         While not specializing in extremes
-                         they receive initial points in all aspects
-                         making them adaptable and well-rounded.""");
+                        they receive initial points in all aspects
+                        making them adaptable and well-rounded.""");
                 setInitialStats(20,20,10,
                         10,1,1,
                         1,1,1,
@@ -213,20 +202,20 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                                  double command, double agility){
         if(life == 0){
             classStats = ("""
-                    Life: ??
-                    Max life: ??
-                    Mana: ??
-                    Max mana: ??
-                    Life Regeneration: ??
-                    Mana Regeneration: ??
-                    Defense: ??
-                    Magic defense: ??
-                    Strength: ??
-                    Luck: ??
-                    Intelligence: ??
-                    Dexterity: ??
-                    Command: ??
-                    Agility: ??""");
+                    Life: ???
+                    Max life: ???
+                    Mana: ???
+                    Max mana: ???
+                    Life Regeneration: ???
+                    Mana Regeneration: ???
+                    Defense: ???
+                    Magic defense: ???
+                    Strength: ???
+                    Luck: ???
+                    Intelligence: ???
+                    Dexterity: ???
+                    Command: ???
+                    Agility: ???""");
         }
         else{
             classStats = ("Life: "+ life + "\n"+

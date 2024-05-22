@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:nature/large_mushroom",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 569543265,
+
+    "spacing": 98,
+
+    "separation": 36
+  }
+}

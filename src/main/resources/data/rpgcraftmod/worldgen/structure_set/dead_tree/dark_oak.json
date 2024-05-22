@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:dead_tree/dark_oak",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 22201927364,
+
+    "spacing": 28,
+
+    "separation": 24
+  }
+}

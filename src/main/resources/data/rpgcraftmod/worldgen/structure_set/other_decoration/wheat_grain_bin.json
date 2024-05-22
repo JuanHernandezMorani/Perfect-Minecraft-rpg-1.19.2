@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:other_decoration/wheat_grain_bin",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 266483984,
+
+    "spacing": 26,
+
+    "separation": 14
+  }
+}

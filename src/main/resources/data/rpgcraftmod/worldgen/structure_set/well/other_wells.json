@@ -1,0 +1,62 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:well/well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/small_copper_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/small_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/acacia_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/birch_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/dark_oak_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/desert_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/jungle_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/oak_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/rocky_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/snowy_well",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well/wells/spruce_well",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 336692254,
+
+    "spacing": 24,
+
+    "separation": 18
+  }
+}

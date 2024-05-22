@@ -1,0 +1,24 @@
+{
+  "name": "rpgcraftmod:crypt_stairs",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:poi/crypt_stairs",
+        "processors": "rpgcraftmod:crypter",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "rpgcraftmod:poi/crypt_end",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "name": "rpgcraftmod:hallways",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:hallways/hallway_01",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:hallways/hallway_t",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:hallways/hallway_x",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:hallways/corner",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:hallways/stair_01",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+
+    {
+      "weight": 4,
+      "element": {
+        "location": "rpgcraftmod:hallways/to_poi",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:abandoned_hallways/entry_01",
+        "processors": "rpgcraftmod:decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:overgrown_hallways/transition",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

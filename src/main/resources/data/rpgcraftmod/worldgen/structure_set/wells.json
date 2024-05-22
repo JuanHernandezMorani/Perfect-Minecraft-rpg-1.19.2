@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "rpgcraftmod:well_1",
+      "weight": 1
+    },
+    {
+      "structure": "rpgcraftmod:well_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 5,
+    "salt": 12984311
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:nature/mushroom_pond",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 636984325,
+
+    "spacing": 48,
+
+    "separation": 12
+  }
+}

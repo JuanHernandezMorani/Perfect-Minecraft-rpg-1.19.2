@@ -1,0 +1,23 @@
+{
+  "structures":[
+    {
+      "structure": "rpgcraftmod:cartographer_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "type": "minecraft:random_spread",
+
+    "salt": 333685433,
+
+    "super_exclusion_zone": {
+      "chunk_count": 5,
+      "other_set": "#rpgcraftmod:common_avoid"
+    },
+
+    "spacing": 83,
+
+    "separation": 46
+  }
+}

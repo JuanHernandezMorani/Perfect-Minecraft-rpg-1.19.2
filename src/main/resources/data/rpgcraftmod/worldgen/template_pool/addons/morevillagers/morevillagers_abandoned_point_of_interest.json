@@ -1,0 +1,60 @@
+{
+  "name": "rpgcraftmod:addons/morevillagers/morevillagers_point_of_interest",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:addons/morevillagers/poi/blueprint",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:addons/morevillagers/poi/decayed",
+        "processors": "rpgcraftmod:netherer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:addons/morevillagers/poi/forestry",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:addons/morevillagers/poi/gardener",
+        "processors": "rpgcraftmod:overgrower",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:addons/morevillagers/poi/hunting",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "location": "rpgcraftmod:addons/morevillagers/poi/oceanography",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

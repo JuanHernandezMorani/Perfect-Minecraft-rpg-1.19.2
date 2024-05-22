@@ -1,0 +1,51 @@
+{
+  "name": "rpgcraftmod:abandoned_hallways",
+  "fallback": "rpgcraftmod:end",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:abandoned_hallways/hallway_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:abandoned_hallways/hallway_t",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:abandoned_hallways/hallway_t",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "rpgcraftmod:abandoned_hallways/stair_01",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "rpgcraftmod:abandoned_hallways/to_poi",
+        "processors": "rpgcraftmod:super_decayer",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "rpgcraftmod:villagers",
+  "fallback": "rpgcraftmod:villagers",
+
+  "elements": [
+    {
+      "weight": 99,
+      "element": {
+        "location": "rpgcraftmod:entities/villagers/regular",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "rpgcraftmod:entities/villagers/nitwit",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

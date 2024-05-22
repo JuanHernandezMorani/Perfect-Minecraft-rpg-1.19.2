@@ -1,0 +1,69 @@
+{
+  "name": "start_corridors",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 8,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_1",
+        "processors": "rpgcraftmod:cathedral"
+      }
+    },
+    {
+      "weight": 12,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_2",
+        "processors": "rpgcraftmod:cathedral"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_3",
+        "processors": "rpgcraftmod:cathedral"
+        }
+      },
+      {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_4",
+        "processors": "rpgcraftmod:cathedral"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_7",
+        "processors": "rpgcraftmod:cathedral"
+      }
+    },
+    {
+      "weight": 12,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_8",
+        "processors": "rpgcraftmod:cathedral"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "rpgcraftmod:cathedral/start_corridors/corridor_9",
+        "processors": "rpgcraftmod:cathedral"
+      }
+    }
+  ]
+}
