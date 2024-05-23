@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '1.3.1-1.19.2'
+version = '2.0.0-1.19.2'
 group = 'net.cheto97.rpgcraftmod'
 archivesBaseName = 'rpgcraftmod'
 
@@ -24,7 +24,7 @@ configurations {
     runtimeMod
     include { transitive = false }
 
-    sourceSets.forEach((SourceSet sourceSet) -> {
+    sourceSets.findAll().forEach((SourceSet sourceSet) -> {
         Configuration extLib = create(sourceSet.getTaskName(null, 'externalLibrary'))
         Configuration impl = getByName(sourceSet.implementationConfigurationName)
         Configuration compile = getByName(sourceSet.compileOnlyConfigurationName)

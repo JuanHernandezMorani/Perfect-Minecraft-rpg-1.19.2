@@ -67,7 +67,11 @@ public class WingItem extends Item implements ICurioItem {
                     if(player.hasEffect(MobEffects.SLOW_FALLING)){
                         player.removeEffect(MobEffects.SLOW_FALLING);
                     }
-                    WingHelper.applySpeed(player,stack);
+                    WingHelper.applySpeed(player, stack);
+
+                    if (player.getXRot() > 90 && player.getXRot() < 270) {
+                        WingHelper.performLoop(player, 10.0F);
+                    }
                 }
                 if(player.isCrouching() && !player.isUnderWater() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION)) {
                     WingHelper.stopFlying(player);
@@ -93,7 +97,7 @@ public class WingItem extends Item implements ICurioItem {
                         player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 1000000, 1));
                     }
                 }
-                if( !player.isOnGround() && !slowFalling && !isFlying && !player.isCrouching() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION) && player.fallDistance > 0.06F) {
+                if(!player.isOnGround() && !slowFalling && !isFlying && !player.isCrouching() && !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION) && player.fallDistance > 0.06F) {
                     player.startFallFlying();
                     isFlying = true;
                 }

@@ -52,4 +52,15 @@ public class WingHelper {
 
         player.stopFallFlying();
     }
+
+    public static void performLoop(Player player, float loopSpeed) {
+        float currentPitch = player.getXRot();
+        float newPitch = currentPitch + loopSpeed;
+
+        if (newPitch >= 360) {
+            newPitch -= 360;
+        }
+
+        player.setXRot(newPitch);
+    }
 }

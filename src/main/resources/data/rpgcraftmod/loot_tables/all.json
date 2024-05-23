@@ -5,242 +5,242 @@
       "entries": [
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/abandoned.json",
+            "name": "rpgcraftmod:abandoned",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/all.json",
+            "name": "rpgcraftmod:all",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/armorer.json",
+            "name": "rpgcraftmod:armorer",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/bedroom.json",
+            "name": "rpgcraftmod:bedroom",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/cart.json",
+            "name": "rpgcraftmod:cart",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/cartographer.json",
+            "name": "rpgcraftmod:cartographer",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/cartographer_tower.json",
+            "name": "rpgcraftmod:cartographer_tower",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/cathedral_base.json",
+            "name": "rpgcraftmod:cathedral_base",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/cathedral_common.json",
+            "name": "rpgcraftmod:cathedral_common",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/cathedral_rare.json",
+            "name": "rpgcraftmod:cathedral_rare",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_armorer.json",
+            "name": "rpgcraftmod:chests/sky_village_armorer",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_butcher.json",
+            "name": "rpgcraftmod:chests/sky_village_butcher",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_cartographer.json",
+            "name": "rpgcraftmod:chests/sky_village_cartographer",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_fisher.json",
+            "name": "rpgcraftmod:chests/sky_village_fisher",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_fletcher.json",
+            "name": "rpgcraftmod:chests/sky_village_fletcher",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_mason.json",
+            "name": "rpgcraftmod:chests/sky_village_mason",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_normal_house.json",
+            "name": "rpgcraftmod:chests/sky_village_normal_house",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_shepherd.json",
+            "name": "rpgcraftmod:chests/sky_village_shepherd",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_temple.json",
+            "name": "rpgcraftmod:chests/sky_village_temple",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_toolsmith.json",
+            "name": "rpgcraftmod:chests/sky_village_toolsmith",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/chests/sky_village_weaponsmith.json",
+            "name": "rpgcraftmod:chests/sky_village_weaponsmith",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/crypt.json",
+            "name": "rpgcraftmod:crypt",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/crystal.json",
+            "name": "rpgcraftmod:crystal",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/empty.json",
+            "name": "rpgcraftmod:empty",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/fisherman.json",
+            "name": "rpgcraftmod:fisherman",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/fletcher.json",
+            "name": "rpgcraftmod:fletcher",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/floating_islands.json",
+            "name": "rpgcraftmod:floating_islands",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/forbidden_knowledge.json",
+            "name": "rpgcraftmod:forbidden_knowledge",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/general.json",
+            "name": "rpgcraftmod:general",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/general_loot.json",
+            "name": "rpgcraftmod:general_loot",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/houses_books.json",
+            "name": "rpgcraftmod:houses_books",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/houses_common.json",
+            "name": "rpgcraftmod:houses_common",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/houses_desert.json",
+            "name": "rpgcraftmod:houses_desert",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/houses_flower.json",
+            "name": "rpgcraftmod:houses_flower",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/houses_rare.json",
+            "name": "rpgcraftmod:houses_rare",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/houses_uncommon.json",
+            "name": "rpgcraftmod:houses_uncommon",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/jungle_tower.json",
+            "name": "rpgcraftmod:jungle_tower",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/large_carts.json",
+            "name": "rpgcraftmod:large_carts",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/large_carts_2.json",
+            "name": "rpgcraftmod:large_carts_2",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/library.json",
+            "name": "rpgcraftmod:library",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/llama_stable.json",
+            "name": "rpgcraftmod:llama_stable",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/miner.json",
+            "name": "rpgcraftmod:miner",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/mushroom_pond.json",
+            "name": "rpgcraftmod:mushroom_pond",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/nether_room.json",
+            "name": "rpgcraftmod:nether_room",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/pillager.json",
+            "name": "rpgcraftmod:pillager",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/rare.json",
+            "name": "rpgcraftmod:rare",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/swamps.json",
+            "name": "rpgcraftmod:swamps",
             "weight": 1
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod/loot_tables/weaponsmith.json",
+            "name": "rpgcraftmod:weaponsmith",
             "weight": 1
         }
         ]
