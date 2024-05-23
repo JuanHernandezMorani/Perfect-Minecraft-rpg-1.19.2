@@ -9,10 +9,10 @@
 
     "type": "minecraft:random_spread",
 
-    "salt": 388549865,
+    "salt": 1238504,
 
-    "spacing": 26,
+    "spacing": 150,
 
-    "separation": 16
+    "separation": 75
   }
 }

@@ -9,15 +9,15 @@
 
     "type": "minecraft:random_spread",
 
-    "salt": 699587454,
+    "salt": 1223706,
 
     "super_exclusion_zone": {
       "chunk_count": 2,
       "other_set": "#rpgcraftmod:common_avoid"
     },
 
-    "spacing": 75,
+    "spacing": 150,
 
-    "separation": 60
+    "separation": 75
   }
 }
