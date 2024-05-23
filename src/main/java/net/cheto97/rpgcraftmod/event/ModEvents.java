@@ -53,11 +53,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -93,7 +89,6 @@ public class ModEvents {
        private static int lvlReduce = 0;
        static private final int expBonus = 1;
        static private double totalDamage;
-       static private double regEffectBonus = 0.0;
        static private boolean sendMSG = true;
        private static void updatePlayerCapabilities(ServerPlayer player) {
            ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
@@ -509,120 +504,6 @@ public class ModEvents {
                });
            });
        }
-       public static boolean setChance(int numero) {
-           double random = Math.random() * 100;
-
-           return switch (numero) {
-               case 1 -> random >= 1 && random <= 3;
-               case 2 -> random > 3 && random <= 5;
-               case 3 -> random > 5 && random <= 7;
-               case 4 -> random > 7 && random <= 12;
-               case 5 -> random > 12 && random <= 15;
-               case 6 -> random > 15 && random <= 20;
-               case 7 -> random > 20 && random <= 27;
-               case 8 -> random > 27 && random <= 35;
-               case 9 -> random > 40 && random <= 55;
-               case 10 -> random > 55 && random <= 80;
-               case 11 -> random > 80 && random <= 95;
-               default -> false;
-           };
-       }
-       public static MobEffect[] selectEffects(int amount){
-           Random random = new Random();
-           MobEffect[] effects = {
-                   MobEffects.WITHER,
-                   MobEffects.POISON,
-                   MobEffects.WEAKNESS,
-                   MobEffects.HUNGER,
-                   MobEffects.DIG_SLOWDOWN,
-                   MobEffects.DARKNESS,
-                   MobEffects.CONFUSION,
-                   MobEffects.BLINDNESS,
-                   MobEffects.GLOWING,
-                   MobEffects.LEVITATION,
-                   MobEffects.UNLUCK,
-                   MobEffects.MOVEMENT_SLOWDOWN
-           };
-           MobEffect[] result = new MobEffect[amount];
-
-           for (int i = 0; i < amount; i++) {
-               MobEffect res;
-               boolean alreadyExist;
-
-               do {
-                   res = effects[random.nextInt(effects.length)];
-                   alreadyExist = false;
-
-                   for (int j = 0; j < i; j++) {
-                       if (result[j] == res) {
-                           alreadyExist = true;
-                           break;
-                       }
-                   }
-               } while (alreadyExist);
-
-               result[i] = res;
-           }
-
-
-           return result;
-       }
-       public static int[] applyDuration(int amount){
-           int[] durations = new int[amount];
-
-           Random random = new Random();
-
-           for (int i = 0; i < amount; i++) {
-               int duration = random.nextInt(26) + 5;
-               durations[i] = duration;
-           }
-
-           return durations;
-       }
-       public static int[] applyLevel(int amount){
-           int[] levels = new int[amount];
-
-           Random random = new Random();
-
-           for(int i = 0; i < amount; i++){
-               int level = random.nextInt(10)+1;
-               levels[i] = level;
-           }
-
-           return levels;
-       }
-       public static int setAmount(int rank) {
-           Random random = new Random();
-
-           int amount = 0;
-
-           double maxRank = 12.0;
-           double rankFactor = (maxRank - rank) / maxRank;
-
-           double[] probabilities = new double[12];
-           for (int i = 0; i < 12; i++) {
-               double baseProbability = (double) (i + 1) / (11);
-               probabilities[i] = baseProbability * rankFactor;
-           }
-
-           double totalProbability = 0.0;
-           for (double probability : probabilities) {
-               totalProbability += probability;
-           }
-
-           double randomNumber = random.nextDouble() * totalProbability;
-
-           double cumulativeProbability = 0.0;
-           for (int i = 0; i < probabilities.length; i++) {
-               cumulativeProbability += probabilities[i];
-               if (randomNumber < cumulativeProbability) {
-                   amount = i;
-                   break;
-               }
-           }
-
-           return amount;
-       }
        @SubscribeEvent
        public static void onPlayerCloned(PlayerEvent.Clone event){
            if(!event.getEntity().getLevel().isClientSide() && event.getOriginal() != null && event.getEntity() != null){
@@ -662,17 +543,16 @@ public class ModEvents {
                double damage = event.getAmount();
                event.setAmount(0.0f);
                DamageSource source = event.getSource();
-               if (target != null) {
+               assert target != null;
                    double armor = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
                    MobEffectInstance defInstance = target.getEffect(MobEffects.DAMAGE_RESISTANCE);
 
                    armor = target.hasEffect(MobEffects.DAMAGE_RESISTANCE) && defInstance != null ?  armor + calculateValue(defInstance,armor,"add") : armor;
 
-                   if (attacker instanceof LivingEntity livingAttacker) {
+               if (attacker instanceof LivingEntity livingAttacker) {
                        MobEffectInstance damageBoostEffect = livingAttacker.getEffect(MobEffects.DAMAGE_BOOST);
                        MobEffectInstance damageDecreaseEffect = livingAttacker.getEffect(MobEffects.WEAKNESS);
                        double dmg = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.001);
-
                        double dmgEff = damageBoostEffect != null && damageDecreaseEffect != null ? calculateDamageAndReduce(damageBoostEffect,damageDecreaseEffect,dmg) : damageBoostEffect != null ? calculateValue(damageBoostEffect,dmg,"add") : damageDecreaseEffect != null ? calculateValue(damageDecreaseEffect,dmg,"reduce") : 0.0;
 
                        int attackerLevel = livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
@@ -700,86 +580,44 @@ public class ModEvents {
                                    break;
                                }
                            }
-                       } else if (source.isProjectile()) {
+                       }
+                       else if (source.isProjectile()) {
                            double attackerRangeDamage = livingAttacker.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(1.0) + dmgEff;
                            damage = ((damage + attackerRangeDamage) * percentDamageReduce);
-                       } else if (source.isExplosion()) {
+                       }
+                       else if (source.isExplosion()) {
                            double attackerAgility = livingAttacker.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(1.0);
                            damage = ((damage * 2 + attackerAgility) * ((percentDamageReduce * 0.25) + (percentMagicDamageReduce * 0.25)));
-                       } else if (source.isCreativePlayer()) {
+                       }
+                       else if (source.isCreativePlayer()) {
                            damage = 0;
-                       } else {
+                       }
+                       else {
                            double attackerStrength = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(1.0);
                            damage = ((damage + attackerStrength + dmgEff) * percentDamageReduce);
                        }
-                       if (livingAttacker instanceof Player && target instanceof Player) {
-                           totalDamage = attackerLevel * 0.2 > targetLevel ? -111111 : damage - damageReduce;
-                       } else {
-                           totalDamage = damage;
+                       /*
+                       Switch(source.msgId){
+                       case "magic","fire"
                        }
+                        */
+                       totalDamage = livingAttacker instanceof Player && target instanceof Player ? attackerLevel * 0.2 > targetLevel ? -111111 : damage - damageReduce : damage;
 
                        target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
                            if (totalDamage == -111111) {
                                livingAttacker.sendSystemMessage(Component.literal("Your level is higher than " + target.getName().getString() + ", setting damage to 0").withStyle(ChatFormatting.DARK_RED));
                            } else {
-                               if (livingAttacker.getCapability(RankProvider.ENTITY_RANK).isPresent()) {
-                                   int rank = livingAttacker.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(1);
-                                   int amount = setAmount(rank);
-                                   boolean shouldApply = setChance(rank);
-
-                                   if(shouldApply){
-                                       MobEffect[] effects = selectEffects(amount);
-                                       int[] durations = applyDuration(amount);
-                                       int[] levels = applyLevel(amount);
-
-                                       for (int i = 0; i < amount; i++) {
-                                           target.addEffect(new MobEffectInstance(effects[i], durations[i], levels[i]));
-                                       }
-                                   }
-
-                               } else {
-                                   livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customlevel -> {
-                                       int entityRank = livingAttacker.getCapability(RankProvider.ENTITY_RANK).map(Rank::get).orElse(0);
-                                       int amount = 1;
-                                       int count = customlevel.get();
-                                       if (count >= 10000) {
-                                           do {
-                                               count = count - 10000;
-                                               amount++;
-                                           } while (count > 10000 && amount < 12);
-                                       }
-                                       boolean shouldApply = setChance(amount);
-
-                                       if(shouldApply) {
-                                           MobEffect[] effects = selectEffects(amount);
-                                           int[] durations = applyDuration(amount);
-                                           int[] levels = applyLevel(amount);
-
-                                           for (int i = 0; i < entityRank; i++) {
-                                               target.addEffect(new MobEffectInstance(effects[i], durations[i], levels[i]));
-                                           }
-                                       }
-                                   });
-                               }
-                               if(totalDamage != -111111 && totalDamage < 1){
-                                   totalDamage = 1;
-                               }
-                               if(target instanceof Player && livingAttacker instanceof Player){
-                                   target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
-                               }else if(!(target instanceof Player)){
-                                   target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
-                               }
-
+                               target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
                                life.consumeLife(totalDamage);
                                reduceArmorDurability(target, (totalDamage * 0.012));
                            }
                        });
                    }
-                   else {
-                       double defense = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
-                       double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
-                       totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
-                       if(source.isFall()){
+               else {
+                   double defense = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
+                   double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
+                   totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
+                   if(source.isFall()){
                            double y = target.getY() < 0 ? (target.getY()*(-1)) : target.getY();
                            double oldY = target.yOld < 0 ? (target.yOld*(-1)) : target.yOld;
 
@@ -799,7 +637,7 @@ public class ModEvents {
                                }
                            });
                        }
-                       if(source.isMagic()){
+                   if(source.isMagic()){
                            Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
                            for (MobEffectInstance effectInstance : activeEffects) {
                                MobEffect effect = effectInstance.getEffect();
@@ -811,10 +649,10 @@ public class ModEvents {
                                }
                            }
                        }
-                       if(source ==  DamageSource.OUT_OF_WORLD) {
+                   if(source ==  DamageSource.OUT_OF_WORLD) {
                            totalDamage = target.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(10.0);
                        }
-                       target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+                   target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
                            if(!source.isFall() && totalDamage < 1){
                                totalDamage = 1;
                            }
@@ -824,7 +662,6 @@ public class ModEvents {
                            life.consumeLife(totalDamage);
                            reduceArmorDurability(target, (totalDamage * 0.012));
                        });
-                   }
                }
            }
        }
@@ -900,83 +737,125 @@ public class ModEvents {
            }
        }
        @SubscribeEvent
-       public static void onLivingEntityUpdate(LivingEvent.LivingTickEvent event){
+       public static void onLivingEntityUpdate(LivingEvent.LivingTickEvent event) {
            LivingEntity livingEntity = event.getEntity();
-           if (livingEntity != null) {
-               MobEffectInstance regenerationEffect = livingEntity.hasEffect(MobEffects.REGENERATION) ? livingEntity.getEffect(MobEffects.REGENERATION) : null;
-               regEffectBonus = regenerationEffect != null && regenerationEffect.getDuration() > 1 ? calculateValue(regenerationEffect,livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(1.0),"add") : 0.0;
-
-               if(livingEntity instanceof ServerPlayer player){
-                   player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
-                       if(mana.get() != manaMax.get() || life.get() != lifeMax.get()){
-                           updatePlayerCapabilities(player);
-                       }
-                       if (life.get() <= 0 && !life.getDie()) {
-                           player.skipDropExperience();
-                           life.setDie(true);
-                           player.setHealth(0.0f);
-                           player.die(DamageSource.GENERIC);
-                       }
-                       int delay = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
-                       if (life.get() < lifeMax.get() && life.get() > 0 && delay == 0) {
-                           life.add((lifeRegeneration.get()+regEffectBonus) * 0.05);
-                       }else{
-                           int cooldown = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
-                           if(cooldown == 100 && sendMSG){
-                               player.sendSystemMessage(Component.literal("You have receive damage, regeneration disable for 5 seconds, if you receive damage again cooldown will be reset to 5 seconds.").withStyle(ChatFormatting.RED));
-                               sendMSG = false;
-                           }
-                           if(cooldown == 1 && !sendMSG){
-                               sendMSG = true;
-                               player.sendSystemMessage(Component.literal("Regeneration enable again").withStyle(ChatFormatting.GOLD));
-                           }
-                           player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
-                       }
-                       if (mana.get() < manaMax.get()) {
-                           mana.add(manaRegeneration.get() * 0.05);
-                       }
-                       if(mana.get() > manaMax.get()){
-                           mana.set(manaMax.get());
-                       }
-                       if(life.get() > lifeMax.get()){
-                           life.set(lifeMax.get());
-                       }
-                   }))))));
-
+           assert livingEntity != null;
+               if (livingEntity instanceof ServerPlayer player) {
+                   updatePlayer(player);
+               } else {
+                   setCapabilities(livingEntity);
+                   updateLifeAndMana(livingEntity);
                }
-               else{
-                   if(livingEntity instanceof Animal || livingEntity instanceof Monster || livingEntity instanceof WaterAnimal || livingEntity instanceof Villager){
-                       livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> livingEntity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> livingEntity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> livingEntity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(join -> livingEntity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> {
-                           if (!join.get()) {
-                               setCapabilities(livingEntity);
-                               join.set();
-                           }
-                           if (life.get() <= 0) {
-                               livingEntity.setHealth(0.0f);
-                               livingEntity.die(DamageSource.GENERIC);
-                           }
-                           if(livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0) == 0){
-                               if (life.get() < lifeMax.get() && life.get() > 0) {
-                                   switch (rank.get()){
-                                       case 11 -> life.add((lifeRegeneration.get())+regEffectBonus);
-                                       case 10 -> life.add((lifeRegeneration.get()*0.88)+regEffectBonus);
-                                       case 6,7,8,9 -> life.add((lifeRegeneration.get() * 0.75)+regEffectBonus);
-                                       case 3,4,5 -> life.add((lifeRegeneration.get() * 0.5)+regEffectBonus);
-                                       default -> life.add((lifeRegeneration.get() * 0.25)+regEffectBonus);
-                                   }
-                               }
-                           }else{
-                               livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
-                           }
-
-                           if (mana.get() < manaMax.get()) {
-                               mana.add(manaRegeneration.get() * 0.5);
-                           }
-                       })))))))));
-                   }
-               }
-           }
        }
+
+        private static void updatePlayer(ServerPlayer player) {
+            player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+                double lifeValue = life.get();
+                double lifeMaxValue = player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
+                double lifeRegenerationValue = player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0);
+                double regEffectBonus = getRegEffectBonus(player);
+
+                if (lifeValue <= 0 && !life.getDie()) {
+                    player.skipDropExperience();
+                    life.setDie(true);
+                    player.setHealth(0.0f);
+                    player.die(DamageSource.GENERIC);
+                }
+
+                int delay = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
+                if (lifeValue < lifeMaxValue && lifeValue > 0 && delay == 0) {
+                    life.add((lifeRegenerationValue + regEffectBonus) * 0.05);
+                } else {
+                    updateRegenerationDelay(player);
+                }
+                clampValues(player);
+            });
+        }
+
+        private static double getRegEffectBonus(LivingEntity entity) {
+            MobEffectInstance regenerationEffect = entity.hasEffect(MobEffects.REGENERATION) ? entity.getEffect(MobEffects.REGENERATION) : null;
+            return regenerationEffect != null && regenerationEffect.getDuration() > 1 ?
+                    calculateValue(regenerationEffect, entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(1.0), "add") : 0.0;
+        }
+
+        private static void updateRegenerationDelay(LivingEntity entity) {
+            int cooldown = entity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
+            if (cooldown == 100 && sendMSG && entity instanceof ServerPlayer player) {
+                player.sendSystemMessage(Component.literal("You have received damage, regeneration is disabled for 5 seconds. If you receive damage again, the cooldown will be reset.").withStyle(ChatFormatting.RED));
+                sendMSG = false;
+            }
+            if (cooldown == 1 && !sendMSG && entity instanceof ServerPlayer player) {
+                sendMSG = true;
+                player.sendSystemMessage(Component.literal("Regeneration enabled again").withStyle(ChatFormatting.GOLD));
+            }
+            entity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
+        }
+
+        private static void updateLifeAndMana(LivingEntity livingEntity) {
+            livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
+                double lifeValue = livingEntity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0);
+                double lifeMaxValue =         livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
+                double lifeRegenerationValue = livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0);
+                double regEffectBonus = getRegEffectBonus(livingEntity);
+
+                if (lifeValue <= 0) {
+                    livingEntity.setHealth(0.0f);
+                    livingEntity.die(DamageSource.GENERIC);
+                }
+
+                int regenerationDelay = livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
+                if (regenerationDelay == 0 && lifeValue < lifeMaxValue && lifeValue > 0) {
+                    updateLife(livingEntity, lifeValue, lifeMaxValue, lifeRegenerationValue, regEffectBonus);
+                } else {
+                    updateRegenerationDelay(livingEntity);
+                }
+                    double manaValue = livingEntity.getCapability(ManaProvider.ENTITY_MANA).map(Mana::get).orElse(0.0);
+                    double manaRegenerationValue = livingEntity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).map(ManaRegeneration::get).orElse(0.0);
+                    double manaMaxValue = livingEntity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(0.0);
+
+                    if (manaValue < manaMaxValue) {
+                        double toAdd = manaValue + manaRegenerationValue * 0.5;
+                        livingEntity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> mana.add(Math.min(toAdd, manaMaxValue)));
+                    }
+
+                clampValues(livingEntity);
+            });
+        }
+
+        private static void updateLife(LivingEntity livingEntity, double lifeValue, double lifeMaxValue, double lifeRegenerationValue, double regEffectBonus) {
+            double lifeToAdd = lifeValue < lifeMaxValue ? lifeRegenerationValue + regEffectBonus : 0.0;
+            if (!(livingEntity instanceof Player)) {
+                livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life ->{
+                    double toAdd = switch (rank.get()) {
+                        case 11 -> lifeToAdd;
+                        case 10 -> lifeToAdd * 0.88;
+                        case 6, 7, 8, 9 -> lifeToAdd * 0.75;
+                        case 3, 4, 5 -> lifeToAdd * 0.5;
+                        default -> lifeToAdd * 0.25;
+                    };
+                    life.add(toAdd);
+                        })
+                );
+            }
+            livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd));
+        }
+
+        private static void clampValues(LivingEntity livingEntity) {
+            double lifeMaxValue = livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
+            double manaMaxValue = livingEntity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(1.0);
+
+            livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+                if (life.get() > lifeMaxValue) {
+                    life.set(lifeMaxValue);
+                }
+            });
+
+            livingEntity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
+                if (mana.get() > manaMaxValue) {
+                    mana.set(manaMaxValue);
+                }
+            });
+        }
        @SubscribeEvent
        public static void onLivingExperienceDrop(LivingExperienceDropEvent event){
            if(!event.getEntity().getLevel().isClientSide() && event.getEntity() != null && event.getAttackingPlayer() != null) {
@@ -1066,7 +945,6 @@ public class ModEvents {
            }
        }
    }
-
     private static double getMultiplier(double playerLevelValue, double targetLevelValue) {
         double multiplier = 0.0;
 
