@@ -181,6 +181,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3922056")
 
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
+
 }
 
 jar {
