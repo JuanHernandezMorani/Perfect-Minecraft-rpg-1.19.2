@@ -416,93 +416,93 @@ public class ModEvents {
 
        }
        private static void setCapabilities(LivingEntity livingEntity){
-           int entityRank;
-           Level level = livingEntity.getLevel();
-           int entityClass;
-           long levelTime = level.getLevelData().getDayTime();
-           int timeLevel = (int) (levelTime / 24000) / 5;
-           double naturalSpawnX = level.getSharedSpawnPos().getX();
-           double naturalSpawnZ = level.getSharedSpawnPos().getZ();
-           int distanceLevel = (int) (Math.abs(livingEntity.getX() - naturalSpawnX) + Math.abs(livingEntity.getZ() - naturalSpawnZ)) / 100;
-           Difficulty difficulty = level.getDifficulty();
-           int difficultyLevel = switch (difficulty) {
-               case PEACEFUL -> 0;
-               case EASY -> 1;
-               case NORMAL -> 3;
-               case HARD -> 9;
-           };
-           int connectedPlayers = 1;
-           if (!level.players().isEmpty()) {
-               connectedPlayers = level.players().size();
-           }
+               int entityRank;
+               Level level = livingEntity.getLevel();
+               int entityClass;
+               long levelTime = level.getLevelData().getDayTime();
+               int timeLevel = (int) (levelTime / 24000) / 5;
+               double naturalSpawnX = level.getSharedSpawnPos().getX();
+               double naturalSpawnZ = level.getSharedSpawnPos().getZ();
+               int distanceLevel = (int) (Math.abs(livingEntity.getX() - naturalSpawnX) + Math.abs(livingEntity.getZ() - naturalSpawnZ)) / 100;
+               Difficulty difficulty = level.getDifficulty();
+               int difficultyLevel = switch (difficulty) {
+                   case PEACEFUL -> 0;
+                   case EASY -> 1;
+                   case NORMAL -> 3;
+                   case HARD -> 9;
+               };
+               int connectedPlayers = 1;
+               if (!level.players().isEmpty()) {
+                   connectedPlayers = level.players().size();
+               }
 
-           if (livingEntity.getType() == EntityType.ENDER_DRAGON) {
-               entityRank = 11;
-               double bonus = setBonusValue(entityRank);
-               entityClass = 100 * (int) (11 + difficultyLevel + bonus);
-           } else if (livingEntity.getType() == EntityType.WITHER) {
-               entityRank = 10;
-               double bonus = setBonusValue(entityRank);
-               entityClass = 50 * (int) (11 + difficultyLevel + bonus);
-           } else {
-               entityRank = getRandomRank(livingEntity);
-               double bonus = setBonusValue(entityRank);
-               if (entityRank < 10) {
-                   entityClass = (int) (entityRank + difficultyLevel + bonus);
+               if (livingEntity.getType() == EntityType.ENDER_DRAGON) {
+                   entityRank = 11;
+                   double bonus = setBonusValue(entityRank);
+                   entityClass = 100 * (int) (11 + difficultyLevel + bonus);
+               } else if (livingEntity.getType() == EntityType.WITHER) {
+                   entityRank = 10;
+                   double bonus = setBonusValue(entityRank);
+                   entityClass = 50 * (int) (11 + difficultyLevel + bonus);
                } else {
-                   entityClass = 25 * (int) (entityRank + difficultyLevel + bonus);
-               }
-           }
-
-           int dimensionLevel = 0;
-           if (level instanceof ServerLevel serverLevel) {
-               if (serverLevel.dimension().equals(Level.NETHER)) {
-                   dimensionLevel = difficultyLevel * 50;
-               } else if (serverLevel.dimension().equals(Level.END)) {
-                   dimensionLevel = difficultyLevel * 100;
-               }
-           }
-
-           int hardcoreLevel = level.getLevelData().isHardcore() ? 15 : 1;
-
-           int totalCustomLevels = level.players().stream()
-                   .mapToInt(player -> {
-                       player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel -> {
-                           if (playerLevel.get() != 0) {
-                               lvls = playerLevel.get();
-                           }
-                       });
-                       return lvls;
-                   })
-                   .sum();
-           int averageCustomLevel = totalCustomLevels / connectedPlayers;
-
-           int finalLevel = entityClass + (int) Math.floor(distanceLevel + difficultyLevel + timeLevel + connectedPlayers + dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10));
-
-           if (timeLevel < 2) {
-               lvlReduce = finalLevel;
-           }
-           int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) : randomInt(7,1);
-
-           livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
-               customLevel.setLevel(fnLvl);
-               livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> {
-                   rank.set(entityRank);
-                   levelUpMob(livingEntity,customLevel.get(),rank.get());
-                   switch (entityRank){
-                       case 2 -> eliteModify(livingEntity);
-                       case 3 -> brutalModify(livingEntity);
-                       case 4 -> championModify(livingEntity);
-                       case 5 -> heroModify(livingEntity);
-                       case 6 -> demonModify(livingEntity);
-                       case 7 -> legendaryModify(livingEntity);
-                       case 8 -> mythicalModify(livingEntity);
-                       case 9 -> uniqueModify(livingEntity);
-                       case 10 -> semiBossModify(livingEntity);
-                       case 11 -> bossModify(livingEntity);
+                   entityRank = getRandomRank(livingEntity);
+                   double bonus = setBonusValue(entityRank);
+                   if (entityRank < 10) {
+                       entityClass = (int) (entityRank + difficultyLevel + bonus);
+                   } else {
+                       entityClass = 25 * (int) (entityRank + difficultyLevel + bonus);
                    }
+               }
+
+               int dimensionLevel = 0;
+               if (level instanceof ServerLevel serverLevel) {
+                   if (serverLevel.dimension().equals(Level.NETHER)) {
+                       dimensionLevel = difficultyLevel * 50;
+                   } else if (serverLevel.dimension().equals(Level.END)) {
+                       dimensionLevel = difficultyLevel * 100;
+                   }
+               }
+
+               int hardcoreLevel = level.getLevelData().isHardcore() ? 15 : 1;
+
+               int totalCustomLevels = level.players().stream()
+                       .mapToInt(player -> {
+                           player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(playerLevel -> {
+                               if (playerLevel.get() != 0) {
+                                   lvls = playerLevel.get();
+                               }
+                           });
+                           return lvls;
+                       })
+                       .sum();
+               int averageCustomLevel = totalCustomLevels / connectedPlayers;
+
+               int finalLevel = entityClass + (int) Math.floor(distanceLevel + difficultyLevel + timeLevel + connectedPlayers + dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10));
+
+               if (timeLevel < 2) {
+                   lvlReduce = finalLevel;
+               }
+               int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) : randomInt(7,1);
+
+               livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
+                   customLevel.setLevel(fnLvl);
+                   livingEntity.getCapability(RankProvider.ENTITY_RANK).ifPresent(rank -> {
+                       rank.set(entityRank);
+                       levelUpMob(livingEntity,customLevel.get(),rank.get());
+                       switch (entityRank){
+                           case 2 -> eliteModify(livingEntity);
+                           case 3 -> brutalModify(livingEntity);
+                           case 4 -> championModify(livingEntity);
+                           case 5 -> heroModify(livingEntity);
+                           case 6 -> demonModify(livingEntity);
+                           case 7 -> legendaryModify(livingEntity);
+                           case 8 -> mythicalModify(livingEntity);
+                           case 9 -> uniqueModify(livingEntity);
+                           case 10 -> semiBossModify(livingEntity);
+                           case 11 -> bossModify(livingEntity);
+                       }
+                   });
                });
-           });
        }
        @SubscribeEvent
        public static void onPlayerCloned(PlayerEvent.Clone event){
@@ -743,7 +743,12 @@ public class ModEvents {
                if (livingEntity instanceof ServerPlayer player) {
                    updatePlayer(player);
                } else {
-                   setCapabilities(livingEntity);
+                   livingEntity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(join -> {
+                       if(!join.get()){
+                           join.set();
+                           setCapabilities(livingEntity);
+                       }
+                   });
                    updateLifeAndMana(livingEntity);
                }
        }
@@ -794,7 +799,7 @@ public class ModEvents {
         private static void updateLifeAndMana(LivingEntity livingEntity) {
             livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
                 double lifeValue = livingEntity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0);
-                double lifeMaxValue =         livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
+                double lifeMaxValue = livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
                 double lifeRegenerationValue = livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0);
                 double regEffectBonus = getRegEffectBonus(livingEntity);
 
@@ -804,7 +809,7 @@ public class ModEvents {
                 }
 
                 int regenerationDelay = livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
-                if (regenerationDelay == 0 && lifeValue < lifeMaxValue && lifeValue > 0) {
+                if (regenerationDelay <= 0 && lifeValue < lifeMaxValue && lifeValue > 0) {
                     updateLife(livingEntity, lifeValue, lifeMaxValue, lifeRegenerationValue, regEffectBonus);
                 } else {
                     updateRegenerationDelay(livingEntity);
@@ -837,7 +842,9 @@ public class ModEvents {
                         })
                 );
             }
-            livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd));
+            else{
+                livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd));
+            }
         }
 
         private static void clampValues(LivingEntity livingEntity) {
@@ -983,6 +990,7 @@ public class ModEvents {
             event.put(ModEntityTypes.DRAKE_5.get(), DrakeV5Entity.setAttributes());
             event.put(ModEntityTypes.DRAKE_6.get(), DrakeV6Entity.setAttributes());
             event.put(ModEntityTypes.DRAKE_7.get(), DrakeV7Entity.setAttributes());
+            event.put(ModEntityTypes.KOBOLD_WARRIOR.get(), KoboldWarriorEntity.setAttributes());
         }
     }
 

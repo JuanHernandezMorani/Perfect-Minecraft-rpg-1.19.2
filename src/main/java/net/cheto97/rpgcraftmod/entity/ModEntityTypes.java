@@ -71,6 +71,14 @@ public class ModEntityTypes {
                     .sized(1.0f,1.0f)
                     .canSpawnFarFromPlayer()
                     .build(new ResourceLocation(RpgcraftMod.MOD_ID, "drake_7").toString()));
+
+    public static final RegistryObject<EntityType<KoboldWarriorEntity>> KOBOLD_WARRIOR =
+            ENTITY_TYPES.register("kobold_warrior",
+                    () -> EntityType.Builder.of(KoboldWarriorEntity::new, MobCategory.MONSTER)
+                            .sized(1.f,1.0f)
+                            .canSpawnFarFromPlayer()
+                            .build(new ResourceLocation(RpgcraftMod.MOD_ID,"kobold_warrior").toString()));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

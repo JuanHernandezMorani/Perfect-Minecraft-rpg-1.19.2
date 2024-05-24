@@ -3,6 +3,8 @@ package net.cheto97.rpgcraftmod.entity.custom.prefabs;
 import net.cheto97.rpgcraftmod.entity.custom.MutantGolemEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -22,7 +24,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Objects;
 
-public abstract class RPGEntityAgro extends Monster implements IAnimatable {
+public abstract class RPGEntityAgro extends RPGEntity {
     private final AnimationFactory factory = new AnimationFactory(this);
 
     public RPGEntityAgro(EntityType<? extends Monster> entityType, Level level) {
@@ -45,6 +47,20 @@ public abstract class RPGEntityAgro extends Monster implements IAnimatable {
     @Override
     public @NotNull MobType getMobType() {
         return MobType.UNDEFINED;
+    }
+
+    public static AttributeSupplier setDefaultAttributes() {
+        return Monster.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 160.0D)
+                .add(Attributes.ATTACK_DAMAGE, 21.0f)
+                .add(Attributes.ATTACK_SPEED, 2.0f)
+                .add(Attributes.ATTACK_KNOCKBACK,2.0D)
+                .add(Attributes.ARMOR,5.0D)
+                .add(Attributes.ARMOR_TOUGHNESS,3.0D)
+                .add(Attributes.LUCK,1.13D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.08D)
+                .build();
     }
 
     // GeckoLib Animation

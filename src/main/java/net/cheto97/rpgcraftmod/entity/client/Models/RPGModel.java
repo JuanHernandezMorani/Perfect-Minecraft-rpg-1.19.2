@@ -15,7 +15,7 @@ public abstract class RPGModel<T extends RPGEntity> extends AnimatedGeoModel<T> 
 
     @Override
     public ResourceLocation getModelResource(T entity) {
-        return entityName.contains("drake") ? geoResourceLocation("drake") : geoResourceLocation(entityName);
+        return entityName.contains("drake") ? geoResourceLocation("drake") : entityName.contains("kobold_warrior") ? geoResourceLocation("kobold_warrior") : geoResourceLocation(entityName);
     }
 
     @Override
@@ -25,7 +25,7 @@ public abstract class RPGModel<T extends RPGEntity> extends AnimatedGeoModel<T> 
 
     @Override
     public ResourceLocation getAnimationResource(T entity) {
-        return entityName.contains("drake") ? animationResourceLocation("drake") : animationResourceLocation(entityName);
+        return entityName.contains("drake") ? animationResourceLocation("drake") : entityName.contains("kobold_warrior") ? animationResourceLocation("kobold_warrior") : animationResourceLocation(entityName);
     }
 
     public String getEntityName(){ return entityName; }

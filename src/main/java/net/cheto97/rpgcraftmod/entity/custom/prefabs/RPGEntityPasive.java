@@ -46,6 +46,20 @@ public abstract class RPGEntityPasive extends Monster implements IAnimatable {
         return MobType.UNDEFINED;
     }
 
+    public static AttributeSupplier setDefaultAttributes() {
+        return Monster.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 16.0D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0f)
+                .add(Attributes.ATTACK_SPEED, 2.0f)
+                .add(Attributes.ATTACK_KNOCKBACK,2.0D)
+                .add(Attributes.ARMOR,5.0D)
+                .add(Attributes.ARMOR_TOUGHNESS,3.0D)
+                .add(Attributes.LUCK,1.13D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.08D)
+                .build();
+    }
+
     // GeckoLib Animation
 
     protected abstract String getWalkAnimation();

@@ -17,9 +17,11 @@ import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.HorseArmorItem;
@@ -718,6 +720,20 @@ public abstract class RPGEntityMount extends RPGEntityTameable implements IAnima
         int i = Mth.clamp(this.getTemper() + p_30654_, 0, 100);
         this.setTemper(i);
         return i;
+    }
+
+    public static AttributeSupplier setDefaultAttributes() {
+        return Monster.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.ATTACK_DAMAGE, 1.0f)
+                .add(Attributes.ATTACK_SPEED, 0.3f)
+                .add(Attributes.ATTACK_KNOCKBACK,1.0D)
+                .add(Attributes.ARMOR,1.0D)
+                .add(Attributes.ARMOR_TOUGHNESS,1.0D)
+                .add(Attributes.LUCK,1.13D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.08D)
+                .build();
     }
 
     // GeckoLib Animation

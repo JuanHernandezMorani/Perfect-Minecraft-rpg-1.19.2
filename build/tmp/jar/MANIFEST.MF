@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Specification-Title: rpgcraftmod
 Specification-Vendor: rpgcraftmodsareus
 Specification-Version: 1
-Implementation-Title: Perfect Minecraft rpg(1.19.2)
+Implementation-Title: Perfect-Minecraft-rpg-1.19.2
 Implementation-Version: 2.0.0-1.19.2
 Implementation-Vendor: rpgcraftmodsareus
-Implementation-Timestamp: 2024-05-23T18:47:00-0300
+Implementation-Timestamp: 2024-05-24T05:25:15-0300
 

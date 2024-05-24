@@ -205,14 +205,16 @@ public class ModItems {
     public static final RegistryObject<Item> ZANZAS_WINGS = registerItems("zanzas_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingItem.WingType.UNIQUE));
 
  // SPAWN EGGS
-    public static final RegistryObject<Item> MUTANT_GOLEM_SPAWN_EGG = createSpawnEgg("mutant_golem",ModEntityTypes.MUTANT_GOLEM,0x22b341, 0x19732e);
-    public static final RegistryObject<Item> DRAKE_1_SPAWN_EGG = createSpawnEgg("drake_1",ModEntityTypes.DRAKE,0x19732e, 0x22b341);
-    public static final RegistryObject<Item> DRAKE_2_SPAWN_EGG = createSpawnEgg("drake_2",ModEntityTypes.DRAKE_2,0x19732e, 0x22b341);
-    public static final RegistryObject<Item> DRAKE_3_SPAWN_EGG = createSpawnEgg("drake_3",ModEntityTypes.DRAKE_3,0x19732e, 0x22b341);
-    public static final RegistryObject<Item> DRAKE_4_SPAWN_EGG = createSpawnEgg("drake_4",ModEntityTypes.DRAKE_4,0x19732e, 0x22b341);
-    public static final RegistryObject<Item> DRAKE_5_SPAWN_EGG = createSpawnEgg("drake_5",ModEntityTypes.DRAKE_5,0x19732e, 0x22b341);
-    public static final RegistryObject<Item> DRAKE_6_SPAWN_EGG = createSpawnEgg("drake_6",ModEntityTypes.DRAKE_6,0x19732e, 0x22b341);
-    public static final RegistryObject<Item> DRAKE_7_SPAWN_EGG = createSpawnEgg("drake_7",ModEntityTypes.DRAKE_7,0x19732e, 0x22b341);
+    public static final RegistryObject<Item> MUTANT_GOLEM_SPAWN_EGG = createSpawnEgg("mutant_golem",ModEntityTypes.MUTANT_GOLEM,0xFFFFFF, 0x808080);
+    public static final RegistryObject<Item> DRAKE_1_SPAWN_EGG = createSpawnEgg("drake_red", ModEntityTypes.DRAKE, 0xFF0000, 0x800000);
+    public static final RegistryObject<Item> DRAKE_2_SPAWN_EGG = createSpawnEgg("drake_purple", ModEntityTypes.DRAKE_2, 0x800080, 0x4B0082);
+    public static final RegistryObject<Item> DRAKE_3_SPAWN_EGG = createSpawnEgg("drake_dark_red", ModEntityTypes.DRAKE_3, 0x8B0000, 0x2F4F4F);
+    public static final RegistryObject<Item> DRAKE_4_SPAWN_EGG = createSpawnEgg("drake_dark_purple", ModEntityTypes.DRAKE_4, 0x483D8B, 0x00008B);
+    public static final RegistryObject<Item> DRAKE_5_SPAWN_EGG = createSpawnEgg("drake_grey", ModEntityTypes.DRAKE_5, 0x808080, 0x696969);
+    public static final RegistryObject<Item> DRAKE_6_SPAWN_EGG = createSpawnEgg("drake_aqua", ModEntityTypes.DRAKE_6, 0x00FFFF, 0x008B8B);
+    public static final RegistryObject<Item> DRAKE_7_SPAWN_EGG = createSpawnEgg("drake_black", ModEntityTypes.DRAKE_7, 0x000000, 0x212121);
+
+    public static final RegistryObject<Item> KOBOLD_WARRIOR_SPAWN_EGG = createSpawnEgg("kobold_warrior",ModEntityTypes.KOBOLD_WARRIOR,0x19732e, 0x22b341);
     private static <T extends Item> RegistryObject<T> registerItems(String name, Supplier<T> item){
         return ITEMS.register(name,item);
     }

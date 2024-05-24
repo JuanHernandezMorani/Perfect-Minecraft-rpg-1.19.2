@@ -154,7 +154,7 @@ public class RpgcraftMod{
         event.enqueueWork(() -> {
             SpawnPlacements.register(ModEntityTypes.MUTANT_GOLEM.get(),
                     SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    Monster::checkMonsterSpawnRules);
+                    Monster::checkAnyLightMonsterSpawnRules);
             SpawnPlacements.register(ModEntityTypes.DRAKE.get(),
                     SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMonsterSpawnRules);
@@ -176,6 +176,9 @@ public class RpgcraftMod{
             SpawnPlacements.register(ModEntityTypes.DRAKE_7.get(),
                     SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(ModEntityTypes.KOBOLD_WARRIOR.get(),
+                    SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Monster::checkAnyLightMonsterSpawnRules);
             ModMessages.register();
             ModVillagers.registerPOIs();
         });
@@ -212,6 +215,9 @@ public class RpgcraftMod{
             EntityRenderers.register(ModEntityTypes.DRAKE_5.get(), DrakeV5Renderer::new);
             EntityRenderers.register(ModEntityTypes.DRAKE_6.get(), DrakeV6Renderer::new);
             EntityRenderers.register(ModEntityTypes.DRAKE_7.get(), DrakeV7Renderer::new);
+            EntityRenderers.register(ModEntityTypes.KOBOLD_WARRIOR.get(), KoboldWarriorRenderer::new);
+            EntityRenderers.register(ModEntityTypes.KOBOLD_WARRIOR.get(), KoboldWarriorRendererB::new);
+            EntityRenderers.register(ModEntityTypes.KOBOLD_WARRIOR.get(), KoboldWarriorRendererC::new);
         }
     }
     public static void registerHud(Hud hud) {
