@@ -51,7 +51,7 @@ public class MutantGolemEntity extends Monster implements IAnimatable {
                 .add(Attributes.ARMOR_TOUGHNESS,3.0D)
                 .add(Attributes.LUCK,1.13D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.08D)
+                .add(Attributes.MOVEMENT_SPEED, 0.16D)
                 .build();
     }
     @Override

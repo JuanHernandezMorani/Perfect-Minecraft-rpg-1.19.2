@@ -164,7 +164,7 @@ public class ModEvents {
                                          double defenseIncrease, double magicDefenseIncrease, double intelligenceIncrease,
                                          double dexterityIncrease, double strengthIncrease, double agilityIncrease,
                                          double commandIncrease, double luckIncrease){
-           player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax ->{
+           player.getCapability(ResetProvider.ENTITY_RESET).ifPresent(reset -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax ->{
                lifeMax.add(lifeIncrease);
                life.set(lifeMax.get());
                manaMax.add(manaIncrease);
@@ -186,9 +186,11 @@ public class ModEvents {
                    case NORMAL -> 5;
                    case HARD -> 8;
                };
-               stats.add(difficultyLevel);
+               int extra = player.getLevel().getLevelData().isHardcore() ? reset.get() : 0;
+               stats.add(difficultyLevel+extra);
                updatePlayerCapabilities(player);
-           })))))))))))))));
+           }))))))))))))))));
+
        }
        private static void levelUpMob(@NotNull LivingEntity entity, int multiplier, int rank){
            entity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> entity.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> entity.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> entity.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> entity.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> entity.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> entity.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> entity.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> entity.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> entity.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> entity.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> entity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> entity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
@@ -241,6 +243,8 @@ public class ModEvents {
                agility.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
                command.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
                luck.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
+
+               entity.setSpeed(entity.getSpeed()+(float)((agility.get()/4)*0.000000003));
            }))))))))))))));
        }
        @SubscribeEvent
@@ -368,48 +372,32 @@ public class ModEvents {
            if(event.getObject() != null){
                Entity entity = event.getObject();
                if(entity instanceof LivingEntity livingEntity) {
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "experience"), new ExperienceProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "regenerationdelay"), new RegenerationDelayProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "command"), new CommandProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "agility"), new AgilityProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "defense"), new DefenseProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "dexterity"), new DexterityProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "intelligence"), new IntelligenceProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "life"), new LifeProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"lifemax"),new LifeMaxProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "liferegeneration"), new LifeRegenerationProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "magicdefense"), new MagicDefenseProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "mana"), new ManaProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"manamax"), new ManaMaxProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "manaregeneration"), new ManaRegenerationProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
+                   event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
+
                    if (livingEntity instanceof Player) {
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "experience"), new ExperienceProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "command"), new CommandProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "agility"), new AgilityProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "defense"), new DefenseProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "dexterity"), new DexterityProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "intelligence"), new IntelligenceProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "life"), new LifeProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"lifemax"), new LifeMaxProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "liferegeneration"), new LifeRegenerationProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "magicdefense"), new MagicDefenseProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "mana"), new ManaProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"manamax"),new ManaMaxProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "manaregeneration"), new ManaRegenerationProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
                        event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"statpoint"),new StatPointProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
                        event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"customclass"), new CustomClassProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "regenerationdelay"), new RegenerationDelayProvider());
                        event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"reset"), new ResetProvider());
                    } else {
                        event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "rank"), new RankProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "level"), new CustomLevelProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "command"), new CommandProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "agility"), new AgilityProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "defense"), new DefenseProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "dexterity"), new DexterityProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "intelligence"), new IntelligenceProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "life"), new LifeProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"lifemax"),new LifeMaxProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "liferegeneration"), new LifeRegenerationProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "magicdefense"), new MagicDefenseProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "mana"), new ManaProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"manamax"), new ManaMaxProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "manaregeneration"), new ManaRegenerationProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "strength"), new StrengthProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "luck"), new LuckProvider());
                        event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"experiencereward"), new ExperienceRewardProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID,"join"),new FirstJoinProvider());
-                       event.addCapability(new ResourceLocation(RpgcraftMod.MOD_ID, "regenerationdelay"), new RegenerationDelayProvider());
                    }
                }
            }
@@ -549,120 +537,135 @@ public class ModEvents {
 
                    armor = target.hasEffect(MobEffects.DAMAGE_RESISTANCE) && defInstance != null ?  armor + calculateValue(defInstance,armor,"add") : armor;
 
-               if (attacker instanceof LivingEntity livingAttacker) {
-                       MobEffectInstance damageBoostEffect = livingAttacker.getEffect(MobEffects.DAMAGE_BOOST);
-                       MobEffectInstance damageDecreaseEffect = livingAttacker.getEffect(MobEffects.WEAKNESS);
-                       double dmg = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.001);
-                       double dmgEff = damageBoostEffect != null && damageDecreaseEffect != null ? calculateDamageAndReduce(damageBoostEffect,damageDecreaseEffect,dmg) : damageBoostEffect != null ? calculateValue(damageBoostEffect,dmg,"add") : damageDecreaseEffect != null ? calculateValue(damageDecreaseEffect,dmg,"reduce") : 0.0;
+                   if(target.getOffhandItem().is(Items.SHIELD) && attacker instanceof LivingEntity && !((LivingEntity) attacker).canDisableShield() ){
+                       reduceShieldDurability(target,damage);
+                   }else{
+                       if (attacker instanceof LivingEntity livingAttacker) {
+                           MobEffectInstance damageBoostEffect = livingAttacker.getEffect(MobEffects.DAMAGE_BOOST);
+                           MobEffectInstance damageDecreaseEffect = livingAttacker.getEffect(MobEffects.WEAKNESS);
+                           double dmg = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.001);
+                           double dmgEff = damageBoostEffect != null && damageDecreaseEffect != null ? calculateDamageAndReduce(damageBoostEffect,damageDecreaseEffect,dmg) : damageBoostEffect != null ? calculateValue(damageBoostEffect,dmg,"add") : damageDecreaseEffect != null ? calculateValue(damageDecreaseEffect,dmg,"reduce") : 0.0;
 
-                       int attackerLevel = livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-                       int targetLevel = target.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
-                       double damageReduce = 0;
+                           int attackerLevel = livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
+                           int targetLevel = target.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
+                           double damageReduce = 0;
 
-                       if (attackerLevel > targetLevel && livingAttacker instanceof Player && target instanceof Player) {
-                           damageReduce = attackerLevel * 0.5 > targetLevel ? livingAttacker.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(500.0) : 0;
-                       }
+                           if (attackerLevel > targetLevel && livingAttacker instanceof Player && target instanceof Player) {
+                               damageReduce = attackerLevel * 0.5 > targetLevel ? livingAttacker.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(500.0) : 0;
+                           }
 
-                       double percentDamageReduce = (armor + damageReduce) / (damage + armor + damageReduce);
-                       double magicArmor = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
-                       double percentMagicDamageReduce = (magicArmor + damageReduce) / (damage + magicArmor + damageReduce);
+                           double percentDamageReduce = (armor + damageReduce) / (damage + armor + damageReduce);
+                           double magicArmor = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
+                           double percentMagicDamageReduce = (magicArmor + damageReduce) / (damage + magicArmor + damageReduce);
 
-                       if (source.isMagic() || source.isFire()) {
-                           double attackerMagicDamage = livingAttacker.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).map(Intelligence::get).orElse(1.0);
-                           damage = (((damage + attackerMagicDamage) * percentMagicDamageReduce));
+                           if (source.isMagic() || source.isFire()) {
+                               double attackerMagicDamage = livingAttacker.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).map(Intelligence::get).orElse(1.0);
+                               damage = (((damage + attackerMagicDamage) * percentMagicDamageReduce));
 
-                           Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
-                           for (MobEffectInstance effectInstance : activeEffects) {
-                               MobEffect effect = effectInstance.getEffect();
-                               if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
-                                   int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
-                                   damage = damage * amplification;
-                                   break;
+                               Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
+                               for (MobEffectInstance effectInstance : activeEffects) {
+                                   MobEffect effect = effectInstance.getEffect();
+                                   if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
+                                       int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
+                                       damage = damage * amplification;
+                                       break;
+                                   }
                                }
                            }
-                       }
-                       else if (source.isProjectile()) {
-                           double attackerRangeDamage = livingAttacker.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(1.0) + dmgEff;
-                           damage = ((damage + attackerRangeDamage) * percentDamageReduce);
-                       }
-                       else if (source.isExplosion()) {
-                           double attackerAgility = livingAttacker.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(1.0);
-                           damage = ((damage * 2 + attackerAgility) * ((percentDamageReduce * 0.25) + (percentMagicDamageReduce * 0.25)));
-                       }
-                       else if (source.isCreativePlayer()) {
-                           damage = 0;
-                       }
-                       else {
-                           double attackerStrength = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(1.0);
-                           damage = ((damage + attackerStrength + dmgEff) * percentDamageReduce);
-                       }
+                           else if (source.isProjectile()) {
+                               double attackerRangeDamage = livingAttacker.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(1.0) + dmgEff;
+                               damage = ((damage + attackerRangeDamage) * percentDamageReduce);
+                           }
+                           else if (source.isExplosion()) {
+                               double attackerAgility = livingAttacker.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(1.0);
+                               damage = ((damage * 2 + attackerAgility) * ((percentDamageReduce * 0.25) + (percentMagicDamageReduce * 0.25)));
+                           }
+                           else if (source.isCreativePlayer()) {
+                               damage = 0;
+                           }
+                           else {
+                               double attackerStrength = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(1.0);
+                               damage = ((damage + attackerStrength + dmgEff) * percentDamageReduce);
+                           }
                        /*
                        Switch(source.msgId){
                        case "magic","fire"
                        }
                         */
-                       totalDamage = livingAttacker instanceof Player && target instanceof Player ? attackerLevel * 0.2 > targetLevel ? -111111 : damage - damageReduce : damage;
+                           totalDamage = livingAttacker instanceof Player && target instanceof Player ? attackerLevel * 0.2 > targetLevel ? -111111 : damage - damageReduce : damage;
 
-                       target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
-                           if (totalDamage == -111111) {
-                               livingAttacker.sendSystemMessage(Component.literal("Your level is higher than " + target.getName().getString() + ", setting damage to 0").withStyle(ChatFormatting.DARK_RED));
-                           } else {
-                               target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
-                               life.consumeLife(totalDamage);
-                               reduceArmorDurability(target, (totalDamage * 0.012));
-                           }
-                       });
-                   }
-               else {
-                   double defense = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
-                   double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
-                   totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
-                   if(source.isFall()){
-                           double y = target.getY() < 0 ? (target.getY()*(-1)) : target.getY();
-                           double oldY = target.yOld < 0 ? (target.yOld*(-1)) : target.yOld;
-
-                           totalDamage = totalDamage*(target.fallDistance+1)+((oldY-y)*2);
-
-                           target.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
-                               if(target instanceof Player && mana.get() != 0.0){
-                                   if(mana.get() >= totalDamage){
-                                       mana.consumeMana(totalDamage);
-                                       totalDamage = 0.0;
-                                       target.sendSystemMessage(Component.literal("You consume your mana, to complete decrease fall damage"));
-                                   }else{
-                                       totalDamage = totalDamage - mana.get();
-                                       mana.consumeMana(totalDamage);
-                                       target.sendSystemMessage(Component.literal("You run out of mana, you receive: "+doubleToString(totalDamage)+" of damage."));
-                                   }
+                           target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+                               if (totalDamage == -111111) {
+                                   livingAttacker.sendSystemMessage(Component.literal("Your level is higher than " + target.getName().getString() + ", setting damage to 0").withStyle(ChatFormatting.DARK_RED));
+                               } else {
+                                   target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
+                                   life.consumeLife(totalDamage);
+                                   reduceArmorDurability(target, (totalDamage * 0.012));
                                }
                            });
                        }
-                   if(source.isMagic()){
-                           Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
-                           for (MobEffectInstance effectInstance : activeEffects) {
-                               MobEffect effect = effectInstance.getEffect();
+                       else {
+                           double defense = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
+                           double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
+                           totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
+                           if(source.isFall()){
+                               double y = target.getY() < 0 ? (target.getY()*(-1)) : target.getY();
+                               double oldY = target.yOld < 0 ? (target.yOld*(-1)) : target.yOld;
 
-                               if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
-                                   int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
-                                   totalDamage = totalDamage * amplification;
-                                   break;
+                               totalDamage = totalDamage*(target.fallDistance+1)+((oldY-y)*2);
+
+                               target.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {
+                                   if(target instanceof Player && mana.get() != 0.0){
+                                       if(mana.get() >= totalDamage){
+                                           mana.consumeMana(totalDamage);
+                                           totalDamage = 0.0;
+                                           target.sendSystemMessage(Component.literal("You consume your mana, to complete decrease fall damage"));
+                                       }else{
+                                           totalDamage = totalDamage - mana.get();
+                                           mana.consumeMana(totalDamage);
+                                           target.sendSystemMessage(Component.literal("You run out of mana, you receive: "+doubleToString(totalDamage)+" of damage."));
+                                       }
+                                   }
+                               });
+                           }
+                           if(source.isMagic()){
+                               Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
+                               for (MobEffectInstance effectInstance : activeEffects) {
+                                   MobEffect effect = effectInstance.getEffect();
+
+                                   if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
+                                       int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
+                                       totalDamage = totalDamage * amplification;
+                                       break;
+                                   }
                                }
                            }
-                       }
-                   if(source ==  DamageSource.OUT_OF_WORLD) {
-                           totalDamage = target.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(10.0);
-                       }
-                   target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
-                           if(!source.isFall() && totalDamage < 1){
-                               totalDamage = 1;
+                           if(source ==  DamageSource.OUT_OF_WORLD) {
+                               totalDamage = target.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(10.0);
                            }
+                           target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+                               if(!source.isFall() && totalDamage < 1){
+                                   totalDamage = 1;
+                               }
 
-                           target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
+                               target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
 
-                           life.consumeLife(totalDamage);
-                           reduceArmorDurability(target, (totalDamage * 0.012));
-                       });
-               }
+                               life.consumeLife(totalDamage);
+                               reduceArmorDurability(target, (totalDamage * 0.012));
+                           });
+                       }
+                   }
+
+           }
+       }
+       private static void reduceShieldDurability(LivingEntity entity, double damage){
+           Item shield = entity.getOffhandItem().getItem();
+           int currentDurability = shield.getDamage(shield.getDefaultInstance());
+           int newDurability = currentDurability - (int)(Math.ceil(damage)*0.0125);
+           if(newDurability <= 0){
+               entity.broadcastBreakEvent(EquipmentSlot.OFFHAND);
+           }else{
+               shield.setDamage(shield.getDefaultInstance(),newDurability);
            }
        }
        private static void reduceArmorDurability(LivingEntity entity, double damage) {
@@ -670,13 +673,11 @@ public class ModEvents {
                if (!armorStack.isEmpty()) {
                    Item item = armorStack.getItem();
                    if ( item instanceof ArmorItem armorItem) {
-                       int maxDurability = armorStack.getMaxDamage();
                        int currentDurability = armorStack.getDamageValue();
                        int newDurability = currentDurability - (int)(Math.ceil(damage)*0.0025);
                        EquipmentSlot equipmentSlot = armorItem.getSlot();
-                       if (newDurability >= maxDurability) {
+                       if (newDurability <= 0) {
                            entity.broadcastBreakEvent(equipmentSlot);
-                           entity.setItemSlot(equipmentSlot, ItemStack.EMPTY);
                        } else {
                            armorStack.setDamageValue(newDurability);
                        }

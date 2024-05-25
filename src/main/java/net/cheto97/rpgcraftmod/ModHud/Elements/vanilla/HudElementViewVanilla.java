@@ -34,6 +34,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 
@@ -46,6 +47,11 @@ public class HudElementViewVanilla extends HudElement {
     protected static final ResourceLocation WITHERHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/wither_health_bar.png");
     protected static final ResourceLocation POISONHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/poison_health_bar.png");
     protected static final ResourceLocation ABSORTIONHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/absortion_health_bar.png");
+    protected static final ResourceLocation ANIMAL_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/wizard_table_top.png");
+    protected static final ResourceLocation MONSTER_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/death_container.png");
+    protected static final ResourceLocation WATER_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/bloque_zafiro.png");
+    protected static final ResourceLocation AMBIENT_CREATURE_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/bloque_luz_magica_on.png");
+    protected static final ResourceLocation OTHER_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/red_maple_log_top.png");
 
     @Override
     public boolean checkConditions() {
@@ -169,17 +175,15 @@ public class HudElementViewVanilla extends HudElement {
             Gui.drawCenteredString(ms, this.mc.font, entityRank, x + 10, y - 10, -1);
             Gui.drawCenteredString(ms, this.mc.font, focusedName, x + 10, y, -1);
 
-            drawEntityOnScreen(gui, ms, posX - 44, 49 + posY, focused);
+            drawEntityOnScreen(gui, ms, 0, 0, focused);
 
-
-                if (focusedArmor > 0 || focusedMagicArmor > 0) {
+            if (focusedArmor > 0 || focusedMagicArmor > 0) {
 
                     Component value = defBonus > 0 ? Component.literal(defTogether(focusedMagicArmor, focusedArmor)).withStyle(ChatFormatting.GOLD) : Component.literal(defTogether(focusedMagicArmor, focusedArmor));
                     ms.scale(0.5f, 0.5f, 0.5f);
                     Gui.drawString(ms, this.mc.font, value, (posX - 18) * 2 - 17, (posY + 45) * 2 + 1, -1);
                     ms.scale(2f, 2f, 2f);
                 }
-
 
             Collection<MobEffectInstance> collection = EntityData.getEffects();
 
@@ -256,23 +260,23 @@ public class HudElementViewVanilla extends HudElement {
         ResourceLocation entitySprite;
 
         if (entity instanceof Monster) {
-            entitySprite = HEALTHBAR;
-        } else if (entity instanceof AmbientCreature) {
-            entitySprite = FROZENHEALTHBAR;
+            entitySprite = MONSTER_ENTITY;
+        } else if (entity instanceof WaterAnimal) {
+            entitySprite = WATER_ENTITY;
         } else if (entity instanceof Animal) {
-            entitySprite = POISONHEALTHBAR;
-        } else if (entity instanceof Player) {
-            entitySprite = ABSORTIONHEALTHBAR;
+            entitySprite = ANIMAL_ENTITY;
+        } else if (entity instanceof AmbientCreature) {
+            entitySprite = AMBIENT_CREATURE_ENTITY;
         } else {
-            entitySprite = WITHERHEALTHBAR;
+            entitySprite = OTHER_ENTITY;
         }
 
         bind(entitySprite);
 
-        int spriteWidth = 64;
-        int spriteHeight = 64;
+        int spriteWidth = 16;
+        int spriteHeight = 16;
 
-        gui.blit(ms, posX, posY, 0, 0, spriteWidth, spriteHeight);
+        gui.blit(ms, posX - 64, posY + 64, 0, 128, spriteWidth, spriteHeight);
     }
 
     private static ChatFormatting setColor(int rank){

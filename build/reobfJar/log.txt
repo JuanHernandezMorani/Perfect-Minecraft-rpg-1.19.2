@@ -7,7 +7,7 @@ Classpath:
  - C:\Users\gamer\.gradle\caches\forge_gradle\deobf_dependencies\top\theillusivec4\curios\curios-forge\1.19.2-5.1.4.1_mapped_official_1.19.2\curios-forge-1.19.2-5.1.4.1_mapped_official_1.19.2-api.jar
  - C:\Users\gamer\.gradle\caches\forge_gradle\deobf_dependencies\curse\maven\citadel-331936\4132623_mapped_official_1.19.2\citadel-331936-4132623_mapped_official_1.19.2.jar
  - C:\Users\gamer\.gradle\caches\forge_gradle\deobf_dependencies\software\bernie\geckolib\geckolib-forge-1.19\3.1.19_mapped_official_1.19.2\geckolib-forge-1.19-3.1.19_mapped_official_1.19.2.jar
- - C:\Users\gamer\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.19.2-43.2.11_mapped_official_1.19.2\forge-1.19.2-43.2.11_mapped_official_1.19.2.jar
+ - C:\Users\gamer\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.19.2-43.2.11_mapped_official_1.19.2\forge-1.19.2-43.2.11_mapped_official_1.19.2-recomp.jar
  - C:\Users\gamer\.gradle\caches\forge_gradle\minecraft_repo\versions\1.19.2\client-extra.jar
  - C:\Users\gamer\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlloader\1.19.2-43.2.11\e2c9f0865e5920fc9eae351b25008a62a2920131\fmlloader-1.19.2-43.2.11.jar
  - C:\Users\gamer\.gradle\caches\modules-2\files-2.1\net.minecraftforge\JarJarSelector\0.3.16\2a31421fb5e267249da103a644f23afb43d158af\JarJarSelector-0.3.16.jar

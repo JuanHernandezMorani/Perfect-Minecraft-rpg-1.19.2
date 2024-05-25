@@ -22,7 +22,7 @@ public class KoboldWarriorEntity extends RPGEntityAgro {
                 .add(Attributes.ARMOR_TOUGHNESS,5.0D)
                 .add(Attributes.LUCK,1.68D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
-                .add(Attributes.MOVEMENT_SPEED, 0.06D)
+                .add(Attributes.MOVEMENT_SPEED, 0.34D)
                 .build();
     }
 

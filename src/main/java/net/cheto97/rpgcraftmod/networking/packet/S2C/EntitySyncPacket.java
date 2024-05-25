@@ -2,6 +2,7 @@ package net.cheto97.rpgcraftmod.networking.packet.S2C;
 
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
+import net.cheto97.rpgcraftmod.modsystem.Experience;
 import net.cheto97.rpgcraftmod.modsystem.FirstJoin;
 import net.cheto97.rpgcraftmod.modsystem.Reset;
 import net.cheto97.rpgcraftmod.providers.*;
@@ -38,6 +39,7 @@ public class EntitySyncPacket {
     private final double magicDefense;
     private final double experienceReward;
     private double luck;
+    private final double experience;
     private final String name;
     private final int resetQ;
     private final Collection<MobEffectInstance> effectActives;
@@ -64,12 +66,13 @@ public class EntitySyncPacket {
                     entity.getCapability(LuckProvider.ENTITY_LUCK).map(Luck::get).orElse(1.0),
                     entity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).map(FirstJoin::get).orElse(true),
                     entity.getCapability(ResetProvider.ENTITY_RESET).map(Reset::get).orElse(0),
-                    entity.getActiveEffects());
+                    entity.getActiveEffects(),
+                    entity.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).map(Experience::get).orElse(0.0));
     }
     public EntitySyncPacket(String name, int id, int level, BlockPos pos, double life, double lifeMax, double mana, double manaMax,
                             double agility, double command, double defense, double magicDefense, double dexterity,
                             double intelligence, double lifeRegeneration, double manaRegeneration, double strength,
-                            int rank, double experienceReward,double luck, boolean join,int resetQ,Collection<MobEffectInstance> effects){
+                            int rank, double experienceReward,double luck, boolean join,int resetQ,Collection<MobEffectInstance> effects,double experience){
 
             this.name = name;
 
@@ -116,6 +119,8 @@ public class EntitySyncPacket {
             this.resetQ = resetQ;
 
             this.effectActives = effects;
+
+            this.experience = experience;
     }
 
     public EntitySyncPacket(FriendlyByteBuf buf){
@@ -146,6 +151,7 @@ public class EntitySyncPacket {
             int duration = buffer.readInt();
             return new MobEffectInstance(MobEffect.byId(effectId), duration, amplifier);
         });
+        this.experience = buf.readDouble();
     }
 
     public void toBytes(FriendlyByteBuf buf){
@@ -175,6 +181,7 @@ public class EntitySyncPacket {
             buffer.writeInt(effectInstance.getAmplifier());
             buffer.writeInt(effectInstance.getDuration());
         });
+        buf.writeDouble(experience);
     }
 
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){
