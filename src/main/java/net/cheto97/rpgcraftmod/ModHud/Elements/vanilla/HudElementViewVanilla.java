@@ -20,6 +20,7 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.EntityData;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.EntityInfoRequestPacket;
+import net.cheto97.rpgcraftmod.util.RPGType;
 import net.cheto97.rpgcraftmod.util.RayTrace;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Gui;
@@ -31,6 +32,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
@@ -257,26 +259,14 @@ public class HudElementViewVanilla extends HudElement {
 
     public void drawEntityOnScreen(Gui gui, PoseStack ms, int posX, int posY, LivingEntity entity) {
 
-        ResourceLocation entitySprite;
-
-        if (entity instanceof Monster) {
-            entitySprite = MONSTER_ENTITY;
-        } else if (entity instanceof WaterAnimal) {
-            entitySprite = WATER_ENTITY;
-        } else if (entity instanceof Animal) {
-            entitySprite = ANIMAL_ENTITY;
-        } else if (entity instanceof AmbientCreature) {
-            entitySprite = AMBIENT_CREATURE_ENTITY;
-        } else {
-            entitySprite = OTHER_ENTITY;
-        }
+        ResourceLocation entitySprite = RPGType.getEntityType(entity).getTexture();
 
         bind(entitySprite);
 
         int spriteWidth = 16;
         int spriteHeight = 16;
 
-        gui.blit(ms, posX - 64, posY + 64, 0, 128, spriteWidth, spriteHeight);
+        gui.blit(ms, 64, -64, 0, 128, spriteWidth, spriteHeight);
     }
 
     private static ChatFormatting setColor(int rank){
