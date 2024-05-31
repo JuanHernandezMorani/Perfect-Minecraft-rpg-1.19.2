@@ -1,5 +1,19 @@
 {
   "variants": {
-    "": { "model": "rpgcraftmod:block/death_container" }
+    "facing=north": {
+      "model": "rpgcraftmod:block/death_container"
+    },
+    "facing=south": {
+      "model": "rpgcraftmod:block/death_container",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "rpgcraftmod:block/death_container",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "rpgcraftmod:block/death_container",
+      "y": 90
+    }
   }
 }

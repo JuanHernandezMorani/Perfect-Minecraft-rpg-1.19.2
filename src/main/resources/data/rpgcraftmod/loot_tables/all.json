@@ -10,11 +10,6 @@
         },
                   {
             "type": "minecraft:loot_table",
-            "name": "rpgcraftmod:all",
-            "weight": 1
-        },
-                  {
-            "type": "minecraft:loot_table",
             "name": "rpgcraftmod:armorer",
             "weight": 1
         },
@@ -146,11 +141,6 @@
                   {
             "type": "minecraft:loot_table",
             "name": "rpgcraftmod:general",
-            "weight": 1
-        },
-                  {
-            "type": "minecraft:loot_table",
-            "name": "rpgcraftmod:general_loot",
             "weight": 1
         },
                   {

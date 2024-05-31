@@ -68,6 +68,8 @@ public class RpgcraftMod{
     public static final String MOD_ID = "rpgcraftmod";
     public static RpgcraftMod instance;
     public static Settings settings;
+
+
     public static final Logger LOGGER = LogManager.getLogger(RpgcraftMod.MOD_ID);
     public static EntityRendererProvider.Context context;
     public static Map<String, Hud> huds = new LinkedHashMap<>();

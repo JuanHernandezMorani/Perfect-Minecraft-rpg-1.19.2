@@ -1,6 +1,7 @@
 package net.cheto97.rpgcraftmod.networking.packet.C2S;
 
 import net.cheto97.rpgcraftmod.block.ModBlocks;
+import net.cheto97.rpgcraftmod.modSounds.ModSoundsRPG;
 import net.cheto97.rpgcraftmod.modsystem.Customlevel;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
@@ -47,6 +48,7 @@ public class DrinkManaFluidC2SPacket {
                 player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(mpRegen ->{
                     if(hasManaWell(player,level)){
                         player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
+                            player.playSound(ModSoundsRPG.MANA_DRINK.get(),1.0f,1.0f);
                             if(mana.get() < manaMax.get()){
                                 level.playSound(null, player.getOnPos(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
 
@@ -54,11 +56,11 @@ public class DrinkManaFluidC2SPacket {
 
                                 ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
                                 player.sendSystemMessage(Component.translatable(MESSAGE_DRINK_MANA_FLUID).withStyle(ChatFormatting.BLUE));
-                            }else{
+                            }
+                            else{
                                 player.sendSystemMessage(Component.literal("Your mana is full").withStyle(ChatFormatting.AQUA));
                                 ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
                             }
-
                         }));
                     }else{
                         player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> {

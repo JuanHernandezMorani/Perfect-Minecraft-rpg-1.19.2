@@ -9,16 +9,15 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerNoReqPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerStatSyncPacket;
+import net.cheto97.rpgcraftmod.util.CustomButton;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.font.FontSet;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -27,17 +26,35 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+
 import org.jetbrains.annotations.NotNull;
+
 import org.lwjgl.glfw.GLFW;
+
+import java.util.Objects;
 
 public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> {
     private byte ticksSinceUpdate = 0;
+    private final int alt = 2;
+    private final int bH = 10;
+    private final int bW = 10;
+
+    private final CustomButton life_button = new CustomButton(this.leftPos + 290, this.topPos + 50 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
+    private final CustomButton mana_button = new CustomButton(this.leftPos +290, this.topPos + 80 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
+    private final CustomButton dexterity_button = new CustomButton(this.leftPos +290, this.topPos + 110 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
+    private final CustomButton intelligence_button = new CustomButton(this.leftPos +290, this.topPos + 125 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
+    private final CustomButton strength_button = new CustomButton(this.leftPos +290, this.topPos + 140 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
+    private final CustomButton command_button = new CustomButton(this.leftPos +290, this.topPos + 155 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
+    private final CustomButton defense_button = new CustomButton(this.leftPos +290, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
+    private final CustomButton magicdefense_button = new CustomButton(this.leftPos +290, this.topPos + 185 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
+    private final CustomButton luck_button = new CustomButton(this.leftPos +290, this.topPos + 200 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
+    private final CustomButton agility_button = new CustomButton(this.leftPos +290, this.topPos + 215 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
 
     public PlayerStatsScreen(PlayerStatsMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
         double scale = Minecraft.getInstance().getWindow().getGuiScale();
-        this.imageWidth = (int) (800/ scale);
-        this.imageHeight = (int) (615/ scale);
+        this.imageWidth = (int) (800/scale);
+        this.imageHeight = (int) (615/scale);
 
     }
     private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/skill_background.png");
@@ -73,7 +90,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         String luckString = doubleToString(PlayerData.getPlayerLuck()+luckBonus);
         String strengthString = doubleToString(PlayerData.getPlayerStrength()+damBonus);
         MutableComponent componentDefense = defColor != null ? Component.literal(defenseString).withStyle(defColor) : Component.literal(defenseString);
-        ChatFormatting damWeakColor = damColor != null && weakColor != null ? player.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() >= player.getEffect(MobEffects.WEAKNESS).getAmplifier() ? ChatFormatting.GREEN : ChatFormatting.RED : null;
+        ChatFormatting damWeakColor = damColor != null && weakColor != null ? Objects.requireNonNull(player.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() >= Objects.requireNonNull(player.getEffect(MobEffects.WEAKNESS)).getAmplifier() ? ChatFormatting.GREEN : ChatFormatting.RED : null;
         MutableComponent componentStrength = damWeakColor != null ? Component.literal(strengthString).withStyle(damWeakColor) : damColor != null ? Component.literal(strengthString).withStyle(damColor) : weakColor != null ? Component.literal(strengthString).withStyle(weakColor) : Component.literal(strengthString);
         MutableComponent componentLuck = luckColor != null ? Component.literal(luckString).withStyle(luckColor) : Component.literal(luckString);
         Component playerClass = switch (PlayerData.getPlayerClass()){
@@ -165,44 +182,48 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {
+
     }
     @Override
     public void onClose() {
         super.onClose();
         Minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(false);
     }
+    private void TurnOn(){
+        life_button.On();
+        mana_button.On();
+        dexterity_button.On();
+        intelligence_button.On();
+        strength_button.On();
+        command_button.On();
+        defense_button.On();
+        magicdefense_button.On();
+        luck_button.On();
+        agility_button.On();
+    }
+    private void TurnOff(){
+        life_button.Off();
+        mana_button.Off();
+        dexterity_button.Off();
+        intelligence_button.Off();
+        strength_button.Off();
+        command_button.Off();
+        defense_button.Off();
+        magicdefense_button.Off();
+        luck_button.Off();
+        agility_button.Off();
+    }
     @Override
     public void init() {
         super.init();
         assert this.minecraft != null;
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
-        this.addRenderableWidget(new Button(this.leftPos + 10, this.topPos + 5, 10 , 10,Component.literal("X").withStyle(ChatFormatting.DARK_RED), e -> this.minecraft.setScreen(null)));
-        int alt = 2;
-        int bH = 10;
-        int bW = 10;
+
         if(PlayerData.getPlayerStatPoints() > 0){
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 50 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 80 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 110 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 125 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 140 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 155 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 170 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 185 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 200 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 215 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_AQUA), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility"))));
+            TurnOn();
         }
         else{
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 50 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 80 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 110 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 125 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 140 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 155 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 170 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 185 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 200 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
-            this.addRenderableWidget(new Button(this.leftPos +290, this.topPos + 215 - alt, bW, bH,Component.literal("+").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("stat"))));
+            TurnOff();
         }
         if(PlayerData.getPlayerLevel() > 10000){
             this.addRenderableWidget(new Button(this.leftPos +270, this.topPos + 20, 32, 12, Component.literal("Reset").withStyle(ChatFormatting.BLUE), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("reset"))));
@@ -210,5 +231,16 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         else{
             this.addRenderableWidget(new Button(this.leftPos +270, this.topPos + 20, 32, 12, Component.literal("Reset").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset"))));
         }
+
+        this.addRenderableWidget(life_button);
+        this.addRenderableWidget(mana_button);
+        this.addRenderableWidget(dexterity_button);
+        this.addRenderableWidget(intelligence_button);
+        this.addRenderableWidget(strength_button);
+        this.addRenderableWidget(command_button);
+        this.addRenderableWidget(defense_button);
+        this.addRenderableWidget(magicdefense_button);
+        this.addRenderableWidget(luck_button);
+        this.addRenderableWidget(agility_button);
     }
 }

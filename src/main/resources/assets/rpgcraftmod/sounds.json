@@ -1,0 +1,10 @@
+{
+  "item.wings.flying": {
+    "sounds": [
+      {
+        "name": "minecraft:item/elytra/elytra_loop",
+        "volume": 0.6
+      }
+    ]
+  }
+}

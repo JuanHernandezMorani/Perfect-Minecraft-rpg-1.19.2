@@ -16,11 +16,14 @@ import net.cheto97.rpgcraftmod.ModHud.HudElement;
 import net.cheto97.rpgcraftmod.ModHud.HudType;
 import net.cheto97.rpgcraftmod.ModHud.settings.Settings;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.entity.custom.MutantGolemEntity;
+import net.cheto97.rpgcraftmod.entity.custom.prefabs.RPGEntityAgro;
+import net.cheto97.rpgcraftmod.entity.custom.prefabs.RPGEntityPasive;
+import net.cheto97.rpgcraftmod.entity.custom.prefabs.RPGEntityTameable;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.EntityData;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.EntityInfoRequestPacket;
-import net.cheto97.rpgcraftmod.util.RPGType;
 import net.cheto97.rpgcraftmod.util.RayTrace;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Gui;
@@ -32,13 +35,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ambient.AmbientCreature;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class HudElementViewVanilla extends HudElement {
     static private boolean infinite = false;
@@ -49,11 +54,13 @@ public class HudElementViewVanilla extends HudElement {
     protected static final ResourceLocation WITHERHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/wither_health_bar.png");
     protected static final ResourceLocation POISONHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/poison_health_bar.png");
     protected static final ResourceLocation ABSORTIONHEALTHBAR = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/absortion_health_bar.png");
-    protected static final ResourceLocation ANIMAL_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/wizard_table_top.png");
-    protected static final ResourceLocation MONSTER_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/death_container.png");
-    protected static final ResourceLocation WATER_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/bloque_zafiro.png");
-    protected static final ResourceLocation AMBIENT_CREATURE_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/bloque_luz_magica_on.png");
-    protected static final ResourceLocation OTHER_ENTITY = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/block/red_maple_log_top.png");
+    protected static final ResourceLocation PASIVE = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/animal.png");
+    protected static final ResourceLocation AGRESIVE = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/monster.png");
+    protected static final ResourceLocation NEUTRAL = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/unknown.png");
+    protected static final ResourceLocation PLAYER = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/player.png");
+    protected static final ResourceLocation VILLAGER = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/villager.png");
+    protected static final ResourceLocation ILLAGER = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/illager.png");
+    protected static final ResourceLocation UNKNOWN = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/mob_type/unknown.png");
 
     @Override
     public boolean checkConditions() {
@@ -114,31 +121,7 @@ public class HudElementViewVanilla extends HudElement {
                 case 11 -> focusedRank = "Boss";
                 default -> focusedRank = "NULL";
             }
-            ChatFormatting color;
-
-            if (playerLevel > entityLevel) {
-                if (playerLevel - (playerLevel * 0.05) <= entityLevel) {
-                    color = ChatFormatting.AQUA;
-                } else if (playerLevel - (playerLevel * 0.12) <= entityLevel && playerLevel - (playerLevel * 0.05) >= entityLevel) {
-                    color = ChatFormatting.DARK_AQUA;
-                } else if (playerLevel - (playerLevel * 0.3) <= entityLevel && playerLevel - (playerLevel * 0.12) >= entityLevel) {
-                    color = ChatFormatting.GREEN;
-                } else {
-                    color = ChatFormatting.DARK_GREEN;
-                }
-            } else if (playerLevel == entityLevel) {
-                color = ChatFormatting.GRAY;
-            } else {
-                if (playerLevel - (playerLevel * 0.05) >= entityLevel) {
-                    color = ChatFormatting.DARK_GRAY;
-                } else if (playerLevel - (playerLevel * 0.12) >= entityLevel && playerLevel - (playerLevel * 0.05) <= entityLevel) {
-                    color = ChatFormatting.LIGHT_PURPLE;
-                } else if (playerLevel - (playerLevel * 0.3) >= entityLevel && playerLevel - (playerLevel * 0.12) <= entityLevel) {
-                    color = ChatFormatting.RED;
-                } else {
-                    color = ChatFormatting.DARK_RED;
-                }
-            }
+            ChatFormatting color = getChatFormatting(playerLevel, entityLevel);
             Component focusedName = Component.literal("{lvl " + formatearNumero(entityLevel) + "} " + focused.getName().getString()).withStyle(color);
 
             int posX = (scaledWidth / 2) + this.settings.getPositionValue(Settings.inspector_position)[0];
@@ -257,16 +240,46 @@ public class HudElementViewVanilla extends HudElement {
         }
     }
 
+    @NotNull
+    private static ChatFormatting getChatFormatting(int playerLevel, int entityLevel) {
+        ChatFormatting color;
+
+        if (playerLevel > entityLevel) {
+            if (playerLevel - (playerLevel * 0.05) <= entityLevel) {
+                color = ChatFormatting.AQUA;
+            } else if (playerLevel - (playerLevel * 0.12) <= entityLevel && playerLevel - (playerLevel * 0.05) >= entityLevel) {
+                color = ChatFormatting.DARK_AQUA;
+            } else if (playerLevel - (playerLevel * 0.3) <= entityLevel && playerLevel - (playerLevel * 0.12) >= entityLevel) {
+                color = ChatFormatting.GREEN;
+            } else {
+                color = ChatFormatting.DARK_GREEN;
+            }
+        } else if (playerLevel == entityLevel) {
+            color = ChatFormatting.GRAY;
+        } else {
+            if (playerLevel - (playerLevel * 0.05) >= entityLevel) {
+                color = ChatFormatting.DARK_GRAY;
+            } else if (playerLevel - (playerLevel * 0.12) >= entityLevel && playerLevel - (playerLevel * 0.05) <= entityLevel) {
+                color = ChatFormatting.LIGHT_PURPLE;
+            } else if (playerLevel - (playerLevel * 0.3) >= entityLevel && playerLevel - (playerLevel * 0.12) <= entityLevel) {
+                color = ChatFormatting.RED;
+            } else {
+                color = ChatFormatting.DARK_RED;
+            }
+        }
+        return color;
+    }
+
     public void drawEntityOnScreen(Gui gui, PoseStack ms, int posX, int posY, LivingEntity entity) {
 
-        ResourceLocation entitySprite = RPGType.getEntityType(entity).getTexture();
+        ResourceLocation texture = GetTexture(entity);
 
-        bind(entitySprite);
+        bind(texture);
 
-        int spriteWidth = 16;
-        int spriteHeight = 16;
+        int spriteWidth = 32;
+        int spriteHeight = 32;
 
-        gui.blit(ms, 64, -64, 0, 128, spriteWidth, spriteHeight);
+        gui.blit(ms, -32, 64, 18, 18, spriteWidth, spriteHeight);
     }
 
     private static ChatFormatting setColor(int rank){
@@ -286,5 +299,20 @@ public class HudElementViewVanilla extends HudElement {
             case 11 -> result = ChatFormatting.DARK_PURPLE;
         }
         return result;
+    }
+    private ResourceLocation GetTexture(LivingEntity entity){
+        return entity instanceof Villager ? VILLAGER : entity.getMobType() == MobType.ILLAGER ? ILLAGER : entity instanceof Player ? PLAYER : isNeutral(entity) && !isEnemy(entity) ? NEUTRAL : isPasive(entity) ? PASIVE : isAgresive(entity) ? AGRESIVE : UNKNOWN;
+    }
+    private boolean isPasive(LivingEntity entity){
+        return entity instanceof Animal || entity instanceof RPGEntityPasive;
+    }
+    private boolean isAgresive(LivingEntity entity){
+        return isEnemy(entity) && (entity instanceof Monster || entity instanceof RPGEntityAgro || isNeutral(entity));
+    }
+    private boolean isNeutral(LivingEntity entity){
+        return entity instanceof RPGEntityTameable || entity instanceof AbstractGolem || entity instanceof MutantGolemEntity;
+    }
+    private boolean isEnemy(LivingEntity entity){
+        return entity instanceof Enemy;
     }
 }

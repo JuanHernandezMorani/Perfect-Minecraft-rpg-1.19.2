@@ -839,12 +839,12 @@ public class ModEvents {
                         case 3, 4, 5 -> lifeToAdd * 0.5;
                         default -> lifeToAdd * 0.25;
                     };
-                    life.add(toAdd);
+                    life.add(toAdd*0.05);
                         })
                 );
             }
             else{
-                livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd));
+                livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd*0.05));
             }
         }
 

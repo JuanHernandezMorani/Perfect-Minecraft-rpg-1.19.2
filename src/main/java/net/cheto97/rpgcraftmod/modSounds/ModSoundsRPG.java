@@ -27,7 +27,7 @@ public class ModSoundsRPG {
             ModSoundsRPG.ANIMATED_BLOCK_HIT, ModSoundsRPG.ANIMATED_BLOCK_WALK);
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        ResourceLocation soundEvent = new ResourceLocation(RpgcraftMod.MOD_ID, name);
+        ResourceLocation soundEvent = new ResourceLocation(RpgcraftMod.MOD_ID, "sounds/"+name+".ogg");
         return RPG_SOUND_EVENTS.register(name, () -> new SoundEvent(soundEvent));
     }
 

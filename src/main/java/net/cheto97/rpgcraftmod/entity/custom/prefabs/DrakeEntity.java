@@ -8,7 +8,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class DrakeEntity extends RPGEntity{
+public class DrakeEntity extends RPGEntityAgro{
 
     public DrakeEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
