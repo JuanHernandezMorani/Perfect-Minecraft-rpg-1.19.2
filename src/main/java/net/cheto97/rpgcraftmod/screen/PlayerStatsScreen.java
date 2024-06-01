@@ -9,7 +9,7 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerNoReqPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerStatSyncPacket;
-import net.cheto97.rpgcraftmod.util.CustomButton;
+import net.cheto97.rpgcraftmod.util.button.StatPlusButton;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -39,16 +39,16 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     private final int bH = 10;
     private final int bW = 10;
 
-    private final CustomButton life_button = new CustomButton(this.leftPos + 290, this.topPos + 50 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
-    private final CustomButton mana_button = new CustomButton(this.leftPos +290, this.topPos + 80 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
-    private final CustomButton dexterity_button = new CustomButton(this.leftPos +290, this.topPos + 110 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
-    private final CustomButton intelligence_button = new CustomButton(this.leftPos +290, this.topPos + 125 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
-    private final CustomButton strength_button = new CustomButton(this.leftPos +290, this.topPos + 140 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
-    private final CustomButton command_button = new CustomButton(this.leftPos +290, this.topPos + 155 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
-    private final CustomButton defense_button = new CustomButton(this.leftPos +290, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
-    private final CustomButton magicdefense_button = new CustomButton(this.leftPos +290, this.topPos + 185 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
-    private final CustomButton luck_button = new CustomButton(this.leftPos +290, this.topPos + 200 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
-    private final CustomButton agility_button = new CustomButton(this.leftPos +290, this.topPos + 215 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
+    private final StatPlusButton life_button = new StatPlusButton(this.leftPos + 290, this.topPos + 50 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
+    private final StatPlusButton mana_button = new StatPlusButton(this.leftPos +290, this.topPos + 80 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
+    private final StatPlusButton dexterity_button = new StatPlusButton(this.leftPos +290, this.topPos + 110 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
+    private final StatPlusButton intelligence_button = new StatPlusButton(this.leftPos +290, this.topPos + 125 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
+    private final StatPlusButton strength_button = new StatPlusButton(this.leftPos +290, this.topPos + 140 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
+    private final StatPlusButton command_button = new StatPlusButton(this.leftPos +290, this.topPos + 155 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
+    private final StatPlusButton defense_button = new StatPlusButton(this.leftPos +290, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
+    private final StatPlusButton magicdefense_button = new StatPlusButton(this.leftPos +290, this.topPos + 185 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
+    private final StatPlusButton luck_button = new StatPlusButton(this.leftPos +290, this.topPos + 200 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
+    private final StatPlusButton agility_button = new StatPlusButton(this.leftPos +290, this.topPos + 215 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
 
     public PlayerStatsScreen(PlayerStatsMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
@@ -67,32 +67,39 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
         double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.setShaderColor(0.1f, 0.1f, 0.1f, 0.1f);
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderTexture(0, texture);
         blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
         RenderSystem.disableBlend();
+
         assert Minecraft.getInstance().player != null;
         Player player = Minecraft.getInstance().player;
+
         ChatFormatting defColor = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? ChatFormatting.DARK_GREEN : null;
         ChatFormatting luckColor = player.hasEffect(MobEffects.LUCK) ? ChatFormatting.DARK_GREEN : null;
         ChatFormatting damColor = player.hasEffect(MobEffects.DAMAGE_BOOST) ? ChatFormatting.DARK_GREEN : null;
         ChatFormatting weakColor = player.hasEffect(MobEffects.WEAKNESS) ? ChatFormatting.DARK_RED : null;
+
         MobEffectInstance defEff = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? player.getEffect(MobEffects.DAMAGE_RESISTANCE) : null;
         MobEffectInstance luckEff = player.hasEffect(MobEffects.LUCK) ? player.getEffect(MobEffects.LUCK) : null;
         MobEffectInstance damEff = player.hasEffect(MobEffects.DAMAGE_BOOST) ? player.getEffect(MobEffects.DAMAGE_BOOST) : null;
         MobEffectInstance weakEff = player.hasEffect(MobEffects.WEAKNESS) ? player.getEffect(MobEffects.WEAKNESS) : null;
+
         double damBonus = damEff != null && weakEff != null ? calculateDamageAndReduce(damEff,weakEff,PlayerData.getPlayerStrength()) : damEff != null ? calculateValue(damEff,PlayerData.getPlayerStrength(),"add") : weakEff != null ? calculateValue(weakEff,PlayerData.getPlayerStrength(),"reduce") : 0.0;
         double defBonus = defEff != null ? calculateValue(defEff,PlayerData.getPlayerDefense(),"add") : 0.0;
         double luckBonus = luckEff != null ? calculateValue(luckEff,PlayerData.getPlayerLuck(),"add") : 0.0;
+
         String defenseString = doubleToString(PlayerData.getPlayerDefense() + defBonus);
         String luckString = doubleToString(PlayerData.getPlayerLuck()+luckBonus);
         String strengthString = doubleToString(PlayerData.getPlayerStrength()+damBonus);
+
         MutableComponent componentDefense = defColor != null ? Component.literal(defenseString).withStyle(defColor) : Component.literal(defenseString);
         ChatFormatting damWeakColor = damColor != null && weakColor != null ? Objects.requireNonNull(player.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() >= Objects.requireNonNull(player.getEffect(MobEffects.WEAKNESS)).getAmplifier() ? ChatFormatting.GREEN : ChatFormatting.RED : null;
         MutableComponent componentStrength = damWeakColor != null ? Component.literal(strengthString).withStyle(damWeakColor) : damColor != null ? Component.literal(strengthString).withStyle(damColor) : weakColor != null ? Component.literal(strengthString).withStyle(weakColor) : Component.literal(strengthString);
         MutableComponent componentLuck = luckColor != null ? Component.literal(luckString).withStyle(luckColor) : Component.literal(luckString);
+
         Component playerClass = switch (PlayerData.getPlayerClass()){
             case 1 -> Component.literal("Archer").withStyle(ChatFormatting.GOLD);
             case 2 -> Component.literal("Mage").withStyle(ChatFormatting.GOLD);
@@ -103,6 +110,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             case 8 -> Component.literal("Paladin").withStyle(ChatFormatting.GOLD);
             default -> Component.literal("Balanced").withStyle(ChatFormatting.GOLD);
         };
+
         if(PlayerData.getExpNeed()-PlayerData.getPlayerExperience() < 0){
             exp = 0;
         }
@@ -178,6 +186,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         if (this.ticksSinceUpdate % 5 == 0) {
             this.ticksSinceUpdate = 0;
             this.init();
+
         }
     }
     @Override
@@ -218,7 +227,6 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         super.init();
         assert this.minecraft != null;
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
-
         if(PlayerData.getPlayerStatPoints() > 0){
             TurnOn();
         }
