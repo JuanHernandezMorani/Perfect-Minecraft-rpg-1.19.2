@@ -43,12 +43,12 @@ public class StatPlusButton extends CustomButton{
 
     @Override
     protected int getIconWidth() {
-        return 16;
+        return 12;
     }
 
     @Override
     protected int getIconHeight() {
-        return 16;
+        return 12;
     }
 
     public StatPlusButton(int x, int y, int width, int height, Component message, OnPress action) {

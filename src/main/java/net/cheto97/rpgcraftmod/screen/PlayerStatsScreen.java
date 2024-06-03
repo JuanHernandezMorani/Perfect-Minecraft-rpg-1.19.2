@@ -38,17 +38,18 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     private final int alt = 2;
     private final int bH = 10;
     private final int bW = 10;
+    private final int xPlus = 125; //425
 
-    private final StatPlusButton life_button = new StatPlusButton(this.leftPos + 290, this.topPos + 50 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
-    private final StatPlusButton mana_button = new StatPlusButton(this.leftPos +290, this.topPos + 80 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
-    private final StatPlusButton dexterity_button = new StatPlusButton(this.leftPos +290, this.topPos + 110 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
-    private final StatPlusButton intelligence_button = new StatPlusButton(this.leftPos +290, this.topPos + 125 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
-    private final StatPlusButton strength_button = new StatPlusButton(this.leftPos +290, this.topPos + 140 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
-    private final StatPlusButton command_button = new StatPlusButton(this.leftPos +290, this.topPos + 155 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
-    private final StatPlusButton defense_button = new StatPlusButton(this.leftPos +290, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
-    private final StatPlusButton magicdefense_button = new StatPlusButton(this.leftPos +290, this.topPos + 185 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
-    private final StatPlusButton luck_button = new StatPlusButton(this.leftPos +290, this.topPos + 200 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
-    private final StatPlusButton agility_button = new StatPlusButton(this.leftPos +290, this.topPos + 215 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
+    private final StatPlusButton life_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 90 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
+    private final StatPlusButton mana_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 110 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
+    private final StatPlusButton dexterity_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 140 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
+    private final StatPlusButton intelligence_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 155 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
+    private final StatPlusButton strength_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
+    private final StatPlusButton command_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 185 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
+    private final StatPlusButton defense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 200 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
+    private final StatPlusButton magicdefense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 215 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
+    private final StatPlusButton luck_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 230 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
+    private final StatPlusButton agility_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 245 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
 
     public PlayerStatsScreen(PlayerStatsMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
@@ -67,9 +68,8 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
         double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
-        RenderSystem.setShaderColor(0.1f, 0.1f, 0.1f, 0.1f);
-        RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
+        RenderSystem.setShaderColor(0f, 0f, 0f, 0f);
         RenderSystem.setShaderTexture(0, texture);
         blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
         RenderSystem.disableBlend();
