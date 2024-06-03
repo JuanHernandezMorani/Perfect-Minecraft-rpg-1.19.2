@@ -22,7 +22,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     private final int width = (int) (650 / scale);
     private final int height = (int) (650 / scale);
     private boolean wasClick = false;
-    private String selectedClass = "balanced";
+    private String selectedClass = "Balanced";
     private String classDescription = "";
     private String classStats = "";
     private EditBox selectedClassText;
@@ -70,7 +70,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void classCardComponent(String selectedClass) {
         switch (selectedClass) {
-            case "warrior" -> {
+            case "Warrior" -> {
                 setClassDescription("""
                         Masters of the battlefield
                         warriors boast unparalleled resistance and vitality.
@@ -82,7 +82,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,2,1,
                         1,1);
             }
-            case "priest" -> {
+            case "Priest" -> {
                 setClassDescription("""
                         Priests are bastions of divine resilience
                         surpassing mages in vitality
@@ -95,7 +95,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,3,1,
                         1,1);
             }
-            case "knight" -> {
+            case "Knight" -> {
                 setClassDescription("""
                         Clad in impenetrable armor
                         knights stand as the paragons of endurance and fortitude.
@@ -108,7 +108,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,1,1,
                         1,1);
             }
-            case "mage" -> {
+            case "Mage" -> {
                 setClassDescription("""
                         Possessing profound knowledge of ancient mysticism
                         mages wield incredible intelligence and harness powerful spells.
@@ -120,7 +120,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,10,1,
                         1,1);
             }
-            case "beast tamer" -> {
+            case "Beast Tamer" -> {
                 setClassDescription("""
                         Whispers of the wild follow beast tamers wherever they roam.
                         With the ability to control and command creatures
@@ -132,7 +132,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,1,1,
                         35,1);
             }
-            case "assassin" -> {
+            case "Assassin" -> {
                 setClassDescription("""
                         Shadows are the playground of assassins
                         nimble and lethal.
@@ -145,7 +145,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         9.2,1,7.5,
                         1,8.5);
             }
-            case "archer" -> {
+            case "Archer" -> {
                 setClassDescription("""
                         Archers, the epitome of precision and marksmanship
                         unleash death from a distance.
@@ -158,7 +158,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         10,1,4,
                         1,4);
             }
-            case "random" -> {
+            case "Random" -> {
                 setClassDescription("""
                         Unpredictability defines the path of the random adventurer.
                         Facing the unknown, they embrace uncertainty with a spirit of curiosity.

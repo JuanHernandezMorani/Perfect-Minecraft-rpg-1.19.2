@@ -68,8 +68,9 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
         double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
+        RenderSystem.disableBlend();
+        RenderSystem.setShaderColor(0, 0, 0, 0);
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(0f, 0f, 0f, 0f);
         RenderSystem.setShaderTexture(0, texture);
         blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
         RenderSystem.disableBlend();
