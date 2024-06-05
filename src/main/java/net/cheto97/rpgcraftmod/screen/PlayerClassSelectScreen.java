@@ -38,13 +38,27 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         this.imageHeight = Minecraft.getInstance().getWindow().getScreenHeight();
     }
     private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/class_background.png");
+    private static String setCapLetters(String name) {
+        String[] words = name.split("\\s+");
+        StringBuilder capitalized = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                capitalized.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1).toLowerCase())
+                        .append(" ");
+            }
+        }
+
+        return capitalized.toString().trim();
+    }
     private void setClassText(){
             selectedClassText = new EditBox(this.getMinecraft().font,
                     width - (this.leftPos  + 300),
                     height - (this.topPos + 480),
                     80, 20,
-                    Component.literal(this.selectedClass));
-            selectedClassText.setValue(this.selectedClass);
+                    Component.literal(setCapLetters(this.selectedClass)));
+            selectedClassText.setValue(setCapLetters(this.selectedClass));
             selectedClassText.setTextColor(16766720);
             this.addWidget(selectedClassText);
     }
@@ -70,7 +84,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void classCardComponent(String selectedClass) {
         switch (selectedClass) {
-            case "Warrior" -> {
+            case "warrior" -> {
                 setClassDescription("""
                         Masters of the battlefield
                         warriors boast unparalleled resistance and vitality.
@@ -82,7 +96,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,2,1,
                         1,1);
             }
-            case "Priest" -> {
+            case "priest" -> {
                 setClassDescription("""
                         Priests are bastions of divine resilience
                         surpassing mages in vitality
@@ -95,7 +109,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,3,1,
                         1,1);
             }
-            case "Knight" -> {
+            case "knight" -> {
                 setClassDescription("""
                         Clad in impenetrable armor
                         knights stand as the paragons of endurance and fortitude.
@@ -108,7 +122,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,1,1,
                         1,1);
             }
-            case "Mage" -> {
+            case "mage" -> {
                 setClassDescription("""
                         Possessing profound knowledge of ancient mysticism
                         mages wield incredible intelligence and harness powerful spells.
@@ -120,7 +134,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,10,1,
                         1,1);
             }
-            case "Beast Tamer" -> {
+            case "beast tamer" -> {
                 setClassDescription("""
                         Whispers of the wild follow beast tamers wherever they roam.
                         With the ability to control and command creatures
@@ -132,7 +146,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         1,1,1,
                         35,1);
             }
-            case "Assassin" -> {
+            case "assassin" -> {
                 setClassDescription("""
                         Shadows are the playground of assassins
                         nimble and lethal.
@@ -145,7 +159,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         9.2,1,7.5,
                         1,8.5);
             }
-            case "Archer" -> {
+            case "archer" -> {
                 setClassDescription("""
                         Archers, the epitome of precision and marksmanship
                         unleash death from a distance.
@@ -158,7 +172,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                         10,1,4,
                         1,4);
             }
-            case "Random" -> {
+            case "random" -> {
                 setClassDescription("""
                         Unpredictability defines the path of the random adventurer.
                         Facing the unknown, they embrace uncertainty with a spirit of curiosity.

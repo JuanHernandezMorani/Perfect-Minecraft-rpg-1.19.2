@@ -755,11 +755,14 @@ public class ModEvents {
        }
 
         private static void updatePlayer(ServerPlayer player) {
-            player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
+            player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
                 double lifeValue = life.get();
                 double lifeMaxValue = player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
+                double manaMaxValue = player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(1.0);
+                double manaRegenerationValue = player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).map(ManaRegeneration::get).orElse(0.0);
                 double lifeRegenerationValue = player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0);
                 double regEffectBonus = getRegEffectBonus(player);
+                // double manaRegEffectBonus = getManaRegEffectBonus(player);
 
                 if (lifeValue <= 0 && !life.getDie()) {
                     player.skipDropExperience();
@@ -768,6 +771,9 @@ public class ModEvents {
                     player.die(DamageSource.GENERIC);
                 }
 
+                if(mana.get() < manaMaxValue){
+                    mana.add(manaRegenerationValue * 0.05);
+                }
                 int delay = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
                 if (lifeValue < lifeMaxValue && lifeValue > 0 && delay == 0) {
                     life.add((lifeRegenerationValue + regEffectBonus) * 0.05);
@@ -775,7 +781,7 @@ public class ModEvents {
                     updateRegenerationDelay(player);
                 }
                 clampValues(player);
-            });
+            }));
         }
 
         private static double getRegEffectBonus(LivingEntity entity) {
@@ -887,35 +893,7 @@ public class ModEvents {
                                level.setPreviousLevelExp(level.get());
                                level.add();
 
-                               int opt = player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0);
-                               switch (opt) {
-                                   case 1 -> levelUpPlayer(player,
-                                           1, 1,
-                                           0.00025, 0.0005,
-                                           0.5, 0.25, 1,
-                                           6, 0, 8, 8, 8);
-
-                                   case 2 -> levelUpPlayer(player, 0.25, 5,
-                                           0.00045, 0.025, 0.01,
-                                           0.03, 1, 0, 0, 1, 0, 0.1);
-
-                                   case 3 -> levelUpPlayer(player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
-
-                                   case 4 -> levelUpPlayer(player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
-
-                                   case 6 -> levelUpPlayer(player, 0.25, 1,
-                                           0.00045, 0.025, 0.1,
-                                           0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
-
-                                   case 7 -> levelUpPlayer(player, 0.65, 5,
-                                           0.0005, 0.015, 0.31,
-                                           0.43, 1, 0, 0, 1, 0, 0.1);
-
-                                   case 8 -> levelUpPlayer(player, 1.25, 0,
-                                           0.0045, 0.00025, 0.71,
-                                           0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
-                                   default -> levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
-                               }
+                               managePlayerLevel(player,1,false);
                                player.playSound(ModSoundsRPG.LEVEL_UP_SOUND.get(),0.2f,0.2f);
                                if (experience.get() < level.experienceNeeded()) {
                                    flag = false;
@@ -926,6 +904,55 @@ public class ModEvents {
                    }));
                }
            }
+       }
+       public static void managePlayerLevel(ServerPlayer player, int levels, boolean isSpecial){
+           int opt = player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0);
+
+           for(int i = 0; i < levels; i++){
+               if(isSpecial){
+                   player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp ->{
+                       if(exp.get() >= level.experienceNeeded()) {
+                           exp.consume(level.experienceNeeded());
+                       }
+                       else{
+                           exp.add(level.experienceNeeded()-exp.get());
+                           exp.consume(level.experienceNeeded());
+                       }
+                       level.setPreviousLevelExp(level.get());
+                       level.add();
+                   }));
+               }
+               switch (opt) {
+                   case 1 -> levelUpPlayer(player,
+                           1, 1,
+                           0.00025, 0.0005,
+                           0.5, 0.25, 1,
+                           6, 0, 8, 8, 8);
+
+                   case 2 -> levelUpPlayer(player, 0.25, 5,
+                           0.00045, 0.025, 0.01,
+                           0.03, 1, 0, 0, 1, 0, 0.1);
+
+                   case 3 -> levelUpPlayer(player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
+
+                   case 4 -> levelUpPlayer(player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
+
+                   case 6 -> levelUpPlayer(player, 0.25, 1,
+                           0.00045, 0.025, 0.1,
+                           0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
+
+                   case 7 -> levelUpPlayer(player, 0.65, 5,
+                           0.0005, 0.015, 0.31,
+                           0.43, 1, 0, 0, 1, 0, 0.1);
+
+                   case 8 -> levelUpPlayer(player, 1.25, 0,
+                           0.0045, 0.00025, 0.71,
+                           0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
+                   default -> levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
+               }
+           }
+
+
        }
        @SubscribeEvent
        public static void onPlayerJoin(@NotNull EntityJoinLevelEvent event) {

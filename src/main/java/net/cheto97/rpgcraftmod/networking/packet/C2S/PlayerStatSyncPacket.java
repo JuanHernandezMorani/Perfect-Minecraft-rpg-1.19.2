@@ -1,7 +1,6 @@
 package net.cheto97.rpgcraftmod.networking.packet.C2S;
 
 import net.cheto97.rpgcraftmod.customstats.LifeMax;
-import net.cheto97.rpgcraftmod.customstats.StatPoint;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
@@ -25,6 +24,9 @@ public class PlayerStatSyncPacket {
     public void toBytes(FriendlyByteBuf buf){
         buf.writeUtf(stat);
     }
+    private double toAdd(int reset, double value){
+        return reset + (1+(value * 0.25));
+    }
 
     public boolean handle(@NotNull Supplier<NetworkEvent.Context> supplier){
         NetworkEvent.Context context = supplier.get();
@@ -41,7 +43,7 @@ public class PlayerStatSyncPacket {
 
                     case "mana" -> {
                         if(customClass.getPlayerClass() == 8 || customClass.getPlayerClass() == 3) {
-                            result.sendSystemMessage(Component.literal("You can up your maximum mana").withStyle(ChatFormatting.DARK_RED));
+                            result.sendSystemMessage(Component.literal("You can´t up your maximum mana").withStyle(ChatFormatting.DARK_RED));
                         }else{
                             result.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(mana -> mana.add(5));
                         }
@@ -84,228 +86,179 @@ public class PlayerStatSyncPacket {
                         result.setSpeed(result.getSpeed()+(float)((agility.get()/4)*0.000000003));
                     });
 
-                    case "reset" -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(playerClass -> result.getCapability(ResetProvider.ENTITY_RESET).ifPresent(reset -> result.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> result.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> result.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> result.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> result.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> result.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> result.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> result.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> result.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> result.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> result.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> result.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> result.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats ->result.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> result.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> result.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
+                    case "reset" -> result.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp -> result.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(playerClass -> result.getCapability(ResetProvider.ENTITY_RESET).ifPresent(reset -> result.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> result.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> result.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> result.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> result.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> result.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> result.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> result.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> result.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> result.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> result.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> result.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> result.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats ->result.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> result.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> result.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
                         reset.make();
+                        level.makeReset();
+                        exp.resetStat();
 
                         switch (playerClass.getPlayerClass()) {
                             case 1 -> {
-                                 lifeMax.set(12);
-                                    life.set(lifeMax.get());
-                                    lifeRegeneration.set(0.75);
-                                    dexterity.set(4);
-                                    strength.set(2);
-                                    luck.set(10);
-                                    agility.set(4);
+                                lifeMax.set(12 + toAdd(reset.get(),12));
+                                life.set(lifeMax.get());
+                                lifeRegeneration.set(0.75 + toAdd(reset.get(),0.75));
 
-                                    lifeMax.set(12+(reset.get()*1.25));
-                                    life.set(lifeMax.get());
-                                    lifeRegeneration.set(0.75+(reset.get()*0.015));
-                                    command.set(1+(reset.get()*0.35));
-                                    manaMax.set(1);
-                                    mana.set(manaMax.get());
-                                    manaRegeneration.set(0.15);
-                                    intelligence.set(1+(reset.get()*0.01));
-                                    agility.set(1+(reset.get()*0.35));
-                                    dexterity.set(1+(reset.get()*0.14));
-                                    defense.set(5+(reset.get()*1.25));
-                                    magicDefense.set(5+(+(reset.get())*0.25));
-                                    stats.set((reset.get()*2));
+                                manaMax.set(1  + toAdd(reset.get(),1));
+                                mana.set(manaMax.get());
+                                manaRegeneration.set(1 + toAdd(reset.get(),1));
+
+                                command.set(1 + toAdd(reset.get(),1));
+                                intelligence.set(1 + toAdd(reset.get(),1));
+                                agility.set(4 + toAdd(reset.get(),4));
+                                dexterity.set(4 + toAdd(reset.get(),4));
+                                defense.set(1 + toAdd(reset.get(),1));
+                                strength.set(2 + toAdd(reset.get(),2));
+                                magicDefense.set(1 + toAdd(reset.get(),1));
+                                luck.set(10 + toAdd(reset.get(),10));
+
+                                stats.set((reset.get()*5));
                             }
                             case 2 ->{
                                 {
-                                       lifeMax.set(8);
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(0.65);
+                                    lifeMax.set(8 + toAdd(reset.get(),8));
+                                    life.set(lifeMax.get());
+                                    lifeRegeneration.set(0.65 + toAdd(reset.get(),0.65));
 
-                                        manaMax.set(50);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(5);
+                                    manaMax.set(50  + toAdd(reset.get(),50));
+                                    mana.set(manaMax.get());
+                                    manaRegeneration.set(5 + toAdd(reset.get(),5));
 
-                                        intelligence.set(10);
-                                        magicDefense.set(5);
-                                        defense.set(0.5);
-                                        strength.set(0.5);
+                                    command.set(1 + toAdd(reset.get(),1));
+                                    intelligence.set(10 + toAdd(reset.get(),10));
+                                    agility.set(4 + toAdd(reset.get(),4));
+                                    dexterity.set(4 + toAdd(reset.get(),4));
+                                    defense.set(0.5 + toAdd(reset.get(),0.5));
+                                    strength.set(0.5 + toAdd(reset.get(),0.5));
+                                    magicDefense.set(5 + toAdd(reset.get(),5));
+                                    luck.set(10 + toAdd(reset.get(),10));
 
-                                        lifeMax.set(35+(reset.get()*2));
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(3.25+(reset.get()*0.025));
-                                        command.set(1+(reset.get()*0.35));
-                                        manaMax.set(1);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(0.15);
-                                        intelligence.set(1+(reset.get()*0.01));
-                                        agility.set(1+(reset.get()*0.35));
-                                        dexterity.set(1+(reset.get()*0.14));
-                                        defense.set(5+(reset.get()*1.25));
-                                        magicDefense.set(5+(+(reset.get())*0.25));
-                                        stats.set((reset.get()*2));
+                                    stats.set((reset.get()*5));
                                 }
                             }
                             case 3 -> {
                                 {
-                                        lifeMax.set(22);
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(1.2);
+                                    lifeMax.set(22 + toAdd(reset.get(),22));
+                                    life.set(lifeMax.get());
+                                    lifeRegeneration.set(1.2 + toAdd(reset.get(),1.2));
 
-                                        manaMax.set(5);
-                                        mana.set(manaMax.get());
+                                    manaMax.set(5);
+                                    mana.set(manaMax.get());
+                                    manaRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                        defense.set(3);
-                                        magicDefense.set(2);
+                                    command.set(1 + toAdd(reset.get(),1));
+                                    intelligence.set(1 + toAdd(reset.get(),1));
+                                    agility.set(1 + toAdd(reset.get(),1));
+                                    dexterity.set(1 + toAdd(reset.get(),1));
+                                    defense.set(3 + toAdd(reset.get(),3));
+                                    strength.set(1 + toAdd(reset.get(),1));
+                                    magicDefense.set(2 + toAdd(reset.get(),2));
+                                    luck.set(1 + toAdd(reset.get(),1));
 
-                                        lifeMax.set(35+(reset.get()*2));
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(3.25+(reset.get()*0.025));
-                                        command.set(1+(reset.get()*0.35));
-                                        manaMax.set(1);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(0.15);
-                                        intelligence.set(1+(reset.get()*0.01));
-                                        agility.set(1+(reset.get()*0.35));
-                                        dexterity.set(1+(reset.get()*0.14));
-                                        defense.set(5+(reset.get()*1.25));
-                                        magicDefense.set(5+(+(reset.get())*0.25));
-                                        stats.set((reset.get()*2));
+                                    stats.set((reset.get()*5));
                                 }
                             }
                             case 4 ->{
-                                {
-                                       lifeMax.set(5);
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(0.4);
+                                lifeMax.set(5 + toAdd(reset.get(),5));
+                                life.set(lifeMax.get());
+                                lifeRegeneration.set(0.4 + toAdd(reset.get(),0.4));
 
-                                        defense.set(0.2);
-                                        magicDefense.set(0.2);
+                                manaMax.set(1  + toAdd(reset.get(),1));
+                                mana.set(manaMax.get());
+                                manaRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                        strength.set(8.3);
-                                        luck.set(9.2);
-                                        agility.set(8.5);
-                                        dexterity.set(7.5);
+                                command.set(1 + toAdd(reset.get(),1));
+                                intelligence.set(1 + toAdd(reset.get(),1));
+                                agility.set(8.5 + toAdd(reset.get(),8.5));
+                                dexterity.set(7.5 + toAdd(reset.get(),7.5));
+                                defense.set(0.2 + toAdd(reset.get(),0.2));
+                                strength.set(8.3 + toAdd(reset.get(),8.3));
+                                magicDefense.set(0.2 + toAdd(reset.get(),0.2));
+                                luck.set(9.2 + toAdd(reset.get(),9.2));
 
-                                        lifeMax.set(35+(reset.get()*2));
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(3.25+(reset.get()*0.025));
-                                        command.set(1+(reset.get()*0.35));
-                                        manaMax.set(1);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(0.15);
-                                        intelligence.set(1+(reset.get()*0.01));
-                                        agility.set(1+(reset.get()*0.35));
-                                        dexterity.set(1+(reset.get()*0.14));
-                                        defense.set(5+(reset.get()*1.25));
-                                        magicDefense.set(5+(+(reset.get())*0.25));
-                                        stats.set((reset.get()*2));
-                                }
+                                stats.set((reset.get()*5));
                             }
                             case 6 ->{
-                                {
-                                       lifeMax.set(15);
-                                        life.set(lifeMax.get());
+                                lifeMax.set(15 + toAdd(reset.get(),15));
+                                life.set(lifeMax.get());
+                                lifeRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                        manaMax.set(15);
-                                        mana.set(manaMax.get());
+                                manaMax.set(15  + toAdd(reset.get(),15));
+                                mana.set(manaMax.get());
+                                manaRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                        command.set(35);
+                                command.set(35 + toAdd(reset.get(),35));
+                                intelligence.set(1 + toAdd(reset.get(),1));
+                                agility.set(1 + toAdd(reset.get(),1));
+                                dexterity.set(1 + toAdd(reset.get(),1));
+                                defense.set(1 + toAdd(reset.get(),1));
+                                strength.set(1 + toAdd(reset.get(),1));
+                                magicDefense.set(1 + toAdd(reset.get(),1));
+                                luck.set(1 + toAdd(reset.get(),1));
 
-                                        lifeMax.set(35+(reset.get()*2));
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(3.25+(reset.get()*0.025));
-                                        command.set(1+(reset.get()*0.35));
-                                        manaMax.set(1);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(0.15);
-                                        intelligence.set(1+(reset.get()*0.01));
-                                        agility.set(1+(reset.get()*0.35));
-                                        dexterity.set(1+(reset.get()*0.14));
-                                        defense.set(5+(reset.get()*1.25));
-                                        magicDefense.set(5+(+(reset.get())*0.25));
-                                        stats.set((reset.get()*2));
-                                }
+                                stats.set((reset.get()*5));
                             }
                             case 7 ->{
-                                {
-                                        manaMax.set(20);
-                                        manaRegeneration.set(3);
-                                        intelligence.set(3);
-                                        strength.set(2);
-                                        magicDefense.set(8);
+                                lifeMax.set(20 + toAdd(reset.get(),20));
+                                life.set(lifeMax.get());
+                                lifeRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                        lifeMax.set(35+(reset.get()*2));
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(3.25+(reset.get()*0.025));
-                                        command.set(1+(reset.get()*0.35));
-                                        manaMax.set(20);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(0.15);
-                                        intelligence.set(1+(reset.get()*0.01));
-                                        agility.set(1+(reset.get()*0.35));
-                                        dexterity.set(1+(reset.get()*0.14));
-                                        defense.set(5+(reset.get()*1.25));
-                                        magicDefense.set(5+(+(reset.get())*0.25));
-                                        stats.set((reset.get()*2));
-                                }
+                                manaMax.set(20  + toAdd(reset.get(),20));
+                                mana.set(manaMax.get());
+                                manaRegeneration.set(3 + toAdd(reset.get(),3));
+
+                                command.set(1 + toAdd(reset.get(),1));
+                                intelligence.set(3 + toAdd(reset.get(),3));
+                                agility.set(1 + toAdd(reset.get(),1));
+                                dexterity.set(1 + toAdd(reset.get(),1));
+                                defense.set(1 + toAdd(reset.get(),1));
+                                strength.set(2 + toAdd(reset.get(),2));
+                                magicDefense.set(8 + toAdd(reset.get(),8));
+                                luck.set(1 + toAdd(reset.get(),1));
+
+                                stats.set((reset.get()*5));
                             }
                             case 8 ->{
-                                {
-                                       lifeMax.set(35+(reset.get()*2));
-                                        life.set(lifeMax.get());
-                                        lifeRegeneration.set(3.25+(reset.get()*0.025));
-                                        command.set(1+(reset.get()*0.35));
-                                        manaMax.set(1);
-                                        mana.set(manaMax.get());
-                                        manaRegeneration.set(0.15);
-                                        intelligence.set(1+(reset.get()*0.01));
-                                        agility.set(1+(reset.get()*0.35));
-                                        dexterity.set(1+(reset.get()*0.14));
-                                        defense.set(5+(reset.get()*1.25));
-                                        magicDefense.set(5+(+(reset.get())*0.25));
-                                        stats.set((reset.get()*2));
-                                }
+                                lifeMax.set(35 + toAdd(reset.get(),35));
+                                life.set(lifeMax.get());
+                                lifeRegeneration.set(3.25 + toAdd(reset.get(),3.25));
+
+                                manaMax.set(1);
+                                mana.set(manaMax.get());
+                                manaRegeneration.set(0.15 + toAdd(reset.get(),0.15));
+
+                                command.set(1 + toAdd(reset.get(),1));
+                                intelligence.set(1 + toAdd(reset.get(),1));
+                                agility.set(1 + toAdd(reset.get(),1));
+                                dexterity.set(1 + toAdd(reset.get(),1));
+                                defense.set(5 + toAdd(reset.get(),5));
+                                strength.set(1 + toAdd(reset.get(),1));
+                                magicDefense.set(5 + toAdd(reset.get(),5));
+                                luck.set(1 + toAdd(reset.get(),1));
+
+                                stats.set((reset.get()*5));
                             }
                             default ->{
-                                life.resetStat();
-                                lifeMax.resetStat();
-                                lifeMax.add(reset.get());
+                                lifeMax.set(20 + toAdd(reset.get(),20));
+                                life.set(lifeMax.get());
+                                lifeRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                lifeRegeneration.resetStat();
-                                lifeRegeneration.add(reset.get()*0.25);
+                                manaMax.set(10  + toAdd(reset.get(),10));
+                                mana.set(manaMax.get());
+                                manaRegeneration.set(1 + toAdd(reset.get(),1));
 
-                                mana.resetStat();
-                                manaMax.resetStat();
-                                manaMax.add(reset.get()*5);
-
-                                manaRegeneration.resetStat();
-                                manaRegeneration.add(reset.get()*0.5);
-
-                                defense.resetStat();
-                                defense.add(reset.get()*1.25);
-
-                                magicDefense.resetStat();
-                                magicDefense.add(reset.get()*1.25);
-
-                                agility.resetStat();
-                                agility.add(reset.get()*1.25);
-
-                                command.resetStat();
-                                command.add(reset.get()*1.3);
-
-                                dexterity.resetStat();
-                                dexterity.add(reset.get()*1.25);
-
-                                intelligence.resetStat();
-                                intelligence.add(reset.get()*1.25);
-
-                                luck.resetStat();
-                                luck.add(reset.get()*1.25);
-
-                                strength.resetStat();
-                                strength.add(reset.get()*1.25);
+                                command.set(1 + toAdd(reset.get(),1));
+                                intelligence.set(1 + toAdd(reset.get(),1));
+                                agility.set(1 + toAdd(reset.get(),1));
+                                dexterity.set(1 + toAdd(reset.get(),1));
+                                defense.set(1 + toAdd(reset.get(),1));
+                                strength.set(1 + toAdd(reset.get(),1));
+                                magicDefense.set(1 + toAdd(reset.get(),1));
+                                luck.set(1 + toAdd(reset.get(),1));
 
                                 stats.resetStat();
-                                stats.add((reset.get()*2)+5);
+                                stats.add((reset.get()*5)+5);
                             }
                         }
-                    }))))))))))))))))));
+                    })))))))))))))))))));
                 }
                 if(!Objects.equals(stat, "reset")){
                     statPoint.consume();

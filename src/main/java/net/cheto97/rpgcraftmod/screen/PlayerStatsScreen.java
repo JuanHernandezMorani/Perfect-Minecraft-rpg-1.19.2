@@ -247,7 +247,11 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         magicdefense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 230 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
         luck_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 250 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
         agility_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 270 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
-        ResetButton reset_button = new ResetButton(this.leftPos + xPlus, this.topPos + 20, bW, bH, Component.literal(" ").withStyle(ChatFormatting.BLUE), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("reset")));
+
+        ResetButton reset_button = new ResetButton(this.leftPos + xPlus, this.topPos + 20, bW, bH, Component.literal(" ").withStyle(ChatFormatting.BLUE), e -> {
+            ModMessages.sendToServer(new PlayerStatSyncPacket("reset"));
+            Close();
+        });
         OffResetButton reset_button_off = new OffResetButton(this.leftPos + xPlus, this.topPos + 20, bW, bH, Component.literal("Reset").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset")));
 
         if(PlayerData.getPlayerStatPoints() > 0){
@@ -256,7 +260,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         else{
             TurnOff();
         }
-        if(PlayerData.getPlayerLevel() > 10000){
+        if(PlayerData.getPlayerLevel() > 9999){
             this.addRenderableWidget(reset_button);
         }
         else{

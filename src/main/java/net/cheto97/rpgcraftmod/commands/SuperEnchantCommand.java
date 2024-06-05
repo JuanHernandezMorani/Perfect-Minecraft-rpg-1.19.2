@@ -42,7 +42,8 @@ public final class SuperEnchantCommand {
         dispatcher.register(Commands.literal("superenchant")
                 .requires((player) -> player.hasPermission(3))
                 .then(Commands.argument("targets", EntityArgument.entities())
-                .then(Commands.argument("enchantment",ItemEnchantmentArgument.enchantment()).executes((context) ->
+                .then(Commands.argument("enchantment",ItemEnchantmentArgument.enchantment())
+                        .executes((context) ->
                         enchant(context.getSource(), EntityArgument.getEntities(context, "targets"),
                                 Holder.direct(ItemEnchantmentArgument.getEnchantment(context.getLastChild(),"enchantment")), 1))
                         .then(Commands.argument("level", IntegerArgumentType.integer(0, Integer.MAX_VALUE))

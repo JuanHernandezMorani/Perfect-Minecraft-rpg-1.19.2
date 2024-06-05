@@ -3,6 +3,7 @@ package net.cheto97.rpgcraftmod.util.ToolLevelingUp;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.commands.AddLevelCommand;
 import net.cheto97.rpgcraftmod.commands.SuperEnchantCommand;
 import net.cheto97.rpgcraftmod.commands.ToolLevelingCommand;
 import net.minecraft.commands.CommandBuildContext;
@@ -21,6 +22,7 @@ public final class ModCommands {
 		final CommandBuildContext context = event.getBuildContext();
 		SuperEnchantCommand.register(dispatcher, context);
 		ToolLevelingCommand.register(dispatcher);
+		AddLevelCommand.register(dispatcher,context);
 	}
 
 }
