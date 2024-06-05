@@ -62,6 +62,6 @@ public abstract  class CustomButton extends Button {
         this.active = false;
     }
     private ResourceLocation getTexture(int mouseX,int mouseY) {
-        return this.isMouseOver(mouseX,mouseY) ? getHoveredTexture() : this.isActive() ? getButtonTexture() : getDisabledTexture();
+        return !this.isActive() ? getDisabledTexture() : this.isMouseOver(mouseX,mouseY) ? getHoveredTexture() :  getButtonTexture();
     }
 }

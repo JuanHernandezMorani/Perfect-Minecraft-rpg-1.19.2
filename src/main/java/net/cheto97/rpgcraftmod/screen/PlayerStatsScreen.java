@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.screen;
 
+import com.mojang.blaze3d.platform.Window;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.menu.PlayerStatsMenu;
 import static net.cheto97.rpgcraftmod.util.Effects.Helper.calculateDamageAndReduce;
@@ -9,6 +10,9 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerNoReqPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerStatSyncPacket;
+import net.cheto97.rpgcraftmod.util.button.ExitButton;
+import net.cheto97.rpgcraftmod.util.button.OffResetButton;
+import net.cheto97.rpgcraftmod.util.button.ResetButton;
 import net.cheto97.rpgcraftmod.util.button.StatPlusButton;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -17,7 +21,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -35,27 +38,24 @@ import java.util.Objects;
 
 public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> {
     private byte ticksSinceUpdate = 0;
-    private final int alt = 2;
-    private final int bH = 10;
-    private final int bW = 10;
-    private final int xPlus = 125; //425
 
-    private final StatPlusButton life_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 90 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
-    private final StatPlusButton mana_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 110 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
-    private final StatPlusButton dexterity_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 140 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
-    private final StatPlusButton intelligence_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 155 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
-    private final StatPlusButton strength_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
-    private final StatPlusButton command_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 185 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
-    private final StatPlusButton defense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 200 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
-    private final StatPlusButton magicdefense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 215 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
-    private final StatPlusButton luck_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 230 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
-    private final StatPlusButton agility_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 245 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
+    private StatPlusButton life_button;
+    private StatPlusButton mana_button;
+    private StatPlusButton dexterity_button;
+    private StatPlusButton intelligence_button;
+    private StatPlusButton strength_button;
+    private StatPlusButton command_button;
+    private StatPlusButton defense_button;
+    private StatPlusButton magicdefense_button;
+    private StatPlusButton luck_button;
+    private StatPlusButton agility_button;
 
     public PlayerStatsScreen(PlayerStatsMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
         double scale = Minecraft.getInstance().getWindow().getGuiScale();
-        this.imageWidth = (int) (800/scale);
-        this.imageHeight = (int) (615/scale);
+
+        this.imageWidth = (int) (900/scale);
+        this.imageHeight = (int) (715/scale);
 
     }
     private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/skill_background.png");
@@ -69,7 +69,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
         double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
         RenderSystem.disableBlend();
-        RenderSystem.setShaderColor(0, 0, 0, 0);
+        RenderSystem.setShaderColor(255f, 255f, 255f, 255f);
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderTexture(0, texture);
         blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
@@ -115,7 +115,8 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         if(PlayerData.getExpNeed()-PlayerData.getPlayerExperience() < 0){
             exp = 0;
         }
-        
+
+        this.addRenderableWidget(new ExitButton(this.leftPos + 1, this.topPos + 1, 12, 12, Component.literal(""), e -> Close()));
         GuiComponent.drawCenteredString(ms, font, Component.literal("["+playerClass.getString()+"] "+player.getName().getString()+ " Stat Menu"), this.leftPos + 155, this.topPos + 5, -1);
         
         GuiComponent.drawString(ms, font, Component.literal("Level:"), this.leftPos + 5, this.topPos + 20, -1);
@@ -127,56 +128,59 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         GuiComponent.drawString(ms, font, Component.literal("Needed Experience:"), this.leftPos + 5, this.topPos + 40, -1);
         GuiComponent.drawString(ms, font, Component.literal(doubleToString(exp)), this.leftPos + 110, this.topPos + 40, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Life:"), this.leftPos + 5, this.topPos + 50, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerLifeMax())), this.leftPos + 30, this.topPos + 50, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Life:"), this.leftPos + 5, this.topPos + 60, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerLifeMax())), this.leftPos + 30, this.topPos + 60, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Life Regeneration:"), this.leftPos + 5, this.topPos + 65, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerLifeRegeneration())), this.leftPos + 100, this.topPos + 65, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Life Regeneration:"), this.leftPos + 5, this.topPos + 75, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerLifeRegeneration())), this.leftPos + 100, this.topPos + 75, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Mana:"), this.leftPos + 5, this.topPos + 80, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerManaMax())), this.leftPos + 35, this.topPos + 80, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Mana:"), this.leftPos + 5, this.topPos + 95, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerManaMax())), this.leftPos + 35, this.topPos + 95, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Mana Regeneration:"), this.leftPos + 5, this.topPos + 95, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerManaRegeneration())), this.leftPos + 105, this.topPos + 95, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Mana Regeneration:"), this.leftPos + 5, this.topPos + 110, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerManaRegeneration())), this.leftPos + 105, this.topPos + 110, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Dexterity:"), this.leftPos + 5, this.topPos + 110, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerDexterity())), this.leftPos + 55, this.topPos + 110, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Dexterity:"), this.leftPos + 5, this.topPos + 130, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerDexterity())), this.leftPos + 55, this.topPos + 130, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Intelligence:"), this.leftPos + 5, this.topPos + 125, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerIntelligence())), this.leftPos + 67, this.topPos +125, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Intelligence:"), this.leftPos + 5, this.topPos + 150, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerIntelligence())), this.leftPos + 67, this.topPos + 150, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Strength:"), this.leftPos + 5, this.topPos + 140, -1);
-        GuiComponent.drawString(ms, font, componentStrength, this.leftPos + 52, this.topPos + 140, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Strength:"), this.leftPos + 5, this.topPos + 170, -1);
+        GuiComponent.drawString(ms, font, componentStrength, this.leftPos + 52, this.topPos + 170, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Command:"), this.leftPos + 5, this.topPos + 155, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerCommand())), this.leftPos + 51, this.topPos + 155, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Command:"), this.leftPos + 5, this.topPos + 190, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerCommand())), this.leftPos + 51, this.topPos + 190, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Defense:"), this.leftPos + 5, this.topPos + 170, -1);
-        GuiComponent.drawString(ms, font, componentDefense, this.leftPos + 51, this.topPos + 170, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Defense:"), this.leftPos + 5, this.topPos + 210, -1);
+        GuiComponent.drawString(ms, font, componentDefense, this.leftPos + 51, this.topPos + 210, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Magic Defense:"), this.leftPos + 5, this.topPos + 185, -1);
-        GuiComponent.drawString(ms, font, Component.literal((doubleToString(PlayerData.getPlayerMagicDefense()))), this.leftPos + 82, this.topPos + 185, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Magic Defense:"), this.leftPos + 5, this.topPos + 230, -1);
+        GuiComponent.drawString(ms, font, Component.literal((doubleToString(PlayerData.getPlayerMagicDefense()))), this.leftPos + 82, this.topPos + 230, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Luck:"), this.leftPos + 5, this.topPos + 200, -1);
-        GuiComponent.drawString(ms, font, componentLuck, this.leftPos + 35, this.topPos + 200, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Luck:"), this.leftPos + 5, this.topPos + 250, -1);
+        GuiComponent.drawString(ms, font, componentLuck, this.leftPos + 35, this.topPos + 250, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Agility:"), this.leftPos + 5, this.topPos + 215, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerAgility())), this.leftPos + 40, this.topPos + 215, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Agility:"), this.leftPos + 5, this.topPos + 270, -1);
+        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerAgility())), this.leftPos + 40, this.topPos + 270, -1);
 
-        GuiComponent.drawString(ms, font, Component.literal("Stat Points:"), this.leftPos +5, this.topPos + 240, -1);
-        GuiComponent.drawString(ms, font, Component.literal(String.valueOf(PlayerData.getPlayerStatPoints())).withStyle(ChatFormatting.LIGHT_PURPLE), this.leftPos + 70, this.topPos + 240, -1);
+        GuiComponent.drawString(ms, font, Component.literal("Stat Points:"), this.leftPos + 8, this.topPos + 289, -1);
+        GuiComponent.drawString(ms, font, Component.literal(String.valueOf(PlayerData.getPlayerStatPoints())).withStyle(ChatFormatting.LIGHT_PURPLE), this.leftPos + 73, this.topPos + 289, -1);
 
+    }
+    private void Close(){
+        assert this.minecraft != null;
+        assert this.minecraft.player != null;
+        if(this.minecraft.screen == this) {
+            this.minecraft.setScreen(null);
+        }else{
+            this.minecraft.player.closeContainer();
+        }
     }
     @Override
     public boolean keyPressed(int key, int b, int c) {
         if (key == GLFW.GLFW_KEY_K) {
-            assert this.minecraft != null;
-            assert this.minecraft.player != null;
-            if(this.minecraft.screen == this) {
-                this.minecraft.setScreen(null);
-                return true;
-            }
-            this.minecraft.player.closeContainer();
+            Close();
             return true;
         }
         return super.keyPressed(key, b, c);
@@ -187,7 +191,6 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         if (this.ticksSinceUpdate % 5 == 0) {
             this.ticksSinceUpdate = 0;
             this.init();
-
         }
     }
     @Override
@@ -228,6 +231,25 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         super.init();
         assert this.minecraft != null;
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
+
+        int xPlus = 338;
+        int bW = 10;
+        int bH = 10;
+        int alt = 2;
+
+        life_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 60 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
+        mana_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 95 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
+        dexterity_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 130 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
+        intelligence_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 150 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
+        strength_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
+        command_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 190 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
+        defense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 210 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
+        magicdefense_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 230 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
+        luck_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 250 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
+        agility_button = new StatPlusButton(this.leftPos + xPlus, this.topPos + 270 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
+        ResetButton reset_button = new ResetButton(this.leftPos + xPlus, this.topPos + 20, bW, bH, Component.literal(" ").withStyle(ChatFormatting.BLUE), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("reset")));
+        OffResetButton reset_button_off = new OffResetButton(this.leftPos + xPlus, this.topPos + 20, bW, bH, Component.literal("Reset").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset")));
+
         if(PlayerData.getPlayerStatPoints() > 0){
             TurnOn();
         }
@@ -235,10 +257,10 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             TurnOff();
         }
         if(PlayerData.getPlayerLevel() > 10000){
-            this.addRenderableWidget(new Button(this.leftPos +270, this.topPos + 20, 32, 12, Component.literal("Reset").withStyle(ChatFormatting.BLUE), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("reset"))));
+            this.addRenderableWidget(reset_button);
         }
         else{
-            this.addRenderableWidget(new Button(this.leftPos +270, this.topPos + 20, 32, 12, Component.literal("Reset").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset"))));
+            this.addRenderableWidget(reset_button_off);
         }
 
         this.addRenderableWidget(life_button);

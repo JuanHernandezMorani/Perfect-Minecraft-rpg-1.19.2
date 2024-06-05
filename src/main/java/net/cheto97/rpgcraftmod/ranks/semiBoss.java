@@ -12,7 +12,6 @@ import java.util.Random;
 public class semiBoss {
     public static void semiBossModify(LivingEntity entity){
         Random random = new Random();
-        entity.setSpeed(0.85f);
         float absortion = random.nextFloat()+(random.nextFloat())*random.nextFloat()*10+(float)(entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1)/30);
         float check = absortion < 1 ? 1.0f : absortion;
 

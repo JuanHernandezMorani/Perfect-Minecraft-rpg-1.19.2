@@ -244,7 +244,7 @@ public class ModEvents {
                command.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
                luck.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
 
-               entity.setSpeed(entity.getSpeed()+(float)((agility.get()/4)*0.000000003));
+               entity.setSpeed(entity.getSpeed()+(float)((agility.get()/4)*1.000000003));
            }))))))))))))));
        }
        @SubscribeEvent
