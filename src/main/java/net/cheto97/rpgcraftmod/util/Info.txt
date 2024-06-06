@@ -1,0 +1,15 @@
+blit(a,b,c,d,e,f,g,h,i)
+        a: Matriz de transformación para el renderizado.
+        b: Coordenada X de destino en la pantalla.
+        c: Coordenada Y de destino en la pantalla.
+        d: Coordenada U de origen en la textura.
+        e: Coordenada V de origen en la textura.
+        f: Ancho de la región destino (donde quieres que se expanda la textura).
+        g: Altura de la región destino (donde quieres que se expanda la textura).
+        h: Ancho total de la textura.
+        i: Altura total de la textura.
+
+        X+ -> derecha
+        X- -> izquierda
+        Y+ -> abajo
+        Y- -> arriba

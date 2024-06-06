@@ -29,8 +29,8 @@ public class AuraModel<T extends LivingEntity> extends EntityModel<T> {
 
     @Override
     public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        float rotationSpeed = 0.0075F;
-        this.aura.yRot = entity.tickCount * rotationSpeed;
+       if(entity.fallDistance > 0.1F) Hide();
+       else Show(entity);
     }
 
     @Override
@@ -38,5 +38,14 @@ public class AuraModel<T extends LivingEntity> extends EntityModel<T> {
         poseStack.pushPose();
         aura.render(poseStack, consumer, packedLight, packedOverlay, red, green, blue, alpha);
         poseStack.popPose();
+    }
+
+    private void Hide(){
+        this.aura.visible = false;
+    }
+    private void Show(T entity){
+            this.aura.visible = true;
+        float rotationSpeed = 0.0075F;
+        this.aura.yRot = entity.tickCount * rotationSpeed;
     }
 }

@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.screen;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
@@ -18,9 +19,9 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClassSelectMenu> {
-    private final double scale = Minecraft.getInstance().getWindow().getGuiScale();
-    private final int width = (int) (650 / scale);
-    private final int height = (int) (650 / scale);
+    private final Window window = Minecraft.getInstance().getWindow();
+    private final int width = (int) (650 / window.getGuiScale());
+    private final int height = (int)(650 / window.getGuiScale());
     private boolean wasClick = false;
     private String selectedClass = "Balanced";
     private String classDescription = "";
@@ -34,11 +35,11 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     public PlayerClassSelectScreen(PlayerClassSelectMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
-        this.imageWidth = Minecraft.getInstance().getWindow().getScreenWidth();
-        this.imageHeight = Minecraft.getInstance().getWindow().getScreenHeight();
+        this.imageWidth = 365;
+        this.imageHeight = 237;
     }
     private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/class_background.png");
-    private static String setCapLetters(String name) {
+   private static String setCapLetters(String name) {
         String[] words = name.split("\\s+");
         StringBuilder capitalized = new StringBuilder();
 
@@ -53,33 +54,33 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         return capitalized.toString().trim();
     }
     private void setClassText(){
-            selectedClassText = new EditBox(this.getMinecraft().font,
-                    width - (this.leftPos  + 300),
-                    height - (this.topPos + 480),
-                    80, 20,
-                    Component.literal(setCapLetters(this.selectedClass)));
-            selectedClassText.setValue(setCapLetters(this.selectedClass));
-            selectedClassText.setTextColor(16766720);
-            this.addWidget(selectedClassText);
+        selectedClassText = new EditBox(this.getMinecraft().font,
+                width - (this.leftPos  + 300),
+                height - (this.topPos + 480),
+                80, 20,
+                Component.literal(setCapLetters(this.selectedClass)));
+        selectedClassText.setValue(setCapLetters(this.selectedClass));
+        selectedClassText.setTextColor(16766720);
+        this.addWidget(selectedClassText);
     }
     private void setDescriptionText(){
-            classDescriptionText = new MultiLineEditBox(this.getMinecraft().font,
-                    width - (this.leftPos  + 262),
-                    height - (this.topPos + 420),
-                    180, 150,
-                    Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE));
-            this.addWidget(classDescriptionText);
+        classDescriptionText = new MultiLineEditBox(this.getMinecraft().font,
+                width - (this.leftPos  + 262),
+                height - (this.topPos + 420),
+                180, 150,
+                Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE),
+                Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE));
+        this.addWidget(classDescriptionText);
 
     }
     private void setStatsText(){
-            initialStatsText = new MultiLineEditBox(this.getMinecraft().font,
-                    width - (this.leftPos  + 438),
-                    height - (this.topPos + 420),
-                    160, 150,
-                    Component.literal(this.classStats).withStyle(ChatFormatting.GREEN),
-                    Component.literal(this.classStats).withStyle(ChatFormatting.GREEN));
-            this.addWidget(initialStatsText);
+        initialStatsText = new MultiLineEditBox(this.getMinecraft().font,
+                width - (this.leftPos  + 438),
+                height - (this.topPos + 420),
+                160, 150,
+                Component.literal(this.classStats).withStyle(ChatFormatting.GREEN),
+                Component.literal(this.classStats).withStyle(ChatFormatting.GREEN));
+        this.addWidget(initialStatsText);
 
     }
     private void classCardComponent(String selectedClass) {
@@ -350,4 +351,5 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         this.addRenderableWidget(randomButton);
         this.addRenderableWidget(selectClassButton);
     }
+
 }

@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -17,6 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+
+import java.util.Random;
+
 
 public class WingItem extends Item implements ICurioItem {
     private final DyeColor primaryColour;
@@ -29,10 +33,14 @@ public class WingItem extends Item implements ICurioItem {
 
 
     public WingItem(DyeColor primaryColour, DyeColor secondaryColour, WingType wingType){
-        super(new Item.Properties().stacksTo(1).durability(0).rarity(wingType == WingType.UNIQUE ? Rarity.EPIC : Rarity.RARE).tab(ModCreativeModeTab.RPGCRAFT_TAB));
+        super(new Item.Properties().stacksTo(1).durability(1200).rarity(wingType == WingType.UNIQUE ? Rarity.EPIC : Rarity.RARE).tab(ModCreativeModeTab.RPGCRAFT_TAB));
         this.primaryColour = primaryColour;
         this.secondaryColour = secondaryColour;
         this.wingType = wingType;
+    }
+
+    public boolean isUsable(ItemStack stack, LivingEntity entity) {
+        return (stack.getDamageValue() < stack.getMaxDamage() - 1) && entity instanceof Player;
     }
 
     @NotNull
@@ -43,7 +51,7 @@ public class WingItem extends Item implements ICurioItem {
 
     @Override
     public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-        return true;
+        return isUsable(stack,entity);
     }
 
     @Override
@@ -102,7 +110,23 @@ public class WingItem extends Item implements ICurioItem {
                     isFlying = true;
                 }
             }
+            if(isFlying && stack.getEquipmentSlot() != null){
+                Random random = new Random();
+                int destroyDamage = random.nextInt(0,6);
+                int current_durability = stack.getDamageValue();
+                int max_durability = stack.getMaxDamage();
+                if(current_durability + (destroyDamage) < max_durability) DamageItem(stack,current_durability);
+                else {
+                    stack.setDamageValue(max_durability);
+                    EquipmentSlot itemSlot = stack.getEquipmentSlot();
+                    slotContext.entity().setItemSlot(itemSlot,ItemStack.EMPTY);
+                }
+            }
         }
+    }
+
+    private void DamageItem(ItemStack item, int amount){
+        item.setDamageValue(amount + 1);
     }
 
     @Override
