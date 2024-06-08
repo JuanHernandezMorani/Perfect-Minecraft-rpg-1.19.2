@@ -961,6 +961,7 @@ public class ModEvents {
                    player.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(firstJoin -> {
                        if(!firstJoin.get()){
                            BlockPos pos = new BlockPos(player.getX(),player.getY(),player.getZ());
+                           player.setInvulnerable(true);
                            NetworkHooks.openScreen(player, new MenuProvider() {
                                @Override
                                public @NotNull Component getDisplayName() {

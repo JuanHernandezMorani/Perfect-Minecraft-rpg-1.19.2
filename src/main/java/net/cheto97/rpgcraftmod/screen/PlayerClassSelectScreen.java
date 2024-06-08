@@ -20,8 +20,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClassSelectMenu> {
     private final Window window = Minecraft.getInstance().getWindow();
-    private final int width = (int) (650 / window.getGuiScale());
-    private final int height = (int)(650 / window.getGuiScale());
+    private int width;
+    private int height;
+    private int previousWidth;
+    private int previousHeight;
+    private double scale;
+    private double previousScale;
     private boolean wasClick = false;
     private String selectedClass = "Balanced";
     private String classDescription = "";
@@ -29,14 +33,30 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     private EditBox selectedClassText;
     private MultiLineEditBox classDescriptionText;
     private MultiLineEditBox initialStatsText;
+    private Button warriorButton = null;
+    private Button priestButton = null;
+    private Button knightButton = null;
+    private Button mageButton = null;
+    private Button beastTameButton = null;
+    private Button assassinButton = null;
+    private Button archerButton = null;
+    private Button balancedButton = null;
+    private Button randomButton = null;
+    private Button selectClassButton = null;
     
     private int widthModifier(String word){
-        return (word.length() * 7);
+        return (word.length() * 9);
     }
     public PlayerClassSelectScreen(PlayerClassSelectMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
-        this.imageWidth = 365;
-        this.imageHeight = 237;
+        height = window.getGuiScaledHeight();
+        width = window.getGuiScaledWidth();
+        previousWidth = width;
+        previousHeight = height;
+        scale = window.getGuiScale();
+        previousScale = scale;
+        this.imageWidth = width;
+        this.imageHeight = height;
     }
     private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/class_background.png");
    private static String setCapLetters(String name) {
@@ -55,8 +75,8 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void setClassText(){
         selectedClassText = new EditBox(this.getMinecraft().font,
-                width - (this.leftPos  + 300),
-                height - (this.topPos + 480),
+                (width/2)+1,
+                height/30,
                 80, 20,
                 Component.literal(setCapLetters(this.selectedClass)));
         selectedClassText.setValue(setCapLetters(this.selectedClass));
@@ -65,8 +85,8 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void setDescriptionText(){
         classDescriptionText = new MultiLineEditBox(this.getMinecraft().font,
-                width - (this.leftPos  + 262),
-                height - (this.topPos + 420),
+                (width/2)+(width/12),
+                (height/2)-(height/3),
                 180, 150,
                 Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE),
                 Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -75,8 +95,8 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void setStatsText(){
         initialStatsText = new MultiLineEditBox(this.getMinecraft().font,
-                width - (this.leftPos  + 438),
-                height - (this.topPos + 420),
+                (width/2)-(width/12),
+                (height/2)-(height/3),
                 160, 150,
                 Component.literal(this.classStats).withStyle(ChatFormatting.GREEN),
                 Component.literal(this.classStats).withStyle(ChatFormatting.GREEN));
@@ -257,31 +277,41 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         this.classDescriptionText.render(ms, mouseX, mouseY, partialTicks);
         this.initialStatsText.render(ms, mouseX, mouseY, partialTicks);
     }
-
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderTexture(0, texture);
-        blit(ms, width - (this.leftPos + 535), height - (this.topPos + 490), 0, 0, width - (this.leftPos  + 192), height - (this.topPos + 220));
+        blit(ms, 0, 0, 0, 0, this.imageWidth,this.imageHeight,width, height);
         RenderSystem.disableBlend();
     }
-
     @Override
     public boolean keyPressed(int key, int b, int c) {
         return super.keyPressed(key, b, c);
     }
-
     @Override
     public void containerTick() {
+        height = window.getGuiScaledHeight();
+        width = window.getGuiScaledWidth();
+        scale = window.getGuiScale();
+       if(windowChange()){
+           previousWidth = width;
+           previousHeight = height;
+           previousScale = scale;
+           this.imageWidth = width;
+           this.imageHeight = height;
+           SetButtons();
+           classCardComponent(this.selectedClass);
+       }
         super.containerTick();
     }
-
+    private boolean windowChange(){
+       return (previousScale != scale) || ((previousWidth != width) && (previousHeight != height));
+    }
     @Override
     protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {
     }
-
     @Override
     public void onClose() {
         super.onClose();
@@ -301,16 +331,35 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         setSelectedClass("balanced");
 
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
-        Button warriorButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 250), 30, 16, Component.literal("Warrior").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("warrior"));
-        Button priestButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 275), 30, 16, Component.literal("Priest").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("priest"));
-        Button knightButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 300), 30, 16, Component.literal("Knight").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("knight"));
-        Button mageButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 325), 30, 16, Component.literal("Mage").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("mage"));
-        Button beastTameButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 350), 30, 16, Component.literal("Beast Tamer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("beast tamer"));
-        Button assassinButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 375), 35, 16, Component.literal("Assassin").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("assassin"));
-        Button archerButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 400), 36, 16, Component.literal("Archer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("archer"));
-        Button balancedButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 425), 37, 16, Component.literal("Balanced").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("balanced"));
-        Button randomButton = new Button(width - (this.leftPos + 525),  height - (this.topPos + 450), 38, 16, Component.literal("Random").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("random"));
-        Button selectClassButton = new Button(width - (this.leftPos+ 275),  height - (this.topPos + 230), 40, 16, Component.literal("Select class").withStyle(ChatFormatting.DARK_AQUA),  e -> {
+         SetButtons();
+    }
+    private void ResetButtons(){
+       this.renderables.clear();
+        warriorButton = null;
+        priestButton = null;
+        knightButton = null;
+        mageButton = null;
+        beastTameButton = null;
+        assassinButton = null;
+        archerButton = null;
+        balancedButton = null;
+        randomButton = null;
+        selectClassButton = null;
+    }
+    private void SetButtons(){
+       ResetButtons();
+       int buttonWidth = width/50;
+       int buttonHeight = height/2;
+        warriorButton = new Button(buttonWidth,  buttonHeight - (height/3), 30, 20, Component.literal("Warrior").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("warrior"));
+        priestButton = new Button(buttonWidth,  buttonHeight - (height/4), 30, 20, Component.literal("Priest").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("priest"));
+        knightButton = new Button(buttonWidth,  buttonHeight - (height/6), 30, 20, Component.literal("Knight").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("knight"));
+        mageButton = new Button(buttonWidth,  buttonHeight - (height/12), 30, 20, Component.literal("Mage").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("mage"));
+        beastTameButton = new Button(buttonWidth,  buttonHeight, 30, 20, Component.literal("Beast Tamer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("beast tamer"));
+        assassinButton = new Button(buttonWidth,  buttonHeight + (height/12), 35, 20, Component.literal("Assassin").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("assassin"));
+        archerButton = new Button(buttonWidth,  buttonHeight + (height/6), 36, 20, Component.literal("Archer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("archer"));
+        balancedButton = new Button(buttonWidth,  buttonHeight + (height/4), 37, 20, Component.literal("Balanced").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("balanced"));
+        randomButton = new Button(buttonWidth,  buttonHeight + (height/3), 38, 20, Component.literal("Random").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("random"));
+        selectClassButton = new Button((width/2)+1,  height - 30, 40, 20, Component.literal("Select class").withStyle(ChatFormatting.DARK_AQUA),  e -> {
             wasClick = true;
             ModMessages.sendToServer(new PlayerClassSelectPacket(selectedClass));
             if(this.minecraft != null && this.minecraft.screen == this) {
@@ -329,17 +378,6 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         randomButton.setWidth(widthModifier("random"));
         selectClassButton.setWidth(widthModifier("select class"));
 
-        warriorButton.setHeight(20);
-        priestButton.setHeight(20);
-        knightButton.setHeight(20);
-        mageButton.setHeight(20);
-        beastTameButton.setHeight(20);
-        assassinButton.setHeight(20);
-        archerButton.setHeight(20);
-        balancedButton.setHeight(20);
-        randomButton.setHeight(20);
-        selectClassButton.setHeight(20);
-
         this.addRenderableWidget(warriorButton);
         this.addRenderableWidget(priestButton);
         this.addRenderableWidget(knightButton);
@@ -351,5 +389,4 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         this.addRenderableWidget(randomButton);
         this.addRenderableWidget(selectClassButton);
     }
-
 }

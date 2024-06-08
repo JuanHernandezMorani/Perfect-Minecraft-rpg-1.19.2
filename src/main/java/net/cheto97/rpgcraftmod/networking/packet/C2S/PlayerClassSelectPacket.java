@@ -74,6 +74,7 @@ public class PlayerClassSelectPacket {
 
             ModMessages.sendToPlayer(new PlayerSyncPacket(result),player);
             player.sendSystemMessage(Component.literal("Your class is: "+playerClass));
+            player.setInvulnerable(false);
         });
         return true;
     }

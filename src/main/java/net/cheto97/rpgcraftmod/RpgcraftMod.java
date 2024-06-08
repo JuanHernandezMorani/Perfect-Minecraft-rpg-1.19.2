@@ -70,6 +70,7 @@ public class RpgcraftMod{
     public static Settings settings;
 
 
+
     public static final Logger LOGGER = LogManager.getLogger(RpgcraftMod.MOD_ID);
     public static EntityRendererProvider.Context context;
     public static Map<String, Hud> huds = new LinkedHashMap<>();
