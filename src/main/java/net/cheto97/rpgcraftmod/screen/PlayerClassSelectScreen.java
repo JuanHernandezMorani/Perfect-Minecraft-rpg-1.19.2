@@ -9,11 +9,13 @@ import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerClassSelectPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.MultiLineEditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +45,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     private Button balancedButton = null;
     private Button randomButton = null;
     private Button selectClassButton = null;
-    
+
     private int widthModifier(String word){
         return (word.length() * 9);
     }
@@ -85,7 +87,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void setDescriptionText(){
         classDescriptionText = new MultiLineEditBox(this.getMinecraft().font,
-                (width/2)+(width/12),
+                (width/2)+((height/10)+(height/40)),
                 (height/2)-(height/3),
                 180, 150,
                 Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE),
@@ -95,9 +97,9 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     }
     private void setStatsText(){
         initialStatsText = new MultiLineEditBox(this.getMinecraft().font,
-                (width/2)-(width/12),
+                (width/2)-(width/4),
                 (height/2)-(height/3),
-                160, 150,
+                130, 150,
                 Component.literal(this.classStats).withStyle(ChatFormatting.GREEN),
                 Component.literal(this.classStats).withStyle(ChatFormatting.GREEN));
         this.addWidget(initialStatsText);
@@ -331,35 +333,28 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         setSelectedClass("balanced");
 
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
-         SetButtons();
+        SetButtons();
     }
     private void ResetButtons(){
-       this.renderables.clear();
-        warriorButton = null;
-        priestButton = null;
-        knightButton = null;
-        mageButton = null;
-        beastTameButton = null;
-        assassinButton = null;
-        archerButton = null;
-        balancedButton = null;
-        randomButton = null;
-        selectClassButton = null;
+        this.renderables.clear();
+        this.children().clear();
+        setSelectedClass(this.selectedClass);
     }
     private void SetButtons(){
        ResetButtons();
        int buttonWidth = width/50;
        int buttonHeight = height/2;
-        warriorButton = new Button(buttonWidth,  buttonHeight - (height/3), 30, 20, Component.literal("Warrior").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("warrior"));
-        priestButton = new Button(buttonWidth,  buttonHeight - (height/4), 30, 20, Component.literal("Priest").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("priest"));
-        knightButton = new Button(buttonWidth,  buttonHeight - (height/6), 30, 20, Component.literal("Knight").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("knight"));
-        mageButton = new Button(buttonWidth,  buttonHeight - (height/12), 30, 20, Component.literal("Mage").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("mage"));
-        beastTameButton = new Button(buttonWidth,  buttonHeight, 30, 20, Component.literal("Beast Tamer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("beast tamer"));
-        assassinButton = new Button(buttonWidth,  buttonHeight + (height/12), 35, 20, Component.literal("Assassin").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("assassin"));
-        archerButton = new Button(buttonWidth,  buttonHeight + (height/6), 36, 20, Component.literal("Archer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("archer"));
-        balancedButton = new Button(buttonWidth,  buttonHeight + (height/4), 37, 20, Component.literal("Balanced").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("balanced"));
-        randomButton = new Button(buttonWidth,  buttonHeight + (height/3), 38, 20, Component.literal("Random").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("random"));
-        selectClassButton = new Button((width/2)+1,  height - 30, 40, 20, Component.literal("Select class").withStyle(ChatFormatting.DARK_AQUA),  e -> {
+       int h = 20;
+        warriorButton = new Button(buttonWidth,  buttonHeight - (height/3), 30, h, Component.literal("Warrior").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("warrior"));
+        priestButton = new Button(buttonWidth,  buttonHeight - (height/4), 30, h, Component.literal("Priest").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("priest"));
+        knightButton = new Button(buttonWidth,  buttonHeight - (height/6), 30, h, Component.literal("Knight").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("knight"));
+        mageButton = new Button(buttonWidth,  buttonHeight - (height/12), 30, h, Component.literal("Mage").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("mage"));
+        beastTameButton = new Button(buttonWidth,  buttonHeight, 30, h, Component.literal("Beast Tamer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("beast tamer"));
+        assassinButton = new Button(buttonWidth,  buttonHeight + (height/12), 35, h, Component.literal("Assassin").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("assassin"));
+        archerButton = new Button(buttonWidth,  buttonHeight + (height/6), 36, h, Component.literal("Archer").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("archer"));
+        balancedButton = new Button(buttonWidth,  buttonHeight + (height/4), 37, h, Component.literal("Balanced").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("balanced"));
+        randomButton = new Button(buttonWidth,  buttonHeight + (height/3), 38, h, Component.literal("Random").withStyle(ChatFormatting.DARK_AQUA), e -> setSelectedClass("random"));
+        selectClassButton = new Button((width/2)+1,  height - 30, 40, h, Component.literal("Select class").withStyle(ChatFormatting.DARK_AQUA),  e -> {
             wasClick = true;
             ModMessages.sendToServer(new PlayerClassSelectPacket(selectedClass));
             if(this.minecraft != null && this.minecraft.screen == this) {
