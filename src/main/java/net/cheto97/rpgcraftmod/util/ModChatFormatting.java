@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class ModChatFormatting implements StringRepresentable {
 
@@ -51,17 +52,8 @@ public class ModChatFormatting implements StringRepresentable {
         return new ModChatFormatting(-1, hexColor);
     }
 
-    public static ModChatFormatting fromHexString(String hexString) {
-        if (hexString.startsWith("#")) {
-            hexString = hexString.substring(1);
-
-            try {
-                int hexColor = Integer.parseInt(hexString, 16);
-                return fromHexColor(hexColor);
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Invalid hex color string: " + hexString, e);
-            }
-        }
-        else return fromHexColor(0xFFFFFF);
+    public static boolean isValidHex(int hex){
+        String check = (""+hex).substring(2);
+        return Pattern.matches("^([A-Fa-f0-9]{6})$", check);
     }
 }

@@ -23,14 +23,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 public abstract class LampBlocks extends Block {
     private Integer color = 0xC0C0C0;
     protected abstract String getSystemMessage();
     protected abstract String getEffectDescription();
     protected abstract ChatFormatting getSystemMessageStyle();
-    protected abstract String getHexString();
+    protected abstract Integer getHex();
     protected abstract MobEffect getEffect();
     protected abstract int getLevel();
     protected abstract int getDuration();
@@ -52,7 +51,7 @@ public abstract class LampBlocks extends Block {
     }
     private void activeEffect(Player player){
         player.sendSystemMessage(Component.literal(getSystemMessage()).withStyle(getSystemMessageStyle()));
-        player.addEffect(new MobEffectInstance(getEffect(), getLevel(),getDuration()));
+        player.addEffect(new MobEffectInstance(getEffect(), getDuration(),getLevel()));
     }
 
     private boolean isOn(BlockState state){
@@ -69,7 +68,7 @@ public abstract class LampBlocks extends Block {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter getter, @NotNull List<Component> list, @NotNull TooltipFlag tooltip) {
-        color = getDuration() < 6 ? setStyle(0xFFC0CB) : getDuration() < 11 ? setStyle(0xDDA0DD) : getDuration() < 16 ? setStyle(0xDA70D6) : getDuration() < 21 ? setStyle(0xFF00FF) : getDuration() < 26 ? setStyle(0x800080) :  setStyle(0xFFFFFF);
+        color = getDuration() < 120 ? setStyle(0xFFC0CB) : getDuration() < 220 ? setStyle(0xDDA0DD) : getDuration() < 320 ? setStyle(0xDA70D6) : getDuration() < 420 ? setStyle(0xFF00FF) : getDuration() < 520 ? setStyle(0x800080) :  setStyle(0xFFFFFF);
 
         if(Screen.hasShiftDown()){
             list.add(Component.literal(""));
@@ -78,7 +77,7 @@ public abstract class LampBlocks extends Block {
             list.add(Component.literal(""));
             list.add(Component.literal("This lamp has the " + getEffect().getDisplayName().getString() + " effect.").withStyle(style -> style.withColor(setStyle(0xDB7093))));
             list.add(Component.literal(""));
-            list.add(Component.literal("Effect duration: " + getDuration() + " seconds").withStyle(style -> style.withColor(color)));
+            list.add(Component.literal("Effect duration: " + (getDuration()/20) + " seconds").withStyle(style -> style.withColor(color)));
             list.add(Component.literal(""));
             list.add(Component.literal("Effect power level: " + getLevel()).withStyle(ChatFormatting.GOLD));
 
@@ -95,13 +94,10 @@ public abstract class LampBlocks extends Block {
     }
 
     private Integer setStyle(){
-        System.out.println(isValidHex(getHexString()));
-        String hex = isValidHex(getHexString()) ? getHexString() : "0xFFFFFF";
-        return ModChatFormatting.fromHexString(hex).getColor();
+        Integer hex = ModChatFormatting.isValidHex(getHex()) ? getHex() : 0xFFFFFF;
+        return setStyle(hex);
     }
-    private boolean isValidHex(String hex){
-        return Pattern.matches("^([A-Fa-f0-9]{6})$", hex);
-    }
+
     private Integer setStyle(Integer hex){
         return ModChatFormatting.fromHexColor(hex).getColor();
     }

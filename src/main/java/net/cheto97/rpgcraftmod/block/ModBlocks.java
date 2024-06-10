@@ -75,7 +75,7 @@ public class ModBlocks {
             .explosionResistance(99.9f)
             .sound(SoundType.LARGE_AMETHYST_BUD)
             .strength(2f)
-            .lightLevel(state -> state.getValue(MagicLampBlock.LIT) ? 15 : 0)
+            .lightLevel(state -> state.getValue(MagicLampBlock.LIT) ? 0 : 15)
     ));
 
     public static final RegistryObject<Block> DEATH_CONTAINER = registerBlock("death_container",

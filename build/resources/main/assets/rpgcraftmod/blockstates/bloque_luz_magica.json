@@ -1,6 +1,6 @@
 {
   "variants": {
-    "lit=false": { "model": "rpgcraftmod:block/bloque_luz_magica" },
-    "lit=true": { "model": "rpgcraftmod:block/bloque_luz_magica_on" }
+    "lit=true": { "model": "rpgcraftmod:block/bloque_luz_magica" },
+    "lit=false": { "model": "rpgcraftmod:block/bloque_luz_magica_on" }
   }
 }

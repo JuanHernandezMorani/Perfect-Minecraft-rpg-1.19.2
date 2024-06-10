@@ -25,8 +25,8 @@ public class MagicLampBlock extends LampBlocks {
     }
 
     @Override
-    protected String getHexString() {
-        return "0xEE82EE";
+    protected Integer getHex() {
+        return 0xEE82EE;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MagicLampBlock extends LampBlocks {
 
     @Override
     protected int getDuration() {
-        return 10;
+        return 200;
     }
 
 }
