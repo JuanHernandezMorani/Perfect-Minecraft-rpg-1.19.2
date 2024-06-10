@@ -1,7 +1,14 @@
 package net.cheto97.rpgcraftmod.block;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.block.custom.*;
+import net.cheto97.rpgcraftmod.block.custom.chests.DeathContainerBlock;
+import net.cheto97.rpgcraftmod.block.custom.crops.BlueberryCropBlock;
+import net.cheto97.rpgcraftmod.block.custom.lamps.MagicLampBlock;
+import net.cheto97.rpgcraftmod.block.custom.others.ManaBlock;
+import net.cheto97.rpgcraftmod.block.custom.others.ModFlammableRotatedPillarBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.GemInfusingStationBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.ToolLevelingTableBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.WizardTableBlock;
 import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
@@ -62,14 +69,15 @@ public class ModBlocks {
                     .strength(2f)
                     .requiresCorrectToolForDrops()
             ));
-    public static final RegistryObject<Block> bloque_luz_magica = registerBlock("bloque_luz_magica",
+
+    public static final RegistryObject<Block> bloque_luz_magica = registerMagicLamp("bloque_luz_magica",
             () -> new MagicLampBlock(BlockBehaviour.Properties.of(Material.FROGLIGHT)
-                    .explosionResistance(99.9f)
-                    .sound(SoundType.LARGE_AMETHYST_BUD)
-                    .strength(2f)
-                    .requiresCorrectToolForDrops()
-                    .lightLevel(state -> state.getValue(MagicLampBlock.LIT) ? 15 : 0)
-            ));
+            .explosionResistance(99.9f)
+            .sound(SoundType.LARGE_AMETHYST_BUD)
+            .strength(2f)
+            .lightLevel(state -> state.getValue(MagicLampBlock.LIT) ? 15 : 0)
+    ));
+
     public static final RegistryObject<Block> DEATH_CONTAINER = registerBlock("death_container",
             () -> new DeathContainerBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                     .explosionResistance(50f)
@@ -169,6 +177,10 @@ public class ModBlocks {
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block,CreativeModeTab tab) {
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+    }
+
+    private static <T extends Block>RegistryObject<T> registerMagicLamp(String name, Supplier<T> block){
+        return registerBlock(name,block);
     }
 
     public static void register(IEventBus eventBus){

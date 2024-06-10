@@ -336,13 +336,14 @@ public class WizardTableBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {
-        return inventory.getItem(2).getItem() == stack.getItem() || inventory.getItem(2).isEmpty();
+        return (inventory.getItem(2).getItem() == stack.getItem() || inventory.getItem(2).isEmpty()) && isValidItem(stack.getItem());
     }
-
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
         return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
     }
-
+    private static boolean isValidItem(Item item){
+        return item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem || item instanceof PickaxeItem || item instanceof AxeItem || item instanceof SwordItem || item instanceof HoeItem || item instanceof ShieldItem || item instanceof ArmorItem || item instanceof ShovelItem;
+    }
     private static ItemStack modifyItem(ItemStack item){
         int type = 0;
 

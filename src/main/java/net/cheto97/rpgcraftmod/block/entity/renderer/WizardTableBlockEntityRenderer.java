@@ -3,7 +3,7 @@ package net.cheto97.rpgcraftmod.block.entity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
-import net.cheto97.rpgcraftmod.block.custom.WizardTableBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.WizardTableBlock;
 import net.cheto97.rpgcraftmod.block.entity.WizardTableBlockEntity;
 
 import net.minecraft.client.Minecraft;

@@ -5,6 +5,7 @@ import net.cheto97.rpgcraftmod.ModHud.huds.*;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
 import net.cheto97.rpgcraftmod.block.entity.ModBlockEntities;
 import net.cheto97.rpgcraftmod.block.entity.renderer.CraftingTableBlockEntityRenderer;
+import net.cheto97.rpgcraftmod.block.entity.renderer.DeathContainerBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.block.entity.renderer.GemInfusingStationBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.block.entity.renderer.WizardTableBlockEntityRenderer;
 import net.cheto97.rpgcraftmod.client.curio.CurioRenderer;
@@ -209,6 +210,7 @@ public class RpgcraftMod{
             BlockEntityRenderers.register(ModBlockEntities.GEM_INFUSING_STATION.get(), GemInfusingStationBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.WIZARD_TABLE.get(), WizardTableBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.CRAFTING_TABLE_BLOCK_ENTITY.get(), CraftingTableBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.DEATH_CONTAINER_BLOCK_ENTITY.get(), DeathContainerBlockEntityRenderer::new);
             CurioRenderer.register();
             EntityRenderers.register(ModEntityTypes.MUTANT_GOLEM.get(), MutantGolemRenderer::new);
             EntityRenderers.register(ModEntityTypes.DRAKE.get(), DrakeV1Renderer::new);

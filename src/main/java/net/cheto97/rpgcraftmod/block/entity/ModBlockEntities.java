@@ -38,6 +38,11 @@ public class ModBlockEntities {
             BlockEntityType.Builder.of(CraftingTableBlockEntity::new,
                     Blocks.CRAFTING_TABLE.defaultBlockState().getBlock()).build(null));
 
+    public static final RegistryObject<BlockEntityType<DeathContainerBlockEntity>> DEATH_CONTAINER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("death_container", () ->
+                    BlockEntityType.Builder.of(DeathContainerBlockEntity::new,
+                            Blocks.CRAFTING_TABLE.defaultBlockState().getBlock()).build(null));
+
 
     public static void register(IEventBus eventBus){
         BLOCK_ENTITIES.register(eventBus);

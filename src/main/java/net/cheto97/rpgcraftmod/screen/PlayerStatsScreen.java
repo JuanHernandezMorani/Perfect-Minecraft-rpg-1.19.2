@@ -1,6 +1,5 @@
 package net.cheto97.rpgcraftmod.screen;
 
-import com.mojang.blaze3d.platform.Window;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.menu.PlayerStatsMenu;
 import static net.cheto97.rpgcraftmod.util.Effects.Helper.calculateDamageAndReduce;
@@ -38,7 +37,6 @@ import java.util.Objects;
 
 public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> {
     private byte ticksSinceUpdate = 0;
-
     private StatPlusButton life_button;
     private StatPlusButton mana_button;
     private StatPlusButton dexterity_button;
@@ -195,7 +193,6 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {
-
     }
     @Override
     public void onClose() {

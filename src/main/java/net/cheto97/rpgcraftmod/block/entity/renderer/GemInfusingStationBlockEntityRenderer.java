@@ -3,7 +3,7 @@ package net.cheto97.rpgcraftmod.block.entity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
-import net.cheto97.rpgcraftmod.block.custom.GemInfusingStationBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.GemInfusingStationBlock;
 import net.cheto97.rpgcraftmod.block.entity.GemInfusingStationBlockEntity;
 
 import net.minecraft.client.Minecraft;

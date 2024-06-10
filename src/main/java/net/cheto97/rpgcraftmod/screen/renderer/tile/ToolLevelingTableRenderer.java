@@ -2,15 +2,13 @@ package net.cheto97.rpgcraftmod.screen.renderer.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import net.cheto97.rpgcraftmod.block.custom.ToolLevelingTableBlock;
-import net.cheto97.rpgcraftmod.block.custom.WizardTableBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.ToolLevelingTableBlock;
 import net.cheto97.rpgcraftmod.block.entity.ToolLevelingTableBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

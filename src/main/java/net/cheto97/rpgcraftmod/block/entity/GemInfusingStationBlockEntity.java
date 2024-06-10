@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.block.entity;
 
-import net.cheto97.rpgcraftmod.block.custom.GemInfusingStationBlock;
+import net.cheto97.rpgcraftmod.block.custom.stations.GemInfusingStationBlock;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.menu.GemInfusingStationMenu;

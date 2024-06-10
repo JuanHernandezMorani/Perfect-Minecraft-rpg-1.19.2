@@ -5,5 +5,5 @@ Specification-Version: 1
 Implementation-Title: Perfect Minecraft rpg(1.19.2)
 Implementation-Version: 2.0.0-1.19.2
 Implementation-Vendor: rpgcraftmodsareus
-Implementation-Timestamp: 2024-06-09T17:18:31-0300
+Implementation-Timestamp: 2024-06-10T13:58:08-0300
 

@@ -5,7 +5,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
-import net.cheto97.rpgcraftmod.block.custom.DeathContainerBlock;
+import net.cheto97.rpgcraftmod.block.custom.chests.DeathContainerBlock;
 import net.cheto97.rpgcraftmod.customstats.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.entity.custom.*;
