@@ -1,5 +1,11 @@
 package net.cheto97.rpgcraftmod.util;
 
+import net.cheto97.rpgcraftmod.item.wings.WingItem;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.RegistryObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,5 +76,38 @@ public class ColorUtil {
 
     public static String getColorName(Integer color) {
         return colorNameMap.getOrDefault(color, "Other Color");
+    }
+
+    public static DyeColor getDyeColor(int id){
+        DyeColor res;
+        switch (id){
+            case 1 -> res = DyeColor.ORANGE;
+            case 2 -> res = DyeColor.MAGENTA;
+            case 3 -> res = DyeColor.LIGHT_BLUE;
+            case 4 -> res = DyeColor.YELLOW;
+            case 5 -> res = DyeColor.LIME;
+            case 6 -> res = DyeColor.PINK;
+            case 7 -> res = DyeColor.GRAY;
+            case 8 -> res = DyeColor.LIGHT_GRAY;
+            case 9 -> res = DyeColor.CYAN;
+            case 10 -> res = DyeColor.PURPLE;
+            case 11 -> res = DyeColor.BLUE;
+            case 12 -> res = DyeColor.BROWN;
+            case 13 -> res = DyeColor.GREEN;
+            case 14 -> res = DyeColor.RED;
+            case 15 -> res = DyeColor.BLACK;
+            default-> res = DyeColor.WHITE;
+        }
+        return res;
+    }
+
+    public static int getCustomItemColor(int hex){
+       return ModChatFormatting.isValidHex(hex) ? hex : 0xFFFFFF;
+    }
+    public static float[] getItemHexColor(int hex){
+        float r = (hex >> 16 & 0xFF) / 255.0F;
+        float g = (hex >> 8 & 0xFF) / 255.0F;
+        float b = (hex & 0xFF) / 255.0F;
+        return new float[]{r, g, b};
     }
 }

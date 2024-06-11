@@ -21,6 +21,7 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.Objects;
 
 public class WingsFeatureRenderer implements ICurioRenderer {
     private WingEntityModel<LivingEntity> wingModel;
@@ -37,21 +38,49 @@ public class WingsFeatureRenderer implements ICurioRenderer {
                                                                           float limbSwingAmount, float partialTicks, float ageInTicks,
                                                                           float netHeadYaw, float headPitch) {
         if (stack.getItem() instanceof WingItem wingItem) {
-            float[] primaryColour = wingItem.getPrimaryColour().getTextureDiffuseColors();
-            float[] secondaryColour = wingItem.getSecondaryColour().getTextureDiffuseColors();
-            float r1 = primaryColour[0];
-            float g1 = primaryColour[1];
-            float b1 = primaryColour[2];
-            float r2 = secondaryColour[0];
-            float g2 = secondaryColour[1];
-            float b2 = secondaryColour[2];
 
-            String wingType = wingItem.getWingType() != WingItem.WingType.UNIQUE ? wingItem.getWingType().toString().toLowerCase(Locale.ROOT) : ForgeRegistries.ITEMS.getKey(wingItem.asItem()).getPath().replaceAll("_wings", "");
+            createRenderer(wingItem,slotContext,matrixStack,renderTypeBuffer,light,limbSwing,limbSwingAmount,ageInTicks,netHeadYaw,headPitch);
+        }
+        else {
+            CuriosApi.getCuriosHelper().getEquippedCurios(slotContext.entity()).ifPresent(wing ->{
+                ItemStack item = wing.getStackInSlot(wing.getSlots());
+                if(item.getItem() instanceof WingItem wingItem) {
+                    createRenderer(wingItem,slotContext,matrixStack,renderTypeBuffer,light,limbSwing,limbSwingAmount,ageInTicks,netHeadYaw,headPitch);
+                }
+            });
+        }
+    }
+    public void renderWings(PoseStack matrices, MultiBufferSource renderTypeBuffer, @Nullable ItemStack stack, RenderType renderType, int light, float r, float g, float b) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, renderType, false, stack != null && stack.isEnchanted());
+        this.wingModel.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1F);
+    }
+    private String getWingItemType(WingItem wingItem){
+       return wingItem.getWingType() != WingItem.WingType.UNIQUE ? wingItem.getWingType().toString().toLowerCase(Locale.ROOT) : Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(wingItem.asItem())).getPath().replaceAll("_wings", "");
+    }
+    private float[] getWingItemPrimaryColor(WingItem item){
+        return item.getPrimaryColour().getTextureDiffuseColors();
+    }
+    private float[] getWingItemSecondaryColor(WingItem item){
+        return item.getSecondaryColour().getTextureDiffuseColors();
+    }
+    private void createRenderer(WingItem wingItem, SlotContext slotContext,
+                                PoseStack matrixStack,
+                                MultiBufferSource renderTypeBuffer, int light, float limbSwing,
+                                float limbSwingAmount, float ageInTicks,
+                                float netHeadYaw, float headPitch){
 
-            if(wingItem.getWingType() == WingItem.WingType.LIGHT)
-                wingModel = lightWings;
-            if(wingType.equals("zanzas"))
-                wingModel = zanzasWings;
+        float[] primaryColour = getWingItemPrimaryColor(wingItem);
+        float[] secondaryColour = getWingItemSecondaryColor(wingItem);
+        String wingType = getWingItemType(wingItem);
+
+        float r1 = primaryColour[0];
+        float g1 = primaryColour[1];
+        float b1 = primaryColour[2];
+        float r2 = secondaryColour[0];
+        float g2 = secondaryColour[1];
+        float b2 = secondaryColour[2];
+
+        wingModel = wingItem.getWingType() == WingItem.WingType.LIGHT ? lightWings : zanzasWings;
 
             ResourceLocation layer1 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/" + wingType + "_wings.png");
             ResourceLocation layer2 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/" + wingType + "_wings_2.png");
@@ -62,42 +91,5 @@ public class WingsFeatureRenderer implements ICurioRenderer {
             this.renderWings(matrixStack, renderTypeBuffer, wingItem.getDefaultInstance(), RenderType.entityTranslucent(layer2), light, r2, g2, b2);
             this.renderWings(matrixStack, renderTypeBuffer, wingItem.getDefaultInstance(), RenderType.entityTranslucent(layer1), light, r1, g1, b1);
             matrixStack.popPose();
-        }
-        else {
-            CuriosApi.getCuriosHelper().getEquippedCurios(slotContext.entity()).ifPresent(wing ->{
-                ItemStack item = wing.getStackInSlot(wing.getSlots());
-                if(item.getItem() instanceof WingItem wingItem) {
-                    float[] primaryColour = wingItem.getPrimaryColour().getTextureDiffuseColors();
-                    float[] secondaryColour = wingItem.getSecondaryColour().getTextureDiffuseColors();
-                    float r1 = primaryColour[0];
-                    float g1 = primaryColour[1];
-                    float b1 = primaryColour[2];
-                    float r2 = secondaryColour[0];
-                    float g2 = secondaryColour[1];
-                    float b2 = secondaryColour[2];
-
-                    String wingType = wingItem.getWingType() != WingItem.WingType.UNIQUE ? wingItem.getWingType().toString().toLowerCase(Locale.ROOT) : ForgeRegistries.ITEMS.getKey(wingItem.asItem()).getPath().replaceAll("_wings", "");
-
-                    if(wingItem.getWingType() == WingItem.WingType.LIGHT)
-                        wingModel = lightWings;
-                    if(wingType.equals("zanzas"))
-                        wingModel = zanzasWings;
-
-                    ResourceLocation layer1 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/" + wingType + "_wings.png");
-                    ResourceLocation layer2 = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/model/" + wingType + "_wings_2.png");
-
-                    matrixStack.pushPose();
-                    matrixStack.translate(0.0D, 0.0D, 0.125D);
-                    this.wingModel.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                    this.renderWings(matrixStack, renderTypeBuffer, stack, RenderType.entityTranslucent(layer2), light, r2, g2, b2);
-                    this.renderWings(matrixStack, renderTypeBuffer, stack, RenderType.entityTranslucent(layer1), light, r1, g1, b1);
-                    matrixStack.popPose();
-                }
-            });
-        }
-    }
-    public void renderWings(PoseStack matrices, MultiBufferSource renderTypeBuffer, @Nullable ItemStack stack, RenderType renderType, int light, float r, float g, float b) {
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, renderType, false, stack != null && stack.isEnchanted());
-        this.wingModel.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1F);
     }
 }

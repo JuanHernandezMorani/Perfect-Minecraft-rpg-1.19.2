@@ -33,7 +33,7 @@ public class WingItem extends Item implements ICurioItem {
 
 
     public WingItem(DyeColor primaryColour, DyeColor secondaryColour, WingType wingType){
-        super(new Item.Properties().stacksTo(1).durability(1200).rarity(wingType == WingType.UNIQUE ? Rarity.EPIC : Rarity.RARE).tab(ModCreativeModeTab.RPGCRAFT_TAB));
+        super(new Item.Properties().stacksTo(1).setNoRepair().defaultDurability(1200).durability(1200).rarity(wingType == WingType.UNIQUE ? Rarity.EPIC : Rarity.RARE).tab(ModCreativeModeTab.RPGCRAFT_WINGS_TAB));
         this.primaryColour = primaryColour;
         this.secondaryColour = secondaryColour;
         this.wingType = wingType;

@@ -13,4 +13,12 @@ public class ModCreativeModeTab {
             return new ItemStack(ModItems.zafiro.get());
         }
     };
+
+    public static final CreativeModeTab RPGCRAFT_WINGS_TAB = new CreativeModeTab("rpgcraftwingstab") {
+
+        @Override
+        public @NotNull ItemStack makeIcon() {
+            return new ItemStack(ModItems.ZANZAS_WINGS.get());
+        }
+    };
 }

@@ -9,6 +9,7 @@ import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 
+import net.cheto97.rpgcraftmod.util.ColorUtil;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
@@ -204,11 +205,11 @@ public class ModItems {
     public static final RegistryObject<Item> BLACK_LIGHT_WINGS = registerItems("black_light_wings", () -> new WingItem(DyeColor.BLACK, DyeColor.BLACK, WingItem.WingType.LIGHT));
     public static final RegistryObject<Item> ZANZAS_WINGS = registerItems("zanzas_wings", () -> new WingItem(DyeColor.WHITE, DyeColor.WHITE, WingItem.WingType.UNIQUE));
 
- // SPAWN EGGS
+    // SPAWN EGGS
     public static final RegistryObject<Item> MUTANT_GOLEM_SPAWN_EGG = createSpawnEgg("mutant_golem",ModEntityTypes.MUTANT_GOLEM,0xFFFFFF, 0x808080);
     public static final RegistryObject<Item> DRAKE_1_SPAWN_EGG = createSpawnEgg("drake_red", ModEntityTypes.DRAKE, 0xFF0000, 0x800000);
     public static final RegistryObject<Item> DRAKE_2_SPAWN_EGG = createSpawnEgg("drake_purple", ModEntityTypes.DRAKE_2, 0x800080, 0x4B0082);
-    public static final RegistryObject<Item> DRAKE_3_SPAWN_EGG = createSpawnEgg("drake_dark_red", ModEntityTypes.DRAKE_3, 0x8B0000, 0x2F4F4F);
+    public static final RegistryObject<Item> DRAKE_3_SPAWN_EGG = createSpawnEgg("drake_dark_red", ModEntityTypes.DRAKE_3, 0x8B0000, 0x4F0005);
     public static final RegistryObject<Item> DRAKE_4_SPAWN_EGG = createSpawnEgg("drake_dark_purple", ModEntityTypes.DRAKE_4, 0x483D8B, 0x00008B);
     public static final RegistryObject<Item> DRAKE_5_SPAWN_EGG = createSpawnEgg("drake_grey", ModEntityTypes.DRAKE_5, 0x808080, 0x696969);
     public static final RegistryObject<Item> DRAKE_6_SPAWN_EGG = createSpawnEgg("drake_aqua", ModEntityTypes.DRAKE_6, 0x00FFFF, 0x008B8B);
