@@ -71,6 +71,7 @@ public class ModItems {
     public static final RegistryObject<Item> WING_8 = createWings("wings_8");
     public static final RegistryObject<Item> WING_9 = createWings("wings_9");
     public static final RegistryObject<Item> WING_10 = createWings("wings_10");
+    public static final RegistryObject<Item> VOLT_WINGS = createWings("volt_wings");
 
     public static final RegistryObject<Item> DARK_SWORD = createSword("sword_dark_queen",10,0.2f);
     public static final RegistryObject<Item> ASURA_SWORD = createSword("asura_sword",15,-0.9f);
