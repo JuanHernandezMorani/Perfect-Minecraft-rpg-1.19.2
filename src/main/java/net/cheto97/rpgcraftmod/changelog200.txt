@@ -1,0 +1,43 @@
+-Stable version released.
+
+-Death container texture changed.
+
+-Added new hostile mob: beware from the Kobold Warrior!
+
+-GUI design changed.
+
+-Added sound events when drink mana, and level up.
+
+-Fix some issues where warriors can increase mana.
+
+-Fixed structures loot issues, not spawn.
+
+-Now structures spawn less, to decrease FPS problems.
+
+-Drakes and Drake´s spawn egg names and textures changed respectively.
+
+-Player Stats Screen GUI modified.
+
+-Player Select Class Screen GUI modified.
+
+-Wings now have durability.
+
+-Auras now will hide when jump, and/or fly.
+
+-Unique, Boss, SemiBoss, mobs movement speed reduced.
+
+-Added life regeneration effect indicator to regeneration stat.
+
+-Magic Lamp, now have description.
+
+-Magic Lamp, now give effect only when ON.
+
+-Magic Lamp, now gives Regeneration II per 10 seconds instead of Instant Life II.
+
+-New tab, RPGcraft Mod Wings Tab, here you will find all the wings.
+
+-Added more swords.
+
+-Added more wings.
+
+-Vanilla tools items models changed.

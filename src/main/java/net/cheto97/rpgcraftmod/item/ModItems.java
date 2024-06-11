@@ -10,6 +10,7 @@ import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.wings.WingItem;
 
 import net.cheto97.rpgcraftmod.util.ColorUtil;
+import net.cheto97.rpgcraftmod.util.ModChatFormatting;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
@@ -22,6 +23,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
+
+import static net.cheto97.rpgcraftmod.util.ColorUtil.getCustomItemColor;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -51,36 +54,26 @@ public class ModItems {
                     .stacksTo(64)
             ));
 
-    public static final RegistryObject<Item> hacha_zafiro = registerItems("hacha_zafiro",
-            () -> new AxeItem(
-                    Tiers.NETHERITE,14.0f,-2.0f,
-                    new Item.Properties()
-                    .tab(ModCreativeModeTab.RPGCRAFT_TAB)
-                    .fireResistant()
-                    .durability(9999)
-                    .rarity(Rarity.EPIC)
-            ));
+    public static final RegistryObject<Item> hacha_zafiro = createAxe("hacha_zafiro",14,-3.0f);
 
-    public static final RegistryObject<Item> epicsword = registerItems("epicsword",
-            () -> new SwordItem(
-                    Tiers.DIAMOND,12,2.2f,
-                    new Item.Properties()
-                            .tab(ModCreativeModeTab.RPGCRAFT_TAB)
-                            .fireResistant()
-                            .durability(9999)
-                            .rarity(Rarity.EPIC)
-            ));
+    public static final RegistryObject<Item> epicsword = createSword("epicsword",9,-2.2f);
 
-    public static final RegistryObject<Item> SAPPHIRE_PICKAXE = registerItems("sapphire_pickaxe",
-            () -> new PickaxeItem(
-                    ModToolTier.SAPPHIRE,2,1.8f,
-                    new Item.Properties()
-                            .tab(ModCreativeModeTab.RPGCRAFT_TAB)
-                            .fireResistant()
-                            .rarity(Rarity.EPIC)
-                            .stacksTo(1)
-            ));
+    public static final RegistryObject<Item> SAPPHIRE_PICKAXE = createPickAxe("sapphire_pickaxe",2,-1.8f);
 
+    public static final RegistryObject<Item> ASURA_WINGS = createWings("asura_wings");
+    public static final RegistryObject<Item> WING_1 = createWings("wings_1");
+    public static final RegistryObject<Item> WING_2 = createWings("wings_2");
+    public static final RegistryObject<Item> WING_3 = createWings("wings_3");
+    public static final RegistryObject<Item> WING_4 = createWings("wings_4");
+    public static final RegistryObject<Item> WING_5 = createWings("wings_5");
+    public static final RegistryObject<Item> WING_6 = createWings("wings_6");
+    public static final RegistryObject<Item> WING_7 = createWings("wings_7");
+    public static final RegistryObject<Item> WING_8 = createWings("wings_8");
+    public static final RegistryObject<Item> WING_9 = createWings("wings_9");
+    public static final RegistryObject<Item> WING_10 = createWings("wings_10");
+
+    public static final RegistryObject<Item> DARK_SWORD = createSword("sword_dark_queen",10,0.2f);
+    public static final RegistryObject<Item> ASURA_SWORD = createSword("asura_sword",15,-0.9f);
     public static final RegistryObject<Item> espada_muerte = registerItems("espada_muerte",
             () -> new EspadaMuerteItem(new Item.Properties()
                     .tab(ModCreativeModeTab.RPGCRAFT_TAB)
@@ -229,6 +222,110 @@ public class ModItems {
     }
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
+    }
+    private static RegistryObject<Item> createSword(String name,int damage, float attackSpeed){
+        return registerItems(name,
+                () -> new SwordItem(
+                        ModToolTier.SAPPHIRE,damage,attackSpeed,
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createAxe(String name,int damage, float attackSpeed){
+        return registerItems(name,
+                () -> new AxeItem(
+                        ModToolTier.SAPPHIRE,damage,attackSpeed,
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createPickAxe(String name,int damage, float attackSpeed){
+        return registerItems(name,
+                () -> new PickaxeItem(
+                        ModToolTier.SAPPHIRE,damage,attackSpeed,
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createShovel(String name,int damage, float attackSpeed){
+        return registerItems(name,
+                () -> new ShovelItem(
+                        ModToolTier.SAPPHIRE,damage,attackSpeed,
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createHoe(String name,int damage, float attackSpeed){
+        return registerItems(name,
+                () -> new HoeItem(
+                        ModToolTier.SAPPHIRE,damage,attackSpeed,
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createBow(String name){
+        return registerItems(name,
+                () -> new BowItem(
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createCrossBow(String name){
+        return registerItems(name,
+                () -> new CrossbowItem(
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createTrident(String name){
+        return registerItems(name,
+                () -> new TridentItem(
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(4500)
+                ));
+    }
+    private static RegistryObject<Item> createWings(String name){
+        return registerItems(name,
+                () -> new ElytraItem(
+                        new Item.Properties()
+                                .tab(ModCreativeModeTab.RPGCRAFT_WINGS_TAB)
+                                .fireResistant()
+                                .rarity(Rarity.EPIC)
+                                .stacksTo(1)
+                                .durability(20000)
+                ));
     }
 
 }

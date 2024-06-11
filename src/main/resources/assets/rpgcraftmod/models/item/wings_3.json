@@ -1,0 +1,81 @@
+{
+
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "rpgcraftmod:wings/wings_3",
+		"particle": "rpgcraftmod:wings/wings_3"
+	},
+	"elements": [
+		{
+			"from": [-16, -11, 15.5],
+			"to": [8, 26, 15.5],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [-5, 7.5, 13.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 6, 9.25], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 9.25], "texture": "#0"},
+				"south": {"uv": [6, 0, 12, 9.25], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 9.25], "texture": "#0"},
+				"up": {"uv": [6, 0, 0, 0], "texture": "#0"},
+				"down": {"uv": [6, 0, 0, 0], "texture": "#0"}
+			}
+		},
+		{
+			"from": [8, -11, 15.5],
+			"to": [32, 26, 15.5],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [21, 7.5, 13.5]},
+			"faces": {
+				"north": {"uv": [6, 0, 0, 9.25], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 9.25], "texture": "#0"},
+				"south": {"uv": [12, 0, 6, 9.25], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 9.25], "texture": "#0"},
+				"up": {"uv": [0, 0, 6, 0], "texture": "#0"},
+				"down": {"uv": [0, 0, 6, 0], "texture": "#0"}
+			}
+		}
+	],
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [67.5, 180, 0],
+			"translation": [0, -0.25, 0.5],
+			"scale": [0.18, 0.18, 0.18]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [67.5, 180, 0],
+			"translation": [0, -0.25, 0.5],
+			"scale": [0.18, 0.18, 0.18]
+		},
+		"firstperson_righthand": {
+			"translation": [0.5, 4.25, 0],
+			"scale": [0.25781, 0.25781, 0.25781]
+		},
+		"firstperson_lefthand": {
+			"translation": [0.5, 4.25, 0],
+			"scale": [0.25781, 0.25781, 0.25781]
+		},
+		"ground": {
+			"translation": [0, 6, -1.75],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"scale": [0.32227, 0.32227, 0.32227]
+		},
+		"head": {
+			"translation": [0, -53, -0.25],
+			"scale": [1.38, 1.38, 1.38]
+		},
+		"fixed": {
+			"rotation": [0, 180, 0],
+			"translation": [0, 4, 3.55],
+			"scale": [1.5, 1.5, 1.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}
