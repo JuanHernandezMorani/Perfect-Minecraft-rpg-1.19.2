@@ -21,6 +21,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.MultiLineEditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -65,9 +66,8 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         scale = window.getGuiScale();
         previousScale = scale;
 
-        this.imageWidth = (int) (900/scale);
-        this.imageHeight = (int) (715/scale);
-
+        this.imageWidth = width - (int)((900*scale)/width);
+        this.imageHeight = height - (int)((715*scale)/height);
     }
     private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/skill_background.png");
     @Override
@@ -78,112 +78,89 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
-        double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
-        int cW = (width/2)-(width/3)-(width/50);
+        assert Minecraft.getInstance().player != null;
+        Player player = Minecraft.getInstance().player.getId() == PlayerData.getPlayerId() ? Minecraft.getInstance().player : null;
+        if(player != null) {
+            Component playerClass = switch (PlayerData.getPlayerClass()) {
+                case 1 -> Component.literal("Archer   ").withStyle(ChatFormatting.GOLD);
+                case 2 -> Component.literal("Mage   ").withStyle(ChatFormatting.GOLD);
+                case 3 -> Component.literal("Warrior   ").withStyle(ChatFormatting.GOLD);
+                case 4 -> Component.literal("Assassin   ").withStyle(ChatFormatting.GOLD);
+                case 6 -> Component.literal("Beast Tamer   ").withStyle(ChatFormatting.GOLD);
+                case 7 -> Component.literal("Priest   ").withStyle(ChatFormatting.GOLD);
+                case 8 -> Component.literal("Knight   ").withStyle(ChatFormatting.GOLD);
+                default -> Component.literal("Balanced   ").withStyle(ChatFormatting.GOLD);
+            };
+            playerClass.plainCopy().append(player.getName().getString() + " Stat Menu");
+            this.addRenderableWidget(new ExitButton((width / 2) - (width / 3) + (width / 100), (height / 2) - (height / 3) + (height / 100), 12, 12, Component.literal(""), e -> Close()));
+            GuiComponent.drawCenteredString(ms, font, playerClass, (width / 2), (height / 2) - (height / 3) + (height / 80), 0);
+        }
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderTexture(0, texture);
         blit(ms, (width/2)-(width/3), (height/2)-(height/3), 0, 0, this.imageWidth, this.imageHeight,(width/2)+(width/3),(height/2)+(height/3));
         RenderSystem.disableBlend();
-
+    }
+    private void setStatsDisplay(){
+        int sdW = (width / 2) - (width / 3);
+        int sdH = (height / 2) - (height / 3);
         assert Minecraft.getInstance().player != null;
-        Player player = Minecraft.getInstance().player;
+        Player player = Minecraft.getInstance().player.getId() == PlayerData.getPlayerId() ? Minecraft.getInstance().player : null;
+        if(player != null){
+            double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
+            Component statPoints = Component.literal(" "+PlayerData.getPlayerStatPoints()).withStyle(ChatFormatting.LIGHT_PURPLE);
+            ChatFormatting defColor = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? ChatFormatting.DARK_GREEN : null;
+            ChatFormatting luckColor = player.hasEffect(MobEffects.LUCK) ? ChatFormatting.DARK_GREEN : null;
+            ChatFormatting damColor = player.hasEffect(MobEffects.DAMAGE_BOOST) ? ChatFormatting.DARK_GREEN : null;
+            ChatFormatting weakColor = player.hasEffect(MobEffects.WEAKNESS) ? ChatFormatting.DARK_RED : null;
+            ChatFormatting regLifeColor = player.hasEffect(MobEffects.REGENERATION) ? ChatFormatting.DARK_GREEN : null;
+            ChatFormatting damWeakColor = damColor != null && weakColor != null ? Objects.requireNonNull(player.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() >= Objects.requireNonNull(player.getEffect(MobEffects.WEAKNESS)).getAmplifier() ? ChatFormatting.GREEN : ChatFormatting.RED : null;
 
-        ChatFormatting defColor = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? ChatFormatting.DARK_GREEN : null;
-        ChatFormatting luckColor = player.hasEffect(MobEffects.LUCK) ? ChatFormatting.DARK_GREEN : null;
-        ChatFormatting damColor = player.hasEffect(MobEffects.DAMAGE_BOOST) ? ChatFormatting.DARK_GREEN : null;
-        ChatFormatting weakColor = player.hasEffect(MobEffects.WEAKNESS) ? ChatFormatting.DARK_RED : null;
-        ChatFormatting regLifeColor = player.hasEffect(MobEffects.REGENERATION) ? ChatFormatting.DARK_GREEN : null;
 
-        MobEffectInstance defEff = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? player.getEffect(MobEffects.DAMAGE_RESISTANCE) : null;
-        MobEffectInstance luckEff = player.hasEffect(MobEffects.LUCK) ? player.getEffect(MobEffects.LUCK) : null;
-        MobEffectInstance damEff = player.hasEffect(MobEffects.DAMAGE_BOOST) ? player.getEffect(MobEffects.DAMAGE_BOOST) : null;
-        MobEffectInstance weakEff = player.hasEffect(MobEffects.WEAKNESS) ? player.getEffect(MobEffects.WEAKNESS) : null;
-        MobEffectInstance regLifeEff = player.hasEffect(MobEffects.REGENERATION) ? player.getEffect(MobEffects.REGENERATION) : null;
+            MobEffectInstance defEff = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? player.getEffect(MobEffects.DAMAGE_RESISTANCE) : null;
+            MobEffectInstance luckEff = player.hasEffect(MobEffects.LUCK) ? player.getEffect(MobEffects.LUCK) : null;
+            MobEffectInstance damEff = player.hasEffect(MobEffects.DAMAGE_BOOST) ? player.getEffect(MobEffects.DAMAGE_BOOST) : null;
+            MobEffectInstance weakEff = player.hasEffect(MobEffects.WEAKNESS) ? player.getEffect(MobEffects.WEAKNESS) : null;
+            MobEffectInstance regLifeEff = player.hasEffect(MobEffects.REGENERATION) ? player.getEffect(MobEffects.REGENERATION) : null;
 
-        double damBonus = damEff != null && weakEff != null ? calculateDamageAndReduce(damEff,weakEff,PlayerData.getPlayerStrength()) : damEff != null ? calculateValue(damEff,PlayerData.getPlayerStrength(),"add") : weakEff != null ? calculateValue(weakEff,PlayerData.getPlayerStrength(),"reduce") : 0.0;
-        double defBonus = defEff != null ? calculateValue(defEff,PlayerData.getPlayerDefense(),"add") : 0.0;
-        double luckBonus = luckEff != null ? calculateValue(luckEff,PlayerData.getPlayerLuck(),"add") : 0.0;
-        double regLifeBonus = regLifeEff != null ? calculateValue(regLifeEff, PlayerData.getPlayerLifeRegeneration(),"add") : 0.0;
+            double damBonus = damEff != null && weakEff != null ? calculateDamageAndReduce(damEff,weakEff,PlayerData.getPlayerStrength()) : damEff != null ? calculateValue(damEff,PlayerData.getPlayerStrength(),"add") : weakEff != null ? calculateValue(weakEff,PlayerData.getPlayerStrength(),"reduce") : 0.0;
+            double defBonus = defEff != null ? calculateValue(defEff,PlayerData.getPlayerDefense(),"add") : 0.0;
+            double luckBonus = luckEff != null ? calculateValue(luckEff,PlayerData.getPlayerLuck(),"add") : 0.0;
+            double regLifeBonus = regLifeEff != null ? calculateValue(regLifeEff, PlayerData.getPlayerLifeRegeneration(),"add") : 0.0;
 
-        String defenseString = doubleToString(PlayerData.getPlayerDefense() + defBonus);
-        String luckString = doubleToString(PlayerData.getPlayerLuck()+luckBonus);
-        String strengthString = doubleToString(PlayerData.getPlayerStrength()+damBonus);
-        String regLifeString = doubleToString(PlayerData.getPlayerLifeRegeneration() + regLifeBonus);
+            String defenseString = doubleToString(PlayerData.getPlayerDefense() + defBonus);
+            String luckString = doubleToString(PlayerData.getPlayerLuck()+luckBonus);
+            String strengthString = doubleToString(PlayerData.getPlayerStrength()+damBonus);
+            String regLifeString = doubleToString(PlayerData.getPlayerLifeRegeneration() + regLifeBonus);
 
-        MutableComponent componentDefense = defColor != null ? Component.literal(defenseString).withStyle(defColor) : Component.literal(defenseString);
-        ChatFormatting damWeakColor = damColor != null && weakColor != null ? Objects.requireNonNull(player.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() >= Objects.requireNonNull(player.getEffect(MobEffects.WEAKNESS)).getAmplifier() ? ChatFormatting.GREEN : ChatFormatting.RED : null;
-        MutableComponent componentStrength = damWeakColor != null ? Component.literal(strengthString).withStyle(damWeakColor) : damColor != null ? Component.literal(strengthString).withStyle(damColor) : weakColor != null ? Component.literal(strengthString).withStyle(weakColor) : Component.literal(strengthString);
-        MutableComponent componentLuck = luckColor != null ? Component.literal(luckString).withStyle(luckColor) : Component.literal(luckString);
-        MutableComponent componentRegLife = regLifeColor != null ? Component.literal(regLifeString).withStyle(regLifeColor) : Component.literal(regLifeString);
+            MutableComponent componentDefense = defColor != null ? Component.literal(defenseString).withStyle(defColor) : Component.literal(defenseString);
+            MutableComponent componentStrength = damWeakColor != null ? Component.literal(strengthString).withStyle(damWeakColor) : damColor != null ? Component.literal(strengthString).withStyle(damColor) : weakColor != null ? Component.literal(strengthString).withStyle(weakColor) : Component.literal(strengthString);
+            MutableComponent componentLuck = luckColor != null ? Component.literal(luckString).withStyle(luckColor) : Component.literal(luckString);
+            MutableComponent componentRegLife = regLifeColor != null ? Component.literal(regLifeString).withStyle(regLifeColor) : Component.literal(regLifeString);
 
-        Component playerClass = switch (PlayerData.getPlayerClass()){
-            case 1 -> Component.literal("Archer").withStyle(ChatFormatting.GOLD);
-            case 2 -> Component.literal("Mage").withStyle(ChatFormatting.GOLD);
-            case 3 -> Component.literal("Warrior").withStyle(ChatFormatting.GOLD);
-            case 4 -> Component.literal("Assassin").withStyle(ChatFormatting.GOLD);
-            case 6 -> Component.literal("Beast Tamer").withStyle(ChatFormatting.GOLD);
-            case 7 -> Component.literal("Magic Tank").withStyle(ChatFormatting.GOLD);
-            case 8 -> Component.literal("Paladin").withStyle(ChatFormatting.GOLD);
-            default -> Component.literal("Balanced").withStyle(ChatFormatting.GOLD);
-        };
 
-        if(PlayerData.getExpNeed()-PlayerData.getPlayerExperience() < 0){
-            exp = 0;
+            Component data = Component.literal(
+                    "  Level:  "+ PlayerData.getPlayerLevel() + "\n"+
+                            "  Resets:  "+ PlayerData.getPlayerReset() + "\n"+
+                            "  Needed Experience:  "+ doubleToString(exp) + "\n"+"\n"+
+                            "  Life:  "+ doubleToString(PlayerData.getPlayerLife()) + "\n"+
+                            "  Life Regeneration:  "+ componentRegLife+ "\n"+"\n"+
+                            "  Mana:  "+ doubleToString(PlayerData.getPlayerMana()) + "\n"+
+                            "  Mana Regeneration:  "+ doubleToString(PlayerData.getPlayerManaRegeneration())+ "\n"+ "\n"+
+                            "  Defense:  "+ componentDefense+ "\n"+ "\n"+
+                            "  Magic defense:  "+ doubleToString(PlayerData.getPlayerMagicDefense())+ "\n"+ "\n"+
+                            "  Strength:  "+ componentStrength+ "\n"+ "\n"+
+                            "  Luck:  "+ componentLuck+ "\n"+ "\n"+
+                            "  Intelligence:  "+ doubleToString(PlayerData.getPlayerIntelligence())+ "\n"+ "\n"+
+                            "  Dexterity:  "+ doubleToString(PlayerData.getPlayerDexterity())+ "\n"+ "\n"+
+                            "  Command:  "+ doubleToString(PlayerData.getPlayerCommand())+ "\n"+ "\n"+
+                            "  Agility:  "+ doubleToString(PlayerData.getPlayerAgility())+"\n"+"\n"+"\n"+"\n"+
+                            "     Stats Points: "+ statPoints);
+
+            MultiLineEditBox statsDisplay = new MultiLineEditBox(Minecraft.getInstance().font, sdW, sdH, this.imageWidth, this.imageHeight, data, data);
+            this.addWidget(statsDisplay);
         }
-
-        this.addRenderableWidget(new ExitButton((width/2)-(width/3) + (width/100), (height/2)-(height/3) + (height/100), 12, 12, Component.literal(""), e -> Close()));
-        GuiComponent.drawCenteredString(ms, font, Component.literal("["+playerClass.getString()+"] "+player.getName().getString()+ " Stat Menu"), (width/2), (height/2)-(height/3)+(height/80), -1);
-        
-        GuiComponent.drawString(ms, font, Component.literal("Level:"), cW, this.topPos + 20, -1);
-        GuiComponent.drawString(ms, font, Component.literal(String.valueOf(PlayerData.getPlayerLevel())), this.leftPos + 40, this.topPos + 20, -1);
-
-        GuiComponent.drawString(ms,font,Component.literal("Reset:"),cW, this.topPos + 30, -1);
-        GuiComponent.drawString(ms,font,Component.literal(String.valueOf(PlayerData.getPlayerReset())),this.leftPos + 40, this.topPos + 30, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Needed Experience:"), cW, this.topPos + 40, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(exp)), this.leftPos + 110, this.topPos + 40, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Life:"), cW, this.topPos + 60, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerLifeMax())), this.leftPos + 30, this.topPos + 60, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Life Regeneration:"), cW, this.topPos + 75, -1);
-        GuiComponent.drawString(ms, font, componentRegLife, this.leftPos + 100, this.topPos + 75, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Mana:"), cW, this.topPos + 95, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerManaMax())), this.leftPos + 35, this.topPos + 95, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Mana Regeneration:"), cW, this.topPos + 110, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerManaRegeneration())), this.leftPos + 105, this.topPos + 110, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Dexterity:"), cW, this.topPos + 130, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerDexterity())), this.leftPos + 55, this.topPos + 130, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Intelligence:"), cW, this.topPos + 150, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerIntelligence())), this.leftPos + 67, this.topPos + 150, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Strength:"), cW, this.topPos + 170, -1);
-        GuiComponent.drawString(ms, font, componentStrength, this.leftPos + 52, this.topPos + 170, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Command:"), cW, this.topPos + 190, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerCommand())), this.leftPos + 51, this.topPos + 190, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Defense:"), cW, this.topPos + 210, -1);
-        GuiComponent.drawString(ms, font, componentDefense, this.leftPos + 51, this.topPos + 210, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Magic Defense:"), cW, this.topPos + 230, -1);
-        GuiComponent.drawString(ms, font, Component.literal((doubleToString(PlayerData.getPlayerMagicDefense()))), this.leftPos + 82, this.topPos + 230, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Luck:"), cW, this.topPos + 250, -1);
-        GuiComponent.drawString(ms, font, componentLuck, this.leftPos + 35, this.topPos + 250, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Agility:"), cW, this.topPos + 270, -1);
-        GuiComponent.drawString(ms, font, Component.literal(doubleToString(PlayerData.getPlayerAgility())), this.leftPos + 40, this.topPos + 270, -1);
-
-        GuiComponent.drawString(ms, font, Component.literal("Stat Points:"), cW + (width/80), this.topPos + 289, -1);
-        GuiComponent.drawString(ms, font, Component.literal(String.valueOf(PlayerData.getPlayerStatPoints())).withStyle(ChatFormatting.LIGHT_PURPLE), this.leftPos + 73, this.topPos + 289, -1);
-
     }
     private void Close(){
         assert this.minecraft != null;
@@ -212,8 +189,8 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             previousWidth = width;
             previousHeight = height;
             previousScale = scale;
-            this.imageWidth = (int) (900/scale);
-            this.imageHeight = (int) (715/scale);
+            this.imageWidth = width - (int)((900*scale)/width);
+            this.imageHeight = height - (int)((715*scale)/height);
             ResetButtons();
             this.init();
         }
@@ -233,6 +210,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {
+
     }
     @Override
     public void onClose() {
@@ -268,8 +246,9 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         super.init();
         assert this.minecraft != null;
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
+        setStatsDisplay();
 
-        int xPos = (width/2)+(width/3)+(width/50);
+        int xPos = this.imageWidth + (width/50);
         int yPos = (height/2)-(height/3)-(height/80);
         int bW = 10;
         int bH = 10;
@@ -286,11 +265,12 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         luck_button = new StatPlusButton(xPos, this.topPos + 250 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
         agility_button = new StatPlusButton(xPos, this.topPos + 270 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
 
-        ResetButton reset_button = new ResetButton(xPos, yPos, bW, bH, Component.literal(" ").withStyle(ChatFormatting.BLUE), e -> {
+        ResetButton reset_button = new ResetButton(xPos, yPos, bW, bH, Component.literal(""), e -> {
             ModMessages.sendToServer(new PlayerStatSyncPacket("reset"));
-            Close();
+            ResetButtons();
+            init();
         });
-        OffResetButton reset_button_off = new OffResetButton(xPos, yPos, bW, bH, Component.literal("Reset").withStyle(ChatFormatting.DARK_GRAY), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset")));
+        OffResetButton reset_button_off = new OffResetButton(xPos, yPos, bW, bH, Component.literal(""), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset")));
 
         if(PlayerData.getPlayerStatPoints() > 0){
             TurnOn();

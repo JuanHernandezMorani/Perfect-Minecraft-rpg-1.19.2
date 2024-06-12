@@ -93,7 +93,6 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
                 Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE),
                 Component.literal(this.classDescription).withStyle(ChatFormatting.LIGHT_PURPLE));
         this.addWidget(classDescriptionText);
-
     }
     private void setStatsText(){
         initialStatsText = new MultiLineEditBox(this.getMinecraft().font,
