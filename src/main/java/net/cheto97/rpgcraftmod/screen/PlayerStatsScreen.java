@@ -38,8 +38,10 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Objects;
 
 public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> {
-    private final Window window = Minecraft.getInstance().getWindow();
-    private byte ticksSinceUpdate = 0;
+    private final Minecraft mc;
+    private final Window window;
+    private int ticks = 0;
+    Player player;
     private StatPlusButton life_button;
     private StatPlusButton mana_button;
     private StatPlusButton dexterity_button;
@@ -59,6 +61,10 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
 
     public PlayerStatsScreen(PlayerStatsMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
+        Minecraft defaultMC = Minecraft.getInstance();
+        mc = this.minecraft != null ? this.minecraft : defaultMC;
+        player = mc.player != null && mc.player.getId() == PlayerData.getPlayerId() ? mc.player : null;
+        window = mc.getWindow();
         height = window.getGuiScaledHeight();
         width = window.getGuiScaledWidth();
         previousWidth = width;
@@ -78,35 +84,36 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
-        assert Minecraft.getInstance().player != null;
-        Player player = Minecraft.getInstance().player.getId() == PlayerData.getPlayerId() ? Minecraft.getInstance().player : null;
         if(player != null) {
             Component playerClass = switch (PlayerData.getPlayerClass()) {
-                case 1 -> Component.literal("Archer   ").withStyle(ChatFormatting.GOLD);
-                case 2 -> Component.literal("Mage   ").withStyle(ChatFormatting.GOLD);
-                case 3 -> Component.literal("Warrior   ").withStyle(ChatFormatting.GOLD);
-                case 4 -> Component.literal("Assassin   ").withStyle(ChatFormatting.GOLD);
-                case 6 -> Component.literal("Beast Tamer   ").withStyle(ChatFormatting.GOLD);
-                case 7 -> Component.literal("Priest   ").withStyle(ChatFormatting.GOLD);
-                case 8 -> Component.literal("Knight   ").withStyle(ChatFormatting.GOLD);
-                default -> Component.literal("Balanced   ").withStyle(ChatFormatting.GOLD);
+                case 1 -> Component.literal("Archer ");
+                case 2 -> Component.literal("Mage ");
+                case 3 -> Component.literal("Warrior ");
+                case 4 -> Component.literal("Assassin ");
+                case 6 -> Component.literal("Beast Tamer ");
+                case 7 -> Component.literal("Priest ");
+                case 8 -> Component.literal("Knight ");
+                default -> Component.literal("Balanced ");
             };
-            playerClass.plainCopy().append(player.getName().getString() + " Stat Menu");
+
             this.addRenderableWidget(new ExitButton((width / 2) - (width / 3) + (width / 100), (height / 2) - (height / 3) + (height / 100), 12, 12, Component.literal(""), e -> Close()));
-            GuiComponent.drawCenteredString(ms, font, playerClass, (width / 2), (height / 2) - (height / 3) + (height / 80), 0);
+            GuiComponent.drawCenteredString(ms, font, playerClass.copy().append(player.getName().getString() + " Stat Menu"), (width / 2), (height / 2) - (height / 3) + (height / 80), 0);
         }
         RenderSystem.enableBlend();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderTexture(0, texture);
         blit(ms, (width/2)-(width/3), (height/2)-(height/3), 0, 0, this.imageWidth, this.imageHeight,(width/2)+(width/3),(height/2)+(height/3));
         RenderSystem.disableBlend();
     }
     private void setStatsDisplay(){
-        int sdW = (width / 2) - (width / 3);
-        int sdH = (height / 2) - (height / 3);
-        assert Minecraft.getInstance().player != null;
-        Player player = Minecraft.getInstance().player.getId() == PlayerData.getPlayerId() ? Minecraft.getInstance().player : null;
+        int sdW = (width / 2) - (width / 3) + (width / 80);
+        int sdH = (height / 2) - (height / 3) + (height / 80);
+        int sdX = (width/2) + (width / 3) - (width / 80);
+        int sdY = (height/2) + (height / 3) - (height / 80);
+
+        System.out.println("image width: " + this.imageWidth);
+        System.out.println("sdX: " + sdX);
+
         if(player != null){
             double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
             Component statPoints = Component.literal(" "+PlayerData.getPlayerStatPoints()).withStyle(ChatFormatting.LIGHT_PURPLE);
@@ -141,34 +148,71 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
 
 
             Component data = Component.literal(
-                    "  Level:  "+ PlayerData.getPlayerLevel() + "\n"+
-                            "  Resets:  "+ PlayerData.getPlayerReset() + "\n"+
-                            "  Needed Experience:  "+ doubleToString(exp) + "\n"+"\n"+
-                            "  Life:  "+ doubleToString(PlayerData.getPlayerLife()) + "\n"+
-                            "  Life Regeneration:  "+ componentRegLife+ "\n"+"\n"+
-                            "  Mana:  "+ doubleToString(PlayerData.getPlayerMana()) + "\n"+
-                            "  Mana Regeneration:  "+ doubleToString(PlayerData.getPlayerManaRegeneration())+ "\n"+ "\n"+
-                            "  Defense:  "+ componentDefense+ "\n"+ "\n"+
-                            "  Magic defense:  "+ doubleToString(PlayerData.getPlayerMagicDefense())+ "\n"+ "\n"+
-                            "  Strength:  "+ componentStrength+ "\n"+ "\n"+
-                            "  Luck:  "+ componentLuck+ "\n"+ "\n"+
-                            "  Intelligence:  "+ doubleToString(PlayerData.getPlayerIntelligence())+ "\n"+ "\n"+
-                            "  Dexterity:  "+ doubleToString(PlayerData.getPlayerDexterity())+ "\n"+ "\n"+
-                            "  Command:  "+ doubleToString(PlayerData.getPlayerCommand())+ "\n"+ "\n"+
-                            "  Agility:  "+ doubleToString(PlayerData.getPlayerAgility())+"\n"+"\n"+"\n"+"\n"+
-                            "     Stats Points: "+ statPoints);
+                    "  Level:  " ).append(String.valueOf(PlayerData.getPlayerLevel())).append("\n"+
+                    "  Resets:  " ).append(String.valueOf(PlayerData.getPlayerReset())).append("\n"+
+                    "  Needed Experience:  " ).append(doubleToString(exp)).append("""
 
-            MultiLineEditBox statsDisplay = new MultiLineEditBox(Minecraft.getInstance().font, sdW, sdH, this.imageWidth, this.imageHeight, data, data);
+
+                      Life:  \
+                    """).append(doubleToString(PlayerData.getPlayerLife())).append("\n"+
+                    "  Life Regeneration:  " ).append(componentRegLife).append("""
+
+
+                      Mana:  \
+                    """).append(doubleToString(PlayerData.getPlayerMana())).append("\n"+
+                    "  Mana Regeneration:  " ).append(doubleToString(PlayerData.getPlayerManaRegeneration())).append("""
+
+
+                      Defense:  \
+                    """).append(componentDefense).append("""
+
+
+                      Magic defense:  \
+                    """).append(doubleToString(PlayerData.getPlayerMagicDefense())).append("""
+
+
+                      Strength:  \
+                    """).append(componentStrength).append("""
+
+
+                      Luck:  \
+                    """).append(componentLuck).append("""
+
+
+                      Intelligence:  \
+                    """).append(doubleToString(PlayerData.getPlayerIntelligence())).append("""
+
+
+                      Dexterity:  \
+                    """).append(doubleToString(PlayerData.getPlayerDexterity())).append("""
+
+
+                      Command:  \
+                    """).append(doubleToString(PlayerData.getPlayerCommand())).append("""
+
+
+                      Agility:  \
+                    """).append(doubleToString(PlayerData.getPlayerAgility())).append("""
+
+
+
+
+                         Stats Points: \
+                    """).append(String.valueOf(statPoints));
+
+            MultiLineEditBox statsDisplay = new MultiLineEditBox(mc.font, sdW, sdH, sdX, sdY, data, data);
             this.addWidget(statsDisplay);
+
+            setButtons(statsDisplay.getHeight(), statsDisplay.getWidth());
         }
     }
     private void Close(){
-        assert this.minecraft != null;
-        assert this.minecraft.player != null;
-        if(this.minecraft.screen == this) {
-            this.minecraft.setScreen(null);
-        }else{
-            this.minecraft.player.closeContainer();
+        if(player != null){
+            if(mc.screen == this) {
+                mc.setScreen(null);
+            }else{
+                player.closeContainer();
+            }
         }
     }
     @Override
@@ -181,28 +225,26 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     public void containerTick() {
-        this.ticksSinceUpdate++;
-        height = window.getGuiScaledHeight();
-        width = window.getGuiScaledWidth();
-        scale = window.getGuiScale();
-        if(windowChange()){
-            previousWidth = width;
-            previousHeight = height;
-            previousScale = scale;
-            this.imageWidth = width - (int)((900*scale)/width);
-            this.imageHeight = height - (int)((715*scale)/height);
-            ResetButtons();
-            this.init();
-        }
-        if (this.ticksSinceUpdate % 5 == 0) {
-            this.ticksSinceUpdate = 0;
-            ResetButtons();
-            this.init();
+        ticks++;
+        if(ticks % 5 == 0){
+            if(windowChange()){
+                height = window.getGuiScaledHeight();
+                width = window.getGuiScaledWidth();
+                scale = window.getGuiScale();
+                previousWidth = width;
+                previousHeight = height;
+                previousScale = scale;
+                this.imageWidth = width - (int)((900*scale)/width);
+                this.imageHeight = height - (int)((715*scale)/height);
+                ResetButtons();
+                setStatsDisplay();
+            }
+            ticks = 0;
         }
 
     }
     private boolean windowChange(){
-        return (previousScale != scale) || ((previousWidth != width) && (previousHeight != height));
+        return (previousScale != window.getGuiScale()) || ((previousWidth != window.getGuiScaledWidth()) && (previousHeight != window.getGuiScaledHeight()));
     }
     private void ResetButtons(){
         this.renderables.clear();
@@ -215,7 +257,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     @Override
     public void onClose() {
         super.onClose();
-        Minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(false);
+        mc.keyboardHandler.setSendRepeatsToGui(false);
     }
     private void TurnOn(){
         life_button.On();
@@ -244,33 +286,43 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     @Override
     public void init() {
         super.init();
-        assert this.minecraft != null;
-        this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
+        mc.keyboardHandler.setSendRepeatsToGui(true);
         setStatsDisplay();
+    }
+    private void setButtons(int boxHeight, int boxWidth){
 
-        int xPos = this.imageWidth + (width/50);
-        int yPos = (height/2)-(height/3)-(height/80);
-        int bW = 10;
-        int bH = 10;
+        int xPos = boxWidth - (width/40);
+        int yPos = (height - boxHeight) - (height / 70);
+        int bS = (int)Math.floor(((double)(boxWidth + boxHeight) / 80));
         int alt = 2;
 
-        life_button = new StatPlusButton(xPos, this.topPos + 60 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("life")));
-        mana_button = new StatPlusButton(xPos, this.topPos + 95 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("mana")));
-        dexterity_button = new StatPlusButton(xPos, this.topPos + 130 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("dexterity")));
-        intelligence_button = new StatPlusButton(xPos, this.topPos + 150 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("intelligence")));
-        strength_button = new StatPlusButton(xPos, this.topPos + 170 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("strength")));
-        command_button = new StatPlusButton(xPos, this.topPos + 190 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("command")));
-        defense_button = new StatPlusButton(xPos, this.topPos + 210 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("defense")));
-        magicdefense_button = new StatPlusButton(xPos, this.topPos + 230 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("magicdefense")));
-        luck_button = new StatPlusButton(xPos, this.topPos + 250 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("luck")));
-        agility_button = new StatPlusButton(xPos, this.topPos + 270 - alt, bW, bH,Component.literal(""), e -> ModMessages.sendToServer(new PlayerStatSyncPacket("agility")));
+        life_button = new StatPlusButton(xPos, yPos + 60 - alt, bS, bS,Component.literal(""), e -> sendData("life"));
+        mana_button = new StatPlusButton(xPos, yPos + 95 - alt, bS, bS,Component.literal(""), e -> sendData("mana"));
+        dexterity_button = new StatPlusButton(xPos, yPos + 130 - alt, bS, bS,Component.literal(""), e -> sendData("dexterity"));
+        intelligence_button = new StatPlusButton(xPos, yPos + 150 - alt, bS, bS,Component.literal(""), e -> sendData("intelligence"));
+        strength_button = new StatPlusButton(xPos, yPos + 170 - alt, bS, bS,Component.literal(""), e -> sendData("strength"));
+        command_button = new StatPlusButton(xPos, yPos + 190 - alt, bS, bS,Component.literal(""), e -> sendData("command"));
+        defense_button = new StatPlusButton(xPos, yPos + 210 - alt, bS, bS,Component.literal(""), e -> sendData("defense"));
+        magicdefense_button = new StatPlusButton(xPos, yPos + 230 - alt, bS, bS,Component.literal(""), e -> sendData("magicdefense"));
+        luck_button = new StatPlusButton(xPos, yPos + 250 - alt, bS, bS,Component.literal(""), e -> sendData("luck"));
+        agility_button = new StatPlusButton(xPos, yPos + 270 - alt, bS, bS,Component.literal(""), e -> sendData("agility"));
 
-        ResetButton reset_button = new ResetButton(xPos, yPos, bW, bH, Component.literal(""), e -> {
-            ModMessages.sendToServer(new PlayerStatSyncPacket("reset"));
-            ResetButtons();
-            init();
+        ResetButton reset_button = new ResetButton(xPos, yPos, bS, bS, Component.literal(""), e -> {
+            try{
+                sendData("reset");
+            }
+            catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
         });
-        OffResetButton reset_button_off = new OffResetButton(xPos, yPos, bW, bH, Component.literal(""), e -> ModMessages.sendToServer(new PlayerNoReqPacket("reset")));
+        OffResetButton reset_button_off = new OffResetButton(xPos, yPos, bS, bS, Component.literal(""), e -> {
+            try{
+                ModMessages.sendToServer(new PlayerNoReqPacket("reset"));
+            }
+            catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        });
 
         if(PlayerData.getPlayerStatPoints() > 0){
             TurnOn();
@@ -295,5 +347,10 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         this.addRenderableWidget(magicdefense_button);
         this.addRenderableWidget(luck_button);
         this.addRenderableWidget(agility_button);
+    }
+    private void sendData(String stat){
+            ModMessages.sendToServer(new PlayerStatSyncPacket(stat));
+            ResetButtons();
+            setStatsDisplay();
     }
 }
