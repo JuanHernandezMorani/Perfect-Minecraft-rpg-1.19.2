@@ -21,7 +21,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.components.MultiLineEditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -38,10 +37,10 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Objects;
 
 public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> {
-    private final Minecraft mc;
-    private final Window window;
+    private final Minecraft mc = Minecraft.getInstance();
+    private final Window window = mc.getWindow();
     private int ticks = 0;
-    Player player;
+    private final Player player;
     private StatPlusButton life_button;
     private StatPlusButton mana_button;
     private StatPlusButton dexterity_button;
@@ -61,10 +60,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
 
     public PlayerStatsScreen(PlayerStatsMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
-        Minecraft defaultMC = Minecraft.getInstance();
-        mc = this.minecraft != null ? this.minecraft : defaultMC;
-        player = mc.player != null && mc.player.getId() == PlayerData.getPlayerId() ? mc.player : null;
-        window = mc.getWindow();
+        player = inventory.player;
         height = window.getGuiScaledHeight();
         width = window.getGuiScaledWidth();
         previousWidth = width;
@@ -72,10 +68,10 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         scale = window.getGuiScale();
         previousScale = scale;
 
-        this.imageWidth = width - (int)((900*scale)/width);
-        this.imageHeight = height - (int)((715*scale)/height);
+        this.imageWidth = width - (int)((215*scale)/width);
+        this.imageHeight = height - (int)((200*scale)/height);
     }
-    private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/skill_background.png");
+    private static final ResourceLocation playerStatsScreenBG = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/bc/skill_background.png");
     @Override
     public void render(@NotNull PoseStack ms, int mouseX, int mouseY, float partialTicks) {
         super.render(ms, mouseX, mouseY, partialTicks);
@@ -84,37 +80,26 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     @Override
     protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
-        if(player != null) {
-            Component playerClass = switch (PlayerData.getPlayerClass()) {
-                case 1 -> Component.literal("Archer ");
-                case 2 -> Component.literal("Mage ");
-                case 3 -> Component.literal("Warrior ");
-                case 4 -> Component.literal("Assassin ");
-                case 6 -> Component.literal("Beast Tamer ");
-                case 7 -> Component.literal("Priest ");
-                case 8 -> Component.literal("Knight ");
-                default -> Component.literal("Balanced ");
-            };
-
-            this.addRenderableWidget(new ExitButton((width / 2) - (width / 3) + (width / 100), (height / 2) - (height / 3) + (height / 100), 12, 12, Component.literal(""), e -> Close()));
-            GuiComponent.drawCenteredString(ms, font, playerClass.copy().append(player.getName().getString() + " Stat Menu"), (width / 2), (height / 2) - (height / 3) + (height / 80), 0);
-        }
+        RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderTexture(0, texture);
-        blit(ms, (width/2)-(width/3), (height/2)-(height/3), 0, 0, this.imageWidth, this.imageHeight,(width/2)+(width/3),(height/2)+(height/3));
+        RenderSystem.setShaderTexture(0, playerStatsScreenBG);
+        blit(ms, (width/2)-(width/3), (height/2)-(height/3), 0, 0, this.imageWidth, this.imageHeight);
         RenderSystem.disableBlend();
-    }
-    private void setStatsDisplay(){
-        int sdW = (width / 2) - (width / 3) + (width / 80);
-        int sdH = (height / 2) - (height / 3) + (height / 80);
-        int sdX = (width/2) + (width / 3) - (width / 80);
-        int sdY = (height/2) + (height / 3) - (height / 80);
 
-        System.out.println("image width: " + this.imageWidth);
-        System.out.println("sdX: " + sdX);
+        if(player != null && player.getId() == PlayerData.getPlayerId()){
+            MutableComponent playerClass = switch (PlayerData.getPlayerClass()) {
+                case 1 -> Component.literal("Archer ").withStyle(ChatFormatting.GOLD);
+                case 2 -> Component.literal("Mage ").withStyle(ChatFormatting.GOLD);
+                case 3 -> Component.literal("Warrior ").withStyle(ChatFormatting.GOLD);
+                case 4 -> Component.literal("Assassin ").withStyle(ChatFormatting.GOLD);
+                case 6 -> Component.literal("Beast Tamer ").withStyle(ChatFormatting.GOLD);
+                case 7 -> Component.literal("Priest ").withStyle(ChatFormatting.GOLD);
+                case 8 -> Component.literal("Knight ").withStyle(ChatFormatting.GOLD);
+                default -> Component.literal("Balanced ").withStyle(ChatFormatting.GOLD);
+            };
+            GuiComponent.drawCenteredString(ms, font, playerClass.append(player.getName().getString() + " Stat Menu"),
+                    (width / 2) - (width / 20), ((height / 2) - (height / 3)) + (height / 80), 0xFFFFFF);
 
-        if(player != null){
             double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
             Component statPoints = Component.literal(" "+PlayerData.getPlayerStatPoints()).withStyle(ChatFormatting.LIGHT_PURPLE);
             ChatFormatting defColor = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? ChatFormatting.DARK_GREEN : null;
@@ -125,14 +110,14 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             ChatFormatting damWeakColor = damColor != null && weakColor != null ? Objects.requireNonNull(player.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() >= Objects.requireNonNull(player.getEffect(MobEffects.WEAKNESS)).getAmplifier() ? ChatFormatting.GREEN : ChatFormatting.RED : null;
 
 
-            MobEffectInstance defEff = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? player.getEffect(MobEffects.DAMAGE_RESISTANCE) : null;
+            MobEffectInstance defsEff = player.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? player.getEffect(MobEffects.DAMAGE_RESISTANCE) : null;
             MobEffectInstance luckEff = player.hasEffect(MobEffects.LUCK) ? player.getEffect(MobEffects.LUCK) : null;
             MobEffectInstance damEff = player.hasEffect(MobEffects.DAMAGE_BOOST) ? player.getEffect(MobEffects.DAMAGE_BOOST) : null;
             MobEffectInstance weakEff = player.hasEffect(MobEffects.WEAKNESS) ? player.getEffect(MobEffects.WEAKNESS) : null;
             MobEffectInstance regLifeEff = player.hasEffect(MobEffects.REGENERATION) ? player.getEffect(MobEffects.REGENERATION) : null;
 
             double damBonus = damEff != null && weakEff != null ? calculateDamageAndReduce(damEff,weakEff,PlayerData.getPlayerStrength()) : damEff != null ? calculateValue(damEff,PlayerData.getPlayerStrength(),"add") : weakEff != null ? calculateValue(weakEff,PlayerData.getPlayerStrength(),"reduce") : 0.0;
-            double defBonus = defEff != null ? calculateValue(defEff,PlayerData.getPlayerDefense(),"add") : 0.0;
+            double defBonus = defsEff != null ? calculateValue(defsEff,PlayerData.getPlayerDefense(),"add") : 0.0;
             double luckBonus = luckEff != null ? calculateValue(luckEff,PlayerData.getPlayerLuck(),"add") : 0.0;
             double regLifeBonus = regLifeEff != null ? calculateValue(regLifeEff, PlayerData.getPlayerLifeRegeneration(),"add") : 0.0;
 
@@ -147,63 +132,40 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             MutableComponent componentRegLife = regLifeColor != null ? Component.literal(regLifeString).withStyle(regLifeColor) : Component.literal(regLifeString);
 
 
-            Component data = Component.literal(
-                    "  Level:  " ).append(String.valueOf(PlayerData.getPlayerLevel())).append("\n"+
-                    "  Resets:  " ).append(String.valueOf(PlayerData.getPlayerReset())).append("\n"+
-                    "  Needed Experience:  " ).append(doubleToString(exp)).append("""
+            drawComponent(ms, Component.literal("Level:"), Component.literal(String.valueOf(PlayerData.getPlayerLevel())), (height / 10));
 
+            drawComponent(ms, Component.literal("Reset:"),Component.literal(String.valueOf(PlayerData.getPlayerReset())), (height / 7));
 
-                      Life:  \
-                    """).append(doubleToString(PlayerData.getPlayerLife())).append("\n"+
-                    "  Life Regeneration:  " ).append(componentRegLife).append("""
+            drawComponent(ms, Component.literal("Needed Experience:"), Component.literal(doubleToString(exp)), (height / 6));
 
+            drawComponent(ms, Component.literal("Life:"), Component.literal(doubleToString(PlayerData.getPlayerLifeMax())), (height / 4));
 
-                      Mana:  \
-                    """).append(doubleToString(PlayerData.getPlayerMana())).append("\n"+
-                    "  Mana Regeneration:  " ).append(doubleToString(PlayerData.getPlayerManaRegeneration())).append("""
+            drawComponent(ms, Component.literal("Life Regeneration:"), componentRegLife, (height / 3));
 
+            drawComponent(ms, Component.literal("Mana:"), Component.literal(doubleToString(PlayerData.getPlayerManaMax())), (height / 2) - (height / 30));
 
-                      Defense:  \
-                    """).append(componentDefense).append("""
+            drawComponent(ms, Component.literal("Mana Regeneration:"), Component.literal(doubleToString(PlayerData.getPlayerManaRegeneration())), (height / 2) - (height / 20));
 
+            drawComponent(ms, Component.literal("Dexterity:"), Component.literal(doubleToString(PlayerData.getPlayerDexterity())), (height / 2));
 
-                      Magic defense:  \
-                    """).append(doubleToString(PlayerData.getPlayerMagicDefense())).append("""
+            drawComponent(ms, Component.literal("Intelligence:"), Component.literal(doubleToString(PlayerData.getPlayerIntelligence())), -(height / 2));
 
+            drawComponent(ms, Component.literal("Strength:"), componentStrength, -(height / 2) + (height / 20));
 
-                      Strength:  \
-                    """).append(componentStrength).append("""
+            drawComponent(ms, Component.literal("Command:"), Component.literal(doubleToString(PlayerData.getPlayerCommand())), -(height / 2) + (height / 30));
 
+            drawComponent(ms, Component.literal("Defense:"), componentDefense, -(height / 3));
 
-                      Luck:  \
-                    """).append(componentLuck).append("""
+            drawComponent(ms, Component.literal("Magic Defense:"), Component.literal((doubleToString(PlayerData.getPlayerMagicDefense()))), -(height / 4));
 
+            drawComponent(ms, Component.literal("Luck:"), componentLuck, -(height / 5));
 
-                      Intelligence:  \
-                    """).append(doubleToString(PlayerData.getPlayerIntelligence())).append("""
+            drawComponent(ms, Component.literal("Agility:"), Component.literal(doubleToString(PlayerData.getPlayerAgility())), -(height / 6));
 
+            drawComponent(ms, Component.literal("Stat Points:"), statPoints, -(height / 10));
 
-                      Dexterity:  \
-                    """).append(doubleToString(PlayerData.getPlayerDexterity())).append("""
-
-
-                      Command:  \
-                    """).append(doubleToString(PlayerData.getPlayerCommand())).append("""
-
-
-                      Agility:  \
-                    """).append(doubleToString(PlayerData.getPlayerAgility())).append("""
-
-
-
-
-                         Stats Points: \
-                    """).append(String.valueOf(statPoints));
-
-            MultiLineEditBox statsDisplay = new MultiLineEditBox(mc.font, sdW, sdH, sdX, sdY, data, data);
-            this.addWidget(statsDisplay);
-
-            setButtons(statsDisplay.getHeight(), statsDisplay.getWidth());
+            setExitButton(((width / 2) - (width / 3)) + (width / 90),((height / 2) - (height / 3)) + (height / 90));
+            setButtons(((width / 2) + (width / 3)) - (width/75),((height / 2) - (height / 3)));
         }
     }
     private void Close(){
@@ -214,6 +176,12 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
                 player.closeContainer();
             }
         }
+    }
+    private void drawComponent(PoseStack ms, Component name, Component amount, int hAlt){
+        // hAlt > 0 -> derecha | hAlt < 0 -> izquierda
+        GuiComponent.drawString(ms, font, name, ((width / 2) - (width / 3)) + (width/75), ((height / 2) - (height / 3)) + hAlt, 0xFFFFFF);
+        GuiComponent.drawString(ms, font, amount, ((width / 2) - (width / 3)) + (width/4), ((height / 2) - (height / 3)) + hAlt, 0xFFFFFF);
+
     }
     @Override
     public boolean keyPressed(int key, int b, int c) {
@@ -234,10 +202,9 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
                 previousWidth = width;
                 previousHeight = height;
                 previousScale = scale;
-                this.imageWidth = width - (int)((900*scale)/width);
-                this.imageHeight = height - (int)((715*scale)/height);
+                this.imageWidth = width - (int)((215*scale)/width);
+                this.imageHeight = height - (int)((200*scale)/height);
                 ResetButtons();
-                setStatsDisplay();
             }
             ticks = 0;
         }
@@ -287,27 +254,22 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     public void init() {
         super.init();
         mc.keyboardHandler.setSendRepeatsToGui(true);
-        setStatsDisplay();
     }
-    private void setButtons(int boxHeight, int boxWidth){
+    private void setButtons(int x, int y){
+        int bS = (int)Math.floor(((double)(x + y) / 80));
 
-        int xPos = boxWidth - (width/40);
-        int yPos = (height - boxHeight) - (height / 70);
-        int bS = (int)Math.floor(((double)(boxWidth + boxHeight) / 80));
-        int alt = 2;
+        life_button = new StatPlusButton(x, y + bS + 1, bS, bS,Component.literal(""), e -> sendData("life"));
+        mana_button = new StatPlusButton(x, y + bS + 3, bS, bS,Component.literal(""), e -> sendData("mana"));
+        dexterity_button = new StatPlusButton(x, y + bS + 5, bS, bS,Component.literal(""), e -> sendData("dexterity"));
+        intelligence_button = new StatPlusButton(x, y + bS + 7, bS, bS,Component.literal(""), e -> sendData("intelligence"));
+        strength_button = new StatPlusButton(x, y + bS + 9, bS, bS,Component.literal(""), e -> sendData("strength"));
+        command_button = new StatPlusButton(x, y + bS + 11, bS, bS,Component.literal(""), e -> sendData("command"));
+        defense_button = new StatPlusButton(x, y + bS + 13, bS, bS,Component.literal(""), e -> sendData("defense"));
+        magicdefense_button = new StatPlusButton(x, y + bS + 15, bS, bS,Component.literal(""), e -> sendData("magicdefense"));
+        luck_button = new StatPlusButton(x, y + bS + 17, bS, bS,Component.literal(""), e -> sendData("luck"));
+        agility_button = new StatPlusButton(x, y + bS + 19, bS, bS,Component.literal(""), e -> sendData("agility"));
 
-        life_button = new StatPlusButton(xPos, yPos + 60 - alt, bS, bS,Component.literal(""), e -> sendData("life"));
-        mana_button = new StatPlusButton(xPos, yPos + 95 - alt, bS, bS,Component.literal(""), e -> sendData("mana"));
-        dexterity_button = new StatPlusButton(xPos, yPos + 130 - alt, bS, bS,Component.literal(""), e -> sendData("dexterity"));
-        intelligence_button = new StatPlusButton(xPos, yPos + 150 - alt, bS, bS,Component.literal(""), e -> sendData("intelligence"));
-        strength_button = new StatPlusButton(xPos, yPos + 170 - alt, bS, bS,Component.literal(""), e -> sendData("strength"));
-        command_button = new StatPlusButton(xPos, yPos + 190 - alt, bS, bS,Component.literal(""), e -> sendData("command"));
-        defense_button = new StatPlusButton(xPos, yPos + 210 - alt, bS, bS,Component.literal(""), e -> sendData("defense"));
-        magicdefense_button = new StatPlusButton(xPos, yPos + 230 - alt, bS, bS,Component.literal(""), e -> sendData("magicdefense"));
-        luck_button = new StatPlusButton(xPos, yPos + 250 - alt, bS, bS,Component.literal(""), e -> sendData("luck"));
-        agility_button = new StatPlusButton(xPos, yPos + 270 - alt, bS, bS,Component.literal(""), e -> sendData("agility"));
-
-        ResetButton reset_button = new ResetButton(xPos, yPos, bS, bS, Component.literal(""), e -> {
+        ResetButton reset_button = new ResetButton(x, y, bS, bS, Component.literal(""), e -> {
             try{
                 sendData("reset");
             }
@@ -315,7 +277,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
                 System.out.println(ex.getMessage());
             }
         });
-        OffResetButton reset_button_off = new OffResetButton(xPos, yPos, bS, bS, Component.literal(""), e -> {
+        OffResetButton reset_button_off = new OffResetButton(x, y, bS, bS, Component.literal(""), e -> {
             try{
                 ModMessages.sendToServer(new PlayerNoReqPacket("reset"));
             }
@@ -348,9 +310,10 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         this.addRenderableWidget(luck_button);
         this.addRenderableWidget(agility_button);
     }
+    private void setExitButton(int x, int y){
+        this.addRenderableWidget(new ExitButton(x, y, 12, 12, Component.literal(""), e -> Close()));
+    }
     private void sendData(String stat){
-            ModMessages.sendToServer(new PlayerStatSyncPacket(stat));
-            ResetButtons();
-            setStatsDisplay();
+        ModMessages.sendToServer(new PlayerStatSyncPacket(stat));
     }
 }

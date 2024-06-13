@@ -317,7 +317,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
     public void onClose() {
         super.onClose();
         if(!wasClick){
-            ModMessages.sendToServer(new PlayerClassSelectPacket("balanced"));
+            ModMessages.sendToServer(new PlayerClassSelectPacket("random"));
             if(this.minecraft != null && this.minecraft.screen == this) {
                 this.minecraft.setScreen(null);
             }
