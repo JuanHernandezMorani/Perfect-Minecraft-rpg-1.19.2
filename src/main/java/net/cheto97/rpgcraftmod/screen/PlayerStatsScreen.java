@@ -5,11 +5,13 @@ import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.menu.PlayerStatsMenu;
 import static net.cheto97.rpgcraftmod.util.Effects.Helper.calculateDamageAndReduce;
 import static net.cheto97.rpgcraftmod.util.Effects.Helper.calculateValue;
+import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToIntString;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.doubleToString;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.data.PlayerData;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerNoReqPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.PlayerStatSyncPacket;
+import net.cheto97.rpgcraftmod.util.MouseUtil;
 import net.cheto97.rpgcraftmod.util.button.ExitButton;
 import net.cheto97.rpgcraftmod.util.button.OffResetButton;
 import net.cheto97.rpgcraftmod.util.button.ResetButton;
@@ -34,7 +36,9 @@ import org.jetbrains.annotations.NotNull;
 
 import org.lwjgl.glfw.GLFW;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> {
     private final Minecraft mc = Minecraft.getInstance();
@@ -68,8 +72,8 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         scale = window.getGuiScale();
         previousScale = scale;
 
-        this.imageWidth = width - (int)((215*scale)/width);
-        this.imageHeight = height - (int)((200*scale)/height);
+        this.imageWidth = width;
+        this.imageHeight = height;
     }
     private static final ResourceLocation playerStatsScreenBG = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/bc/skill_background.png");
     @Override
@@ -79,11 +83,19 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         this.renderBackground(ms);
     }
     @Override
-    protected void renderBg(@NotNull PoseStack ms, float partialTicks, int gx, int gy) {
+    protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {
+    }
+    @Override
+    protected void renderBg(@NotNull PoseStack ms, float partialTicks, int mouseX, int mouseY) {
+        int initialX = calculatePositionX(0);
+        int initialY = calculatePositionY(0);
+        int endX = calculatePositionX(49);
+        int endY = calculatePositionY(69);
+
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.setShaderTexture(0, playerStatsScreenBG);
-        blit(ms, (width/2)-(width/3), (height/2)-(height/3), 0, 0, this.imageWidth, this.imageHeight);
+        blit(ms, initialX, initialY, 0, 0, endX, endY, endX, endY);
         RenderSystem.disableBlend();
 
         if(player != null && player.getId() == PlayerData.getPlayerId()){
@@ -97,8 +109,9 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
                 case 8 -> Component.literal("Knight ").withStyle(ChatFormatting.GOLD);
                 default -> Component.literal("Balanced ").withStyle(ChatFormatting.GOLD);
             };
-            GuiComponent.drawCenteredString(ms, font, playerClass.append(player.getName().getString() + " Stat Menu"),
-                    (width / 2) - (width / 20), ((height / 2) - (height / 3)) + (height / 80), 0xFFFFFF);
+            MutableComponent menuString = playerClass.append(player.getName().getString() + " Stat Menu");
+            GuiComponent.drawCenteredString(ms, font, menuString,
+                    (calculatePositionX(30)), calculatePositionY(1), 0xFFFFFF);
 
             double exp = PlayerData.getExpNeed()-PlayerData.getPlayerExperience();
             Component statPoints = Component.literal(" "+PlayerData.getPlayerStatPoints()).withStyle(ChatFormatting.LIGHT_PURPLE);
@@ -131,41 +144,25 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             MutableComponent componentLuck = luckColor != null ? Component.literal(luckString).withStyle(luckColor) : Component.literal(luckString);
             MutableComponent componentRegLife = regLifeColor != null ? Component.literal(regLifeString).withStyle(regLifeColor) : Component.literal(regLifeString);
 
+            drawComponent(ms, "Level:", Component.literal(String.valueOf(PlayerData.getPlayerLevel())), 8, mouseX, mouseY);
+            drawComponent(ms, "Reset:",Component.literal(String.valueOf(PlayerData.getPlayerReset())), 12, mouseX, mouseY);
+            drawComponent(ms, "Needed Experience:", Component.literal(doubleToIntString(exp)), 16, mouseX, mouseY);
+            drawComponent(ms, "Life:", Component.literal(doubleToString(PlayerData.getPlayerLifeMax())), 20, mouseX, mouseY);
+            drawComponent(ms, "Life Regeneration:", componentRegLife, 24, mouseX, mouseY);
+            drawComponent(ms, "Mana:", Component.literal(doubleToString(PlayerData.getPlayerManaMax())), 28, mouseX, mouseY);
+            drawComponent(ms, "Mana Regeneration:", Component.literal(doubleToString(PlayerData.getPlayerManaRegeneration())), 32, mouseX, mouseY);
+            drawComponent(ms, "Dexterity:", Component.literal(doubleToString(PlayerData.getPlayerDexterity())), 36, mouseX, mouseY);
+            drawComponent(ms, "Intelligence:", Component.literal(doubleToString(PlayerData.getPlayerIntelligence())), 40, mouseX, mouseY);
+            drawComponent(ms, "Strength:", componentStrength, 44, mouseX, mouseY);
+            drawComponent(ms, "Command:", Component.literal(doubleToString(PlayerData.getPlayerCommand())), 48, mouseX, mouseY);
+            drawComponent(ms, "Defense:", componentDefense, 52, mouseX, mouseY);
+            drawComponent(ms, "Magic Defense:", Component.literal((doubleToString(PlayerData.getPlayerMagicDefense()))), 56, mouseX, mouseY);
+            drawComponent(ms, "Luck:", componentLuck, 60, mouseX, mouseY);
+            drawComponent(ms, "Agility:", Component.literal(doubleToString(PlayerData.getPlayerAgility())), 64, mouseX, mouseY);
+            drawComponent(ms, "Stat Points:", statPoints, 72, mouseX, mouseY);
 
-            drawComponent(ms, Component.literal("Level:"), Component.literal(String.valueOf(PlayerData.getPlayerLevel())), (height / 10));
-
-            drawComponent(ms, Component.literal("Reset:"),Component.literal(String.valueOf(PlayerData.getPlayerReset())), (height / 7));
-
-            drawComponent(ms, Component.literal("Needed Experience:"), Component.literal(doubleToString(exp)), (height / 6));
-
-            drawComponent(ms, Component.literal("Life:"), Component.literal(doubleToString(PlayerData.getPlayerLifeMax())), (height / 4));
-
-            drawComponent(ms, Component.literal("Life Regeneration:"), componentRegLife, (height / 3));
-
-            drawComponent(ms, Component.literal("Mana:"), Component.literal(doubleToString(PlayerData.getPlayerManaMax())), (height / 2) - (height / 30));
-
-            drawComponent(ms, Component.literal("Mana Regeneration:"), Component.literal(doubleToString(PlayerData.getPlayerManaRegeneration())), (height / 2) - (height / 20));
-
-            drawComponent(ms, Component.literal("Dexterity:"), Component.literal(doubleToString(PlayerData.getPlayerDexterity())), (height / 2));
-
-            drawComponent(ms, Component.literal("Intelligence:"), Component.literal(doubleToString(PlayerData.getPlayerIntelligence())), -(height / 2));
-
-            drawComponent(ms, Component.literal("Strength:"), componentStrength, -(height / 2) + (height / 20));
-
-            drawComponent(ms, Component.literal("Command:"), Component.literal(doubleToString(PlayerData.getPlayerCommand())), -(height / 2) + (height / 30));
-
-            drawComponent(ms, Component.literal("Defense:"), componentDefense, -(height / 3));
-
-            drawComponent(ms, Component.literal("Magic Defense:"), Component.literal((doubleToString(PlayerData.getPlayerMagicDefense()))), -(height / 4));
-
-            drawComponent(ms, Component.literal("Luck:"), componentLuck, -(height / 5));
-
-            drawComponent(ms, Component.literal("Agility:"), Component.literal(doubleToString(PlayerData.getPlayerAgility())), -(height / 6));
-
-            drawComponent(ms, Component.literal("Stat Points:"), statPoints, -(height / 10));
-
-            setExitButton(((width / 2) - (width / 3)) + (width / 90),((height / 2) - (height / 3)) + (height / 90));
-            setButtons(((width / 2) + (width / 3)) - (width/75),((height / 2) - (height / 3)));
+            setExitButton((calculatePositionX(0)),calculatePositionY(0));
+            setButtons(calculatePositionX(52));
         }
     }
     private void Close(){
@@ -177,11 +174,25 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
             }
         }
     }
-    private void drawComponent(PoseStack ms, Component name, Component amount, int hAlt){
-        // hAlt > 0 -> derecha | hAlt < 0 -> izquierda
-        GuiComponent.drawString(ms, font, name, ((width / 2) - (width / 3)) + (width/75), ((height / 2) - (height / 3)) + hAlt, 0xFFFFFF);
-        GuiComponent.drawString(ms, font, amount, ((width / 2) - (width / 3)) + (width/4), ((height / 2) - (height / 3)) + hAlt, 0xFFFFFF);
-
+    private void drawComponent(PoseStack ms, String name, Component amount, int position, int mouseX, int mouseY){
+        GuiComponent.drawString(ms, font, Component.literal(name), calculatePositionX(2), calculatePositionY(position), 0xFFFFFF);
+        GuiComponent.drawString(ms, font, amount, widthCalculate(calculatePositionX(2)), calculatePositionY(position), 0xFFFFFF);
+          //statsTooltip(ms,name,(height / 3) * position,mouseX,mouseY);
+    }
+    private int calculatePositionY(int position){
+        return ((height / 2) - (height / 3) + ((height / 90) * (position - 8)));
+    }
+    private int calculatePositionX(int position){
+        return ((width / 2) - (width / 3)) + ( (width / 90) * (position - 2));
+    }
+    private void statsTooltip(PoseStack ms, String name, int hAlt, int mouseX, int mouseY){
+        List<Component> stats = getStatsTooltips(name);
+        if(!stats.get(0).equals(Component.empty())){
+            renderStatTooltip(ms,mouseX,mouseY,((width / 2) - (width / 3)) + (width/75),hAlt,stats, widthCalculate(calculatePositionX(1)));
+        }
+    }
+    private int widthCalculate(int position){
+        return position + calculatePositionX(9);
     }
     @Override
     public boolean keyPressed(int key, int b, int c) {
@@ -195,15 +206,18 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     public void containerTick() {
         ticks++;
         if(ticks % 5 == 0){
-            if(windowChange()){
+            if(windowChange() && mc.screen == this){
                 height = window.getGuiScaledHeight();
                 width = window.getGuiScaledWidth();
                 scale = window.getGuiScale();
+
                 previousWidth = width;
                 previousHeight = height;
                 previousScale = scale;
-                this.imageWidth = width - (int)((215*scale)/width);
-                this.imageHeight = height - (int)((200*scale)/height);
+
+                this.imageWidth = width;
+                this.imageHeight = height;
+
                 ResetButtons();
             }
             ticks = 0;
@@ -216,10 +230,6 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     private void ResetButtons(){
         this.renderables.clear();
         this.children().clear();
-    }
-    @Override
-    protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {
-
     }
     @Override
     public void onClose() {
@@ -255,21 +265,21 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         super.init();
         mc.keyboardHandler.setSendRepeatsToGui(true);
     }
-    private void setButtons(int x, int y){
-        int bS = (int)Math.floor(((double)(x + y) / 80));
+    private void setButtons(int x){
+        int bS = (int)((calculatePositionY(0) - calculatePositionY(4)) / scale);
 
-        life_button = new StatPlusButton(x, y + bS + 1, bS, bS,Component.literal(""), e -> sendData("life"));
-        mana_button = new StatPlusButton(x, y + bS + 3, bS, bS,Component.literal(""), e -> sendData("mana"));
-        dexterity_button = new StatPlusButton(x, y + bS + 5, bS, bS,Component.literal(""), e -> sendData("dexterity"));
-        intelligence_button = new StatPlusButton(x, y + bS + 7, bS, bS,Component.literal(""), e -> sendData("intelligence"));
-        strength_button = new StatPlusButton(x, y + bS + 9, bS, bS,Component.literal(""), e -> sendData("strength"));
-        command_button = new StatPlusButton(x, y + bS + 11, bS, bS,Component.literal(""), e -> sendData("command"));
-        defense_button = new StatPlusButton(x, y + bS + 13, bS, bS,Component.literal(""), e -> sendData("defense"));
-        magicdefense_button = new StatPlusButton(x, y + bS + 15, bS, bS,Component.literal(""), e -> sendData("magicdefense"));
-        luck_button = new StatPlusButton(x, y + bS + 17, bS, bS,Component.literal(""), e -> sendData("luck"));
-        agility_button = new StatPlusButton(x, y + bS + 19, bS, bS,Component.literal(""), e -> sendData("agility"));
+        life_button = new StatPlusButton(x, calculatePositionY(20), bS, bS,Component.literal(""), e -> sendData("life"));
+        mana_button = new StatPlusButton(x, calculatePositionY(28), bS, bS,Component.literal(""), e -> sendData("mana"));
+        dexterity_button = new StatPlusButton(x, calculatePositionY(36), bS, bS,Component.literal(""), e -> sendData("dexterity"));
+        intelligence_button = new StatPlusButton(x, calculatePositionY(40), bS, bS,Component.literal(""), e -> sendData("intelligence"));
+        strength_button = new StatPlusButton(x, calculatePositionY(44), bS, bS,Component.literal(""), e -> sendData("strength"));
+        command_button = new StatPlusButton(x, calculatePositionY(48), bS, bS,Component.literal(""), e -> sendData("command"));
+        defense_button = new StatPlusButton(x, calculatePositionY(52), bS, bS,Component.literal(""), e -> sendData("defense"));
+        magicdefense_button = new StatPlusButton(x, calculatePositionY(56), bS, bS,Component.literal(""), e -> sendData("magicdefense"));
+        luck_button = new StatPlusButton(x, calculatePositionY(60), bS, bS,Component.literal(""), e -> sendData("luck"));
+        agility_button = new StatPlusButton(x, calculatePositionY(64), bS, bS,Component.literal(""), e -> sendData("agility"));
 
-        ResetButton reset_button = new ResetButton(x, y, bS, bS, Component.literal(""), e -> {
+        ResetButton reset_button = new ResetButton(x, calculatePositionY(8), bS, bS, Component.literal(""), e -> {
             try{
                 sendData("reset");
             }
@@ -277,7 +287,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
                 System.out.println(ex.getMessage());
             }
         });
-        OffResetButton reset_button_off = new OffResetButton(x, y, bS, bS, Component.literal(""), e -> {
+        OffResetButton reset_button_off = new OffResetButton(x, calculatePositionY(8), bS, bS, Component.literal(""), e -> {
             try{
                 ModMessages.sendToServer(new PlayerNoReqPacket("reset"));
             }
@@ -315,5 +325,79 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     }
     private void sendData(String stat){
         ModMessages.sendToServer(new PlayerStatSyncPacket(stat));
+    }
+    private List<Component> getStatsTooltips(String stat) {
+        MutableComponent msg;
+        
+        switch (stat){
+            case "Life:" -> msg = statMSG("""
+                Increase the maximum life stat value and the regeneration,
+                 if it reach 0 you will die.
+                """);
+
+            case "Life Regeneration:" -> msg = statMSG("""
+                Amount of life restoration per second.
+                """);
+
+            case "Mana:" -> msg = statMSG("""
+                Increase the maximum mana stat value and the regeneration,
+                 its needed for certain spells, also it will decrease fall damage!.
+                """);
+
+            case "Mana Regeneration:" -> msg = statMSG("""
+                Amount of mana restoration per second.
+                """);
+
+            case "Dexterity:" -> msg = statMSG("""
+                Increase range damage, also increase some life max value.
+                """);
+
+            case "Intelligence:" -> msg = statMSG("""
+                Increase magical damage, also increase mana max value,
+                 mana regeneration per second and magic defense.
+                """);
+
+            case "Strength:" -> msg = statMSG("""
+                Increase physical damage, also increase defense,
+                 and life regeneration per second.
+                """);
+
+            case "Command:" -> msg = statMSG("""
+                Increase companion base stats, also it is
+                 needed for tame skills.
+                """);
+
+            case "Defense:" -> msg = statMSG("""
+                Reduces received physical damage.
+                """);
+
+            case "Magic Defense:" -> msg = statMSG("""
+                Reduces received magic damage.
+                """);
+
+            case "Luck:" -> msg = statMSG("""
+                Increase chances of better loot,
+                 also increase critical chance.
+                """);
+
+            case "Agility:" -> msg = statMSG("""
+                Increase player movement speed.
+                """);
+
+            default -> msg = Component.empty();
+        }
+        return java.util.List.of(msg);
+    }
+    private MutableComponent statMSG(String name){
+        return Component.literal(name);
+    }
+    private void renderStatTooltip(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y, List<Component> stats, int bWidth){
+        if(isMouseAboveArea(pMouseX, pMouseY, x, y, bWidth)) {
+            renderTooltip(pPoseStack, stats,
+                    Optional.empty(), x, pMouseY + (pMouseY - y));
+        }
+    }
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int xMin, int yMin, int bWidth) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, xMin, yMin, xMin + bWidth, yMin);
     }
 }
