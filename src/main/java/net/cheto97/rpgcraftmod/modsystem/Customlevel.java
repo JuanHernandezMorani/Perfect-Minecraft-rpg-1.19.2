@@ -26,6 +26,9 @@ public class Customlevel {
     public void setPreviousLevelExp(int level){
         previousLevelExp = previousLevelExp + (22.5*level);
     }
+    public void setPreviousLevelExpValue(double value){
+        previousLevelExp = value;
+    }
     public double experienceNeeded(){
         return (22.5*customlevel)+previousLevelExp;
     }

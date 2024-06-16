@@ -3,9 +3,7 @@ package net.cheto97.rpgcraftmod.util.ToolLevelingUp;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.commands.AddLevelCommand;
-import net.cheto97.rpgcraftmod.commands.SuperEnchantCommand;
-import net.cheto97.rpgcraftmod.commands.ToolLevelingCommand;
+import net.cheto97.rpgcraftmod.commands.*;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -23,6 +21,9 @@ public final class ModCommands {
 		SuperEnchantCommand.register(dispatcher, context);
 		ToolLevelingCommand.register(dispatcher);
 		AddLevelCommand.register(dispatcher,context);
+		AddStatCommand.register(dispatcher,context);
+		AddResetCommand.register(dispatcher,context);
+		AddStatsPointCommand.register(dispatcher,context);
 	}
 
 }

@@ -1,7 +1,5 @@
 package net.cheto97.rpgcraftmod.networking.packet.C2S;
 
-import net.cheto97.rpgcraftmod.customstats.LifeMax;
-import net.cheto97.rpgcraftmod.customstats.ManaMax;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
@@ -18,12 +16,18 @@ import java.util.function.Supplier;
 
 public class PlayerStatSyncPacket {
     private static String stat;
-    public PlayerStatSyncPacket(String data){stat = data;}
+    private static int amount;
+    public PlayerStatSyncPacket(String data, int multiplier){
+        stat = data;
+        amount = multiplier;
+    }
     public PlayerStatSyncPacket(FriendlyByteBuf buf){
         stat = buf.readUtf();
+        amount = buf.readInt();
     }
     public void toBytes(FriendlyByteBuf buf){
         buf.writeUtf(stat);
+        buf.writeInt(amount);
     }
     private double toAdd(int reset, double value){
         return reset + (1+(value * 0.25));
@@ -38,29 +42,29 @@ public class PlayerStatSyncPacket {
                     Player player = sender.getLevel().getPlayerByUUID(sender.getUUID());
                     if(player != null){
                         player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(statPoint -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp -> player.getCapability(CustomClassProvider.PLAYER_CLASS).ifPresent(playerClass -> player.getCapability(ResetProvider.ENTITY_RESET).ifPresent(reset -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats ->player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax -> {
-                            if(statPoint.get() > 0 && !Objects.equals(stat,"reset")){
+                            if((statPoint.get() > 0 || amount > 1) && !Objects.equals(stat,"reset")){
                                 double[] values = handleStat(stat,playerClass.getPlayerClass());
                                 if(values[2] == -2){
                                     sender.sendSystemMessage(Component.literal("You cant add to that stat.").withStyle(ChatFormatting.DARK_RED));
                                 }
-                                lifeMax.add(values[0]);
-                                life.add(values[0]);
-                                lifeRegeneration.add(values[1]);
-                                manaMax.add(values[2] >= 0 ? values[2] : 0);
-                                mana.add(values[2] >= 0 ? values[2] : 0);
-                                manaRegeneration.add(values[3] >= 0 ? values[3] : 0);
-                                command.add(values[4]);
-                                intelligence.add(values[5]);
-                                agility.add(values[6]);
-                                dexterity.add(values[7]);
-                                defense.add(values[8]);
-                                strength.add(values[9]);
-                                magicDefense.add(values[10]);
-                                luck.add(values[11]);
+                                lifeMax.add(values[0] * amount);
+                                life.add(values[0] * amount);
+                                lifeRegeneration.add(values[1] * amount);
+                                manaMax.add(values[2] >= 0 ? values[2] * amount : 0);
+                                mana.add(values[2] >= 0 ? values[2] * amount : 0);
+                                manaRegeneration.add(values[3] >= 0 ? values[3] * amount : 0);
+                                command.add(values[4] * amount);
+                                intelligence.add(values[5] * amount);
+                                agility.add(values[6] * amount);
+                                dexterity.add(values[7] * amount);
+                                defense.add(values[8] * amount);
+                                strength.add(values[9] * amount);
+                                magicDefense.add(values[10] * amount);
+                                luck.add(values[11] * amount);
                                 float speed = player.getSpeed() + (float)((agility.get()/4) * 0.000000003);
                                 player.setSpeed(speed);
 
-                                statPoint.consume();
+                                if(amount == 1) statPoint.consume();
                             }
                             else if(!Objects.equals(stat,"reset")){
                                 player.sendSystemMessage(Component.literal("You don't have enough points to do that"));

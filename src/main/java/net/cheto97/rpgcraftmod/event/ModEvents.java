@@ -159,26 +159,26 @@ public class ModEvents {
            })))));
            return result;
        }
-       private static void levelUpPlayer(@NotNull ServerPlayer player, double lifeIncrease, double manaIncrease,
+       private static void levelUpPlayer(int level,@NotNull ServerPlayer player, double lifeIncrease, double manaIncrease,
                                          double lifeRegenerationIncrease, double manaRegenerationIncrease,
                                          double defenseIncrease, double magicDefenseIncrease, double intelligenceIncrease,
                                          double dexterityIncrease, double strengthIncrease, double agilityIncrease,
                                          double commandIncrease, double luckIncrease){
            player.getCapability(ResetProvider.ENTITY_RESET).ifPresent(reset -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax ->{
-               lifeMax.add(lifeIncrease);
-               life.set(lifeMax.get());
-               manaMax.add(manaIncrease);
-               mana.set(manaMax.get());
-               lifeRegeneration.add(lifeRegenerationIncrease);
-               manaRegeneration.add(manaRegenerationIncrease);
-               defense.add(defenseIncrease);
-               magicDefense.add(magicDefenseIncrease);
-               intelligence.add(intelligenceIncrease);
-               dexterity.add(dexterityIncrease);
-               strength.add(strengthIncrease);
-               agility.add(agilityIncrease);
-               command.add(commandIncrease);
-               luck.add(luckIncrease);
+               lifeMax.add(lifeIncrease * level);
+               life.set(lifeMax.get() * level);
+               manaMax.add(manaIncrease * level);
+               mana.set(manaMax.get() * level);
+               lifeRegeneration.add(lifeRegenerationIncrease * level);
+               manaRegeneration.add(manaRegenerationIncrease * level);
+               defense.add(defenseIncrease * level);
+               magicDefense.add(magicDefenseIncrease * level);
+               intelligence.add(intelligenceIncrease * level);
+               dexterity.add(dexterityIncrease * level);
+               strength.add(strengthIncrease * level);
+               agility.add(agilityIncrease * level);
+               command.add(commandIncrease * level);
+               luck.add(luckIncrease * level);
 
                int difficultyLevel = switch(player.getLevel().getDifficulty()){
                    case PEACEFUL -> 1;
@@ -186,7 +186,7 @@ public class ModEvents {
                    case NORMAL -> 5;
                    case HARD -> 8;
                };
-               int extra = player.getLevel().getLevelData().isHardcore() ? reset.get() : 0;
+               int extra = player.getLevel().getLevelData().isHardcore() ? reset.get() * 5 : reset.get();
                stats.add(difficultyLevel+extra);
                updatePlayerCapabilities(player);
            }))))))))))))))));
@@ -235,7 +235,7 @@ public class ModEvents {
                mana.set(manaMax.get());
                lifeRegeneration.add(0.000025);
                manaRegeneration.add(0.0005);
-               defense.add(((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier)*0.20);
+               defense.add(((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier));
                magicDefense.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
                intelligence.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
                dexterity.add((MIN_VALUE + (MAX_VALUE - MIN_VALUE) * random.nextDouble())*multiplier);
@@ -470,7 +470,7 @@ public class ModEvents {
                if (timeLevel < 2) {
                    lvlReduce = finalLevel;
                }
-               int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) : randomInt(7,1);
+               int fnLvl = (finalLevel - lvlReduce) != 0 ? randomInt(finalLevel + entityRank * 5+(int)(dimensionLevel + hardcoreLevel + (float) (averageCustomLevel / 10)),1) + 1 : randomInt(7,1) + 1;
 
                livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
                    customLevel.setLevel(fnLvl);
@@ -711,12 +711,17 @@ public class ModEvents {
                            case 11 -> auraItemStack = ModItems.BOSS_AURA.get().getDefaultInstance();
                            default -> auraItemStack = ModItems.COMMON_AURA.get().getDefaultInstance();
                        }
-                       if(willDropAura(dropRate) && livingEntity.getKillCredit() instanceof Player){
+                       if(willDropAura(dropRate) && livingEntity.getKillCredit() instanceof Player && canDrop(livingEntity, livingEntity.getKillCredit())){
                            dropInWorld(auraItemStack,livingEntity.getLevel(),new BlockPos(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ()));
                        }
                    }
                }
            }
+       }
+       private static boolean canDrop(LivingEntity entity, LivingEntity entity2){
+           int entityLevel1 = entity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
+           int entityLevel2 = entity2.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
+           return getMultiplier(entityLevel2,entityLevel1) == 0.0;
        }
        @SubscribeEvent
        public static void onPlayerDeath(LivingDropsEvent event){
@@ -907,52 +912,81 @@ public class ModEvents {
        }
        public static void managePlayerLevel(ServerPlayer player, int levels, boolean isSpecial){
            int opt = player.getCapability(CustomClassProvider.PLAYER_CLASS).map(CustomClass::getPlayerClass).orElse(0);
+           if(isSpecial){
+               player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp ->{
+                   double experience = 0;
+                   int baseLevel = level.get();
+                   exp.resetStat();
 
-           for(int i = 0; i < levels; i++){
-               if(isSpecial){
-                   player.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(level -> player.getCapability(ExperienceProvider.ENTITY_EXPERIENCE).ifPresent(exp ->{
-                       if(exp.get() >= level.experienceNeeded()) {
-                           exp.consume(level.experienceNeeded());
-                       }
-                       else{
-                           exp.add(level.experienceNeeded()-exp.get());
-                           exp.consume(level.experienceNeeded());
-                       }
-                       level.setPreviousLevelExp(level.get());
-                       level.add();
-                   }));
-               }
+                   for(int a = 1; a == levels; a++){
+                       experience = experience + (22.5 * a);
+                   }
+
+                   level.setPreviousLevelExpValue(experience);
+                   level.setLevel(baseLevel + levels);
+               }));
+
                switch (opt) {
-                   case 1 -> levelUpPlayer(player,
+                   case 1 -> levelUpPlayer(levels,player,
                            1, 1,
                            0.00025, 0.0005,
                            0.5, 0.25, 1,
                            6, 0, 8, 8, 8);
 
-                   case 2 -> levelUpPlayer(player, 0.25, 5,
+                   case 2 -> levelUpPlayer(levels,player, 0.25, 5,
                            0.00045, 0.025, 0.01,
                            0.03, 1, 0, 0, 1, 0, 0.1);
 
-                   case 3 -> levelUpPlayer(player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
+                   case 3 -> levelUpPlayer(levels,player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
 
-                   case 4 -> levelUpPlayer(player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
+                   case 4 -> levelUpPlayer(levels,player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
 
-                   case 6 -> levelUpPlayer(player, 0.25, 1,
+                   case 6 -> levelUpPlayer(levels,player, 0.25, 1,
                            0.00045, 0.025, 0.1,
                            0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
 
-                   case 7 -> levelUpPlayer(player, 0.65, 5,
+                   case 7 -> levelUpPlayer(levels,player, 0.65, 5,
                            0.0005, 0.015, 0.31,
                            0.43, 1, 0, 0, 1, 0, 0.1);
 
-                   case 8 -> levelUpPlayer(player, 1.25, 0,
+                   case 8 -> levelUpPlayer(levels,player, 1.25, 0,
                            0.0045, 0.00025, 0.71,
                            0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
-                   default -> levelUpPlayer(player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
+                   default -> levelUpPlayer(levels,player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
                }
            }
+           else{
+               for(int i = 0; i < levels; i++){
+                   switch (opt) {
+                       case 1 -> levelUpPlayer(1,player,
+                               1, 1,
+                               0.00025, 0.0005,
+                               0.5, 0.25, 1,
+                               6, 0, 8, 8, 8);
 
+                       case 2 -> levelUpPlayer(1,player, 0.25, 5,
+                               0.00045, 0.025, 0.01,
+                               0.03, 1, 0, 0, 1, 0, 0.1);
 
+                       case 3 -> levelUpPlayer(1,player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
+
+                       case 4 -> levelUpPlayer(1,player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
+
+                       case 6 -> levelUpPlayer(1,player, 0.25, 1,
+                               0.00045, 0.025, 0.1,
+                               0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
+
+                       case 7 -> levelUpPlayer(1,player, 0.65, 5,
+                               0.0005, 0.015, 0.31,
+                               0.43, 1, 0, 0, 1, 0, 0.1);
+
+                       case 8 -> levelUpPlayer(1,player, 1.25, 0,
+                               0.0045, 0.00025, 0.71,
+                               0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
+                       default -> levelUpPlayer(1,player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
+                   }
+               }
+           }
        }
        @SubscribeEvent
        public static void onPlayerJoin(@NotNull EntityJoinLevelEvent event) {
@@ -1004,6 +1038,7 @@ public class ModEvents {
                 multiplier = 1.0;
             }
         }
+
         return multiplier;
     }
 

@@ -25,10 +25,10 @@ public final class AddLevelCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext c){
-        dispatcher.register(Commands.literal("rpglevelup")
+        dispatcher.register(Commands.literal("addlevels")
                 .requires((player) -> player.hasPermission(3))
                 .then(Commands.argument("targets", EntityArgument.entities())
-                        .then(Commands.argument("amount", IntegerArgumentType.integer(1, Integer.MAX_VALUE))
+                        .then(Commands.argument("amount", IntegerArgumentType.integer(1, 5000000))
                                 .then(Commands.argument("should_show", IntegerArgumentType.integer(0,1))
                                         .executes((context) -> levels(context.getSource(),EntityArgument.getEntities(context,"targets"),IntegerArgumentType.getInteger(context,"amount"),IntegerArgumentType.getInteger(context,"should_show")))
                                 )

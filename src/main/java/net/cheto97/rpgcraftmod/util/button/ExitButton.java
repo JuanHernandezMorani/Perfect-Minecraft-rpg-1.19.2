@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 public class ExitButton extends CustomButton{
     public ExitButton(int x, int y, int width, int height, Component message, OnPress action) {
         super(x, y, width, height, message, action);
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -46,11 +48,11 @@ public class ExitButton extends CustomButton{
 
     @Override
     protected int getIconWidth() {
-        return 12;
+        return this.width;
     }
 
     @Override
     protected int getIconHeight() {
-        return 12;
+        return this.height;
     }
 }

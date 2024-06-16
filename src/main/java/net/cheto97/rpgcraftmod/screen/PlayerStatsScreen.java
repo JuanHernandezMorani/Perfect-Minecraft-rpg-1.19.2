@@ -266,7 +266,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         mc.keyboardHandler.setSendRepeatsToGui(true);
     }
     private void setButtons(int x){
-        int bS = (int)((calculatePositionY(0) - calculatePositionY(4)) / scale);
+        int bS = (int)((calculatePositionY(0) - calculatePositionY(4)) * scale);
 
         life_button = new StatPlusButton(x, calculatePositionY(20), bS, bS,Component.literal(""), e -> sendData("life"));
         mana_button = new StatPlusButton(x, calculatePositionY(28), bS, bS,Component.literal(""), e -> sendData("mana"));
@@ -321,10 +321,11 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         this.addRenderableWidget(agility_button);
     }
     private void setExitButton(int x, int y){
-        this.addRenderableWidget(new ExitButton(x, y, 12, 12, Component.literal(""), e -> Close()));
+        int bS = (int)((calculatePositionY(0) - calculatePositionY(4)) * scale);
+        this.addRenderableWidget(new ExitButton(x, y, bS, bS, Component.literal(""), e -> Close()));
     }
     private void sendData(String stat){
-        ModMessages.sendToServer(new PlayerStatSyncPacket(stat));
+        ModMessages.sendToServer(new PlayerStatSyncPacket(stat,1));
     }
     private List<Component> getStatsTooltips(String stat) {
         MutableComponent msg;
