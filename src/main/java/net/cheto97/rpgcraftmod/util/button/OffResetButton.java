@@ -5,10 +5,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class OffResetButton extends CustomButton{
-    public OffResetButton(int x, int y, int width, int height, Component message, OnPress action) {
+    public OffResetButton(int x, int y, int width, int height,int iconWidth, int iconHeight, Component message, OnPress action) {
         super(x, y, width, height, message, action);
-        this.width = width;
-        this.height = height;
+        this.width = iconWidth;
+        this.height = iconHeight;
     }
 
     @Override

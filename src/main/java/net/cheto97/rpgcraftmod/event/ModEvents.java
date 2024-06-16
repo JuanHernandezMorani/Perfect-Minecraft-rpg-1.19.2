@@ -165,20 +165,21 @@ public class ModEvents {
                                          double dexterityIncrease, double strengthIncrease, double agilityIncrease,
                                          double commandIncrease, double luckIncrease){
            player.getCapability(ResetProvider.ENTITY_RESET).ifPresent(reset -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> player.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).ifPresent(lifeRegeneration -> player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(ManaRegenerationProvider.ENTITY_MANAREGENERATION).ifPresent(manaRegeneration -> player.getCapability(DefenseProvider.ENTITY_DEFENSE).ifPresent(defense -> player.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).ifPresent(magicDefense -> player.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).ifPresent(intelligence -> player.getCapability(DexterityProvider.ENTITY_DEXTERITY).ifPresent(dexterity -> player.getCapability(StrengthProvider.ENTITY_STRENGTH).ifPresent(strength -> player.getCapability(CommandProvider.ENTITY_COMMAND).ifPresent(command -> player.getCapability(AgilityProvider.ENTITY_AGILITY).ifPresent(agility -> player.getCapability(LuckProvider.ENTITY_LUCK).ifPresent(luck -> player.getCapability(StatPointProvider.ENTITY_STATPOINT).ifPresent(stats -> player.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).ifPresent(lifeMax -> player.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).ifPresent(manaMax ->{
-               lifeMax.add(lifeIncrease * level);
-               life.set(lifeMax.get() * level);
-               manaMax.add(manaIncrease * level);
-               mana.set(manaMax.get() * level);
-               lifeRegeneration.add(lifeRegenerationIncrease * level);
-               manaRegeneration.add(manaRegenerationIncrease * level);
-               defense.add(defenseIncrease * level);
-               magicDefense.add(magicDefenseIncrease * level);
-               intelligence.add(intelligenceIncrease * level);
-               dexterity.add(dexterityIncrease * level);
-               strength.add(strengthIncrease * level);
-               agility.add(agilityIncrease * level);
-               command.add(commandIncrease * level);
-               luck.add(luckIncrease * level);
+               int multiplier = level > 0 ? level : 1;
+               lifeMax.add(lifeIncrease * multiplier);
+               life.set(lifeMax.get() * multiplier);
+               manaMax.add(manaIncrease * multiplier);
+               mana.set(manaMax.get() * multiplier);
+               lifeRegeneration.add(lifeRegenerationIncrease * multiplier);
+               manaRegeneration.add(manaRegenerationIncrease * multiplier);
+               defense.add(defenseIncrease * multiplier);
+               magicDefense.add(magicDefenseIncrease * multiplier);
+               intelligence.add(intelligenceIncrease * multiplier);
+               dexterity.add(dexterityIncrease * multiplier);
+               strength.add(strengthIncrease * multiplier);
+               agility.add(agilityIncrease * multiplier);
+               command.add(commandIncrease * multiplier);
+               luck.add(luckIncrease * multiplier);
 
                int difficultyLevel = switch(player.getLevel().getDifficulty()){
                    case PEACEFUL -> 1;
@@ -187,7 +188,7 @@ public class ModEvents {
                    case HARD -> 8;
                };
                int extra = player.getLevel().getLevelData().isHardcore() ? reset.get() * 5 : reset.get();
-               stats.add(difficultyLevel+extra);
+               stats.add(difficultyLevel + extra);
                updatePlayerCapabilities(player);
            }))))))))))))))));
 
@@ -928,18 +929,18 @@ public class ModEvents {
 
                switch (opt) {
                    case 1 -> levelUpPlayer(levels,player,
-                           1, 1,
+                           0.25, 1,
                            0.00025, 0.0005,
                            0.5, 0.25, 1,
-                           6, 0, 8, 8, 8);
+                           6, 0.025, 8, 8, 8);
 
                    case 2 -> levelUpPlayer(levels,player, 0.25, 5,
                            0.00045, 0.025, 0.01,
-                           0.03, 1, 0, 0, 1, 0, 0.1);
+                           0.03, 1, 0.025, 0.0125, 1, 0.025, 0.1);
 
-                   case 3 -> levelUpPlayer(levels,player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
+                   case 3 -> levelUpPlayer(levels,player, 1.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0.025, 0.03);
 
-                   case 4 -> levelUpPlayer(levels,player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
+                   case 4 -> levelUpPlayer(levels,player, 2.25, 0, 0.00025, 0.0005, 0.025, 0.015, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
 
                    case 6 -> levelUpPlayer(levels,player, 0.25, 1,
                            0.00045, 0.025, 0.1,
@@ -947,10 +948,10 @@ public class ModEvents {
 
                    case 7 -> levelUpPlayer(levels,player, 0.65, 5,
                            0.0005, 0.015, 0.31,
-                           0.43, 1, 0, 0, 1, 0, 0.1);
+                           0.43, 1, 0.025, 0.025, 1, 0.025, 0.1);
 
-                   case 8 -> levelUpPlayer(levels,player, 1.25, 0,
-                           0.0045, 0.00025, 0.71,
+                   case 8 -> levelUpPlayer(levels,player, 4.5, 0,
+                           0.0085, 0.00025, 0.71,
                            0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
                    default -> levelUpPlayer(levels,player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
                }
@@ -958,32 +959,34 @@ public class ModEvents {
            else{
                for(int i = 0; i < levels; i++){
                    switch (opt) {
-                       case 1 -> levelUpPlayer(1,player,
-                               1, 1,
+                       case 1 -> levelUpPlayer(1, player,
+                               0.25, 1,
                                0.00025, 0.0005,
                                0.5, 0.25, 1,
-                               6, 0, 8, 8, 8);
+                               6, 0.025, 8, 8, 8);
 
-                       case 2 -> levelUpPlayer(1,player, 0.25, 5,
+                       case 2 -> levelUpPlayer(1, player, 0.25, 5,
                                0.00045, 0.025, 0.01,
-                               0.03, 1, 0, 0, 1, 0, 0.1);
+                               0.03, 1, 0.025, 0.0125, 1, 0.025, 0.1);
 
-                       case 3 -> levelUpPlayer(1,player, 2.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0, 0.03);
+                       case 3 ->
+                               levelUpPlayer(1, player, 1.5, 1, 0.00025, 0.0005, 2, 2, 0, 0.5, 1, 0.025, 0.025, 0.03);
 
-                       case 4 -> levelUpPlayer(1,player, 0, 0, 0.00025, 0.0005, 0, 0, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
+                       case 4 ->
+                               levelUpPlayer(1, player, 2.25, 0, 0.00025, 0.0005, 0.025, 0.015, 0.01, 0.025, 2.25, 4.23, 0.01, 9.15);
 
-                       case 6 -> levelUpPlayer(1,player, 0.25, 1,
+                       case 6 -> levelUpPlayer(1, player, 0.25, 1,
                                0.00045, 0.025, 0.1,
                                0.3, 1, 0.25, 0.04, 0.1, 8, 0.1);
 
-                       case 7 -> levelUpPlayer(1,player, 0.65, 5,
+                       case 7 -> levelUpPlayer(1, player, 0.65, 5,
                                0.0005, 0.015, 0.31,
-                               0.43, 1, 0, 0, 1, 0, 0.1);
+                               0.43, 1, 0.025, 0.025, 1, 0.025, 0.1);
 
-                       case 8 -> levelUpPlayer(1,player, 1.25, 0,
-                               0.0045, 0.00025, 0.71,
+                       case 8 -> levelUpPlayer(1, player, 4.5, 0,
+                               0.0085, 0.00025, 0.71,
                                0.33, 0.01, 0.025, 0.41, 0.1, 0, 0.15);
-                       default -> levelUpPlayer(1,player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
+                       default -> levelUpPlayer(1, player, 0.5, 1, 0.00025, 0.0005, 1, 1, 1, 5, 1, 1, 1, 5);
                    }
                }
            }

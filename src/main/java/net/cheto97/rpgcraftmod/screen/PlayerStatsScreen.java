@@ -266,20 +266,21 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         mc.keyboardHandler.setSendRepeatsToGui(true);
     }
     private void setButtons(int x){
-        int bS = (int)((calculatePositionY(0) - calculatePositionY(4)) * scale);
+        int bP = (int)((12) - (scale / 2));
+        int bS = (int)((calculatePositionY(4) - calculatePositionY(0)) / (scale));
 
-        life_button = new StatPlusButton(x, calculatePositionY(20), bS, bS,Component.literal(""), e -> sendData("life"));
-        mana_button = new StatPlusButton(x, calculatePositionY(28), bS, bS,Component.literal(""), e -> sendData("mana"));
-        dexterity_button = new StatPlusButton(x, calculatePositionY(36), bS, bS,Component.literal(""), e -> sendData("dexterity"));
-        intelligence_button = new StatPlusButton(x, calculatePositionY(40), bS, bS,Component.literal(""), e -> sendData("intelligence"));
-        strength_button = new StatPlusButton(x, calculatePositionY(44), bS, bS,Component.literal(""), e -> sendData("strength"));
-        command_button = new StatPlusButton(x, calculatePositionY(48), bS, bS,Component.literal(""), e -> sendData("command"));
-        defense_button = new StatPlusButton(x, calculatePositionY(52), bS, bS,Component.literal(""), e -> sendData("defense"));
-        magicdefense_button = new StatPlusButton(x, calculatePositionY(56), bS, bS,Component.literal(""), e -> sendData("magicdefense"));
-        luck_button = new StatPlusButton(x, calculatePositionY(60), bS, bS,Component.literal(""), e -> sendData("luck"));
-        agility_button = new StatPlusButton(x, calculatePositionY(64), bS, bS,Component.literal(""), e -> sendData("agility"));
+        life_button = new StatPlusButton(x, calculatePositionY(20), bP, bP, bS, bS,Component.literal(""), e -> sendData("life"));
+        mana_button = new StatPlusButton(x, calculatePositionY(28), bP, bP, bS, bS,Component.literal(""), e -> sendData("mana"));
+        dexterity_button = new StatPlusButton(x, calculatePositionY(36), bP, bP, bS, bS,Component.literal(""), e -> sendData("dexterity"));
+        intelligence_button = new StatPlusButton(x, calculatePositionY(40), bP, bP, bS, bS,Component.literal(""), e -> sendData("intelligence"));
+        strength_button = new StatPlusButton(x, calculatePositionY(44), bP, bP, bS, bS,Component.literal(""), e -> sendData("strength"));
+        command_button = new StatPlusButton(x, calculatePositionY(48), bP, bP, bS, bS,Component.literal(""), e -> sendData("command"));
+        defense_button = new StatPlusButton(x, calculatePositionY(52), bP, bP, bS, bS,Component.literal(""), e -> sendData("defense"));
+        magicdefense_button = new StatPlusButton(x, calculatePositionY(56), bP, bP, bS, bS,Component.literal(""), e -> sendData("magicdefense"));
+        luck_button = new StatPlusButton(x, calculatePositionY(60), bP, bP, bS, bS,Component.literal(""), e -> sendData("luck"));
+        agility_button = new StatPlusButton(x, calculatePositionY(64), bP, bP, bS, bS,Component.literal(""), e -> sendData("agility"));
 
-        ResetButton reset_button = new ResetButton(x, calculatePositionY(8), bS, bS, Component.literal(""), e -> {
+        ResetButton reset_button = new ResetButton(x, calculatePositionY(8), bP, bP, bS, bS, Component.literal(""), e -> {
             try{
                 sendData("reset");
             }
@@ -287,7 +288,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
                 System.out.println(ex.getMessage());
             }
         });
-        OffResetButton reset_button_off = new OffResetButton(x, calculatePositionY(8), bS, bS, Component.literal(""), e -> {
+        OffResetButton reset_button_off = new OffResetButton(x, calculatePositionY(8), bP, bP, bS, bS, Component.literal(""), e -> {
             try{
                 ModMessages.sendToServer(new PlayerNoReqPacket("reset"));
             }
@@ -321,8 +322,9 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
         this.addRenderableWidget(agility_button);
     }
     private void setExitButton(int x, int y){
-        int bS = (int)((calculatePositionY(0) - calculatePositionY(4)) * scale);
-        this.addRenderableWidget(new ExitButton(x, y, bS, bS, Component.literal(""), e -> Close()));
+        int bP = (int)((12) - (scale / 2));
+        int bS = (int)((calculatePositionY(4) - calculatePositionY(0)) / (scale));
+        this.addRenderableWidget(new ExitButton(x, y, bP, bP, bS, bS, Component.literal(""), e -> Close()));
     }
     private void sendData(String stat){
         ModMessages.sendToServer(new PlayerStatSyncPacket(stat,1));

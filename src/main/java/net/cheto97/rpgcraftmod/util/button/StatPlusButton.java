@@ -51,10 +51,10 @@ public class StatPlusButton extends CustomButton{
         return this.height;
     }
 
-    public StatPlusButton(int x, int y, int width, int height, Component message, OnPress action) {
+    public StatPlusButton(int x, int y, int width, int height,int iconWidth, int iconHeight, Component message, OnPress action) {
         super(x, y, width, height, message, action);
-        this.width = width;
-        this.height = height;
+        this.width = iconWidth;
+        this.height = iconHeight;
     }
 
 }
