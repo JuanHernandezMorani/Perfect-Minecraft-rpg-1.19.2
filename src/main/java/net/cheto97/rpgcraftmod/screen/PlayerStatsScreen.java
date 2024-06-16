@@ -177,7 +177,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     private void drawComponent(PoseStack ms, String name, Component amount, int position, int mouseX, int mouseY){
         GuiComponent.drawString(ms, font, Component.literal(name), calculatePositionX(2), calculatePositionY(position), 0xFFFFFF);
         GuiComponent.drawString(ms, font, amount, widthCalculate(calculatePositionX(2)), calculatePositionY(position), 0xFFFFFF);
-          //statsTooltip(ms,name,(height / 3) * position,mouseX,mouseY);
+        statsTooltip(ms,name,(height / 3) * position,mouseX,mouseY);
     }
     private int calculatePositionY(int position){
         return ((height / 2) - (height / 3) + ((height / 90) * (position - 8)));
@@ -188,7 +188,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     private void statsTooltip(PoseStack ms, String name, int hAlt, int mouseX, int mouseY){
         List<Component> stats = getStatsTooltips(name);
         if(!stats.get(0).equals(Component.empty())){
-            renderStatTooltip(ms,mouseX,mouseY,((width / 2) - (width / 3)) + (width/75),hAlt,stats, widthCalculate(calculatePositionX(1)));
+            renderStatTooltip(ms,mouseX,mouseY,calculatePositionX(2),hAlt,stats, widthCalculate(calculatePositionX(1)));
         }
     }
     private int widthCalculate(int position){
@@ -395,7 +395,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
     private void renderStatTooltip(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y, List<Component> stats, int bWidth){
         if(isMouseAboveArea(pMouseX, pMouseY, x, y, bWidth)) {
             renderTooltip(pPoseStack, stats,
-                    Optional.empty(), x, pMouseY + (pMouseY - y));
+                    Optional.empty(), x, pMouseY - (pMouseY - y));
         }
     }
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int xMin, int yMin, int bWidth) {

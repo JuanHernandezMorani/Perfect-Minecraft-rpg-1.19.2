@@ -30,7 +30,7 @@ public final class AddStatCommand {
         dispatcher.register(Commands.literal("addstat")
                 .requires((player) -> player.hasPermission(3))
                 .then(Commands.argument("targets", EntityArgument.entities())
-                        .then(Commands.argument("stat", IntegerArgumentType.integer(1, 11))
+                        .then(Commands.argument("stat", IntegerArgumentType.integer(1, 12))
                                 .then(Commands.argument("amount", IntegerArgumentType.integer(1, 5000000))
                                         .then(Commands.argument("should_show", IntegerArgumentType.integer(0,1))
                                                 .executes((context) -> stats(context.getSource(),EntityArgument.getEntities(context,"targets"),IntegerArgumentType.getInteger(context,"stat"),IntegerArgumentType.getInteger(context,"amount"),IntegerArgumentType.getInteger(context,"should_show")))
