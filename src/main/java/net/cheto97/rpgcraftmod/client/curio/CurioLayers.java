@@ -1,6 +1,8 @@
 package net.cheto97.rpgcraftmod.client.curio;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.item.ModItems;
+import net.cheto97.rpgcraftmod.item.wings.GeoWingsItem;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 
@@ -19,13 +21,17 @@ public class CurioLayers {
     public static final ModelLayerLocation UNIQUE_AURA = createModelLayerLocation("auras/unique_aura");
 
     //wings layers
-    public static final ModelLayerLocation ASURA_WINGS = createModelLayerLocation("wings/asura_wings");
+    public static final ModelLayerLocation WINGS_1 = createModelLayerLocation("wings/wings_1");
+    public static final ModelLayerLocation WINGS_2 = createWingsLocation(new ResourceLocation(RpgcraftMod.MOD_ID,"models/item/wings_2.json"));
 
     //armors layers
 
 
     private static ModelLayerLocation createModelLayerLocation(String textureLocation){
         return new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/"+textureLocation+".png"),"main");
+    }
+    private static ModelLayerLocation createWingsLocation(ResourceLocation modelLocation){
+        return new ModelLayerLocation(modelLocation,"main");
     }
 }
     

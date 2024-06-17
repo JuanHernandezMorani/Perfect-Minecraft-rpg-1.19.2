@@ -1,38 +1,66 @@
 package net.cheto97.rpgcraftmod.item.wings.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BlockModelDefinition;
+import net.minecraft.client.renderer.block.model.MultiVariant;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
+
 import net.minecraft.util.Mth;
+
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
 
-public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
+public class WingEntityModel<T extends LivingEntity> extends AgeableListModel<T> {
     public final ModelPart rightWing;
     public final ModelPart leftWing;
     public State state = State.IDLE;
     public WingEntityModel(ModelPart root) {
         super();
-        this.rightWing = root.getChild("rightWing");
-        this.leftWing = root.getChild("leftWing");
+        this.rightWing = root.getChild("right_wing");
+        this.leftWing = root.getChild("left_wing");
     }
 
     public static LayerDefinition getModelData() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition part = mesh.getRoot();
+
         CubeDeformation deformation = new CubeDeformation(1.0F);
 
-        part.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(22, 0).addBox(-10.0F, 0.0F, 0.0F, 10.0F, 20.0F, 2.0F, deformation), PartPose.offsetAndRotation(5.0F, 0.0F, 0.0F, 0.2617994F, 0.0F, -0.2617994F));
-        part.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(22, 0).mirror().addBox(0.0F, 0.0F, 0.0F, 10.0F, 20.0F, 2.0F, deformation), PartPose.offsetAndRotation(-5.0F, 0.0F, 0.0F, 0.2617994F, 0.0F, 0.2617994F));
+
+        CubeListBuilder rightWingBuilder = CubeListBuilder.create().texOffs(22, 0)
+                .addBox(-16.0F, -11.0F, 15.5F, 24.0F, 37.0F, 2.0F, deformation);
+
+        CubeListBuilder leftWingBuilder = CubeListBuilder.create().texOffs(22, 0)
+                .mirror()
+                .addBox(-8.0F, -11.0F, 15.5F, 24.0F, 37.0F, 2.0F, deformation);
+
+
+        part.addOrReplaceChild("right_wing", rightWingBuilder, PartPose.offsetAndRotation(-5.0F, 0.0F, 0.0F, 0.2617994F, 0.0F, 0.2617994F));
+        part.addOrReplaceChild("left_wing", leftWingBuilder, PartPose.offsetAndRotation(5.0F, 0.0F, 0.0F, 0.2617994F, 0.0F, -0.2617994F));
 
         return LayerDefinition.create(mesh, 64, 32);
     }
+
     @Override
     public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         state = State.IDLE;
@@ -91,24 +119,18 @@ public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
         this.rightWing.yRot = -this.leftWing.yRot;
         this.rightWing.zRot = -this.leftWing.zRot;
     }
-    protected Iterable<ModelPart> getHeadParts() {
+
+    @Override
+    protected @NotNull Iterable<ModelPart> headParts() {
         return ImmutableList.of();
     }
-    protected Iterable<ModelPart> getBodyParts() {
+
+    @Override
+    protected @NotNull Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(this.rightWing, this.leftWing);
     }
-    @Override
-    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer consumer, int packedLight , int packedOverlay, float red, float green, float blue, float alpha) {
-        poseStack.pushPose();
-        poseStack.translate(0.5D,-0.375D,0.0D);
-        this.rightWing.render(poseStack, consumer, packedLight, packedOverlay, red, green, blue, alpha);
-        poseStack.popPose();
 
-        poseStack.pushPose();
-        poseStack.translate(-0.5D,-0.375D,0.0D);
-        this.leftWing.render(poseStack , consumer, packedLight, packedOverlay, red, green, blue, alpha);
-        poseStack.popPose();
-    }
+
     public enum State {
         IDLE, CROUCHING, FLYING
     }

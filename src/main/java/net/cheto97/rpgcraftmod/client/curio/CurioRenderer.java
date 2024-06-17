@@ -6,6 +6,7 @@ import net.cheto97.rpgcraftmod.item.wings.renderer.CustomWingsFeatureRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.Item;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
@@ -17,8 +18,16 @@ import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.*;
 public class CurioRenderer {
 
     public static void register(){
-        create(ModItems.ASURA_WINGS.get(), () -> new CustomWingsFeatureRenderer(bakeLayer(ASURA_WINGS)));
-
+        aurasRegister();
+        wingsRegister();
+    }
+    public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {
+        return Minecraft.getInstance().getEntityModels().bakeLayer(layerLocation);
+    }
+    public static void create(Item item, Supplier<ICurioRenderer> renderer){
+        CuriosRendererRegistry.register(item,renderer);
+    }
+    private static void aurasRegister(){
         create(ModItems.COMMON_AURA.get(),() -> new AuraRenderer(bakeLayer(COMMON_AURA)));
         create(ModItems.CHAMPION_AURA.get(),() -> new AuraRenderer(bakeLayer(CHAMPION_AURA)));
         create(ModItems.DEMON_AURA.get(),() -> new AuraRenderer(bakeLayer(DEMON_AURA)));
@@ -31,12 +40,8 @@ public class CurioRenderer {
         create(ModItems.SEMI_BOSS_AURA.get(),() -> new AuraRenderer(bakeLayer(SEMI_BOSS_AURA)));
         create(ModItems.UNIQUE_AURA.get(),() -> new AuraRenderer(bakeLayer(UNIQUE_AURA)));
     }
-
-    public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {
-        return Minecraft.getInstance().getEntityModels().bakeLayer(layerLocation);
-    }
-
-    public static void create(Item item, Supplier<ICurioRenderer> renderer){
-        CuriosRendererRegistry.register(item,renderer);
+    private static void wingsRegister(){
+        create(ModItems.WING_1.get(), () -> new CustomWingsFeatureRenderer(bakeLayer(WINGS_1)));
+        create(ModItems.WING_2.get(), () -> new CustomWingsFeatureRenderer(bakeLayer(WINGS_2)));
     }
 }

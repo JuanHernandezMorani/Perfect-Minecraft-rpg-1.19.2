@@ -58,9 +58,8 @@ public class CustomWingsFeatureRenderer  implements ICurioRenderer {
         ResourceLocation layer = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/wings/" + wingName + ".png");
 
         matrixStack.pushPose();
-        matrixStack.translate(0.0D, 0.0D, 0.125D);
         this.wingModel.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        this.renderWings(matrixStack, renderTypeBuffer, wingItem.getDefaultInstance(), RenderType.entityTranslucent(layer), light);
+        this.renderWings(matrixStack, renderTypeBuffer, wingItem.getDefaultInstance(), RenderType.armorCutoutNoCull(layer), light);
         matrixStack.popPose();
     }
 }

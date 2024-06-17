@@ -1,10 +1,6 @@
 package net.cheto97.rpgcraftmod.util;
 
-import net.cheto97.rpgcraftmod.item.wings.WingItem;
-import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
 import java.util.Map;

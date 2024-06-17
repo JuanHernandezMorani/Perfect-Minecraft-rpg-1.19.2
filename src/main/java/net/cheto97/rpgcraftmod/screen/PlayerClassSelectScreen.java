@@ -308,7 +308,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         super.containerTick();
     }
     private boolean windowChange(){
-       return (previousScale != scale) || ((previousWidth != width) && (previousHeight != height));
+       return (previousScale != scale) || ((previousWidth != width) || (previousHeight != height));
     }
     @Override
     protected void renderLabels(@NotNull PoseStack poseStack, int mouseX, int mouseY) {

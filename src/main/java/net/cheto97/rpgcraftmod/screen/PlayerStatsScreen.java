@@ -225,7 +225,7 @@ public class PlayerStatsScreen extends AbstractContainerScreen<PlayerStatsMenu> 
 
     }
     private boolean windowChange(){
-        return (previousScale != window.getGuiScale()) || ((previousWidth != window.getGuiScaledWidth()) && (previousHeight != window.getGuiScaledHeight()));
+        return (previousScale != window.getGuiScale()) || ((previousWidth != window.getGuiScaledWidth()) || (previousHeight != window.getGuiScaledHeight()));
     }
     private void ResetButtons(){
         this.renderables.clear();
