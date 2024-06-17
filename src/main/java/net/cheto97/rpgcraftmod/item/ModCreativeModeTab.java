@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.custom;
+package net.cheto97.rpgcraftmod.item;
 
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTab;

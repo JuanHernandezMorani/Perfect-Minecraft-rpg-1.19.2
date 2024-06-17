@@ -2,11 +2,10 @@ package net.cheto97.rpgcraftmod.item;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.block.ModBlocks;
-import net.cheto97.rpgcraftmod.custom.EspadaMuerteItem;
-import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
-import net.cheto97.rpgcraftmod.custom.curios.auras.item.*;
 import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
+import net.cheto97.rpgcraftmod.item.aura.*;
+import net.cheto97.rpgcraftmod.item.inanimated.EspadaMuerteItem;
 import net.cheto97.rpgcraftmod.item.prefabs.CustomWingsItem;
 
 import net.minecraft.world.entity.EntityType;

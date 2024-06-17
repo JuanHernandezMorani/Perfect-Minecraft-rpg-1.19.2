@@ -1,7 +1,7 @@
-package net.cheto97.rpgcraftmod.item.wings;
+package net.cheto97.rpgcraftmod.item.animated;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
+import net.cheto97.rpgcraftmod.item.ModCreativeModeTab;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterials;

@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.custom.curios.auras.item;
+package net.cheto97.rpgcraftmod.item.aura;
 
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.minecraft.network.chat.Component;

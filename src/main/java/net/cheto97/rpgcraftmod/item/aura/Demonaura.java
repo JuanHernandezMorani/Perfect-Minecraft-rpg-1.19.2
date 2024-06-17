@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.custom.curios.auras.item;
+package net.cheto97.rpgcraftmod.item.aura;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -7,7 +7,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -18,28 +17,27 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.List;
 
-public class Heroaura extends Commonaura {
+public class Demonaura extends Commonaura {
 
-    public Heroaura(Properties properties) {
+    public Demonaura(Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean isEnderMask(SlotContext slotContext, EnderMan enderMan, ItemStack stack) {
+    public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
         return true;
     }
-
     @Override
-    public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {return 4;}
+    public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {return 2;}
     @Override
-    public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {return 4;}
+    public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {return 2;}
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Player player = (Player) slotContext.entity();
         assert player != null;
 
-        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,10));
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,2));
+        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,5));
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,1));
     }
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
@@ -53,22 +51,22 @@ public class Heroaura extends Commonaura {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()){
-            components.add(Component.literal("Loot Level: 4").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Loot Level: 2").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
-            components.add(Component.literal("Fortune Level: 4").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Fortune Level: 2").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
             components.add(Component.literal("you can walk through Powdered Snow").withStyle(ChatFormatting.DARK_AQUA));
             components.add(Component.literal(""));
-            components.add(Component.literal("Endermans won't get mad if you see them").withStyle(ChatFormatting.LIGHT_PURPLE));
+            components.add(Component.literal("Piglins are neutral").withStyle(ChatFormatting.GOLD));
             components.add(Component.literal(""));
-            components.add(Component.literal("Fire Resistance X").withStyle(ChatFormatting.DARK_GREEN));
+            components.add(Component.literal("Fire Resistance V").withStyle(ChatFormatting.DARK_GREEN));
             components.add(Component.literal(""));
-            components.add(Component.literal("Increased Speed II").withStyle(ChatFormatting.DARK_GREEN));
+            components.add(Component.literal("Increased Speed I").withStyle(ChatFormatting.DARK_GREEN));
 
         }else{
-            components.add(Component.literal("Loot Level: 4").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Loot Level: 2").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
-            components.add(Component.literal("Fortune Level: 4").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Fortune Level: 2").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
             components.add(Component.literal("you can walk through Powdered Snow").withStyle(ChatFormatting.DARK_AQUA));
             components.add(Component.literal(""));

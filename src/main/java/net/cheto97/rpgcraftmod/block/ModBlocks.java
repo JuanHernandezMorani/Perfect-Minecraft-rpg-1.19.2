@@ -9,7 +9,7 @@ import net.cheto97.rpgcraftmod.block.custom.others.ModFlammableRotatedPillarBloc
 import net.cheto97.rpgcraftmod.block.custom.stations.GemInfusingStationBlock;
 import net.cheto97.rpgcraftmod.block.custom.stations.ToolLevelingTableBlock;
 import net.cheto97.rpgcraftmod.block.custom.stations.WizardTableBlock;
-import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
+import net.cheto97.rpgcraftmod.item.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.util.ToolLevelingUp.Names;

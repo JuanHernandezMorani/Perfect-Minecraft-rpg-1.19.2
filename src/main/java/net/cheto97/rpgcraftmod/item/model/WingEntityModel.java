@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.item.wings.model;
+package net.cheto97.rpgcraftmod.item.model;
 
 import com.google.common.collect.ImmutableList;
 

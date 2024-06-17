@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.item.prefabs;
 
-import net.cheto97.rpgcraftmod.custom.ModCreativeModeTab;
+import net.cheto97.rpgcraftmod.item.ModCreativeModeTab;
 import net.cheto97.rpgcraftmod.item.ModItems;
 import net.cheto97.rpgcraftmod.util.WingHelper;
 import net.minecraft.core.particles.ParticleTypes;

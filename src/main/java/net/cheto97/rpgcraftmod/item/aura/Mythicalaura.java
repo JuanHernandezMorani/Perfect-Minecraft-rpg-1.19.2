@@ -1,5 +1,6 @@
-package net.cheto97.rpgcraftmod.custom.curios.auras.item;
+package net.cheto97.rpgcraftmod.item.aura;
 
+import net.cheto97.rpgcraftmod.item.aura.Commonaura;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import org.jetbrains.annotations.Nullable;
@@ -19,48 +19,35 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.List;
 
-public class Bossaura extends Commonaura {
+public class Mythicalaura extends Commonaura {
 
-    public Bossaura(Properties properties) {
+    public Mythicalaura(Properties properties) {
         super(properties);
     }
-    @Override
-    public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
-        return true;
-    }
+
     @Override
     public boolean isEnderMask(SlotContext slotContext, EnderMan enderMan, ItemStack stack) {
         return true;
     }
-
     @Override
-    public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {
-        return 12;
-    }
-
+    public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {return 6;}
     @Override
-    public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {
-        return 12;
-    }
-
+    public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {return 6;}
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Player player = (Player) slotContext.entity();
         assert player != null;
 
-                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION,1000000,4));
-                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,10));
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1000000,6));
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,8));
-                player.addEffect(new MobEffectInstance(MobEffects.JUMP,1000000,2));
+        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,10));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1000000,2));
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,2));
+        player.addEffect(new MobEffectInstance(MobEffects.JUMP,1000000,1));
     }
-
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         LivingEntity player = slotContext.entity();
         assert player != null;
 
-        player.removeEffect(MobEffects.REGENERATION);
         player.removeEffect(MobEffects.FIRE_RESISTANCE);
         player.removeEffect(MobEffects.DAMAGE_BOOST);
         player.removeEffect(MobEffects.MOVEMENT_SPEED);
@@ -70,30 +57,26 @@ public class Bossaura extends Commonaura {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()){
-            components.add(Component.literal("Loot Level: 12").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Loot Level: 6").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
-            components.add(Component.literal("Fortune Level: 12").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Fortune Level: 6").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
             components.add(Component.literal("you can walk through Powdered Snow").withStyle(ChatFormatting.DARK_AQUA));
             components.add(Component.literal(""));
-            components.add(Component.literal("Piglins are neutral").withStyle(ChatFormatting.GOLD));
-            components.add(Component.literal(""));
             components.add(Component.literal("Endermans won't get mad if you see them").withStyle(ChatFormatting.LIGHT_PURPLE));
-            components.add(Component.literal(""));
-            components.add(Component.literal("Life Regeneration IV").withStyle(ChatFormatting.DARK_GREEN));
             components.add(Component.literal(""));
             components.add(Component.literal("Fire Resistance X").withStyle(ChatFormatting.DARK_GREEN));
             components.add(Component.literal(""));
-            components.add(Component.literal("Damage Boost VI").withStyle(ChatFormatting.DARK_GREEN));
+            components.add(Component.literal("Damage Boost II").withStyle(ChatFormatting.DARK_GREEN));
             components.add(Component.literal(""));
-            components.add(Component.literal("Increased Speed VIII").withStyle(ChatFormatting.DARK_GREEN));
+            components.add(Component.literal("Increased Speed II").withStyle(ChatFormatting.DARK_GREEN));
             components.add(Component.literal(""));
-            components.add(Component.literal("Jump Boost II").withStyle(ChatFormatting.DARK_GREEN));
+            components.add(Component.literal("Jump Boost I").withStyle(ChatFormatting.DARK_GREEN));
 
         }else{
-            components.add(Component.literal("Loot Level: 12").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Loot Level: 6").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
-            components.add(Component.literal("Fortune Level: 12").withStyle(ChatFormatting.YELLOW));
+            components.add(Component.literal("Fortune Level: 6").withStyle(ChatFormatting.YELLOW));
             components.add(Component.literal(""));
             components.add(Component.literal("you can walk through Powdered Snow").withStyle(ChatFormatting.DARK_AQUA));
             components.add(Component.literal(""));
@@ -103,5 +86,4 @@ public class Bossaura extends Commonaura {
 
         super.appendHoverText(stack, level, components, flag);
     }
-
 }

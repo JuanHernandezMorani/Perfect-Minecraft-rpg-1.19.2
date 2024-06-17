@@ -1,10 +1,10 @@
-package net.cheto97.rpgcraftmod.custom.curios.auras.renderer;
+package net.cheto97.rpgcraftmod.item.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.custom.curios.auras.item.Commonaura;
-import net.cheto97.rpgcraftmod.custom.curios.auras.model.AuraModel;
+import net.cheto97.rpgcraftmod.item.aura.Commonaura;
+import net.cheto97.rpgcraftmod.item.model.AuraModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;

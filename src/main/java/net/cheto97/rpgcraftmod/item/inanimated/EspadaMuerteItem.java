@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.custom;
+package net.cheto97.rpgcraftmod.item.inanimated;
 
 import net.cheto97.rpgcraftmod.providers.ManaMaxProvider;
 import net.cheto97.rpgcraftmod.providers.ManaProvider;

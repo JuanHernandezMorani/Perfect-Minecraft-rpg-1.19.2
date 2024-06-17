@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.custom.curios.auras.model;
+package net.cheto97.rpgcraftmod.item.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -1,8 +1,6 @@
 package net.cheto97.rpgcraftmod.client.curio;
 
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.item.ModItems;
-import net.cheto97.rpgcraftmod.item.wings.GeoWingsItem;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 

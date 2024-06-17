@@ -1,12 +1,11 @@
 package net.cheto97.rpgcraftmod.client.curio;
 
-import net.cheto97.rpgcraftmod.custom.curios.auras.renderer.AuraRenderer;
+import net.cheto97.rpgcraftmod.item.renderer.AuraRenderer;
 import net.cheto97.rpgcraftmod.item.ModItems;
-import net.cheto97.rpgcraftmod.item.wings.renderer.CustomWingsFeatureRenderer;
+import net.cheto97.rpgcraftmod.item.renderer.CustomWingsFeatureRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.Item;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.client.ICurioRenderer;

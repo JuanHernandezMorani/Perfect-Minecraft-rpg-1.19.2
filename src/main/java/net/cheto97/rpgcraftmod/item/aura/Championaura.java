@@ -1,4 +1,4 @@
-package net.cheto97.rpgcraftmod.custom.curios.auras.item;
+package net.cheto97.rpgcraftmod.item.aura;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
