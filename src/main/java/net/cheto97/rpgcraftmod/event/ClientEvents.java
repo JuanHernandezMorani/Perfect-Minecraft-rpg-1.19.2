@@ -13,6 +13,7 @@ import net.cheto97.rpgcraftmod.util.ColourHelper;
 import net.cheto97.rpgcraftmod.util.KeyBinding;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.HashMap;
 
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.*;
+import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.ASURA_WINGS;
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.BOSS_AURA;
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.BRUTAL_AURA;
 import static net.cheto97.rpgcraftmod.client.curio.CurioLayers.CHAMPION_AURA;
@@ -85,53 +87,32 @@ public class ClientEvents {
         }
         @SubscribeEvent
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            event.registerLayerDefinition(LIGHT, LightWingsModel::getLayerDefinition);
-            event.registerLayerDefinition(ZANZA, ZanzasWingsModel::getLayerDefinition);
-            event.registerLayerDefinition(COMMON_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(CHAMPION_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(DEMON_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(BOSS_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(BRUTAL_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(ELITE_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(HERO_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(LEGENDARY_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(MYTHICAL_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(SEMI_BOSS_AURA, AuraModel::createLayer);
-            event.registerLayerDefinition(UNIQUE_AURA, AuraModel::createLayer);
+            // wings
+            registerWings(event, ASURA_WINGS);
+
+            // auras
+            registerAuras(event, COMMON_AURA);
+            registerAuras(event, CHAMPION_AURA);
+            registerAuras(event, DEMON_AURA);
+            registerAuras(event, BOSS_AURA);
+            registerAuras(event, BRUTAL_AURA);
+            registerAuras(event, ELITE_AURA);
+            registerAuras(event, HERO_AURA);
+            registerAuras(event, LEGENDARY_AURA);
+            registerAuras(event, MYTHICAL_AURA);
+            registerAuras(event, SEMI_BOSS_AURA);
+            registerAuras(event, UNIQUE_AURA);
         }
         @SubscribeEvent
         public static void onRegisterAtlasSprites(TextureStitchEvent.Pre event){
             event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"slot/aura_slot"));
             event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"slot/wing_slot"));
         }
-
-        @SubscribeEvent
-        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-            HashMap<Integer, Item> customItems = new HashMap<>();
-            fillHashMap(customItems);
-
-            for(int i = 0; i < customItems.size();i++){
-                event.register((stack, tintIndex) -> tintIndex == 0 ? ColourHelper.dyeToDecimal(((WingItem) stack.getItem()).getPrimaryColour()) : ColourHelper.dyeToDecimal(((WingItem) stack.getItem()).getSecondaryColour()),
-                        customItems.get(i));
-            }
+        private static void registerWings(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
+            event.registerLayerDefinition(itemLocation, WingEntityModel::getModelData);
         }
-        public static void fillHashMap(HashMap<Integer, Item> customItems) {
-            customItems.put(0, WHITE_LIGHT_WINGS.get().asItem());
-            customItems.put(1, ORANGE_LIGHT_WINGS.get().asItem());
-            customItems.put(2, MAGENTA_LIGHT_WINGS.get().asItem());
-            customItems.put(3, LIGHT_BLUE_LIGHT_WINGS.get().asItem());
-            customItems.put(4, YELLOW_LIGHT_WINGS.get().asItem());
-            customItems.put(5, LIME_LIGHT_WINGS.get().asItem());
-            customItems.put(6, PINK_LIGHT_WINGS.get().asItem());
-            customItems.put(7, GREY_LIGHT_WINGS.get().asItem());
-            customItems.put(8, LIGHT_GREY_LIGHT_WINGS.get().asItem());
-            customItems.put(9, CYAN_LIGHT_WINGS.get().asItem());
-            customItems.put(10, PURPLE_LIGHT_WINGS.get().asItem());
-            customItems.put(11, BLUE_LIGHT_WINGS.get().asItem());
-            customItems.put(12, BROWN_LIGHT_WINGS.get().asItem());
-            customItems.put(13, GREEN_LIGHT_WINGS.get().asItem());
-            customItems.put(14, RED_LIGHT_WINGS.get().asItem());
-            customItems.put(15, BLACK_LIGHT_WINGS.get().asItem());
+        private static void registerAuras(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
+            event.registerLayerDefinition(itemLocation, AuraModel::createLayer);
         }
     }
 }

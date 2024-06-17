@@ -301,23 +301,18 @@ public class ModEvents {
            }
        }
        private static void fillMap(HashMap<Integer, ItemStack> wingsMap) {
-           wingsMap.put(0, WHITE_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(1, ORANGE_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(2, MAGENTA_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(3, LIGHT_BLUE_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(4, YELLOW_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(5, LIME_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(6, PINK_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(7, GREY_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(8, LIGHT_GREY_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(9, CYAN_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(10, PURPLE_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(11, BLUE_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(12, BROWN_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(13, GREEN_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(14, RED_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(15, BLACK_LIGHT_WINGS.get().getDefaultInstance());
-           wingsMap.put(16, ZANZAS_WINGS.get().getDefaultInstance());
+           wingsMap.put(0, ASURA_WINGS.get().getDefaultInstance());
+           wingsMap.put(1, VOLT_WINGS.get().getDefaultInstance());
+           wingsMap.put(2, WING_1.get().getDefaultInstance());
+           wingsMap.put(3, WING_2.get().getDefaultInstance());
+           wingsMap.put(4, WING_3.get().getDefaultInstance());
+           wingsMap.put(5, WING_4.get().getDefaultInstance());
+           wingsMap.put(6, WING_5.get().getDefaultInstance());
+           wingsMap.put(7, WING_6.get().getDefaultInstance());
+           wingsMap.put(8, WING_7.get().getDefaultInstance());
+           wingsMap.put(9, WING_8.get().getDefaultInstance());
+           wingsMap.put(10, WING_9.get().getDefaultInstance());
+           wingsMap.put(11, WING_10.get().getDefaultInstance());
        }
        @SubscribeEvent
        public static void onRegisterCapabilities(RegisterCapabilitiesEvent event){

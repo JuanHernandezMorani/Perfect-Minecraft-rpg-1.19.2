@@ -2,23 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:elytra",
-    "rpgcraftmod:orange_light_wings",
-    "rpgcraftmod:magenta_light_wings",
-    "rpgcraftmod:light_blue_light_wings",
-    "rpgcraftmod:yellow_light_wings",
-    "rpgcraftmod:lime_light_wings",
-    "rpgcraftmod:pink_light_wings",
-    "rpgcraftmod:grey_light_wings",
-    "rpgcraftmod:light_grey_light_wings",
-    "rpgcraftmod:cyan_light_wings",
-    "rpgcraftmod:purple_light_wings",
-    "rpgcraftmod:blue_light_wings",
-    "rpgcraftmod:brown_light_wings",
-    "rpgcraftmod:green_light_wings",
-    "rpgcraftmod:red_light_wings",
-    "rpgcraftmod:black_light_wings",
-    "rpgcraftmod:white_light_wings",
-    "rpgcraftmod:zanzas_wings",
     "rpgcraftmod:asura_wings",
     "rpgcraftmod:wings_1",
     "rpgcraftmod:wings_2",
@@ -29,6 +12,7 @@
     "rpgcraftmod:wings_7",
     "rpgcraftmod:wings_8",
     "rpgcraftmod:wings_9",
-    "rpgcraftmod:wings_10"
+    "rpgcraftmod:wings_10",
+    "rpgcraftmod:volt_wings"
   ]
 }

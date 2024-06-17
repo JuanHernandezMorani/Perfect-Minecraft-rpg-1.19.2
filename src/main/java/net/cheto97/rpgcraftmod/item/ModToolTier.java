@@ -16,7 +16,7 @@ public class ModToolTier {
 
     static {
         SAPPHIRE = TierSortingRegistry.registerTier(
-                new ForgeTier(5,4062,12.0F,5.0F,24,
+                new ForgeTier(5,4062,3.0F,1.0F,24,
                         ModTags.Blocks.NEEDS_SAPPHIRE_TOOL, () -> Ingredient.of(ModItems.zafiro.get())),
                 new ResourceLocation(RpgcraftMod.MOD_ID, "sapphire"),
                 List.of(Tiers.NETHERITE), List.of());

@@ -6,13 +6,12 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
     public final ModelPart rightWing;
@@ -23,14 +22,16 @@ public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
         this.rightWing = root.getChild("rightWing");
         this.leftWing = root.getChild("leftWing");
     }
-    public static MeshDefinition getModelData() {
-        MeshDefinition modelData = new MeshDefinition();
-        PartDefinition modelPartData =  modelData.getRoot();
 
-        modelPartData.addOrReplaceChild("rightWing", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
-        modelPartData.addOrReplaceChild("leftWing", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
+    public static LayerDefinition getModelData() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition part = mesh.getRoot();
+        CubeDeformation deformation = new CubeDeformation(1.0F);
 
-        return modelData;
+        part.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(22, 0).addBox(-10.0F, 0.0F, 0.0F, 10.0F, 20.0F, 2.0F, deformation), PartPose.offsetAndRotation(5.0F, 0.0F, 0.0F, 0.2617994F, 0.0F, -0.2617994F));
+        part.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(22, 0).mirror().addBox(0.0F, 0.0F, 0.0F, 10.0F, 20.0F, 2.0F, deformation), PartPose.offsetAndRotation(-5.0F, 0.0F, 0.0F, 0.2617994F, 0.0F, 0.2617994F));
+
+        return LayerDefinition.create(mesh, 64, 32);
     }
     @Override
     public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
@@ -70,8 +71,7 @@ public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
         this.leftWing.xScale = 1.0F;
         this.leftWing.yScale = m;
 
-        if(entity instanceof AbstractClientPlayer) {
-            AbstractClientPlayer player = (AbstractClientPlayer) entity;
+        if(entity instanceof AbstractClientPlayer player) {
             player.elytraRotY = (player.elytraRotY + (k - player.elytraRotY) * 0.1F);
             player.elytraRotX = (player.elytraRotX + (n - player.elytraRotX) * 0.1F);
             player.elytraRotZ = (player.elytraRotZ + (l - player.elytraRotZ) * 0.1F)-0.225f;
@@ -98,7 +98,7 @@ public class WingEntityModel<T extends LivingEntity> extends EntityModel<T> {
         return ImmutableList.of(this.rightWing, this.leftWing);
     }
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int packedLight ,int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer consumer, int packedLight , int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
         poseStack.translate(0.5D,-0.375D,0.0D);
         this.rightWing.render(poseStack, consumer, packedLight, packedOverlay, red, green, blue, alpha);

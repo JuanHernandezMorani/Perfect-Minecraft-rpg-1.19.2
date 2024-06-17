@@ -12,7 +12,7 @@ import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
 public class WingHelper {
     public static float wingSpeed = 0.0124F;
-    public static float modifier = 2F;
+    public static float modifier = 2.25F;
 
     public static void applySpeed(Player player) {
         WingsValues values = RpgcraftMod.WINGS.apply(player);

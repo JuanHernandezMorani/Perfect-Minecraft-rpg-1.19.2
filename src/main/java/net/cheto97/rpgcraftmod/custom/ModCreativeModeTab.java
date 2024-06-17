@@ -18,7 +18,7 @@ public class ModCreativeModeTab {
 
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(ModItems.ZANZAS_WINGS.get());
+            return new ItemStack(ModItems.VOLT_WINGS.get());
         }
     };
 }

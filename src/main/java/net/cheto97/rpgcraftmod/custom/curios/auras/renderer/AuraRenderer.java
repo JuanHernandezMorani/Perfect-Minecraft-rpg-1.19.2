@@ -21,7 +21,7 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 import javax.annotation.Nullable;
 
 public class AuraRenderer implements ICurioRenderer {
-    private AuraModel<LivingEntity> auraModel;
+    private final AuraModel<LivingEntity> auraModel;
 
     public AuraRenderer(ModelPart auraModel){
         this.auraModel = new AuraModel<>(auraModel);
