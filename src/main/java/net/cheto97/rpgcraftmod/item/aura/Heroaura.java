@@ -1,6 +1,6 @@
 package net.cheto97.rpgcraftmod.item.aura;
 
-import net.cheto97.rpgcraftmod.item.aura.Commonaura;
+import net.cheto97.rpgcraftmod.item.prefabs.Commonaura;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;

@@ -6,6 +6,7 @@ import net.cheto97.rpgcraftmod.entity.ModEntityTypes;
 import net.cheto97.rpgcraftmod.fluid.ModFluids;
 import net.cheto97.rpgcraftmod.item.aura.*;
 import net.cheto97.rpgcraftmod.item.inanimated.EspadaMuerteItem;
+import net.cheto97.rpgcraftmod.item.prefabs.Commonaura;
 import net.cheto97.rpgcraftmod.item.prefabs.CustomWingsItem;
 
 import net.minecraft.world.entity.EntityType;
@@ -198,6 +199,9 @@ public class ModItems {
             ));
 
     private static <T extends Item> RegistryObject<T> registerItems(String name, Supplier<T> item){
+        return ITEMS.register(name,item);
+    }
+    private static <T extends ArmorItem> RegistryObject<T> registerArmorItems(String name, Supplier<T> item){
         return ITEMS.register(name,item);
     }
 

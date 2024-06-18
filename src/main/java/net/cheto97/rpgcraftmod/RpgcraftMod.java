@@ -211,7 +211,9 @@ public class RpgcraftMod{
             BlockEntityRenderers.register(ModBlockEntities.WIZARD_TABLE.get(), WizardTableBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.CRAFTING_TABLE_BLOCK_ENTITY.get(), CraftingTableBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.DEATH_CONTAINER_BLOCK_ENTITY.get(), DeathContainerBlockEntityRenderer::new);
+
             CurioRenderer.register();
+
             EntityRenderers.register(ModEntityTypes.MUTANT_GOLEM.get(), MutantGolemRenderer::new);
             EntityRenderers.register(ModEntityTypes.DRAKE.get(), DrakeV1Renderer::new);
             EntityRenderers.register(ModEntityTypes.DRAKE_2.get(), DrakeV2Renderer::new);

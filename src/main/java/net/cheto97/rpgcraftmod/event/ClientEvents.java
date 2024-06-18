@@ -4,7 +4,7 @@ import net.cheto97.rpgcraftmod.ModHud.huds.HudHotbarWidget;
 import net.cheto97.rpgcraftmod.RenderOverlay;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.item.model.AuraModel;
-import net.cheto97.rpgcraftmod.item.model.WingEntityModel;
+import net.cheto97.rpgcraftmod.item.model.WingsModel;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.DrinkManaFluidC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.ViewStatsC2SPacket;
@@ -59,7 +59,6 @@ public class ClientEvents {
 
     }
 
-
     @Mod.EventBusSubscriber(modid = RpgcraftMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         @SubscribeEvent
@@ -70,21 +69,22 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
             // wings
-            registerWings(event, WINGS_1);
-            registerWings(event, WINGS_2);
+            registerWings(event, WINGS_1_LAYER);
+            registerWings(event, ASURA_WINGS_LAYER);
+            registerWings(event, VOLT_WINGS_LAYER);
 
             // auras
-            registerAuras(event, COMMON_AURA);
-            registerAuras(event, CHAMPION_AURA);
-            registerAuras(event, DEMON_AURA);
-            registerAuras(event, BOSS_AURA);
-            registerAuras(event, BRUTAL_AURA);
-            registerAuras(event, ELITE_AURA);
-            registerAuras(event, HERO_AURA);
-            registerAuras(event, LEGENDARY_AURA);
-            registerAuras(event, MYTHICAL_AURA);
-            registerAuras(event, SEMI_BOSS_AURA);
-            registerAuras(event, UNIQUE_AURA);
+            registerAuras(event, COMMON_AURA_LAYER);
+            registerAuras(event, CHAMPION_AURA_LAYER);
+            registerAuras(event, DEMON_AURA_LAYER);
+            registerAuras(event, BOSS_AURA_LAYER);
+            registerAuras(event, BRUTAL_AURA_LAYER);
+            registerAuras(event, ELITE_AURA_LAYER);
+            registerAuras(event, HERO_AURA_LAYER);
+            registerAuras(event, LEGENDARY_AURA_LAYER);
+            registerAuras(event, MYTHICAL_AURA_LAYER);
+            registerAuras(event, SEMI_BOSS_AURA_LAYER);
+            registerAuras(event, UNIQUE_AURA_LAYER);
         }
         @SubscribeEvent
         public static void onRegisterAtlasSprites(TextureStitchEvent.Pre event){
@@ -92,7 +92,7 @@ public class ClientEvents {
             event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot"));
         }
         private static void registerWings(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
-            event.registerLayerDefinition(itemLocation, WingEntityModel::getModelData);
+            event.registerLayerDefinition(itemLocation, WingsModel::createLayer);
         }
         private static void registerAuras(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
             event.registerLayerDefinition(itemLocation, AuraModel::createLayer);

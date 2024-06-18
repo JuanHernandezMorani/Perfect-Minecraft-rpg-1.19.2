@@ -4,8 +4,8 @@
 		"0": "rpgcraftmod:wings/wings_1",
 		"particle": "rpgcraftmod:wings/wings_1"
 	},
-	"elements": {
-		"right_wing": {
+	"elements": [
+		{
 			"from": [
 				-16,
 				-11,
@@ -82,7 +82,7 @@
 				}
 			}
 		},
-		"left_wing": {
+		{
 			"from": [
 				8,
 				-11,
@@ -159,7 +159,7 @@
 				}
 			}
 		}
-	},
+	],
 	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {

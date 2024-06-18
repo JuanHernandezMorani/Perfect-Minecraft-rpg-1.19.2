@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.item.aura;
 
+import net.cheto97.rpgcraftmod.item.prefabs.Commonaura;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;

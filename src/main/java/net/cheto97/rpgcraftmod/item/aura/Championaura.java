@@ -1,5 +1,6 @@
 package net.cheto97.rpgcraftmod.item.aura;
 
+import net.cheto97.rpgcraftmod.item.prefabs.Commonaura;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -17,7 +18,7 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.List;
 
-public class Championaura extends Commonaura{
+public class Championaura extends Commonaura {
 
     public Championaura(Properties properties) {
         super(properties);
