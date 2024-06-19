@@ -3,9 +3,12 @@ package net.cheto97.rpgcraftmod.event;
 import net.cheto97.rpgcraftmod.ModHud.huds.HudHotbarWidget;
 import net.cheto97.rpgcraftmod.RenderOverlay;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.item.model.AsuraWingsModel;
 import net.cheto97.rpgcraftmod.item.model.AuraModel;
+import net.cheto97.rpgcraftmod.item.model.VoltWingsModel;
 import net.cheto97.rpgcraftmod.item.model.WingsModel;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
+import net.cheto97.rpgcraftmod.networking.packet.C2S.ActivateSkillC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.DrinkManaFluidC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.ViewStatsC2SPacket;
 import net.cheto97.rpgcraftmod.util.KeyBinding;
@@ -34,6 +37,15 @@ public class ClientEvents {
             }
             if(KeyBinding.STATS_KEY.consumeClick()){
                 ModMessages.sendToServer(new ViewStatsC2SPacket());
+            }
+            if(KeyBinding.SKILL_1_STATS_KEY.consumeClick()){
+                ModMessages.sendToServer(new ActivateSkillC2SPacket(1));
+            }
+            if(KeyBinding.SKILL_2_STATS_KEY.consumeClick()){
+                ModMessages.sendToServer(new ActivateSkillC2SPacket(2));
+            }
+            if(KeyBinding.SKILL_3_STATS_KEY.consumeClick()){
+                ModMessages.sendToServer(new ActivateSkillC2SPacket(3));
             }
         }
 
@@ -65,13 +77,16 @@ public class ClientEvents {
         public static void onKeyRegister(RegisterKeyMappingsEvent event){
             event.register(KeyBinding.DRINKING_KEY);
             event.register(KeyBinding.STATS_KEY);
+            event.register(KeyBinding.SKILL_1_STATS_KEY);
+            event.register(KeyBinding.SKILL_2_STATS_KEY);
+            event.register(KeyBinding.SKILL_3_STATS_KEY);
         }
         @SubscribeEvent
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
             // wings
-            registerWings(event, WINGS_1_LAYER);
-            registerWings(event, ASURA_WINGS_LAYER);
-            registerWings(event, VOLT_WINGS_LAYER);
+            registerWings(event, WINGS_1_LAYER,1);
+            registerWings(event, ASURA_WINGS_LAYER,2);
+            registerWings(event, VOLT_WINGS_LAYER,3);
 
             // auras
             registerAuras(event, COMMON_AURA_LAYER);
@@ -91,8 +106,12 @@ public class ClientEvents {
             event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/aura_slot"));
             event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot"));
         }
-        private static void registerWings(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
-            event.registerLayerDefinition(itemLocation, WingsModel::createLayer);
+        private static void registerWings(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation, int variant){
+            switch(variant){
+                case 1 ->  event.registerLayerDefinition(itemLocation, WingsModel::createLayer);
+                case 2 -> event.registerLayerDefinition(itemLocation, AsuraWingsModel::createLayer);
+                case 3 -> event.registerLayerDefinition(itemLocation, VoltWingsModel::createLayer);
+            }
         }
         private static void registerAuras(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
             event.registerLayerDefinition(itemLocation, AuraModel::createLayer);

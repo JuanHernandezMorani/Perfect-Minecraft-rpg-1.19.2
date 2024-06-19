@@ -27,19 +27,17 @@ public class Championaura extends Commonaura {
     public int getFortuneLevel(SlotContext slotContext, LootContext lootContext, ItemStack stack) {return 2;}
     @Override
     public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {return 2;}
-    @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        assert player != null;
 
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,1));
-    }
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         LivingEntity player = slotContext.entity();
-        assert player != null;
+        if(player != null) player.removeEffect(MobEffects.MOVEMENT_SPEED);
+    }
 
-        player.removeEffect(MobEffects.MOVEMENT_SPEED);
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        Player player = (Player) slotContext.entity();
+        if(player != null) player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,1));
     }
 
     @Override

@@ -8,7 +8,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -33,22 +32,21 @@ public class Demonaura extends Commonaura {
     @Override
     public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {return 2;}
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        assert player != null;
-
-        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,5));
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,1));
-    }
-    @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         LivingEntity player = slotContext.entity();
-        assert player != null;
-
-        player.removeEffect(MobEffects.FIRE_RESISTANCE);
-        player.removeEffect(MobEffects.MOVEMENT_SPEED);
+        if(player != null){
+            player.removeEffect(MobEffects.FIRE_RESISTANCE);
+            player.removeEffect(MobEffects.MOVEMENT_SPEED);
+        }
     }
-
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        LivingEntity player = slotContext.entity();
+        if(player != null){
+            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,5));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,1));
+        }
+    }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()){

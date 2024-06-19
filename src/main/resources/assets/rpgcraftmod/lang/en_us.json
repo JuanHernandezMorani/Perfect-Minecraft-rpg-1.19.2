@@ -30,23 +30,6 @@
   "item.rpgcraftmod.semi_boss_aura": "Semi Boss Aura",
   "item.rpgcraftmod.unique_aura": "Unique Aura",
 
-  "item.rpgcraftmod.white_light_wings": "White Light Wings",
-  "item.rpgcraftmod.orange_light_wings": "Orange Light Wings",
-  "item.rpgcraftmod.magenta_light_wings": "Magenta Light Wings",
-  "item.rpgcraftmod.light_blue_light_wings": "Light Blue Light Wings",
-  "item.rpgcraftmod.yellow_light_wings": "Yellow Light Wings",
-  "item.rpgcraftmod.lime_light_wings": "Lime Light Wings",
-  "item.rpgcraftmod.pink_light_wings": "Pink Light Wings",
-  "item.rpgcraftmod.grey_light_wings": "Grey Light Wings",
-  "item.rpgcraftmod.light_grey_light_wings": "Light Grey Light Wings",
-  "item.rpgcraftmod.cyan_light_wings": "Cyan Light Wings",
-  "item.rpgcraftmod.purple_light_wings": "Purple Light Wings",
-  "item.rpgcraftmod.blue_light_wings": "Blue Light Wings",
-  "item.rpgcraftmod.brown_light_wings": "Brown Light Wings",
-  "item.rpgcraftmod.green_light_wings": "Green Light Wings",
-  "item.rpgcraftmod.red_light_wings": "Red Light Wings",
-  "item.rpgcraftmod.black_light_wings": "Black Light Wings",
-  "item.rpgcraftmod.zanzas_wings": "Zanza's Wings",
   "item.rpgcraftmod.wings_1": "ButterFly Orange Wings",
   "item.rpgcraftmod.wings_2": "ButterFly Pink Wings",
   "item.rpgcraftmod.wings_3": "ButterFly Emerald Wings",
@@ -57,8 +40,8 @@
   "item.rpgcraftmod.wings_8": "ButterFly Electric Wings",
   "item.rpgcraftmod.wings_9": "ButterFly Sweet Wings",
   "item.rpgcraftmod.wings_10": "ButterFly Creep Wings",
-  "item.rpgcraftmod.asura_wings": "Flame Wings",
-  "item.rpgcraftmod.volt_wings": "Techno Wings",
+  "item.rpgcraftmod.asura_wings": "Asura Wings",
+  "item.rpgcraftmod.volt_wings": "Volt Wings",
 
   "item.rpgcraftmod.sapphire_pickaxe": "Sapphire Pickaxe",
   "item.rpgcraftmod.asura_sword": "Divine Sword",
@@ -76,7 +59,7 @@
 
   "itemGroup.rpgcrafttab": "RPGcraft Mod Tab",
   "itemGroup.rpgcraftwingstab": "RPGcraft Mod Wings Tab",
-  "key.category.rpgcraftmod.rpgcraft": "Rpgcraft Mod",
+  "key.category.rpgcraftmod.rpgcraft": "Rpgcraft Mod Category",
 
   "block.rpgcraftmod.bloque_profundo_mineral_zafiro": "Deepslate Sapphire Ore",
   "block.rpgcraftmod.bloque_mineral_zafiro": "Sapphire Ore",
@@ -102,6 +85,9 @@
 
   "key.rpgcraftmod.drink_mana" : "Drinking Mana",
   "key.rpgcraftmod.show_stats": "Show stats",
+  "key.rpgcraftmod.skill_1" : "Skill 1 activation key",
+  "key.rpgcraftmod.skill_2": "Skill 2 activation key",
+  "key.rpgcraftmod.skill_3": "Skill 3 activation key",
 
   "message.rpgcraftmod.drink_mana": "Your mana was regenerated",
   "message.rpgcraftmod.no_mana_fluid_near": "There is no mana fluid nearby to drink",

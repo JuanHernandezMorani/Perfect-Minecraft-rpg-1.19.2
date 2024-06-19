@@ -22,7 +22,6 @@ public class ModMessages {
     private static int id(){
         return packetId++;
     }
-
     public static void register(){
         SimpleChannel net = NetworkRegistry.ChannelBuilder
                 .named(new ResourceLocation(RpgcraftMod.MOD_ID, "messages"))
@@ -31,9 +30,12 @@ public class ModMessages {
                 .serverAcceptedVersions(s -> true)
                 .simpleChannel();
 
-        INSTANCE = net;
+        client2Server(net);
+        server2Client(net);
+    }
 
-         // Packets Player -> Server
+    private static void client2Server(SimpleChannel net){
+        INSTANCE = net;
 
         net.messageBuilder(DrinkManaFluidC2SPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DrinkManaFluidC2SPacket::new)
@@ -83,6 +85,12 @@ public class ModMessages {
                 .consumerMainThread(PlayerClassSelectPacket::handle)
                 .add();
 
+        net.messageBuilder(ActivateSkillC2SPacket.class,id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ActivateSkillC2SPacket::new)
+                .encoder(ActivateSkillC2SPacket::toBytes)
+                .consumerMainThread(ActivateSkillC2SPacket::handle)
+                .add();
+
         net.messageBuilder(SetEnchantmentToolLevelingTable.class,id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SetEnchantmentToolLevelingTable::decode)
                 .encoder(SetEnchantmentToolLevelingTable::encode)
@@ -100,8 +108,9 @@ public class ModMessages {
                 .encoder(OpenItemValueScreenPacket::encode)
                 .consumerMainThread(OpenItemValueScreenPacket::handle)
                 .add();
-
-         // Packets Server -> Player
+    }
+    private static void server2Client(SimpleChannel net){
+        INSTANCE = net;
 
         net.messageBuilder(EntitySyncPacket.class,id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(EntitySyncPacket::new)
@@ -144,8 +153,8 @@ public class ModMessages {
                 .encoder(ItemStackSyncS2CPacket::toBytes)
                 .consumerMainThread(ItemStackSyncS2CPacket::handle)
                 .add();
-
     }
+
     public static <MSG> void sendToServer(MSG message){
         INSTANCE.sendToServer(message);
     }

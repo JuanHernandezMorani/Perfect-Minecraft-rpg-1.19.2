@@ -3,6 +3,8 @@ package net.cheto97.rpgcraftmod.item.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
+import net.cheto97.rpgcraftmod.item.model.AsuraWingsModel;
+import net.cheto97.rpgcraftmod.item.model.VoltWingsModel;
 import net.cheto97.rpgcraftmod.item.model.WingsModel;
 import net.cheto97.rpgcraftmod.item.prefabs.CustomWingsItem;
 import net.minecraft.client.model.EntityModel;
@@ -20,12 +22,13 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class WingsRenderer implements ICurioRenderer {
     private final WingsModel<LivingEntity> wingsModel;
 
-    public WingsRenderer(ModelPart modelPart,String wingName){
-        this.wingsModel = new WingsModel<>(modelPart,new ResourceLocation(RpgcraftMod.MOD_ID,"models/item/"+wingName+".json"));
+    public WingsRenderer(ModelPart modelPart, String name){
+        this.wingsModel = Objects.equals(name, "asura_wings") ? new AsuraWingsModel<>(modelPart) : Objects.equals(name, "volt_wings") ? new VoltWingsModel<>(modelPart) : new WingsModel<>(modelPart);
     }
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext,

@@ -1,17 +1,11 @@
 package net.cheto97.rpgcraftmod.item.prefabs;
 
-import net.cheto97.rpgcraftmod.item.ModItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import net.minecraft.world.level.storage.loot.LootContext;
 import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -38,6 +32,4 @@ public class Commonaura extends Item implements ICurioItem {
     public DyeColor getPrimaryColour() {
         return DyeColor.WHITE;
     }
-
-
 }

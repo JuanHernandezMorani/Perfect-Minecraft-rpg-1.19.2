@@ -42,29 +42,28 @@ public class Bossaura extends Commonaura {
     public int getLootingLevel(SlotContext slotContext, DamageSource source, LivingEntity target, int baseLooting, ItemStack stack) {
         return 12;
     }
-
-    @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        assert player != null;
-
-                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION,1000000,4));
-                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,10));
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1000000,6));
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,8));
-                player.addEffect(new MobEffectInstance(MobEffects.JUMP,1000000,2));
-    }
-
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         LivingEntity player = slotContext.entity();
-        assert player != null;
+        if(player != null){
+            player.removeEffect(MobEffects.REGENERATION);
+            player.removeEffect(MobEffects.FIRE_RESISTANCE);
+            player.removeEffect(MobEffects.DAMAGE_BOOST);
+            player.removeEffect(MobEffects.MOVEMENT_SPEED);
+            player.removeEffect(MobEffects.JUMP);
+        }
+    }
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        Player player = (Player) slotContext.entity();
+        if(player != null){
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION,1000000,4));
+            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,1000000,10));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1000000,6));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1000000,8));
+            player.addEffect(new MobEffectInstance(MobEffects.JUMP,1000000,2));
 
-        player.removeEffect(MobEffects.REGENERATION);
-        player.removeEffect(MobEffects.FIRE_RESISTANCE);
-        player.removeEffect(MobEffects.DAMAGE_BOOST);
-        player.removeEffect(MobEffects.MOVEMENT_SPEED);
-        player.removeEffect(MobEffects.JUMP);
+        }
     }
 
     @Override

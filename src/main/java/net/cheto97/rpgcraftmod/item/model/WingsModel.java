@@ -18,16 +18,16 @@ import java.io.Reader;
 import java.util.Objects;
 
 public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
-    private static ResourceLocation modelaLocation;
     private final ModelPart modelItem;
-    public WingsModel(ModelPart part, ResourceLocation location){
-        modelaLocation = location;
+    public WingsModel(ModelPart part){
         this.modelItem = part;
     }
     public static LayerDefinition createLayer() {
-        ResourceLocation modelLocation = modelaLocation;
+        ResourceLocation modelLocation = new ResourceLocation(RpgcraftMod.MOD_ID,"models/item/wings_1.json");
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition part = mesh.getRoot();
+        PartDefinition leftPart = part.getChild("left_wings");
+        PartDefinition rightPart = part.getChild("right_wings");
 
         try (Reader reader = new InputStreamReader(Objects.requireNonNull(WingsModel.class.getResourceAsStream("/assets/" + modelLocation.getNamespace() + "/" + modelLocation.getPath())))) {
             Gson gson = new Gson();
@@ -50,7 +50,7 @@ public class WingsModel<T extends LivingEntity> extends EntityModel<T> {
                     CubeDeformation deformation = CubeDeformation.NONE;
                     CubeListBuilder cube = CubeListBuilder.create()
                             .texOffs(0, 0)
-                            .addBox(from[0], from[1], from[2], to[0] - from[0], to[1] - from[1], to[2] - from[2], deformation);
+                            .addBox(from[0], from[1], from[2], to[0], to[1], to[2], deformation);
 
                     PartPose pose = PartPose.offsetAndRotation(origin[0], origin[1], origin[2],
                             axis.equals("x") ? (float)Math.toRadians(angle) : 0,
