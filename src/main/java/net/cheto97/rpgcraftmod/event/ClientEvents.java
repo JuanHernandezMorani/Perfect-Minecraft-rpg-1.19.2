@@ -85,6 +85,7 @@ public class ClientEvents {
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
             // wings
             registerWings(event, WINGS_1_LAYER,1);
+            registerWings(event, WINGS_2_LAYER,1);
             registerWings(event, ASURA_WINGS_LAYER,2);
             registerWings(event, VOLT_WINGS_LAYER,3);
 

@@ -195,10 +195,12 @@ public class RpgcraftMod{
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MANA.get(),RenderType.translucent());
             RpgcraftMod.settings = new Settings();
             var hudtype = new RPGHud(Minecraft.getInstance(), "rpg", "Rpg");
+
             RpgcraftMod.registerHud(new HudDefault(Minecraft.getInstance(), "default", "Default"));
             RpgcraftMod.registerHud(new HudVanilla(Minecraft.getInstance(), "vanilla", "Vanilla"));
             RpgcraftMod.registerHud(new HudHotbarWidget(Minecraft.getInstance(), "hotbar", "Hotbar Widget"));
             RpgcraftMod.registerHud(new RPGHud(Minecraft.getInstance(), "rpg", "Rpg"));
+
             RpgcraftMod.settings.setSetting(Settings.hud_type, hudtype);
             MenuScreens.register(ModMenuTypes.WIZARD_TABLE_MENU.get(), WizardTableScreen::new);
             MenuScreens.register(ModMenuTypes.PLAYER_STATS_MENU.get(), PlayerStatsScreen::new);

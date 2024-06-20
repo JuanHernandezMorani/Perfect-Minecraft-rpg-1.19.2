@@ -14,7 +14,7 @@ public class ModChatFormatting implements StringRepresentable {
     @Nullable
     private final Integer color;
 
-    ModChatFormatting(int id, @Nullable Integer color) {
+    public ModChatFormatting(int id, @Nullable Integer color) {
         this.id = id;
         this.color = color;
         this.toString = color != null ? String.format("§x§%s§%s§%s§%s§%s§%s",

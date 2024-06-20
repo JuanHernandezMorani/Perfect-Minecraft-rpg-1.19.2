@@ -48,7 +48,7 @@ public abstract class HudElement {
         this.moveable = moveable;
         this.mc = Minecraft.getInstance();
         this.rpgHud = RpgcraftMod.instance;
-        this.settings = this.rpgHud.settings;
+        this.settings = RpgcraftMod.settings;
         this.scale = 1f;
         this.scaleInverted = 1f / this.scale;
         this.parent = type;

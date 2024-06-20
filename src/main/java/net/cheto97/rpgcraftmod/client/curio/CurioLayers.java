@@ -22,7 +22,7 @@ public class CurioLayers {
     public static final ModelLayerLocation ASURA_WINGS_LAYER = createModelLayerLocation("wings/asura_wings");
     public static final ModelLayerLocation VOLT_WINGS_LAYER = createModelLayerLocation("wings/volt_wings");
     public static final ModelLayerLocation WINGS_1_LAYER = createModelLayerLocation("wings/wings_1");
-    public static final ModelLayerLocation WINGS_2_LAYER = createModelLayerLocation("wings/wings_2");
+    public static final ModelLayerLocation WINGS_2_LAYER = createLocation("item/wings_2");
     public static final ModelLayerLocation WINGS_3_LAYER = createModelLayerLocation("wings/wings_3");
     public static final ModelLayerLocation WINGS_4_LAYER = createModelLayerLocation("wings/wings_4");
     public static final ModelLayerLocation WINGS_5_LAYER = createModelLayerLocation("wings/wings_5");
@@ -37,6 +37,9 @@ public class CurioLayers {
 
     private static ModelLayerLocation createModelLayerLocation(String textureLocation){
         return new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/"+textureLocation+".png"),"main");
+    }
+    private static ModelLayerLocation createLocation(String modelLocation){
+        return new ModelLayerLocation(new ResourceLocation(RpgcraftMod.MOD_ID,"models/"+modelLocation+".json"),"main");
     }
 }
     

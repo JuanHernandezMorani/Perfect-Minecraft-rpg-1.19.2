@@ -14,6 +14,7 @@ public class HudElementWidgetRPG extends HudElement {
 
     public HudElementWidgetRPG() {
         super(HudType.WIDGET, 0, 0, 0, 0, true);
+        posX = posX + 3;
     }
 
     @Override

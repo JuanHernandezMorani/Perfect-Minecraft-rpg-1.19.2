@@ -41,7 +41,8 @@ public class CurioRenderer {
         aura(UNIQUE_AURA, UNIQUE_AURA_LAYER);
     }
     private static void wingsRegister(){
-        wing(WING_1, WINGS_1_LAYER,"wings_1");
+        wing(WING_1, WINGS_1_LAYER,"default");
+        wing(WING_2,WINGS_2_LAYER,"default");
         wing(ASURA_WINGS, ASURA_WINGS_LAYER,"asura_wings");
         wing(VOLT_WINGS, VOLT_WINGS_LAYER,"volt_wings");
       }
