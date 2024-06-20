@@ -72,7 +72,7 @@ public class RPGHud extends HudDefault {
 
     @Override
     protected HudElement setElementCompass() {
-        return new HudElementCompassRPG();
+        return null;
     }
 
 }

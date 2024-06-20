@@ -9,15 +9,11 @@ public class HudRpgUtils {
     private static final int FPS_MID_COLOR = 0xC9C908;
     private static final int FPS_MAX_COLOR = 0x01A905;
 
-    public static int getPosition(double direction, int position) {
-        return (int) Math.floor((direction / 100) * position);
-    }
-
-    public static int getPositionX(int direction, int position) {
+    public static int getPositionFromMid(int direction, int position) {
         return (direction / 2) + ((direction / 100) * position);
     }
-    public static int getPositionY(int direction, int position) {
-        return (direction / 100) * position;
+    public static int getPosition(int direction, int position) {
+        return ((direction / 100) * position);
     }
 
     public static int[] getPlayerPosition(Player player) {
@@ -49,6 +45,9 @@ public class HudRpgUtils {
         int b = b1 + (b2 - b1) * ratio;
 
         return (r << 16) | (g << 8) | b;
+    }
+    public static int getDynamicChangedColor(int fromColor, int toColor, int ratio){
+        return interpolateColor(fromColor,toColor,Math.min(Math.max(1,ratio), 29));
     }
     private static int calculateColor(int fps) {
         if (fps <= 0) {

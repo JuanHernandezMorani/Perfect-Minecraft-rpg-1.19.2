@@ -14,32 +14,32 @@ public class HudVanilla extends Hud {
 
     @Override
     public HudElement setElementHotbar() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
     public HudElement setElementLife() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
     public HudElement setElementMana() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
     public HudElement setElementFood() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
     public HudElement setElementArmor() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
     public HudElement setElementAir() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class HudVanilla extends Hud {
 
     @Override
     public HudElement setElementCustomLevel() {
-        return null;
+        return new HudElementEmpty();
     }
     @Override
     protected HudElement setElementView() {
@@ -57,12 +57,12 @@ public class HudVanilla extends Hud {
     }
     @Override
     public HudElement setElementJumpBar() {
-        return null;
+        return new HudElementEmpty();
     }
 
     @Override
     public HudElement setElementMountLife() {
-        return null;
+        return new HudElementEmpty();
     }
     @Override
     public HudElement setElementWidget() {
@@ -71,7 +71,7 @@ public class HudVanilla extends Hud {
 
     @Override
     protected HudElement setElementCompass() {
-        return new HudElementCompassVanilla();
+        return new HudElementEmpty();
     }
 
     @Override
