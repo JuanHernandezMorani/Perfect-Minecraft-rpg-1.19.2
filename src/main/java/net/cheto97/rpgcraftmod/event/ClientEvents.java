@@ -1,7 +1,9 @@
 package net.cheto97.rpgcraftmod.event;
 
-import net.cheto97.rpgcraftmod.ModHud.huds.HudHotbarWidget;
-import net.cheto97.rpgcraftmod.RenderOverlay;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.cheto97.rpgcraftmod.ModHud.parts.compassWidget;
+import net.cheto97.rpgcraftmod.ModHud.parts.playerStats;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
 import net.cheto97.rpgcraftmod.item.model.AsuraWingsModel;
 import net.cheto97.rpgcraftmod.item.model.AuraModel;
@@ -19,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -50,23 +53,23 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
-        public void onChatRender(CustomizeGuiOverlayEvent.Chat event) {
-            if (RpgcraftMod.getActiveHud() instanceof HudHotbarWidget) {
-                event.setPosY(event.getPosY() - 22);
-            }
-        }
-
-        @SubscribeEvent
         public static void onRenderGameOverlay(RenderGuiOverlayEvent event){
             Minecraft mc = Minecraft.getInstance();
-            RpgcraftMod mod = RpgcraftMod.instance;
+            ForgeGui emptyGui = new ForgeGui(mc);
+            PoseStack ms = event.getPoseStack();
+
                 if (event.getOverlay().id().toString().contains("air_level") || event.getOverlay().id().toString().contains("armor_level")
-                   || event.getOverlay().id().toString().contains("experience_bar") || event.getOverlay().id().toString().contains("food") || event.getOverlay().toString().contains("stam")
+                   || event.getOverlay().id().toString().contains("experience_bar") || event.getOverlay().id().toString().contains("food") || event.getOverlay().toString().contains("stamina")
                    || event.getOverlay().id().toString().contains("player_health") || event.getOverlay().id().toString().contains("mount_health")
-                   || event.getOverlay().id().toString().contains("jump_bar") || event.getOverlay().id().toString().contains("hotbar")) {
-                    event.setCanceled(true);
+                   || event.getOverlay().id().toString().contains("jump_bar")) {
+                    event.getOverlay().overlay().render(emptyGui,event.getPoseStack(),0,0,0);
                 }
-                RenderOverlay.renderOverlay(mod, mc, event.getPoseStack(), event.getPartialTick());
+
+            ms.pushPose();
+            RenderSystem.enableBlend();
+            new compassWidget(ms,mc);
+            new playerStats(ms,mc);
+            ms.popPose();
         }
 
     }

@@ -13,17 +13,17 @@ public class OffResetButton extends CustomButton{
 
     @Override
     protected ResourceLocation getDisabledTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/reset_disabled.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/reset_disabled.png");
     }
 
     @Override
     protected ResourceLocation getHoveredTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/reset_disabled.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/reset_disabled.png");
     }
 
     @Override
     protected ResourceLocation getButtonTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/reset_disabled.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/reset_disabled.png");
     }
 
     @Override

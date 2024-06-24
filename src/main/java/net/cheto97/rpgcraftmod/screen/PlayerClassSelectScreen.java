@@ -60,7 +60,7 @@ public class PlayerClassSelectScreen extends AbstractContainerScreen<PlayerClass
         this.imageWidth = width;
         this.imageHeight = height;
     }
-    private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/class_background.png");
+    private static final ResourceLocation texture = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/bc/class_background.png");
    private static String setCapLetters(String name) {
         String[] words = name.split("\\s+");
         StringBuilder capitalized = new StringBuilder();

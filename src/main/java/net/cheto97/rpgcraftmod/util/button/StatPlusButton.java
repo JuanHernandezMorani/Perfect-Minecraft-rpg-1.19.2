@@ -8,17 +8,17 @@ public class StatPlusButton extends CustomButton{
 
     @Override
     protected ResourceLocation getDisabledTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/disabled.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/disabled.png");
     }
 
     @Override
     protected ResourceLocation getHoveredTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/hovered.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/hovered.png");
     }
 
     @Override
     protected ResourceLocation getButtonTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/icon.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/icon.png");
     }
 
     @Override

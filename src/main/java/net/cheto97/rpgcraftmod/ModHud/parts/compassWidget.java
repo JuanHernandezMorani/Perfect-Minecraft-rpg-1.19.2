@@ -14,25 +14,18 @@ import net.minecraft.resources.ResourceLocation;
 import static net.cheto97.rpgcraftmod.util.HudRpgUtils.*;
 
 public class compassWidget {
-    private static final ResourceLocation COMPASS_BACKGROUND_TEXTURE = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/compass_background.png");
-    public compassWidget(PoseStack ms){
+    private static Minecraft mc;
+    private static final ResourceLocation COMPASS_BACKGROUND_TEXTURE = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/hud/compass_background.png");
+    public compassWidget(PoseStack ms, Minecraft mcInstance){
         drawElement(ms);
+        mc = mcInstance;
     }
     private static void drawElement(PoseStack ms) {
-        Minecraft mc = Minecraft.getInstance();
         int rotation = Math.round(((mc.gameRenderer.getMainCamera().getYRot() % 360) / 360) * 200);
 
         int scaledWidth = mc.getWindow().getGuiScaledWidth();
         int scaledHeight = mc.getWindow().getGuiScaledHeight();
-
         int initialX = getPositionFromMid(scaledWidth,0);
-
-        int bgX = (getPositionFromMid(scaledWidth, 34) - getPosition(scaledWidth,49));
-        int bgY = getPosition(scaledHeight,1);
-
-        int endX = (getPositionFromMid(scaledWidth, -34) + getPosition(scaledWidth,10));
-        int endY = getPosition(scaledHeight,7);
-
         int posY = getPosition(scaledHeight,3);
 
 
@@ -44,7 +37,7 @@ public class compassWidget {
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.setShaderTexture(0, COMPASS_BACKGROUND_TEXTURE);
-        Gui.blit(ms, bgX, bgY, 0, 0, endX, endY, endX, endY);
+        Gui.blit(ms, initialX - 56, posY - 1, 0, 0, 112, 9, 112, posY + 8);
         RenderSystem.disableBlend();
 
 
@@ -54,22 +47,22 @@ public class compassWidget {
             Gui.drawCenteredString(ms, mc.font, "W", initialX + 50 - rotation, posY, wColor);
         }
         if (rotation > 25 && rotation <= 125) {
-            Gui.drawCenteredString(ms, mc.font, "■", initialX + 75 - rotation, posY, getDynamicChangedColor(wColor,nColor,15));
+            Gui.drawCenteredString(ms, mc.font, "■", initialX + 75 - rotation, posY, getDynamicChangedColor(wColor,nColor,20));
         }
         if (rotation > 50 && rotation <= 150) {
             Gui.drawCenteredString(ms, mc.font, "N", initialX + 100 - rotation, posY, nColor);
         }
         if (rotation > 75 && rotation <= 175) {
-            Gui.drawCenteredString(ms, mc.font, "■", initialX + 125 - rotation, posY, getDynamicChangedColor(nColor,eColor,15));
+            Gui.drawCenteredString(ms, mc.font, "■", initialX + 125 - rotation, posY, getDynamicChangedColor(nColor,eColor,20));
         }
         if (rotation > 100 && rotation <= 200) {
             Gui.drawCenteredString(ms, mc.font, "E", initialX + 150 - rotation, posY, eColor);
         }
         if (rotation >= 125) {
-            Gui.drawCenteredString(ms, mc.font, "■", initialX + 175 - rotation, posY, getDynamicChangedColor(eColor,sColor,15));
+            Gui.drawCenteredString(ms, mc.font, "■", initialX + 175 - rotation, posY, getDynamicChangedColor(eColor,sColor,20));
         }
         else if (rotation <= 25) {
-            Gui.drawCenteredString(ms, mc.font, "■", initialX - 25 - rotation, posY, getDynamicChangedColor(eColor,sColor,15));
+            Gui.drawCenteredString(ms, mc.font, "■", initialX - 25 - rotation, posY, getDynamicChangedColor(eColor,sColor,20));
         }
         if (rotation >= 150) {
             Gui.drawCenteredString(ms, mc.font, "S", initialX + 200 - rotation, posY, sColor);
@@ -78,10 +71,10 @@ public class compassWidget {
             Gui.drawCenteredString(ms, mc.font, "S", initialX - rotation, posY, sColor);
         }
         if (rotation >= 175) {
-            Gui.drawCenteredString(ms, mc.font, "■", initialX + 225 - rotation, posY, getDynamicChangedColor(sColor,wColor,15));
+            Gui.drawCenteredString(ms, mc.font, "■", initialX + 225 - rotation, posY, getDynamicChangedColor(sColor,wColor,20));
         }
         else if (rotation <= 75) {
-            Gui.drawCenteredString(ms, mc.font, "■", initialX + 25 - rotation, posY, getDynamicChangedColor(sColor,wColor,15));
+            Gui.drawCenteredString(ms, mc.font, "■", initialX + 25 - rotation, posY, getDynamicChangedColor(sColor,wColor,20));
         }
         
         if(mc.player != null){

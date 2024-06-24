@@ -13,17 +13,17 @@ public class ExitButton extends CustomButton{
 
     @Override
     protected ResourceLocation getDisabledTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/exit_disabled.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/exit_disabled.png");
     }
 
     @Override
     protected ResourceLocation getHoveredTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/exit_hovered.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/exit_hovered.png");
     }
 
     @Override
     protected ResourceLocation getButtonTexture() {
-        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/button/exit_icon.png");
+        return new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/button/exit_icon.png");
     }
 
     @Override

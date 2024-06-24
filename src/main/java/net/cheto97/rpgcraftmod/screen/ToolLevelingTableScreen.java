@@ -22,7 +22,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ToolLevelingTableScreen extends AbstractContainerScreen<ToolLevelingTableMenu> {
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/gui/tool_leveling_table.png");
+    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(RpgcraftMod.MOD_ID, "textures/gui/screen/tool_leveling_table.png");
     protected ButtonListWidget buttonList;
     private byte ticksSinceUpdate = 0;
     private DraggableStackEntry draggedStackEntry;

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class WizardTableScreen extends AbstractContainerScreen<WizardTableMenu> {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/wizard_table_gui.png");
+            new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/screen/wizard_table_gui.png");
 
     private EnergyInfoArea energyInfoArea;
     private FluidTankRenderer renderer;
