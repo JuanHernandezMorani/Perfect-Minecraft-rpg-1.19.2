@@ -16,11 +16,13 @@ import static net.cheto97.rpgcraftmod.util.HudRpgUtils.*;
 public class compassWidget {
     private static Minecraft mc;
     private static final ResourceLocation COMPASS_BACKGROUND_TEXTURE = new ResourceLocation(RpgcraftMod.MOD_ID,"textures/gui/hud/compass_background.png");
-    public compassWidget(PoseStack ms, Minecraft mcInstance){
+    public compassWidget(PoseStack ms){
         drawElement(ms);
-        mc = mcInstance;
+        mc = Minecraft.getInstance();
     }
     private static void drawElement(PoseStack ms) {
+        if(mc == null) return;
+
         int rotation = Math.round(((mc.gameRenderer.getMainCamera().getYRot() % 360) / 360) * 200);
 
         int scaledWidth = mc.getWindow().getGuiScaledWidth();

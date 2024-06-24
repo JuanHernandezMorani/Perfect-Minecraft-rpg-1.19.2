@@ -67,8 +67,8 @@ public class ClientEvents {
 
             ms.pushPose();
             RenderSystem.enableBlend();
-            new compassWidget(ms,mc);
-            new playerStats(ms,mc);
+            new compassWidget(ms);
+            new playerStats(ms);
             ms.popPose();
         }
 

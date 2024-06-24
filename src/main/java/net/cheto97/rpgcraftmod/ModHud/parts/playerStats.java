@@ -12,9 +12,9 @@ import net.minecraft.world.entity.player.Player;
 
 public class playerStats {
     private static Minecraft mc;
-    public playerStats(PoseStack ms, Minecraft mcInstance){
+    public playerStats(PoseStack ms){
         draw(ms);
-        mc = mcInstance;
+        mc = Minecraft.getInstance();
     }
 
     private static final ResourceLocation bg = setTexture("gui/bc/player_bg");
@@ -38,6 +38,8 @@ public class playerStats {
         return player.getAirSupply() < player.getMaxAirSupply();
     }
     private static void draw(PoseStack ms){
+        if(mc == null) return;
+
         if(mc.player != null && mc.player.getId() == PlayerData.getPlayerId() && show()){
             int scaledWidth = mc.getWindow().getGuiScaledWidth();
             int scaledHeight = mc.getWindow().getGuiScaledHeight();
