@@ -14,7 +14,6 @@ import net.cheto97.rpgcraftmod.menu.PlayerClassSelectMenu;
 import net.cheto97.rpgcraftmod.modSounds.ModSoundsRPG;
 import net.cheto97.rpgcraftmod.modsystem.*;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
-import net.cheto97.rpgcraftmod.networking.packet.S2C.EntitySyncPacket;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
@@ -599,6 +598,7 @@ public class ModEvents {
                                    target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
                                    life.consumeLife(totalDamage);
                                    reduceArmorDurability(target, (totalDamage * 0.012));
+                                   if(target instanceof ServerPlayer player) updatePlayerCapabilities(player);
                                }
                            });
                        }
@@ -648,6 +648,7 @@ public class ModEvents {
                                target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
 
                                life.consumeLife(totalDamage);
+                               if(target instanceof ServerPlayer player) updatePlayerCapabilities(player);
                                reduceArmorDurability(target, (totalDamage * 0.012));
                            });
                        }
@@ -756,6 +757,10 @@ public class ModEvents {
                    updateLifeAndMana(livingEntity);
                }
        }
+        @SubscribeEvent
+        public static void onLivingEntityUseTotem(LivingUseTotemEvent event){
+           event.getEntity();
+        }
 
         private static void updatePlayer(ServerPlayer player) {
             player.getCapability(ManaProvider.ENTITY_MANA).ifPresent(mana -> player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
@@ -767,33 +772,40 @@ public class ModEvents {
                 double regEffectBonus = getRegEffectBonus(player);
                 // double manaRegEffectBonus = getManaRegEffectBonus(player);
 
-                if (lifeValue <= 0 && !life.getDie()) {
-                    player.skipDropExperience();
-                    life.setDie(true);
-                    player.setHealth(0.0f);
-                    player.die(DamageSource.GENERIC);
+                if (lifeValue <= 0 && !life.getDie() && canDie(player)) {
+                        player.skipDropExperience();
+                        updatePlayerCapabilities(player);
+                        life.setDie(true);
+                        player.setHealth(0.0f);
+                        player.die(DamageSource.GENERIC);
                 }
 
                 if(mana.get() < manaMaxValue){
                     mana.add(manaRegenerationValue * 0.05);
+                    updatePlayerCapabilities(player);
                 }
                 int delay = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
 
                 if (lifeValue < lifeMaxValue && lifeValue > 0 && delay == 0) {
                     life.add((lifeRegenerationValue + regEffectBonus) * 0.05);
+                    updatePlayerCapabilities(player);
                 } else {
                     updateRegenerationDelay(player);
                 }
                 clampValues(player);
             }));
         }
-
+        private static boolean canDie(LivingEntity entity){
+           if(entity instanceof ServerPlayer player){
+               return !(player.getInventory().contains(Items.TOTEM_OF_UNDYING.getDefaultInstance()));
+           }
+           return !(entity.isUsingItem() && entity.getUseItem() == Items.TOTEM_OF_UNDYING.getDefaultInstance());
+        }
         private static double getRegEffectBonus(LivingEntity entity) {
             MobEffectInstance regenerationEffect = entity.hasEffect(MobEffects.REGENERATION) ? entity.getEffect(MobEffects.REGENERATION) : null;
             return regenerationEffect != null && regenerationEffect.getDuration() > 1 ?
                     calculateValue(regenerationEffect, entity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(1.0), "add") : 0.0;
         }
-
         private static void updateRegenerationDelay(LivingEntity entity) {
             int cooldown = entity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
             if (cooldown == 100 && sendMSG && entity instanceof ServerPlayer player) {
@@ -806,7 +818,6 @@ public class ModEvents {
             }
             entity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::decrease);
         }
-
         private static void updateLifeAndMana(LivingEntity livingEntity) {
             livingEntity.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).ifPresent(customLevel -> {
                 double lifeValue = livingEntity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::get).orElse(1.0);
@@ -814,9 +825,10 @@ public class ModEvents {
                 double lifeRegenerationValue = livingEntity.getCapability(LifeRegenerationProvider.ENTITY_LIFEREGENERATION).map(LifeRegeneration::get).orElse(0.0);
                 double regEffectBonus = getRegEffectBonus(livingEntity);
 
-                if (lifeValue <= 0) {
+                if (lifeValue <= 0 && !livingEntity.getCapability(LifeProvider.ENTITY_LIFE).map(Life::getDie).orElse(false) && canDie(livingEntity)) {
+                    livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.setDie(true));
                     livingEntity.setHealth(0.0f);
-                    livingEntity.die(DamageSource.GENERIC);
+                        livingEntity.die(DamageSource.GENERIC);
                 }
 
                 int regenerationDelay = livingEntity.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
@@ -837,7 +849,6 @@ public class ModEvents {
                 clampValues(livingEntity);
             });
         }
-
         private static void updateLife(LivingEntity livingEntity, double lifeValue, double lifeMaxValue, double lifeRegenerationValue, double regEffectBonus) {
             double lifeToAdd = lifeValue < lifeMaxValue ? lifeRegenerationValue + regEffectBonus : 0.0;
             if (!(livingEntity instanceof Player)) {
@@ -855,10 +866,8 @@ public class ModEvents {
             }
             if(livingEntity instanceof ServerPlayer player){
                 player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd*0.05));
-                updatePlayerCapabilities(player);
             }
         }
-
         private static void clampValues(LivingEntity livingEntity) {
             double lifeMaxValue = livingEntity.getCapability(LifeMaxProvider.ENTITY_LIFE_MAX).map(LifeMax::get).orElse(1.0);
             double manaMaxValue = livingEntity.getCapability(ManaMaxProvider.ENTITY_MANA_MAX).map(ManaMax::get).orElse(1.0);

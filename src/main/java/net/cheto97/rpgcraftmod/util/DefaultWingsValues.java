@@ -18,7 +18,7 @@ public class DefaultWingsValues implements WingsValues {
 
     @Override
     public float getSpeed() {
-        return 0.0068F;
+        return 0.0034F;
     }
 
     @Override
