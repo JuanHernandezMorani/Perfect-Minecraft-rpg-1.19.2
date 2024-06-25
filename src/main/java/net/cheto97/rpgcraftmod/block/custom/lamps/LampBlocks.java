@@ -92,12 +92,10 @@ public abstract class LampBlocks extends Block {
 
         super.appendHoverText(stack, getter, list, tooltip);
     }
-
     private Integer setStyle(){
         Integer hex = ModChatFormatting.isValidHex(getHex()) ? getHex() : 0xFFFFFF;
         return setStyle(hex);
     }
-
     private Integer setStyle(Integer hex){
         return ModChatFormatting.fromHexColor(hex).getColor();
     }

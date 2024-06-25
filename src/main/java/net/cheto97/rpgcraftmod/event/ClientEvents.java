@@ -22,6 +22,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -54,21 +56,21 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void onRenderGameOverlay(RenderGuiOverlayEvent event){
-            Minecraft mc = Minecraft.getInstance();
-            ForgeGui emptyGui = new ForgeGui(mc);
             PoseStack ms = event.getPoseStack();
 
                 if (event.getOverlay().id().toString().contains("air_level") || event.getOverlay().id().toString().contains("armor_level")
                    || event.getOverlay().id().toString().contains("experience_bar") || event.getOverlay().id().toString().contains("food") || event.getOverlay().toString().contains("stamina")
                    || event.getOverlay().id().toString().contains("player_health") || event.getOverlay().id().toString().contains("mount_health")
                    || event.getOverlay().id().toString().contains("jump_bar")) {
-                    event.getOverlay().overlay().render(emptyGui,event.getPoseStack(),0,0,0);
+                    event.setCanceled(true);
+                    event.setResult(Event.Result.DENY);
                 }
 
             ms.pushPose();
             RenderSystem.enableBlend();
             new compassWidget(ms);
             new playerStats(ms);
+            RenderSystem.disableBlend();
             ms.popPose();
         }
 

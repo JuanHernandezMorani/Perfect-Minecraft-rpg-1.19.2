@@ -31,5 +31,13 @@ public class RPGutil {
         double maxModifier = rank * 0.12 * (randomRankBonus * rank / 2);
         return 1.0 + random.nextDouble() * maxModifier;
     }
+
+    public enum SourceType{
+        MAGIC,
+        PHYSIC,
+        REAL,
+        MULTI,
+        NULL
+    }
 }
 

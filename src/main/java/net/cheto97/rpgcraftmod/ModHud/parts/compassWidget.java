@@ -89,8 +89,8 @@ public class compassWidget {
             MutableComponent fpsComponent = Component.literal("FPS: " + fps).withStyle(style -> style.withColor(getColor(fps)));
 
             ms.scale(0.625f, 0.625f, 0.625f);
-            Gui.drawCenteredString(ms, mc.font, posComponent, (getPositionFromMid(scaledWidth, 34)), getPosition(scaledHeight,18), -1);
-            Gui.drawCenteredString(ms, mc.font, fpsComponent, (getPositionFromMid(scaledWidth, 34)), getPosition(scaledHeight,24), -1);
+            Gui.drawCenteredString(ms, mc.font, posComponent, (getPositionFromMid(scaledWidth, 34)), getPosition(scaledHeight,12), -1);
+            Gui.drawCenteredString(ms, mc.font, fpsComponent, (getPositionFromMid(scaledWidth, 34)), getPosition(scaledHeight,18), -1);
             ms.scale(2f, 2f, 2f);
         }
     }

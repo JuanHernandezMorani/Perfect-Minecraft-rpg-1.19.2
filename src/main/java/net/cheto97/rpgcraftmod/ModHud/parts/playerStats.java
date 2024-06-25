@@ -22,9 +22,9 @@ public class playerStats {
     private static final ResourceLocation food_bar = setTexture("gui/hud/food_bar");
     private static final ResourceLocation health_bar = setTexture("gui/hud/health_bar");
     private static final ResourceLocation absorption_health_bar = setTexture("gui/hud/absorption_health_bar");
-    private static final ResourceLocation poison_bar = setTexture("gui/hud/poison_bar");
-    private static final ResourceLocation frozen_bar = setTexture("gui/hud/frozen_bar");
-    private static final ResourceLocation wither_bar = setTexture("gui/hud/wither_bar");
+    private static final ResourceLocation poison_bar = setTexture("gui/hud/poison_health_bar");
+    private static final ResourceLocation frozen_bar = setTexture("gui/hud/frozen_health_bar");
+    private static final ResourceLocation wither_bar = setTexture("gui/hud/wither_health_bar");
     private static final ResourceLocation class_bar = setTexture("gui/hud/player_class");
     private static final ResourceLocation levelContainer = setTexture("gui/hud/level_display");
     private static final ResourceLocation oxygen_bar = setTexture("gui/hud/oxygen_bar");
@@ -59,9 +59,15 @@ public class playerStats {
 
             int playerLevel = PlayerData.getPlayerLevel();
 
-            drawElement(ms, bg, getPosition(scaledWidth,2), getPosition(scaledHeight,2), 100, 50);
-            //drawElement(ms, levelContainer,getPosition(scaledWidth,5), getPosition(scaledHeight,12),levelWidth(playerLevel),10);
-            //drawLifeBar(mc.player, ms, getPosition(scaledWidth,5), getPosition(scaledHeight,4), life, maxLife);
+            int bgX = getPosition(scaledWidth,1);
+            int bgY = getPosition(scaledHeight,1);
+
+            drawElement(ms, bg, bgX, bgY, 122, 34);
+            drawElement(ms, levelContainer,bgX + 40, bgY + 32,levelWidth(playerLevel),5);
+            ms.scale(0.5f, 0.5f, 0.5f);
+            Gui.drawCenteredString(ms,mc.font,""+playerLevel,(((bgX + 39)+((levelWidth(playerLevel))/2)) * 2) + 1, ((bgY + 33) * 2) + 1,-1);
+            ms.scale(2.0f, 2.0f, 2.0f);
+            drawLifeBar(mc.player, ms, bgX + 39, bgY + 5, life, maxLife);
             //drawElement(ms, class_bar,getPosition(scaledWidth,3), getPosition(scaledHeight,7),getPosition(scaledWidth,5), getPosition(scaledHeight,3));
 
             if(activateOxygen(mc.player)){
@@ -84,16 +90,15 @@ public class playerStats {
         }
     }
     private static int levelWidth(int level){
-        return mc.font.width("---" + level + "---");
+        return mc.font.width("-" + level + "-");
     }
     private static void drawLifeBar(Player player, PoseStack ms, int x, int y, double life, double maxLife){
         ResourceLocation texture;
         int[] container = new int[4];
         if(player != null){
-            int scaledWidth = mc.getWindow().getGuiScaledWidth();
 
-            int width = (int)(100 * (life / maxLife));
-            int height = 10;
+            int width = (int)(72 * (life / maxLife));
+            int height = 6;
 
             player.getActiveEffects().forEach(state -> {
                 container[0] = state.getEffect() == MobEffects.ABSORPTION ? 1 : -1;

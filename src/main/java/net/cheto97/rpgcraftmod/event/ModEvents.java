@@ -14,6 +14,7 @@ import net.cheto97.rpgcraftmod.menu.PlayerClassSelectMenu;
 import net.cheto97.rpgcraftmod.modSounds.ModSoundsRPG;
 import net.cheto97.rpgcraftmod.modsystem.*;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
+import net.cheto97.rpgcraftmod.networking.packet.S2C.EntitySyncPacket;
 import net.cheto97.rpgcraftmod.networking.packet.S2C.PlayerSyncPacket;
 import net.cheto97.rpgcraftmod.providers.*;
 import net.cheto97.rpgcraftmod.util.ExperienceReward;
@@ -36,7 +37,7 @@ import static net.cheto97.rpgcraftmod.util.CriticalHitCalculator.calculateCritic
 import static net.cheto97.rpgcraftmod.util.Dropper.dropInWorld;
 import static net.cheto97.rpgcraftmod.util.Effects.Helper.*;
 import static net.cheto97.rpgcraftmod.util.NumberUtils.*;
-import static net.cheto97.rpgcraftmod.util.RPGutil.setBonusValue;
+import static net.cheto97.rpgcraftmod.util.RPGutil.*;
 import static net.cheto97.rpgcraftmod.item.ModItems.*;
 
 import net.minecraft.ChatFormatting;
@@ -93,6 +94,7 @@ public class ModEvents {
        private static void updatePlayerCapabilities(ServerPlayer player) {
            ModMessages.sendToPlayer(new PlayerSyncPacket(player),player);
        }
+
        private static int getRandomRank(LivingEntity entity) {
            double[] RANK_PERCENTAGES = {0.4, 0.25, 0.15, 0.094, 0.055, 0.033, 0.022, 0.013, 0.01, 0.005, 0.0005};
            final int MAX_RANK = 11;
@@ -524,6 +526,13 @@ public class ModEvents {
            if(!event.getEntity().getLevel().isClientSide() && event.getEntity() != null) {
                Entity attacker = event.getSource().getEntity();
                LivingEntity target = event.getEntity();
+               SourceType sourceType;
+
+               switch (event.getSource().getMsgId()){
+                   case "indirectMagic" -> sourceType = SourceType.MAGIC;
+                   case "indirectArrow" -> sourceType = SourceType.PHYSIC;
+                   default -> sourceType = SourceType.NULL;
+               }
                double damage = event.getAmount();
                event.setAmount(0.0f);
                DamageSource source = event.getSource();
@@ -535,11 +544,12 @@ public class ModEvents {
 
                    if(target.getOffhandItem().is(Items.SHIELD) && attacker instanceof LivingEntity && !((LivingEntity) attacker).canDisableShield() ){
                        reduceShieldDurability(target,damage);
-                   }else{
+                   }
+                   else{
                        if (attacker instanceof LivingEntity livingAttacker) {
                            MobEffectInstance damageBoostEffect = livingAttacker.getEffect(MobEffects.DAMAGE_BOOST);
                            MobEffectInstance damageDecreaseEffect = livingAttacker.getEffect(MobEffects.WEAKNESS);
-                           double dmg = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(0.001);
+                           double dmg = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(1.0);
                            double dmgEff = damageBoostEffect != null && damageDecreaseEffect != null ? calculateDamageAndReduce(damageBoostEffect,damageDecreaseEffect,dmg) : damageBoostEffect != null ? calculateValue(damageBoostEffect,dmg,"add") : damageDecreaseEffect != null ? calculateValue(damageDecreaseEffect,dmg,"reduce") : 0.0;
 
                            int attackerLevel = livingAttacker.getCapability(CustomLevelProvider.ENTITY_CUSTOMLEVEL).map(Customlevel::get).orElse(1);
@@ -547,28 +557,27 @@ public class ModEvents {
                            double damageReduce = 0;
 
                            if (attackerLevel > targetLevel && livingAttacker instanceof Player && target instanceof Player) {
-                               damageReduce = attackerLevel * 0.5 > targetLevel ? livingAttacker.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(500.0) : 0;
+                               damageReduce = attackerLevel * 0.2 > targetLevel ? livingAttacker.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(500.0) : 0;
                            }
 
                            double percentDamageReduce = (armor + damageReduce) / (damage + armor + damageReduce);
                            double magicArmor = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
                            double percentMagicDamageReduce = (magicArmor + damageReduce) / (damage + magicArmor + damageReduce);
 
-                           if (source.isMagic() || source.isFire()) {
+                           if (source.isMagic() || source.isFire() || sourceType == SourceType.MAGIC) {
                                double attackerMagicDamage = livingAttacker.getCapability(IntelligenceProvider.ENTITY_INTELLIGENCE).map(Intelligence::get).orElse(1.0);
                                damage = (((damage + attackerMagicDamage) * percentMagicDamageReduce));
 
                                Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
                                for (MobEffectInstance effectInstance : activeEffects) {
                                    MobEffect effect = effectInstance.getEffect();
-                                   if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
+                                   if (effect == MobEffects.POISON || effect == MobEffects.HARM || effect == MobEffects.WITHER) {
                                        int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
                                        damage = damage * amplification;
-                                       break;
                                    }
                                }
                            }
-                           else if (source.isProjectile()) {
+                           else if (source.isProjectile() || sourceType == SourceType.PHYSIC) {
                                double attackerRangeDamage = livingAttacker.getCapability(DexterityProvider.ENTITY_DEXTERITY).map(Dexterity::get).orElse(1.0) + dmgEff;
                                damage = ((damage + attackerRangeDamage) * percentDamageReduce);
                            }
@@ -576,22 +585,15 @@ public class ModEvents {
                                double attackerAgility = livingAttacker.getCapability(AgilityProvider.ENTITY_AGILITY).map(Agility::get).orElse(1.0);
                                damage = ((damage * 2 + attackerAgility) * ((percentDamageReduce * 0.25) + (percentMagicDamageReduce * 0.25)));
                            }
-                           else if (source.isCreativePlayer()) {
-                               damage = 0;
-                           }
                            else {
                                double attackerStrength = livingAttacker.getCapability(StrengthProvider.ENTITY_STRENGTH).map(Strength::get).orElse(1.0);
                                damage = ((damage + attackerStrength + dmgEff) * percentDamageReduce);
                            }
-                       /*
-                       Switch(source.msgId){
-                       case "magic","fire"
-                       }
-                        */
-                           totalDamage = livingAttacker instanceof Player && target instanceof Player ? attackerLevel * 0.2 > targetLevel ? -111111 : damage - damageReduce : damage;
+
+                           totalDamage = livingAttacker instanceof Player && target instanceof Player ? attackerLevel * 0.2 > targetLevel ? -11111 : damage - damageReduce : damage;
 
                            target.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> {
-                               if (totalDamage == -111111) {
+                               if (totalDamage == -11111) {
                                    livingAttacker.sendSystemMessage(Component.literal("Your level is higher than " + target.getName().getString() + ", setting damage to 0").withStyle(ChatFormatting.DARK_RED));
                                } else {
                                    target.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).ifPresent(RegenerationDelay::set);
@@ -603,8 +605,8 @@ public class ModEvents {
                        else {
                            double defense = target.getCapability(DefenseProvider.ENTITY_DEFENSE).map(Defense::get).orElse(1.0);
                            double magicDefense = target.getCapability(MagicDefenseProvider.ENTITY_MAGIC_DEFENSE).map(MagicDefense::get).orElse(1.0);
-                           totalDamage = (defense / (damage + defense)) + (magicDefense / (damage + magicDefense));
-                           if(source.isFall()){
+                           totalDamage = ((defense / (damage + defense)) + (magicDefense / (damage + magicDefense))) * 5;
+                           if(source.isFall() || sourceType == SourceType.NULL){
                                double y = target.getY() < 0 ? (target.getY()*(-1)) : target.getY();
                                double oldY = target.yOld < 0 ? (target.yOld*(-1)) : target.yOld;
 
@@ -624,15 +626,14 @@ public class ModEvents {
                                    }
                                });
                            }
-                           if(source.isMagic()){
+                           if(source.isMagic() || sourceType == SourceType.MAGIC){
                                Collection<MobEffectInstance> activeEffects = target.getActiveEffects();
                                for (MobEffectInstance effectInstance : activeEffects) {
                                    MobEffect effect = effectInstance.getEffect();
 
-                                   if (effect == MobEffects.POISON || effect == MobEffects.HARM) {
+                                   if (effect == MobEffects.POISON || effect == MobEffects.HARM || effect == MobEffects.WITHER) {
                                        int amplification = effectInstance.isAmbient() ? effectInstance.getAmplifier() + 1 : effectInstance.getAmplifier();
                                        totalDamage = totalDamage * amplification;
-                                       break;
                                    }
                                }
                            }
@@ -651,7 +652,6 @@ public class ModEvents {
                            });
                        }
                    }
-
            }
        }
        private static void reduceShieldDurability(LivingEntity entity, double damage){
@@ -744,11 +744,13 @@ public class ModEvents {
            assert livingEntity != null;
                if (livingEntity instanceof ServerPlayer player) {
                    updatePlayer(player);
-               } else {
+               }
+               else {
                    livingEntity.getCapability(FirstJoinProvider.ENTITY_FIRST_JOIN).ifPresent(join -> {
                        if(!join.get()){
                            join.set();
                            setCapabilities(livingEntity);
+                           updateLifeAndMana(livingEntity);
                        }
                    });
                    updateLifeAndMana(livingEntity);
@@ -776,6 +778,7 @@ public class ModEvents {
                     mana.add(manaRegenerationValue * 0.05);
                 }
                 int delay = player.getCapability(RegenerationDelayProvider.ENTITY_REGENERATION_DELAY).map(RegenerationDelay::get).orElse(0);
+
                 if (lifeValue < lifeMaxValue && lifeValue > 0 && delay == 0) {
                     life.add((lifeRegenerationValue + regEffectBonus) * 0.05);
                 } else {
@@ -850,8 +853,9 @@ public class ModEvents {
                         })
                 );
             }
-            else{
-                livingEntity.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd*0.05));
+            if(livingEntity instanceof ServerPlayer player){
+                player.getCapability(LifeProvider.ENTITY_LIFE).ifPresent(life -> life.add(lifeToAdd*0.05));
+                updatePlayerCapabilities(player);
             }
         }
 
