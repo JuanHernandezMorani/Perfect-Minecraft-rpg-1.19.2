@@ -47,7 +47,8 @@ public class playerStats {
             double mana = PlayerData.getPlayerMana();
             double maxMana = PlayerData.getPlayerManaMax();
 
-            int food = mc.player.getFoodData().getFoodLevel();
+            double food = mc.player.getFoodData().getFoodLevel();
+            double maxFood = 20D;
 
             int playerClass = PlayerData.getPlayerClass();
             ResourceLocation class_bar;
@@ -93,10 +94,10 @@ public class playerStats {
             ms.scale(2f, 2f, 2f);
 
 
-            drawFoodBar(mc.player, ms, bgX + 41, bgY + 22,food,20);
-            Component foodBarNumbers = Component.literal(getLocalString(food,20));
+            drawFoodBar(mc.player, ms, bgX + 41, bgY + 22,food,maxFood);
+            Component foodBarNumbers = Component.literal(getLocalString(food,maxFood));
             ms.scale(0.5f, 0.5f, 0.5f);
-            Gui.drawCenteredString(ms,mc.font,foodBarNumbers,(((bgX + 41)+((statWidth((food +" / "+ 20)))/2)) * 3),((bgY + 22) * 2) + 1,-1);
+            Gui.drawCenteredString(ms,mc.font,foodBarNumbers,(((bgX + 41)+((statWidth((food +" / "+ maxFood)))/2)) * 3),((bgY + 22) * 2) + 1,-1);
             ms.scale(2f, 2f, 2f);
 
             drawElement(ms, class_bar, bgX + 2, bgY + 1, 32, 32);
