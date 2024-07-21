@@ -83,21 +83,21 @@ public class playerStats {
             drawLifeBar(mc.player, ms, bgX + 41, bgY + 6, life, maxLife);
             Component lifeBarNumbers = Component.literal(getLocalString(life,maxLife));
             ms.scale(0.5f, 0.5f, 0.5f);
-            Gui.drawCenteredString(ms,mc.font,lifeBarNumbers,(((bgX + 41)+((statWidth((life +" / "+ maxLife)))/2)) * 3),((bgY + 6) * 2) + 1,-1);
+            Gui.drawCenteredString(ms,mc.font,lifeBarNumbers,(((bgX + 41)+((statWidth((life+"")))/2)) * 2)+23,((bgY + 6) * 2) + 1,0x118024);
             ms.scale(2f, 2f, 2f);
 
 
             drawManaBar(mc.player, ms, bgX + 41, bgY + 14, mana, maxMana);
             Component manaBarNumbers = Component.literal(getLocalString(mana,maxMana));
             ms.scale(0.5f, 0.5f, 0.5f);
-            Gui.drawCenteredString(ms,mc.font,manaBarNumbers,(((bgX + 41)+((statWidth((mana +" / "+ maxMana)))/2)) * 3),((bgY + 14) * 2) + 1,-1);
+            Gui.drawCenteredString(ms,mc.font,manaBarNumbers,(((bgX + 41)+((statWidth((mana +"")))/2)) * 2)+23,((bgY + 14) * 2) + 1,0x118024);
             ms.scale(2f, 2f, 2f);
 
 
             drawFoodBar(mc.player, ms, bgX + 41, bgY + 22,food,maxFood);
             Component foodBarNumbers = Component.literal(getLocalString(food,maxFood));
             ms.scale(0.5f, 0.5f, 0.5f);
-            Gui.drawCenteredString(ms,mc.font,foodBarNumbers,(((bgX + 41)+((statWidth((food +" / "+ maxFood)))/2)) * 3),((bgY + 22) * 2) + 1,-1);
+            Gui.drawCenteredString(ms,mc.font,foodBarNumbers,(((bgX + 41)+((statWidth((food +"")))/2)) * 2)+23,((bgY + 22) * 2) + 1,0x118024);
             ms.scale(2f, 2f, 2f);
 
             drawElement(ms, class_bar, bgX + 2, bgY + 1, 32, 32);
