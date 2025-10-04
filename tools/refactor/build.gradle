@@ -1,0 +1,30 @@
+plugins {
+    id 'application'
+}
+
+group = 'com.minecraft.tools'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.25.9'
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
+}
+
+application {
+    mainClass = 'com.minecraft.tools.refactor.RefactorTool'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
