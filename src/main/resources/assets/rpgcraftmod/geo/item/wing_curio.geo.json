@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.wing_curio",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 6,
+        "visible_bounds_height": 6,
+        "visible_bounds_offset": [0, 1, 0]
+      },
+      "bones": [
+        {
+          "name": "root",
+          "pivot": [0, 24, 0]
+        },
+        {
+          "name": "left_wing",
+          "parent": "root",
+          "pivot": [1.5, 14, 2],
+          "cubes": [
+            {
+              "origin": [1.5, 2, 2],
+              "size": [11, 18, 0],
+              "uv": [0, 0]
+            }
+          ]
+        },
+        {
+          "name": "right_wing",
+          "parent": "root",
+          "pivot": [-1.5, 14, 2],
+          "cubes": [
+            {
+              "origin": [-12.5, 2, 2],
+              "size": [11, 18, 0],
+              "uv": [0, 0],
+              "mirror": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 package net.cheto97.rpgcraftmod.register_renderers;
 
+import net.cheto97.rpgcraftmod.item.prefabs.AbstractWingCurioItem;
 import net.cheto97.rpgcraftmod.item.renderer.AuraRenderer;
-import net.cheto97.rpgcraftmod.item.renderer.WingsRenderer;
+import net.cheto97.rpgcraftmod.item.renderer.GeckoWingCurioRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -21,12 +22,15 @@ public class CurioRenderer {
         aurasRegister();
         wingsRegister();
     }
+
     public static ModelPart bakeLayer(ModelLayerLocation layerLocation) {
         return Minecraft.getInstance().getEntityModels().bakeLayer(layerLocation);
     }
+
     public static void create(Item item, Supplier<ICurioRenderer> renderer){
         CuriosRendererRegistry.register(item,renderer);
     }
+
     private static void aurasRegister(){
         aura(COMMON_AURA, COMMON_AURA_LAYER);
         aura(CHAMPION_AURA, CHAMPION_AURA_LAYER);
@@ -40,15 +44,28 @@ public class CurioRenderer {
         aura(SEMI_BOSS_AURA, SEMI_BOSS_AURA_LAYER);
         aura(UNIQUE_AURA, UNIQUE_AURA_LAYER);
     }
+
     private static void wingsRegister(){
-        wing(WING_1, WINGS_1_LAYER,"default");
-        wing(WING_2,WINGS_2_LAYER,"default");
-        wing(ASURA_WINGS, ASURA_WINGS_LAYER,"asura_wings");
-        wing(VOLT_WINGS, VOLT_WINGS_LAYER,"volt_wings");
-      }
-    private static void wing(RegistryObject<Item> item, ModelLayerLocation modelLayerLocation, String name){
-          create(item.get(), () -> new WingsRenderer(bakeLayer(modelLayerLocation),name));
-      }
+        wing(ASURA_WINGS);
+        wing(WING_1);
+        wing(WING_2);
+        wing(WING_3);
+        wing(WING_4);
+        wing(WING_5);
+        wing(WING_6);
+        wing(WING_7);
+        wing(WING_8);
+        wing(WING_9);
+        wing(WING_10);
+        wing(VOLT_WINGS);
+    }
+
+    private static void wing(RegistryObject<Item> item){
+        if (item.get() instanceof AbstractWingCurioItem) {
+            create(item.get(), GeckoWingCurioRenderer::new);
+        }
+    }
+
     private static void aura(RegistryObject<Item> item, ModelLayerLocation modelLayerLocation){
         create(item.get(), () -> new AuraRenderer(bakeLayer(modelLayerLocation)));
     }
