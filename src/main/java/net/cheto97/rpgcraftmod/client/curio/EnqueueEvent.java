@@ -44,7 +44,7 @@ public class EnqueueEvent {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("aura")
                         .size(1)
-                        .icon(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/aura_slot.png"))
+                        .icon(new ResourceLocation(RpgcraftMod.MOD_ID,"slot/aura_slot"))
                         .build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("skills")
@@ -53,7 +53,7 @@ public class EnqueueEvent {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("wing")
                         .size(1)
-                        .icon(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot.png"))
+                        .icon(new ResourceLocation(RpgcraftMod.MOD_ID,"slot/wing_slot"))
                         .build());
     }
 }

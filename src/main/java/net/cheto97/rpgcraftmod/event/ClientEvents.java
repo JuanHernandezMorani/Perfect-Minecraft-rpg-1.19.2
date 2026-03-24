@@ -5,10 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.cheto97.rpgcraftmod.ModHud.parts.compassWidget;
 import net.cheto97.rpgcraftmod.ModHud.parts.playerStats;
 import net.cheto97.rpgcraftmod.RpgcraftMod;
-import net.cheto97.rpgcraftmod.item.model.AsuraWingsModel;
 import net.cheto97.rpgcraftmod.item.model.AuraModel;
-import net.cheto97.rpgcraftmod.item.model.VoltWingsModel;
-import net.cheto97.rpgcraftmod.item.model.WingsModel;
 import net.cheto97.rpgcraftmod.networking.ModMessages;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.ActivateSkillC2SPacket;
 import net.cheto97.rpgcraftmod.networking.packet.C2S.DrinkManaFluidC2SPacket;
@@ -88,12 +85,6 @@ public class ClientEvents {
         }
         @SubscribeEvent
         public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            // wings
-            registerWings(event, WINGS_1_LAYER,1);
-            registerWings(event, WINGS_2_LAYER,1);
-            registerWings(event, ASURA_WINGS_LAYER,2);
-            registerWings(event, VOLT_WINGS_LAYER,3);
-
             // auras
             registerAuras(event, COMMON_AURA_LAYER);
             registerAuras(event, CHAMPION_AURA_LAYER);
@@ -109,15 +100,8 @@ public class ClientEvents {
         }
         @SubscribeEvent
         public static void onRegisterAtlasSprites(TextureStitchEvent.Pre event){
-            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/aura_slot"));
-            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"textures/slot/wing_slot"));
-        }
-        private static void registerWings(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation, int variant){
-            switch(variant){
-                case 1 ->  event.registerLayerDefinition(itemLocation, WingsModel::createLayer);
-                case 2 -> event.registerLayerDefinition(itemLocation, AsuraWingsModel::createLayer);
-                case 3 -> event.registerLayerDefinition(itemLocation, VoltWingsModel::createLayer);
-            }
+            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"slot/aura_slot"));
+            event.addSprite(new ResourceLocation(RpgcraftMod.MOD_ID,"slot/wing_slot"));
         }
         private static void registerAuras(EntityRenderersEvent.RegisterLayerDefinitions event, ModelLayerLocation itemLocation){
             event.registerLayerDefinition(itemLocation, AuraModel::createLayer);
